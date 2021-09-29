@@ -19,6 +19,7 @@ The below resources were used to create the above plots within this document. Ma
 | [Beginner's Guide to nflfastR](http://www.nflfastr.com/articles/beginners_guide.html) | Ben Baldwin | Covers introductory examples of how to get started with the nflfastR package, and more broadly, how to use R and the tidyverse. |
 | [R Markdown Intro Guide](https://rmarkdown.rstudio.com/lesson-1.html) | R Studio | Intro primer to authoring R Markdown documents.: |
 | [`ggplot2` Cookbook](http://www.cookbook-r.com/Graphs/) |  Winston Chang | Quick cookbook of `ggplot2` plots |
+| [Making Websites in R Markdown](https://www.p8105.com/making_websites.html) |  Jeff Goldsmith | Nice introduction from his course at Columbia on how to make websites using only R and Rstudio. |
 | [R Markdown Book ](https://bookdown.org/yihui/rmarkdown/) | Yihui Xie, J. J. Allaire, Garrett Grolemund | The definitive guide outlining what you can do with the rmarkdown package (Allaire, Xie, McPherson, et al. 2021), which was first created in early 2014. The package has steadily evolved into a complete ecosystem for authoring documents in a variety of output formats including the output of this document that you're reading. |
 
 

@@ -18,3 +18,6 @@ navbar:
 output:
   html_document:
     theme: bootstrap
+    logo: NFL.png
+    include:
+      after_body: footer.html

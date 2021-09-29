@@ -1,6 +1,5 @@
 ---
 title: "2021 NFL Weekly Report"
-author: "Stephan Teodosescu"
 date: 'Last updated: `r format(Sys.Date())`'
 output:
   html_document:
@@ -395,7 +394,7 @@ explosive_plays_plot <- explosive_plays %>%
   theme(legend.position = "none") +
   theme(plot.title = element_markdown()) +
   geom_vline(xintercept = mean(explosive_plays$explosive_share), color = "red", linetype = "dashed") +
-  annotate("text", x = 0.080, y = "PIT", label = "NFL Avg = 6.8%", color = "red") +
+  annotate("text", x = 0.080, y = "PIT", label = "2020 NFL Avg = 6.8%", color = "red") +
   scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, suffix = " %"))
 
 explosive_plays_plot
