@@ -1,0 +1,20 @@
+name: "Yay internet!"
+output_dir: "."
+navbar:
+  title: "NFL Analytics"
+  right:
+    - text: "Summary"
+      href: 2021-NFL-Season-Report.html
+    - text: "About"
+      href: about.html
+    - icon: fa-twitter fa-lg
+      href: https://twitter.com/steodosescu
+    - icon: fa-github fa-lg
+      href: https://github.com/steodose/
+    - icon: fa-wordpress fa-lg
+      href: https://betweenpipes.wordpress.com/
+    - icon: fa-home fa-lg
+      href: https://stephanteodosescu.com/
+output:
+  html_document:
+    theme: bootstrap

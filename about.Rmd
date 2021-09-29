@@ -1,0 +1,24 @@
+---
+title: "About"
+---
+
+This website is the home for everything NFL analytics.
+
+Football analytics have taken a huge leap forward in the past half decade or so. The NFL has embraced analytics, and data-driven decision making in general, at a rapid pace. Advanced stats have also become much more accessible to the average fan as we now have a wealth of information previously unavailable to the public. A lot of that has to do with the work of the aforementioned groups. 
+
+***
+
+## Resources and Inspiration
+
+The below resources were used to create the above plots within this document. Many thanks to all the authors of these fantastic resources:  
+
+| Title/Link | Author | Description |
+| :--- | :--- |:---------------|
+| [R for Data Science](https://r4ds.had.co.nz/) | Hadley Wickham, Garret Grolemund | A great overview of the `tidyverse`, covers everything from reading data in, data manipulation/summarization, data viz, and general programming in R |
+| [nflfastR Graphics Cookbook](https://jthomasmock.github.io/nfl_plotting_cookbook/#Scatter_plots) | Thomas Mock | As step-by-step guide on how to improve your nflfastR graphics. |
+| [Beginner's Guide to nflfastR](http://www.nflfastr.com/articles/beginners_guide.html) | Ben Baldwin | Covers introductory examples of how to get started with the nflfastR package, and more broadly, how to use R and the tidyverse. |
+| [R Markdown Intro Guide](https://rmarkdown.rstudio.com/lesson-1.html) | R Studio | Intro primer to authoring R Markdown documents.: |
+| [`ggplot2` Cookbook](http://www.cookbook-r.com/Graphs/) |  Winston Chang | Quick cookbook of `ggplot2` plots |
+| [R Markdown Book ](https://bookdown.org/yihui/rmarkdown/) | Yihui Xie, J. J. Allaire, Garrett Grolemund | The definitive guide outlining what you can do with the rmarkdown package (Allaire, Xie, McPherson, et al. 2021), which was first created in early 2014. The package has steadily evolved into a complete ecosystem for authoring documents in a variety of output formats including the output of this document that you're reading. |
+
+
