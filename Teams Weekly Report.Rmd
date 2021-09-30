@@ -1,0 +1,446 @@
+---
+title: "Teams Weekly Report"
+date: 'Last updated: `r format(Sys.Date())`'
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    dpi: 500
+    fig_width: 10
+    fig_height: 7
+---
+
+```{r, echo=FALSE}
+
+# Insert NFL logo in top right of report
+htmltools::img(src = knitr::image_uri("/Users/Stephan/Desktop/R Projects/NFL/NFL.png"), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px')
+
+```
+
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+```
+
+Below you'll find figures showing key advanced metrics I'm tracking for all 32 NFL teams.
+
+```{r, echo =FALSE}
+
+library(nflfastR)
+library(tidyverse)
+library(teamcolors) # NFL team colors and logos
+library(extrafont) # for extra fonts
+library(ggrepel) # better labels
+library(ggimage)
+library(glue)
+library(ggtext)
+library(reactable)
+library(reactablefmtr)
+library(ggalt) #for dumbbell plot
+library(ggforce)
+
+
+seasons <- 2010:2021
+data <- purrr::map_df(seasons, function(x) {
+   readRDS(
+     url(
+       glue::glue("https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_{x}.rds")
+     )
+   )
+ })
+
+
+# Filter for Run/Pass plays for the 2021 season only
+pbp_rp <- data %>%
+  filter(season == 2021) %>%
+  filter(rush == 1 | pass == 1, !is.na(epa)) # Exclude plays with missing EPA.
+
+# Identify current week
+current_week <- max(pbp_rp$week)
+
+```
+
+ 
+```{r, echo=FALSE}
+
+library(gt)
+
+# Create 538 GT table theme from Thomas Mock's blog.Comes from this post: https://themockup.blog/posts/2020-09-26-functions-and-themes-for-gt-tables/?panelset3=theme-code2&panelset4=theme-code3 
+gt_nfl_theme_538 <- function(data,...) {
+  data %>%
+    # Add team logos w/ web_image
+    text_transform(
+      locations = cells_body(
+        vars(team_logo_espn)
+      ),
+      fn = function(x) {
+        web_image(
+          url = x,
+          height = 25
+        )
+      }
+    ) %>%
+    # Relabel columns
+    cols_label(
+      team_logo_espn = ""
+    ) %>%
+    opt_all_caps()  %>%
+    opt_table_font(
+      font = list(
+        google_font("Chivo"),
+        default_fonts()
+      )
+    ) %>%
+    tab_style(
+      style = cell_borders(
+        sides = "bottom", color = "transparent", weight = px(2)
+      ),
+      locations = cells_body(
+        columns = TRUE,
+        # This is a relatively sneaky way of changing the bottom border
+        # Regardless of data size
+        rows = nrow(data$`_data`)
+      )
+    )  %>% 
+    tab_options(
+      column_labels.background.color = "white",
+      table.border.top.width = px(3),
+      table.border.top.color = "transparent",
+      table.border.bottom.color = "transparent",
+      table.border.bottom.width = px(3),
+      column_labels.border.top.width = px(3),
+      column_labels.border.top.color = "transparent",
+      column_labels.border.bottom.width = px(3),
+      column_labels.border.bottom.color = "black",
+      data_row.padding = px(3),
+      source_notes.font.size = 12,
+      table.font.size = 16,
+      heading.align = "left",
+      ...
+    ) 
+}
+
+# Define 538 table theme for Reactable table(s) below
+theme_538 <- function() {
+    reactable::reactableTheme(
+        searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
+        style = list(
+            fontFamily = "Chivo"
+        ),
+        headerStyle = list(
+            "&:hover[aria-sort]" = list(
+                background = "hsl(0, 0%, 80%)"),
+            "&[aria-sort='ascending'], &[aria-sort='descending']" = list(
+                background = "#555",
+                color = "#FFF"
+            ),
+            borderColor = "#333"
+        ),
+        borderColor = "#CDCDCD"
+    )
+}
+
+# Custom ggplot theme (inspired by Owen Phillips at the F5 substack blog)
+theme_custom <- function () { 
+  theme_minimal(base_size=11, base_family="Chivo") %+replace% 
+    theme(
+      panel.grid.minor = element_blank(),
+      plot.background = element_rect(fill = 'floralwhite', color = "floralwhite")
+    )
+}
+```
+
+***
+## Team Level Performance
+
+
+### Offensive vs. Defensive EPA
+
+Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, whether the game is being plated indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable. 
+
+EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards.
+
+```{r}
+
+#Set aspect ratio for logo based plots
+asp_ratio <- 1.618
+
+offense <- pbp_rp %>%
+    group_by(posteam)%>%
+    summarize(
+        n_pass=sum(pass),
+        n_rush=sum(rush),
+        epa_per_pass=sum(epa*pass)/n_pass,
+        epa_per_rush=sum(epa*rush)/n_rush,
+        success_per_pass=sum(pass*epa>0)/n_pass,
+        success_per_rush=sum(rush*epa>0)/n_rush,
+        off_epa=mean(epa))
+
+defense <- pbp_rp %>%
+    group_by(defteam)%>%
+    summarize(
+        def_n_pass=sum(pass),
+        def_n_rush=sum(rush),
+        def_epa_per_pass=sum(epa*pass)/def_n_pass,
+        def_epa_per_rush=sum(epa*rush)/def_n_rush,
+        def_success_per_pass=sum(pass*epa>0)/def_n_pass,
+        def_success_per_rush=sum(rush*epa>0)/def_n_rush,
+        def_epa=mean(epa)
+    )
+
+off_def_epa <- offense %>% 
+    inner_join(defense, by=c("posteam" = "defteam")) %>%
+    left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr"))
+
+
+# Make EPA Tiers plot
+
+epa_plot <- off_def_epa %>% 
+    ggplot(aes(x = off_epa, y = def_epa)) +
+    geom_image(aes(image = team_logo_wikipedia), size = 0.065, by = "width", asp = asp_ratio) +
+    geom_hline(yintercept = mean(off_def_epa$off_epa), color = "red", linetype = "dashed") +
+    geom_vline(xintercept =  mean(off_def_epa$def_epa), color = "red", linetype = "dashed") +
+    theme_custom() +
+  geom_abline(slope = -1.5, intercept = c(.4, .3, .2, .1, 0, -.1, -.2, -.3, -.4), alpha = .2) +
+    labs(x = "Offense EPA/play",
+         y = "Defense EPA/play",
+         caption = "Data: @nflscrapR | Plot: @steodosescu",
+         title = glue("Expected Points Added Tiers"),
+        subtitle = glue("Rush and pass plays only. Thru **Week {current_week}**.")) +
+    theme(plot.title = element_text(face="bold")) +
+  theme(plot.subtitle = element_markdown()) +
+  scale_y_reverse()
+
+epa_plot
+
+```
+
+
+### EPA per Dropback by Team
+
+The below isolates Expected Points Added for pass plays only to get a sense of how each team's quarterback is performing on a per-dropback basis.
+
+```{r, echo = FALSE}
+
+epa_play <- pbp_rp %>% 
+  filter(pass == 1, !is.na(posteam)) %>% 
+  group_by(posteam) %>% 
+  summarize(
+    n = n(),
+    epa_per_db = sum(epa, na.rm = TRUE) / n,
+    cpoe_per_db = sum(cpoe, na.rm = TRUE) / n,
+    success_rate = sum(epa, na.rm = TRUE) / n
+  )
+  
+
+epa_logos <- epa_play %>%
+  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
+  ggplot(aes(x = epa_per_db, y = reorder(posteam, epa_per_db))) +
+  geom_image(aes(image = team_logo_wikipedia), size = 0.045, by = "width", asp = asp_ratio) +
+  scale_fill_identity(aesthetics = c("fill", "colour")) +
+  theme_custom() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    axis.text.y = element_blank(),
+  ) +
+  geom_hline(yintercept = 0) +
+  scale_x_continuous(breaks = seq(-0.5, 0.5, 0.1)) +
+  labs(
+    x = "EPA per Dropback",
+    y = "",
+    title = "Quarterback Efficiency, 2021 NFL Season",
+    subtitle = glue("EPA per dropback measured thru **Week {current_week}**."),
+    caption = "Data: @nflfastR | Plot: @steodosescu") +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.subtitle = element_markdown())
+
+epa_logos
+```
+
+### EPA vs CPOE per dropback by team
+
+This below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.
+
+```{r, echo = FALSE}
+
+epa_cpoe_logos <- epa_play %>%
+  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
+  ggplot(aes(x = cpoe_per_db, y = epa_per_db)) +
+  geom_image(aes(image = team_logo_wikipedia), size = 0.055, by = "width", asp = asp_ratio) +
+  scale_fill_identity(aesthetics = c("fill", "colour")) +
+  theme_custom() +
+  geom_hline(yintercept = 0) +
+  labs(
+    x = "Completion % Over Expectation (CPOE)",
+    y = "Expected Points Added (EPA) per Dropback",
+    title = "Quarterback Performance, 2021 NFL Season",
+    subtitle = glue("Perfomance as defined by a composite of EPA and CPOE. Thru **Week {current_week}**"),
+    caption = "Data: @nflfastR | Plot: @steodosescu") +
+  geom_hline(yintercept = mean(epa_play$epa_per_db), color = "red", linetype = "dashed") +
+  geom_vline(xintercept = mean(epa_play$cpoe_per_db), color = "red", linetype = "dashed") +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.subtitle = element_markdown())
+
+epa_cpoe_logos
+```
+
+### Explosive Plays
+Some teams are better than others at getting chunk plays. We're defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We're highlighting the Bears simply because I'm a Bears fan and want to easily track how they stack up using this metric. Spoiler: they've been near the bottom of the league in explosive plays the past few years.
+
+```{r, echo = FALSE}
+
+explosive_plays <- pbp_rp %>% 
+  filter(
+    play_type %in% c("pass", "run"),
+    penalty == 0,
+    !is.na(epa)
+  ) %>% 
+  mutate(explosive_play = case_when((play_type == "pass" & yards_gained >= 20) ~ 1,
+                            (play_type == "run" & yards_gained >= 15) ~ 1,
+                            TRUE ~ 0)) %>% 
+  group_by(posteam) %>%
+  summarize(
+    n_dropbacks = sum(pass),
+    n_rush = sum(rush),
+    n_plays = n(),
+    n_explosive_plays = sum(explosive_play)
+  ) %>%
+  mutate(explosive_share = n_explosive_plays/n_plays) %>% 
+  ungroup() # always ungroup if you no longer need the grouping effect
+
+
+explosive_plays_plot <- explosive_plays %>% 
+  ggplot(aes(x = explosive_share, y = reorder(posteam, explosive_share))) +
+  geom_col(fill = if_else(explosive_plays$posteam == "CHI", "#C83803", "grey")) +
+  labs(
+    x = "Explosive Play Share (%)",
+    y = "",
+    caption = "Data: @nflscrapR | Plot: @steodosescu",
+    title = glue("Most Explosive Teams, 2021 NFL Season"),
+    subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru **Week {current_week}**.")
+  ) +
+  theme_custom() +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.subtitle = element_markdown()) +
+  theme(legend.position = "none") +
+  theme(plot.title = element_markdown()) +
+  geom_vline(xintercept = mean(explosive_plays$explosive_share), color = "red", linetype = "dashed") +
+  annotate("text", x = 0.080, y = "PIT", label = "2020 NFL Avg = 6.8%", color = "red") +
+  scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, suffix = " %"))
+
+explosive_plays_plot
+
+```
+
+***
+## Fourth Downs
+
+Teams are going for it on 4th Down more often nowadays. The below table shows each team's go-for-it rates on fourth-and-short over the last decade. From 2000-17, teams went for it on fourth-and-1,  fourth-and-2, or fourth-and-3 just XX% of the time. In 2018, that rate jumped to 45%. We will track how each team fares on its fourth-down decision making throughout the season. 
+
+```{r, echo = FALSE}
+library(webshot) #saving images of gt tables
+
+seasons <- 2010:2021
+fourth_down_plays <- purrr::map_df(seasons, function(x) {
+   readRDS(
+     url(
+       glue::glue("https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_{x}.rds")
+     )
+   )
+ }) %>%
+   filter(
+     down == 4,
+     qb_kneel == 0,
+     !is.na(posteam),
+     !is.na(yardline_100),
+     !is.na(score_differential)
+   )
+
+
+
+# Focus on fourth down plays only
+fourth_down_plays <- data %>% 
+  filter(
+     down == 4,
+     qb_kneel == 0,
+     !is.na(posteam),
+     !is.na(yardline_100),
+     !is.na(score_differential)
+   )
+
+# Determine when teams go for it on fourth
+go_for_it <- fourth_down_plays %>%
+  mutate(
+    yards_to_go = case_when(
+      ydstogo <= 2 ~ "2 or less",
+      ydstogo >= 3 & ydstogo <= 5 ~ "3 to 5",
+      ydstogo >= 6 ~ "6 or more",
+      TRUE ~ "NA"
+    )
+  ) %>%
+  mutate(
+    play_type = case_when(
+      play_type == "field_goal" | play_type == "punt" ~ "Punt/FG",
+      play_type == "run" | play_type == "pass" ~ "Run/Pass",
+      play_type == "no_play" ~ "Penalty",
+      TRUE ~ "NA"
+    )
+  ) %>%
+  filter(yards_to_go == "2 or less" &
+           play_type != "Penalty" & 
+           wp > .20 & 
+           wp < .80) %>%
+  dplyr::group_by(season, posteam, play_type) %>%
+  summarize(n = n()) %>% 
+  mutate(`2010-2021` = round(100 * (n / sum(n)), 1)) %>%
+  select(-c(n)) %>% 
+  pivot_wider(names_from = "season", values_from = "2010-2021") %>%
+  filter(play_type == "Run/Pass") %>%
+  ungroup() %>%
+  mutate_if(is.numeric, list(~replace_na(., 0))) %>% 
+  pivot_longer(cols = starts_with("20"),
+               names_to = "season",
+               values_to = "2010-2021") %>% 
+  arrange(posteam, season)
+
+# Look at  trends
+trend <- go_for_it %>%
+  ungroup() %>%
+  select(team = posteam, `2010-2021`) %>%
+  group_by(team) %>%
+  mutate(`2010-2021` = list(`2010-2021`)) %>%
+  distinct(team, `2010-2021`) %>%
+  ungroup()
+
+# Go for it data by year
+go_for_it_by_year <- go_for_it %>%
+  select(season, team = posteam, `2010-2021`) %>%
+  pivot_wider(names_from = "season", values_from = "2010-2021") %>%
+  mutate_if(is.numeric, list(~replace_na(., 0))) %>% 
+  ungroup() %>%
+  inner_join(trend, by = c("team" = "team")) %>% 
+  left_join(teams_colors_logos, by = c('team' = 'team_abbr')) %>% 
+  select(-c(team_name,team_id,team_nick,team_color2,team_color3,team_color4,team_logo_wikipedia, team_wordmark))
+
+
+fourth_down_table <- go_for_it_by_year %>%
+  select(team_logo_espn, team, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`) %>%
+  arrange(desc(`2021`)) %>%
+  gt() %>%
+  data_color(columns = 14,
+             colors = scales::col_numeric(
+               palette = c("white", "#3fc1c9"),
+               domain = NULL)) %>%
+  gt_nfl_theme_538() %>%
+  cols_align(align = "left",
+             columns = 1) %>%
+  tab_header(title = md("**4th Down Decison Making**"),
+             subtitle = md("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru {current_week}.")) %>%
+  tab_source_note(
+    source_note = md("DATA: nflfastR<br>TABLE: @steodosescu"))
+
+fourth_down_table
+
+```
