@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Teams Weekly Report</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-17.0.0/react.min.js"></script>
+<script src="site_libs/react-17.0.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="site_libs/reactable-binding-0.2.3/reactable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NFL Analytics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="2021-NFL-Season-Report.html">Summary</a>
+</li>
+<li>
+  <a href="Teams-Weekly-Report.html">Teams</a>
+</li>
+<li>
+  <a href="Players-Weekly-Report.html">Players</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="https://twitter.com/steodosescu">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/steodose/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://betweenpipes.wordpress.com/">
+    <span class="fa fa-wordpress fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://stephanteodosescu.com/">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Teams Weekly Report</h1>
+<h4 class="date">Last updated: 2021-09-29</h4>
+
+</div>
+
+
+<p><img src="data:image/png;base64,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" alt="logo" style="position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px"/></p>
+<p>Below you’ll find figures showing key advanced metrics I’m tracking for all 32 NFL teams.</p>
+<hr />
+<div id="team-level-performance" class="section level2">
+<h2>Team Level Performance</h2>
+<div id="current-rankings" class="section level3">
+<h3>Current Rankings</h3>
+<p>Offensive and defensive rankings, according to various advanced metrics. Click a column header to sort by that statistic.</p>
+<div id="htmlwidget-7f372f1a8163305f7605" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7f372f1a8163305f7605">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team_logo_espn":["https://a.espncdn.com/i/teamlogos/nfl/500/ari.png","https://a.espncdn.com/i/teamlogos/nfl/500/atl.png","https://a.espncdn.com/i/teamlogos/nfl/500/bal.png","https://a.espncdn.com/i/teamlogos/nfl/500/buf.png","https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png","https://a.espncdn.com/i/teamlogos/nfl/500/chi.png","https://a.espncdn.com/i/teamlogos/nfl/500/cin.png","https://a.espncdn.com/i/teamlogos/nfl/500/cle.png","https://a.espncdn.com/i/teamlogos/nfl/500/dal.png","https://a.espncdn.com/i/teamlogos/nfl/500/den.png","https://a.espncdn.com/i/teamlogos/nfl/500/det.png","https://a.espncdn.com/i/teamlogos/nfl/500/gb.png","https://a.espncdn.com/i/teamlogos/nfl/500/hou.png","https://a.espncdn.com/i/teamlogos/nfl/500/ind.png","https://a.espncdn.com/i/teamlogos/nfl/500/jax.png","https://a.espncdn.com/i/teamlogos/nfl/500/kc.png","https://a.espncdn.com/i/teamlogos/nfl/500/lar.png","https://a.espncdn.com/i/teamlogos/nfl/500/lac.png","https://a.espncdn.com/i/teamlogos/nfl/500/lv.png","https://a.espncdn.com/i/teamlogos/nfl/500/mia.png","https://a.espncdn.com/i/teamlogos/nfl/500/min.png","https://a.espncdn.com/i/teamlogos/nfl/500/ne.png","https://a.espncdn.com/i/teamlogos/nfl/500/no.png","https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png","https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png","https://a.espncdn.com/i/teamlogos/nfl/500/phi.png","https://a.espncdn.com/i/teamlogos/nfl/500/pit.png","https://a.espncdn.com/i/teamlogos/nfl/500/sea.png","https://a.espncdn.com/i/teamlogos/nfl/500/sf.png","https://a.espncdn.com/i/teamlogos/nfl/500/tb.png","https://a.espncdn.com/i/teamlogos/nfl/500/ten.png","https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png"],"posteam":["ARI","ATL","BAL","BUF","CAR","CHI","CIN","CLE","DAL","DEN","DET","GB","HOU","IND","JAX","KC","LA","LAC","LV","MIA","MIN","NE","NO","NYG","NYJ","PHI","PIT","SEA","SF","TB","TEN","WAS"],"Overall EPA":[0.274276129340699,-0.260132098725692,-0.0290347900778181,0.30765076119604,0.338705442617801,-0.225707608317655,0.00878031546278556,0.0657289137808273,0.160371779546618,0.366003273184351,-0.211950087847497,-0.0713997654598563,-0.0277794113841394,-0.166251557205694,-0.290861818200845,-0.0131919849054877,0.218802776684285,0.0779685612643004,0.0774234967112752,-0.194816021954079,0.0694713703585073,0.00242824417676184,0.155431955927401,-0.0731603963543849,-0.303233284994404,0.0282639313132332,-0.0886400529548611,0.0534250441383897,0.0858013945370212,0.067295135754704,-0.130136363216965,-0.211129090377341],"off_epa":[0.159341929119897,-0.165389994517298,0.0546721607817792,0.0805043572743065,0.0885996882873139,-0.223404463249048,-0.0886363905967144,0.11586350805364,0.110008952647448,0.168076791184323,-0.0133697928842326,0.0630508441997304,0.0601630399618479,-0.0619392466051047,-0.119250943146814,0.199178477549718,0.217330202472538,0.12625632433182,0.0623712073371352,-0.150630433726434,0.140494713558292,-0.0917077537203661,-0.00543907627083512,0.075908232534881,-0.309380205170267,-0.00518105231147536,-0.0653726722613837,0.151954788319193,0.15769596928494,0.10117269477595,-0.0082544510776585,-0.0421192854361372],"def_epa":[-0.114934200220801,0.0947421042083944,0.0837069508595973,-0.227146403921734,-0.250105754330487,0.00230314506860664,-0.0974167060594999,0.050134594272813,-0.0503628268991699,-0.197926482000028,0.198580294963264,0.134450609659587,0.0879424513459873,0.104312310600589,0.171610875054031,0.212370462455205,-0.0014725742117476,0.0482877630675192,-0.01505228937414,0.0441855882276452,0.0710233431997846,-0.094135997897128,-0.160871032198236,0.149068628889266,-0.00614692017586285,-0.0334449836247085,0.0232673806934774,0.0985297441808036,0.0718945747479187,0.0338775590212462,0.121881912139306,0.169009804941204],"epa_per_pass":[0.26914682918259,-0.130454918569086,0.103091549671345,0.12112861377729,0.241158066007403,-0.245435450138032,-0.0174262017742909,0.15730342413098,0.18532247728437,0.429072562113885,0.0309183552731471,0.174440493381965,0.286856765699806,-0.045751641822404,-0.17931963566774,0.346805176731915,0.477124025773447,0.206840356770215,0.257021422300813,-0.130521094068283,0.305044730238777,-0.0850152169102826,0.165565674363639,0.111438181923554,-0.389945083414095,0.0453403299575333,-0.00468690860036921,0.213470239513327,0.316949984449856,0.161683861559794,0.0239365993879703,0.00119198188690105],"epa_per_rush":[-0.00677317610314961,-0.235773897530606,-0.00969714444787857,0.00294895849588279,-0.130366453852108,-0.182895874453175,-0.169889041945377,0.0708967906080162,-0.011030640519034,-0.167917764495115,-0.111340544868739,-0.123152748463109,-0.237543178175952,-0.0940764031589956,0.0226354512560647,-0.105448044572277,-0.157515171147347,-0.0584670731038858,-0.305031073406806,-0.20194392112999,-0.127146879837677,-0.104710396665671,-0.178554996666229,0.000900561603237061,-0.13768456301129,-0.113074173767324,-0.255177082009663,0.0366133173301932,-0.0612783015668202,-0.110616388967504,-0.0515219920260843,-0.119944218907222],"def_epa_per_pass":[-0.163956286175758,0.181427491414294,0.26189795329461,-0.189313512617854,-0.191559343946993,0.0332353533135968,0.0154004410042039,0.202174835826165,-0.0303779166123789,-0.225362242218818,0.467711079738333,0.275899679400057,0.11133119740349,0.32572248822295,0.329999558091412,0.284952163962342,-0.00608792304023196,0.0529807066396872,0.0786592975722352,0.121692901505466,0.133510645633106,-0.13973243767565,-0.136064015488853,0.214393211658942,0.149663160243637,0.0189123753474129,0.159267701086837,0.260944971357136,0.142968578213699,0.15214758518521,0.150014364134971,0.270902180061408],"def_epa_per_rush":[-0.0343499493359409,-0.0615357769515382,-0.264696352408861,-0.319230233699101,-0.377530294576915,-0.0385432324856753,-0.384747877487371,-0.248611143516229,-0.127304731503315,-0.117533324149621,-0.199265212965099,-0.081545942781943,0.0481183702210499,-0.132367534444003,-0.0355127873794677,0.118931950170156,0.0110548011798528,0.0418985748307122,-0.231193530234328,-0.0648356875917071,-0.0313109346982632,-0.0392005282844514,-0.216785260336845,0.0154044826066986,-0.199501598286809,-0.0938162240721547,-0.219590334294665,-0.114344582700796,-0.0702534321836415,-0.302258304813177,0.0727550929826985,-0.0190991952807123],"success_per_pass":[0.5,0.452554744525547,0.504424778761062,0.469387755102041,0.516393442622951,0.412280701754386,0.471910112359551,0.549019607843137,0.585185185185185,0.571428571428571,0.5,0.517857142857143,0.513761467889908,0.466666666666667,0.430656934306569,0.569230769230769,0.534653465346535,0.530201342281879,0.516556291390728,0.412162162162162,0.540740740740741,0.433823529411765,0.475609756097561,0.481203007518797,0.369230769230769,0.476190476190476,0.414965986394558,0.466666666666667,0.527272727272727,0.525974025974026,0.56,0.434782608695652],"success_per_rush":[0.435897435897436,0.294117647058824,0.458823529411765,0.38961038961039,0.364705882352941,0.387096774193548,0.346153846153846,0.48936170212766,0.511904761904762,0.344827586206897,0.409090909090909,0.388059701492537,0.289156626506024,0.382352941176471,0.517241379310345,0.46031746031746,0.357142857142857,0.4,0.35,0.310344827586207,0.337349397590361,0.414285714285714,0.444444444444444,0.428571428571429,0.360655737704918,0.491525423728814,0.170212765957447,0.482142857142857,0.4125,0.454545454545455,0.354838709677419,0.421875]},"columns":[{"accessor":"team_logo_espn","name":"","type":"character","minWidth":95,"align":"center","cell":[{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ari.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/atl.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/bal.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/buf.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/chi.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/cin.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/cle.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/dal.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/den.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/det.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/gb.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/hou.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ind.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/jax.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/kc.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lar.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lac.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lv.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/mia.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/min.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ne.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/no.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/phi.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/pit.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/sea.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/sf.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/tb.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ten.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png","align":"center","height":"25","width":"30"},"children":[]}]}],"maxWidth":70},{"accessor":"posteam","name":"Team","type":"character","minWidth":95,"align":"left"},{"accessor":"Overall EPA","name":"Overall EPA/Play","type":"numeric","minWidth":95,"align":"right","defaultSortDesc":true,"format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"off_epa","name":"Off EPA/Play","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa","name":"Def EPA/Play","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"epa_per_pass","name":"EPA/Pass","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"epa_per_rush","name":"EPA/Rush","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa_per_pass","name":"Def EPA/Pass","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa_per_rush","name":"Def EPA/Rush","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"success_per_pass","name":"Pass SR","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}}},{"accessor":"success_per_rush","name":"Rush SR","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}}}],"searchable":true,"defaultPageSize":32,"paginationType":"numbers","showPageInfo":true,"minRows":1,"compact":true,"inline":true,"theme":{"borderColor":"#CDCDCD","style":{"fontFamily":"Chivo"},"headerStyle":{"&:hover[aria-sort]":{"background":"hsl(0, 0%, 80%)"},"&[aria-sort='ascending'], &[aria-sort='descending']":{"background":"#555","color":"#FFF"},"borderColor":"#333"},"searchInputStyle":{"width":"31%","backgroundColor":"#F9F9F9"}},"language":{"searchPlaceholder":"SEARCH FOR A TEAM..."},"dataKey":"07213bfbf23c8ddc92343f0f238dae8b","key":"07213bfbf23c8ddc92343f0f238dae8b"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="offensive-vs.-defensive-epa" class="section level3">
+<h3>Offensive vs. Defensive EPA</h3>
+<p>Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, whether the game is being plated indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable.</p>
+<p>EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards.</p>
+<p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
+</div>
+<div id="epa-per-dropback-by-team" class="section level3">
+<h3>EPA per Dropback by Team</h3>
+<p>The below isolates Expected Points Added for pass plays only to get a sense of how each team’s quarterback is performing on a per-dropback basis.</p>
+<p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+</div>
+<div id="epa-vs-cpoe-per-dropback-by-team" class="section level3">
+<h3>EPA vs CPOE per dropback by team</h3>
+<p>This below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It’s a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.</p>
+<p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+</div>
+<div id="explosive-plays" class="section level3">
+<h3>Explosive Plays</h3>
+<p>Some teams are better than others at getting chunk plays. We’re defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We’re highlighting the Bears simply because I’m a Bears fan and want to easily track how they stack up using this metric. Spoiler: they’ve been near the bottom of the league in explosive plays the past few years.</p>
+<p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+<hr />
+</div>
+</div>
+<div id="fourth-downs" class="section level2">
+<h2>Fourth Downs</h2>
+<p>Teams are going for it on 4th Down more often nowadays. The below table shows each team’s go-for-it rates on fourth-and-short over the last decade. From 2000-17, teams went for it on fourth-and-1, fourth-and-2, or fourth-and-3 just XX% of the time. In 2018, that rate jumped to 45%. We will track how each team fares on its fourth-down decision making throughout the season.</p>
+<div id="ttexxmymnz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ttexxmymnz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: transparent;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: transparent;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ttexxmymnz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ttexxmymnz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: black;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_col_heading {
+  color: #333333;
+  background-color: white;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ttexxmymnz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: white;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ttexxmymnz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ttexxmymnz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ttexxmymnz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: black;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ttexxmymnz .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ttexxmymnz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ttexxmymnz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ttexxmymnz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ttexxmymnz .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ttexxmymnz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#ttexxmymnz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ttexxmymnz .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ttexxmymnz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ttexxmymnz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ttexxmymnz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ttexxmymnz .gt_sourcenote {
+  font-size: 12px;
+  padding: 4px;
+}
+
+#ttexxmymnz .gt_left {
+  text-align: left;
+}
+
+#ttexxmymnz .gt_center {
+  text-align: center;
+}
+
+#ttexxmymnz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ttexxmymnz .gt_font_normal {
+  font-weight: normal;
+}
+
+#ttexxmymnz .gt_font_bold {
+  font-weight: bold;
+}
+
+#ttexxmymnz .gt_font_italic {
+  font-style: italic;
+}
+
+#ttexxmymnz .gt_super {
+  font-size: 65%;
+}
+
+#ttexxmymnz .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="14" class="gt_heading gt_title gt_font_normal" style><strong>4th Down Decison Making</strong></th>
+    </tr>
+    <tr>
+      <th colspan="14" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Percentages shown are how often a team went for it when it on 4th &amp; short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru {current_week}.</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2010</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2011</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2012</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2013</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2014</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2015</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2016</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2017</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2018</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2019</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2020</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">2021</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:25px;"></td>
+<td class="gt_row gt_left">CIN</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">15.8</td>
+<td class="gt_row gt_right">35.7</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">18.8</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">23.1</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">45.5</td>
+<td class="gt_row gt_right">46.2</td>
+<td class="gt_row gt_right">37.5</td>
+<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:25px;"></td>
+<td class="gt_row gt_left">CLE</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">11.1</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">27.3</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">55.6</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">66.7</td>
+<td class="gt_row gt_right">62.5</td>
+<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:25px;"></td>
+<td class="gt_row gt_left">DAL</td>
+<td class="gt_row gt_right">35.3</td>
+<td class="gt_row gt_right">9.1</td>
+<td class="gt_row gt_right">23.5</td>
+<td class="gt_row gt_right">11.1</td>
+<td class="gt_row gt_right">57.1</td>
+<td class="gt_row gt_right">19.0</td>
+<td class="gt_row gt_right">21.1</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">47.1</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">76.9</td>
+<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:25px;"></td>
+<td class="gt_row gt_left">DET</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">26.3</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">35.0</td>
+<td class="gt_row gt_right">7.1</td>
+<td class="gt_row gt_right">21.1</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:25px;"></td>
+<td class="gt_row gt_left">IND</td>
+<td class="gt_row gt_right">9.5</td>
+<td class="gt_row gt_right">10.0</td>
+<td class="gt_row gt_right">18.8</td>
+<td class="gt_row gt_right">21.4</td>
+<td class="gt_row gt_right">37.5</td>
+<td class="gt_row gt_right">11.1</td>
+<td class="gt_row gt_right">38.5</td>
+<td class="gt_row gt_right">7.7</td>
+<td class="gt_row gt_right">43.8</td>
+<td class="gt_row gt_right">63.2</td>
+<td class="gt_row gt_right">68.4</td>
+<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NYJ</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">10.5</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">0.0</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">17.6</td>
+<td class="gt_row gt_right">17.6</td>
+<td class="gt_row gt_right">30.8</td>
+<td class="gt_row gt_right">70.0</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:25px;"></td>
+<td class="gt_row gt_left">DEN</td>
+<td class="gt_row gt_right">42.9</td>
+<td class="gt_row gt_right">4.3</td>
+<td class="gt_row gt_right">15.4</td>
+<td class="gt_row gt_right">37.5</td>
+<td class="gt_row gt_right">0.0</td>
+<td class="gt_row gt_right">26.1</td>
+<td class="gt_row gt_right">15.8</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">29.4</td>
+<td class="gt_row gt_right">23.1</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right" style="background-color: #7DD1D6; color: #000000;">75.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:25px;"></td>
+<td class="gt_row gt_left">ATL</td>
+<td class="gt_row gt_right">57.1</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">5.9</td>
+<td class="gt_row gt_right">26.7</td>
+<td class="gt_row gt_right">10.0</td>
+<td class="gt_row gt_right">38.5</td>
+<td class="gt_row gt_right">58.3</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">71.4</td>
+<td class="gt_row gt_right">71.4</td>
+<td class="gt_row gt_right" style="background-color: #8DD6DB; color: #000000;">66.7</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:25px;"></td>
+<td class="gt_row gt_left">BAL</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">52.6</td>
+<td class="gt_row gt_right">40.9</td>
+<td class="gt_row gt_right">41.2</td>
+<td class="gt_row gt_right">46.2</td>
+<td class="gt_row gt_right">60.0</td>
+<td class="gt_row gt_right">90.0</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right" style="background-color: #8DD6DB; color: #000000;">66.7</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:25px;"></td>
+<td class="gt_row gt_left">BUF</td>
+<td class="gt_row gt_right">31.6</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">9.1</td>
+<td class="gt_row gt_right">22.7</td>
+<td class="gt_row gt_right">15.4</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">36.4</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">62.5</td>
+<td class="gt_row gt_right">60.0</td>
+<td class="gt_row gt_right">53.8</td>
+<td class="gt_row gt_right" style="background-color: #8DD6DB; color: #000000;">66.7</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:25px;"></td>
+<td class="gt_row gt_left">CAR</td>
+<td class="gt_row gt_right">10.0</td>
+<td class="gt_row gt_right">10.0</td>
+<td class="gt_row gt_right">54.5</td>
+<td class="gt_row gt_right">46.7</td>
+<td class="gt_row gt_right">27.8</td>
+<td class="gt_row gt_right">35.7</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">41.7</td>
+<td class="gt_row gt_right">70.0</td>
+<td class="gt_row gt_right">72.7</td>
+<td class="gt_row gt_right" style="background-color: #8DD6DB; color: #000000;">66.7</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:25px;"></td>
+<td class="gt_row gt_left">LV</td>
+<td class="gt_row gt_right">43.8</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">13.3</td>
+<td class="gt_row gt_right">7.1</td>
+<td class="gt_row gt_right">7.1</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">12.5</td>
+<td class="gt_row gt_right">38.9</td>
+<td class="gt_row gt_right">38.5</td>
+<td class="gt_row gt_right">35.7</td>
+<td class="gt_row gt_right">63.2</td>
+<td class="gt_row gt_right" style="background-color: #9ADADE; color: #000000;">60.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:25px;"></td>
+<td class="gt_row gt_left">WAS</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">35.3</td>
+<td class="gt_row gt_right">13.3</td>
+<td class="gt_row gt_right">23.1</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">42.9</td>
+<td class="gt_row gt_right">12.5</td>
+<td class="gt_row gt_right">46.2</td>
+<td class="gt_row gt_right" style="background-color: #9ADADE; color: #000000;">60.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:25px;"></td>
+<td class="gt_row gt_left">CHI</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">30.0</td>
+<td class="gt_row gt_right">44.4</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">31.2</td>
+<td class="gt_row gt_right">17.4</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">0.0</td>
+<td class="gt_row gt_right">38.5</td>
+<td class="gt_row gt_right">23.1</td>
+<td class="gt_row gt_right">37.5</td>
+<td class="gt_row gt_right" style="background-color: #ACE0E4; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:25px;"></td>
+<td class="gt_row gt_left">GB</td>
+<td class="gt_row gt_right">27.8</td>
+<td class="gt_row gt_right">26.7</td>
+<td class="gt_row gt_right">15.4</td>
+<td class="gt_row gt_right">37.5</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">43.8</td>
+<td class="gt_row gt_right">37.5</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">81.8</td>
+<td class="gt_row gt_right" style="background-color: #ACE0E4; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:25px;"></td>
+<td class="gt_row gt_left">LAC</td>
+<td class="gt_row gt_right">0.0</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">30.8</td>
+<td class="gt_row gt_right">23.8</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">0.0</td>
+<td class="gt_row gt_right">38.5</td>
+<td class="gt_row gt_right">13.3</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">27.3</td>
+<td class="gt_row gt_right">44.4</td>
+<td class="gt_row gt_right" style="background-color: #ACE0E4; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:25px;"></td>
+<td class="gt_row gt_left">MIA</td>
+<td class="gt_row gt_right">13.6</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">21.4</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">23.1</td>
+<td class="gt_row gt_right">23.1</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right" style="background-color: #ACE0E4; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:25px;"></td>
+<td class="gt_row gt_left">ARI</td>
+<td class="gt_row gt_right">30.8</td>
+<td class="gt_row gt_right">27.3</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">11.1</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">10.5</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">53.3</td>
+<td class="gt_row gt_right">76.5</td>
+<td class="gt_row gt_right" style="background-color: #C8EBED; color: #000000;">33.3</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:25px;"></td>
+<td class="gt_row gt_left">SF</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">7.1</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">35.7</td>
+<td class="gt_row gt_right">44.4</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">12.5</td>
+<td class="gt_row gt_right">43.8</td>
+<td class="gt_row gt_right">47.1</td>
+<td class="gt_row gt_right" style="background-color: #C8EBED; color: #000000;">33.3</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:25px;"></td>
+<td class="gt_row gt_left">TB</td>
+<td class="gt_row gt_right">35.0</td>
+<td class="gt_row gt_right">35.7</td>
+<td class="gt_row gt_right">36.4</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">30.0</td>
+<td class="gt_row gt_right">18.2</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">46.2</td>
+<td class="gt_row gt_right">36.4</td>
+<td class="gt_row gt_right" style="background-color: #C8EBED; color: #000000;">33.3</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:25px;"></td>
+<td class="gt_row gt_left">HOU</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">15.4</td>
+<td class="gt_row gt_right">11.8</td>
+<td class="gt_row gt_right">26.7</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">31.2</td>
+<td class="gt_row gt_right">66.7</td>
+<td class="gt_row gt_right">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:25px;"></td>
+<td class="gt_row gt_left">JAX</td>
+<td class="gt_row gt_right">61.5</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">21.4</td>
+<td class="gt_row gt_right">44.4</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">0.0</td>
+<td class="gt_row gt_right">30.0</td>
+<td class="gt_row gt_right">27.3</td>
+<td class="gt_row gt_right">30.8</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:25px;"></td>
+<td class="gt_row gt_left">KC</td>
+<td class="gt_row gt_right">36.4</td>
+<td class="gt_row gt_right">11.8</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">18.8</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">36.4</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">72.7</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:25px;"></td>
+<td class="gt_row gt_left">LA</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">26.1</td>
+<td class="gt_row gt_right">17.6</td>
+<td class="gt_row gt_right">6.7</td>
+<td class="gt_row gt_right">12.5</td>
+<td class="gt_row gt_right">26.3</td>
+<td class="gt_row gt_right">18.2</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">31.8</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:25px;"></td>
+<td class="gt_row gt_left">MIN</td>
+<td class="gt_row gt_right">26.7</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">13.3</td>
+<td class="gt_row gt_right">26.3</td>
+<td class="gt_row gt_right">26.7</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">26.7</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">57.1</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NE</td>
+<td class="gt_row gt_right">44.4</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">23.5</td>
+<td class="gt_row gt_right">18.8</td>
+<td class="gt_row gt_right">35.7</td>
+<td class="gt_row gt_right">9.1</td>
+<td class="gt_row gt_right">36.4</td>
+<td class="gt_row gt_right">47.1</td>
+<td class="gt_row gt_right">35.7</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NO</td>
+<td class="gt_row gt_right">27.3</td>
+<td class="gt_row gt_right">41.7</td>
+<td class="gt_row gt_right">20.0</td>
+<td class="gt_row gt_right">28.6</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">42.9</td>
+<td class="gt_row gt_right">53.8</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">68.8</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">41.2</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NYG</td>
+<td class="gt_row gt_right">11.1</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">10.0</td>
+<td class="gt_row gt_right">21.4</td>
+<td class="gt_row gt_right">30.0</td>
+<td class="gt_row gt_right">14.3</td>
+<td class="gt_row gt_right">27.8</td>
+<td class="gt_row gt_right">23.5</td>
+<td class="gt_row gt_right">54.5</td>
+<td class="gt_row gt_right">55.6</td>
+<td class="gt_row gt_right">76.9</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:25px;"></td>
+<td class="gt_row gt_left">PHI</td>
+<td class="gt_row gt_right">37.5</td>
+<td class="gt_row gt_right">29.4</td>
+<td class="gt_row gt_right">44.4</td>
+<td class="gt_row gt_right">55.6</td>
+<td class="gt_row gt_right">30.0</td>
+<td class="gt_row gt_right">50.0</td>
+<td class="gt_row gt_right">77.8</td>
+<td class="gt_row gt_right">64.7</td>
+<td class="gt_row gt_right">60.0</td>
+<td class="gt_row gt_right">62.5</td>
+<td class="gt_row gt_right">63.6</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:25px;"></td>
+<td class="gt_row gt_left">PIT</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">27.3</td>
+<td class="gt_row gt_right">34.8</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">22.2</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">31.2</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">38.5</td>
+<td class="gt_row gt_right">33.3</td>
+<td class="gt_row gt_right">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:25px;"></td>
+<td class="gt_row gt_left">SEA</td>
+<td class="gt_row gt_right">15.8</td>
+<td class="gt_row gt_right">23.1</td>
+<td class="gt_row gt_right">15.8</td>
+<td class="gt_row gt_right">18.2</td>
+<td class="gt_row gt_right">16.7</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">40.0</td>
+<td class="gt_row gt_right">25.0</td>
+<td class="gt_row gt_right">43.8</td>
+<td class="gt_row gt_right">11.1</td>
+<td class="gt_row gt_right">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:25px;"></td>
+<td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">TEN</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">8.3</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">50.0</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">37.5</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">36.4</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">7.1</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">10.5</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">0.0</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">25.0</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">33.3</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">40.0</td>
+<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">0.0</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="14">DATA: nflfastR<br>TABLE: @steodosescu</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+</div>
+
+<p>Copyright &copy; 2021 Stephan Teodosescu</p>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
