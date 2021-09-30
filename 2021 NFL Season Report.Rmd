@@ -143,6 +143,10 @@ theme_custom <- function () {
       plot.background = element_rect(fill = 'floralwhite', color = "floralwhite")
     )
 }
+
+#Define color palette to use in table
+my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
+
 ```
 
 ***
@@ -183,7 +187,8 @@ off_def_epa <- offense %>%
 
 off_def_epa2 <- off_def_epa %>% 
     mutate(`Overall EPA` = off_epa - def_epa) %>% 
-  select(team_logo_espn, posteam,`Overall EPA`, off_epa, def_epa, epa_per_pass, epa_per_rush, def_epa_per_pass, def_epa_per_rush, success_per_pass, success_per_rush)
+  select(team_logo_espn, posteam,`Overall EPA`, off_epa, def_epa, epa_per_pass, epa_per_rush, def_epa_per_pass, def_epa_per_rush, success_per_pass, success_per_rush) %>% 
+  arrange(desc(`Overall EPA`))
 
 
 statistics_table <- reactable(
@@ -199,7 +204,7 @@ statistics_table <- reactable(
                                        align = "left"),
                       `Overall EPA` = colDef(name = "Overall EPA/Play",
                                        align = "right",
-                                       defaultSortOrder = "desc",
+                                       style = color_scales(off_def_epa2, colors = my_color_pal),
                                        format =  colFormat(digits = 2)),
                       off_epa = colDef(name = "Off EPA/Play",
                                        align = "right",
