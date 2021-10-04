@@ -2,9 +2,14 @@
 title: "About"
 ---
 
-This website is the home for everything NFL analytics.
+This website is your home for everything modern, public NFL analytics have to offer.
 
-Football analytics have taken a huge leap forward in the past half decade or so. The NFL has embraced analytics, and data-driven decision making in general, at a rapid pace. Advanced stats have also become much more accessible to the average fan as we now have a wealth of information previously unavailable to the public. A lot of that has to do with the work of the aforementioned groups. 
+## Glossary of Terms
+
+* Expected Points Added (EPA):
+* Completion Percentage Over Expectation (CPOE):
+* Average Depth of Target (aDOT):
+* Success Rate (SR): 
 
 ***
 

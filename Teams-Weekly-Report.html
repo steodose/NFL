@@ -335,13 +335,19 @@ div.tocify {
   <a href="about.html">About</a>
 </li>
 <li>
+  <a href="https://stephanteodosescu.com/">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="https://twitter.com/steodosescu">
     <span class="fa fa-twitter fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://github.com/steodose/">
+  <a href="https://github.com/steodose/NFL">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -349,12 +355,6 @@ div.tocify {
 <li>
   <a href="https://betweenpipes.wordpress.com/">
     <span class="fa fa-wordpress fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="https://stephanteodosescu.com/">
-    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -368,7 +368,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Teams Weekly Report</h1>
-<h4 class="date">Last updated: 2021-09-29</h4>
+<h4 class="date">Last updated: 2021-10-04</h4>
 
 </div>
 
@@ -380,8 +380,9 @@ div.tocify {
 <h2>Team Level Performance</h2>
 <div id="offensive-vs.-defensive-epa" class="section level3">
 <h3>Offensive vs. Defensive EPA</h3>
-<p>Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, whether the game is being plated indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable.</p>
+<p>Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, time remaining, whether the game is being played indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable.</p>
 <p>EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards.</p>
+<p>EDITOR’S NOTE: There is currently an issue with the logos in the below plots that will get resolved soon. I know the wordmark logos seen below don’t look all that good.</p>
 <p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
 </div>
 <div id="epa-per-dropback-by-team" class="section level3">
@@ -392,25 +393,25 @@ div.tocify {
 <div id="epa-vs-cpoe-per-dropback-by-team" class="section level3">
 <h3>EPA vs CPOE per dropback by team</h3>
 <p>This below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It’s a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.</p>
-<p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<p><img src="Teams-Weekly-Report_files/figure-html/EPA%20vs%20CPOE-1.png" width="960" /></p>
 </div>
 <div id="explosive-plays" class="section level3">
 <h3>Explosive Plays</h3>
 <p>Some teams are better than others at getting chunk plays. We’re defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We’re highlighting the Bears simply because I’m a Bears fan and want to easily track how they stack up using this metric. Spoiler: they’ve been near the bottom of the league in explosive plays the past few years.</p>
-<p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<p><img src="Teams-Weekly-Report_files/figure-html/Explosive%20Plays-1.png" width="960" /></p>
 <hr />
 </div>
 </div>
 <div id="fourth-downs" class="section level2">
 <h2>Fourth Downs</h2>
-<p>Teams are going for it on 4th Down more often nowadays. The below table shows each team’s go-for-it rates on fourth-and-short over the last decade. From 2000-17, teams went for it on fourth-and-1, fourth-and-2, or fourth-and-3 just XX% of the time. In 2018, that rate jumped to 45%. We will track how each team fares on its fourth-down decision making throughout the season.</p>
-<div id="iswwcimzvi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>Teams are going for it on 4th Down more often nowadays. The below table shows each team’s go-for-it rates on fourth-and-short over the last decade-plus. Year-to-date teams have gone for it in fourth-and-short situations <strong>32.8 percent</strong> of the time in 2021. We will track how each team fares on its fourth-down decision making throughout the season.</p>
+<div id="suysrojwjr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 html {
   font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#iswwcimzvi .gt_table {
+#suysrojwjr .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -435,7 +436,7 @@ html {
   border-left-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_heading {
+#suysrojwjr .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -447,7 +448,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_title {
+#suysrojwjr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -457,7 +458,7 @@ html {
   border-bottom-width: 0;
 }
 
-#iswwcimzvi .gt_subtitle {
+#suysrojwjr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -467,13 +468,13 @@ html {
   border-top-width: 0;
 }
 
-#iswwcimzvi .gt_bottom_border {
+#suysrojwjr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_col_headings {
+#suysrojwjr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: transparent;
@@ -488,7 +489,7 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_col_heading {
+#suysrojwjr .gt_col_heading {
   color: #333333;
   background-color: white;
   font-size: 80%;
@@ -508,7 +509,7 @@ html {
   overflow-x: hidden;
 }
 
-#iswwcimzvi .gt_column_spanner_outer {
+#suysrojwjr .gt_column_spanner_outer {
   color: #333333;
   background-color: white;
   font-size: 80%;
@@ -520,15 +521,15 @@ html {
   padding-right: 4px;
 }
 
-#iswwcimzvi .gt_column_spanner_outer:first-child {
+#suysrojwjr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iswwcimzvi .gt_column_spanner_outer:last-child {
+#suysrojwjr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iswwcimzvi .gt_column_spanner {
+#suysrojwjr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: black;
@@ -540,7 +541,7 @@ html {
   width: 100%;
 }
 
-#iswwcimzvi .gt_group_heading {
+#suysrojwjr .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -562,7 +563,7 @@ html {
   vertical-align: middle;
 }
 
-#iswwcimzvi .gt_empty_group_heading {
+#suysrojwjr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -577,15 +578,15 @@ html {
   vertical-align: middle;
 }
 
-#iswwcimzvi .gt_from_md > :first-child {
+#suysrojwjr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iswwcimzvi .gt_from_md > :last-child {
+#suysrojwjr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iswwcimzvi .gt_row {
+#suysrojwjr .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -604,7 +605,7 @@ html {
   overflow-x: hidden;
 }
 
-#iswwcimzvi .gt_stub {
+#suysrojwjr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -616,7 +617,7 @@ html {
   padding-left: 12px;
 }
 
-#iswwcimzvi .gt_summary_row {
+#suysrojwjr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -626,7 +627,7 @@ html {
   padding-right: 5px;
 }
 
-#iswwcimzvi .gt_first_summary_row {
+#suysrojwjr .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -636,7 +637,7 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_grand_summary_row {
+#suysrojwjr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -646,7 +647,7 @@ html {
   padding-right: 5px;
 }
 
-#iswwcimzvi .gt_first_grand_summary_row {
+#suysrojwjr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -656,11 +657,11 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_striped {
+#suysrojwjr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iswwcimzvi .gt_table_body {
+#suysrojwjr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -669,7 +670,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_footnotes {
+#suysrojwjr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -683,13 +684,13 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_footnote {
+#suysrojwjr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#iswwcimzvi .gt_sourcenotes {
+#suysrojwjr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -703,41 +704,41 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#iswwcimzvi .gt_sourcenote {
+#suysrojwjr .gt_sourcenote {
   font-size: 12px;
   padding: 4px;
 }
 
-#iswwcimzvi .gt_left {
+#suysrojwjr .gt_left {
   text-align: left;
 }
 
-#iswwcimzvi .gt_center {
+#suysrojwjr .gt_center {
   text-align: center;
 }
 
-#iswwcimzvi .gt_right {
+#suysrojwjr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iswwcimzvi .gt_font_normal {
+#suysrojwjr .gt_font_normal {
   font-weight: normal;
 }
 
-#iswwcimzvi .gt_font_bold {
+#suysrojwjr .gt_font_bold {
   font-weight: bold;
 }
 
-#iswwcimzvi .gt_font_italic {
+#suysrojwjr .gt_font_italic {
   font-style: italic;
 }
 
-#iswwcimzvi .gt_super {
+#suysrojwjr .gt_super {
   font-size: 65%;
 }
 
-#iswwcimzvi .gt_footnote_marks {
+#suysrojwjr .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -749,7 +750,7 @@ html {
       <th colspan="14" class="gt_heading gt_title gt_font_normal" style><strong>4th Down Decison Making</strong></th>
     </tr>
     <tr>
-      <th colspan="14" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Percentages shown are how often a team went for it when it on 4th &amp; short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru {current_week}.</th>
+      <th colspan="14" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Percentages shown are how often a team went for it when it on 4th &amp; short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru 4.</th>
     </tr>
   </thead>
   <thead class="gt_col_headings">
@@ -773,452 +774,452 @@ html {
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:25px;"></td>
 <td class="gt_row gt_left">CIN</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">15.8</td>
-<td class="gt_row gt_right">35.7</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">18.8</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">23.1</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">45.5</td>
-<td class="gt_row gt_right">46.2</td>
-<td class="gt_row gt_right">37.5</td>
-<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FFCE37; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDD75; color: #000000;">15.8</td>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD551; color: #000000;">18.8</td>
+<td class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD961; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFBD05; color: #000000;">45.5</td>
+<td class="gt_row gt_right" style="background-color: #FFCA28; color: #000000;">46.2</td>
+<td class="gt_row gt_right" style="background-color: #FFE492; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">100.0</td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:25px;"></td>
 <td class="gt_row gt_left">CLE</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">11.1</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">27.3</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">55.6</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">66.7</td>
-<td class="gt_row gt_right">62.5</td>
-<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FFDB6C; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A3; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFC20C; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD244; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FF9400; color: #000000;">55.6</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFAD00; color: #000000;">66.7</td>
+<td class="gt_row gt_right" style="background-color: #FFB601; color: #000000;">62.5</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">100.0</td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:25px;"></td>
 <td class="gt_row gt_left">DAL</td>
-<td class="gt_row gt_right">35.3</td>
-<td class="gt_row gt_right">9.1</td>
-<td class="gt_row gt_right">23.5</td>
-<td class="gt_row gt_right">11.1</td>
-<td class="gt_row gt_right">57.1</td>
-<td class="gt_row gt_right">19.0</td>
-<td class="gt_row gt_right">21.1</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">47.1</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">76.9</td>
-<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FFBF06; color: #000000;">35.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEDB6; color: #000000;">9.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD246; color: #000000;">23.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE28C; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">57.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD040; color: #000000;">19.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDB6D; color: #000000;">21.1</td>
+<td class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">47.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF8900; color: #000000;">76.9</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">100.0</td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:25px;"></td>
 <td class="gt_row gt_left">DET</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">26.3</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">35.0</td>
-<td class="gt_row gt_right">7.1</td>
-<td class="gt_row gt_right">21.1</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FF9B00; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC312; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFE598; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC822; color: #000000;">26.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFD54F; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">35.0</td>
+<td class="gt_row gt_right" style="background-color: #FFECB4; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE7A1; color: #000000;">21.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">100.0</td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:25px;"></td>
 <td class="gt_row gt_left">IND</td>
-<td class="gt_row gt_right">9.5</td>
-<td class="gt_row gt_right">10.0</td>
-<td class="gt_row gt_right">18.8</td>
-<td class="gt_row gt_right">21.4</td>
-<td class="gt_row gt_right">37.5</td>
-<td class="gt_row gt_right">11.1</td>
-<td class="gt_row gt_right">38.5</td>
-<td class="gt_row gt_right">7.7</td>
-<td class="gt_row gt_right">43.8</td>
-<td class="gt_row gt_right">63.2</td>
-<td class="gt_row gt_right">68.4</td>
-<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:25px;"></td>
-<td class="gt_row gt_left">NYJ</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">10.5</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">17.6</td>
-<td class="gt_row gt_right">17.6</td>
-<td class="gt_row gt_right">30.8</td>
-<td class="gt_row gt_right">70.0</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right" style="background-color: #3FC1C9; color: #000000;">100.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:25px;"></td>
-<td class="gt_row gt_left">DEN</td>
-<td class="gt_row gt_right">42.9</td>
-<td class="gt_row gt_right">4.3</td>
-<td class="gt_row gt_right">15.4</td>
-<td class="gt_row gt_right">37.5</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">26.1</td>
-<td class="gt_row gt_right">15.8</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">29.4</td>
-<td class="gt_row gt_right">23.1</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right" style="background-color: #7DD1D6; color: #000000;">75.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:25px;"></td>
-<td class="gt_row gt_left">ATL</td>
-<td class="gt_row gt_right">57.1</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">5.9</td>
-<td class="gt_row gt_right">26.7</td>
-<td class="gt_row gt_right">10.0</td>
-<td class="gt_row gt_right">38.5</td>
-<td class="gt_row gt_right">58.3</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">71.4</td>
-<td class="gt_row gt_right">71.4</td>
-<td class="gt_row gt_right" style="background-color: #8DD6DB; color: #000000;">66.7</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:25px;"></td>
-<td class="gt_row gt_left">BAL</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">52.6</td>
-<td class="gt_row gt_right">40.9</td>
-<td class="gt_row gt_right">41.2</td>
-<td class="gt_row gt_right">46.2</td>
-<td class="gt_row gt_right">60.0</td>
-<td class="gt_row gt_right">90.0</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right" style="background-color: #8DD6DB; color: #000000;">66.7</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:25px;"></td>
-<td class="gt_row gt_left">BUF</td>
-<td class="gt_row gt_right">31.6</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">9.1</td>
-<td class="gt_row gt_right">22.7</td>
-<td class="gt_row gt_right">15.4</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">36.4</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">62.5</td>
-<td class="gt_row gt_right">60.0</td>
-<td class="gt_row gt_right">53.8</td>
-<td class="gt_row gt_right" style="background-color: #8DD6DB; color: #000000;">66.7</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:25px;"></td>
-<td class="gt_row gt_left">CAR</td>
-<td class="gt_row gt_right">10.0</td>
-<td class="gt_row gt_right">10.0</td>
-<td class="gt_row gt_right">54.5</td>
-<td class="gt_row gt_right">46.7</td>
-<td class="gt_row gt_right">27.8</td>
-<td class="gt_row gt_right">35.7</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">41.7</td>
-<td class="gt_row gt_right">70.0</td>
-<td class="gt_row gt_right">72.7</td>
-<td class="gt_row gt_right" style="background-color: #8DD6DB; color: #000000;">66.7</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:25px;"></td>
-<td class="gt_row gt_left">LV</td>
-<td class="gt_row gt_right">43.8</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">13.3</td>
-<td class="gt_row gt_right">7.1</td>
-<td class="gt_row gt_right">7.1</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">12.5</td>
-<td class="gt_row gt_right">38.9</td>
-<td class="gt_row gt_right">38.5</td>
-<td class="gt_row gt_right">35.7</td>
-<td class="gt_row gt_right">63.2</td>
-<td class="gt_row gt_right" style="background-color: #9ADADE; color: #000000;">60.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:25px;"></td>
-<td class="gt_row gt_left">WAS</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">35.3</td>
-<td class="gt_row gt_right">13.3</td>
-<td class="gt_row gt_right">23.1</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">42.9</td>
-<td class="gt_row gt_right">12.5</td>
-<td class="gt_row gt_right">46.2</td>
-<td class="gt_row gt_right" style="background-color: #9ADADE; color: #000000;">60.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:25px;"></td>
-<td class="gt_row gt_left">CHI</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">30.0</td>
-<td class="gt_row gt_right">44.4</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">31.2</td>
-<td class="gt_row gt_right">17.4</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">38.5</td>
-<td class="gt_row gt_right">23.1</td>
-<td class="gt_row gt_right">37.5</td>
-<td class="gt_row gt_right" style="background-color: #ACE0E4; color: #000000;">50.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:25px;"></td>
-<td class="gt_row gt_left">GB</td>
-<td class="gt_row gt_right">27.8</td>
-<td class="gt_row gt_right">26.7</td>
-<td class="gt_row gt_right">15.4</td>
-<td class="gt_row gt_right">37.5</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">43.8</td>
-<td class="gt_row gt_right">37.5</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">81.8</td>
-<td class="gt_row gt_right" style="background-color: #ACE0E4; color: #000000;">50.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:25px;"></td>
-<td class="gt_row gt_left">LAC</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">30.8</td>
-<td class="gt_row gt_right">23.8</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">38.5</td>
-<td class="gt_row gt_right">13.3</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">27.3</td>
-<td class="gt_row gt_right">44.4</td>
-<td class="gt_row gt_right" style="background-color: #ACE0E4; color: #000000;">50.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:25px;"></td>
-<td class="gt_row gt_left">MIA</td>
-<td class="gt_row gt_right">13.6</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">21.4</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">23.1</td>
-<td class="gt_row gt_right">23.1</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right" style="background-color: #ACE0E4; color: #000000;">50.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:25px;"></td>
-<td class="gt_row gt_left">ARI</td>
-<td class="gt_row gt_right">30.8</td>
-<td class="gt_row gt_right">27.3</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">11.1</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">10.5</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">53.3</td>
-<td class="gt_row gt_right">76.5</td>
-<td class="gt_row gt_right" style="background-color: #C8EBED; color: #000000;">33.3</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:25px;"></td>
-<td class="gt_row gt_left">SF</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">7.1</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">35.7</td>
-<td class="gt_row gt_right">44.4</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">12.5</td>
-<td class="gt_row gt_right">43.8</td>
-<td class="gt_row gt_right">47.1</td>
-<td class="gt_row gt_right" style="background-color: #C8EBED; color: #000000;">33.3</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:25px;"></td>
-<td class="gt_row gt_left">TB</td>
-<td class="gt_row gt_right">35.0</td>
-<td class="gt_row gt_right">35.7</td>
-<td class="gt_row gt_right">36.4</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">30.0</td>
-<td class="gt_row gt_right">18.2</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">46.2</td>
-<td class="gt_row gt_right">36.4</td>
-<td class="gt_row gt_right" style="background-color: #C8EBED; color: #000000;">33.3</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:25px;"></td>
-<td class="gt_row gt_left">HOU</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">15.4</td>
-<td class="gt_row gt_right">11.8</td>
-<td class="gt_row gt_right">26.7</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">31.2</td>
-<td class="gt_row gt_right">66.7</td>
-<td class="gt_row gt_right">44.4</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:25px;"></td>
-<td class="gt_row gt_left">JAX</td>
-<td class="gt_row gt_right">61.5</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">21.4</td>
-<td class="gt_row gt_right">44.4</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">30.0</td>
-<td class="gt_row gt_right">27.3</td>
-<td class="gt_row gt_right">30.8</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:25px;"></td>
-<td class="gt_row gt_left">KC</td>
-<td class="gt_row gt_right">36.4</td>
-<td class="gt_row gt_right">11.8</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">18.8</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">36.4</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">72.7</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:25px;"></td>
-<td class="gt_row gt_left">LA</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">26.1</td>
-<td class="gt_row gt_right">17.6</td>
-<td class="gt_row gt_right">6.7</td>
-<td class="gt_row gt_right">12.5</td>
-<td class="gt_row gt_right">26.3</td>
-<td class="gt_row gt_right">18.2</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">31.8</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:25px;"></td>
-<td class="gt_row gt_left">MIN</td>
-<td class="gt_row gt_right">26.7</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">13.3</td>
-<td class="gt_row gt_right">26.3</td>
-<td class="gt_row gt_right">26.7</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">26.7</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">57.1</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:25px;"></td>
-<td class="gt_row gt_left">NE</td>
-<td class="gt_row gt_right">44.4</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">23.5</td>
-<td class="gt_row gt_right">18.8</td>
-<td class="gt_row gt_right">35.7</td>
-<td class="gt_row gt_right">9.1</td>
-<td class="gt_row gt_right">36.4</td>
-<td class="gt_row gt_right">47.1</td>
-<td class="gt_row gt_right">35.7</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:25px;"></td>
-<td class="gt_row gt_left">NO</td>
-<td class="gt_row gt_right">27.3</td>
-<td class="gt_row gt_right">41.7</td>
-<td class="gt_row gt_right">20.0</td>
-<td class="gt_row gt_right">28.6</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">42.9</td>
-<td class="gt_row gt_right">53.8</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">68.8</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">41.2</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:25px;"></td>
-<td class="gt_row gt_left">NYG</td>
-<td class="gt_row gt_right">11.1</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">10.0</td>
-<td class="gt_row gt_right">21.4</td>
-<td class="gt_row gt_right">30.0</td>
-<td class="gt_row gt_right">14.3</td>
-<td class="gt_row gt_right">27.8</td>
-<td class="gt_row gt_right">23.5</td>
-<td class="gt_row gt_right">54.5</td>
-<td class="gt_row gt_right">55.6</td>
-<td class="gt_row gt_right">76.9</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FFE7A0; color: #000000;">9.5</td>
+<td class="gt_row gt_right" style="background-color: #FFEBAD; color: #000000;">10.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDC6F; color: #000000;">18.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">21.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB401; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFEBB0; color: #000000;">7.7</td>
+<td class="gt_row gt_right" style="background-color: #FFC107; color: #000000;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FFB400; color: #000000;">63.2</td>
+<td class="gt_row gt_right" style="background-color: #FFA400; color: #000000;">68.4</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">100.0</td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:25px;"></td>
 <td class="gt_row gt_left">PHI</td>
-<td class="gt_row gt_right">37.5</td>
-<td class="gt_row gt_right">29.4</td>
-<td class="gt_row gt_right">44.4</td>
-<td class="gt_row gt_right">55.6</td>
-<td class="gt_row gt_right">30.0</td>
-<td class="gt_row gt_right">50.0</td>
-<td class="gt_row gt_right">77.8</td>
-<td class="gt_row gt_right">64.7</td>
-<td class="gt_row gt_right">60.0</td>
-<td class="gt_row gt_right">62.5</td>
-<td class="gt_row gt_right">63.6</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFC20A; color: #000000;">29.4</td>
+<td class="gt_row gt_right" style="background-color: #FF9E00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">55.6</td>
+<td class="gt_row gt_right" style="background-color: #FFC314; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">77.8</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">64.7</td>
+<td class="gt_row gt_right" style="background-color: #FF9600; color: #000000;">60.0</td>
+<td class="gt_row gt_right" style="background-color: #FFB501; color: #000000;">62.5</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">63.6</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">100.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:25px;"></td>
+<td class="gt_row gt_left">BUF</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">31.6</td>
+<td class="gt_row gt_right" style="background-color: #FFC926; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF1C6; color: #000000;">9.1</td>
+<td class="gt_row gt_right" style="background-color: #FFCE37; color: #000000;">22.7</td>
+<td class="gt_row gt_right" style="background-color: #FFDB6D; color: #000000;">15.4</td>
+<td class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC823; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FF8F00; color: #000000;">62.5</td>
+<td class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">60.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC71F; color: #000000;">53.8</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">75.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:25px;"></td>
+<td class="gt_row gt_left">DEN</td>
+<td class="gt_row gt_right" style="background-color: #FFAE00; color: #000000;">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">4.3</td>
+<td class="gt_row gt_right" style="background-color: #FFE38E; color: #000000;">15.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB200; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC415; color: #000000;">26.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE28B; color: #000000;">15.8</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD85F; color: #000000;">29.4</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFF5D7; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">75.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:25px;"></td>
+<td class="gt_row gt_left">ATL</td>
+<td class="gt_row gt_right" style="background-color: #FF8400; color: #000000;">57.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC926; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">5.9</td>
+<td class="gt_row gt_right" style="background-color: #FFC720; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFE597; color: #000000;">10.0</td>
+<td class="gt_row gt_right" style="background-color: #FFA100; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">58.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD144; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFA200; color: #000000;">71.4</td>
+<td class="gt_row gt_right" style="background-color: #FF9B00; color: #000000;">71.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">66.7</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:25px;"></td>
+<td class="gt_row gt_left">CAR</td>
+<td class="gt_row gt_right" style="background-color: #FFE69C; color: #000000;">10.0</td>
+<td class="gt_row gt_right" style="background-color: #FFEBAD; color: #000000;">10.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">54.5</td>
+<td class="gt_row gt_right" style="background-color: #FF9700; color: #000000;">46.7</td>
+<td class="gt_row gt_right" style="background-color: #FFC71F; color: #000000;">27.8</td>
+<td class="gt_row gt_right" style="background-color: #FFAB00; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC416; color: #000000;">41.7</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">70.0</td>
+<td class="gt_row gt_right" style="background-color: #FF9800; color: #000000;">72.7</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">66.7</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:25px;"></td>
+<td class="gt_row gt_left">CHI</td>
+<td class="gt_row gt_right" style="background-color: #FFC20E; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC007; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FF9E00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC20C; color: #000000;">31.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD44B; color: #000000;">17.4</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE492; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">66.7</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:25px;"></td>
+<td class="gt_row gt_left">LV</td>
+<td class="gt_row gt_right" style="background-color: #FFAB00; color: #000000;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FF9F00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">13.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEAAC; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FFEBAD; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE79D; color: #000000;">12.5</td>
+<td class="gt_row gt_right" style="background-color: #FFBB04; color: #000000;">38.9</td>
+<td class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD75A; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFB400; color: #000000;">63.2</td>
+<td class="gt_row gt_right" style="background-color: #FFBB04; color: #000000;">60.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:25px;"></td>
+<td class="gt_row gt_left">WAS</td>
+<td class="gt_row gt_right" style="background-color: #FFDF7E; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFCF3C; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFBB04; color: #000000;">35.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDE7B; color: #000000;">13.3</td>
+<td class="gt_row gt_right" style="background-color: #FFCE38; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD54F; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFD655; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCA29; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFC20E; color: #000000;">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FFF6DA; color: #000000;">12.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD44B; color: #000000;">46.2</td>
+<td class="gt_row gt_right" style="background-color: #FFBF06; color: #000000;">57.1</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:25px;"></td>
+<td class="gt_row gt_left">BAL</td>
+<td class="gt_row gt_right" style="background-color: #FFC20E; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC312; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FF8600; color: #000000;">52.6</td>
+<td class="gt_row gt_right" style="background-color: #FF9A00; color: #000000;">40.9</td>
+<td class="gt_row gt_right" style="background-color: #FFC312; color: #000000;">41.2</td>
+<td class="gt_row gt_right" style="background-color: #FFAB00; color: #000000;">46.2</td>
+<td class="gt_row gt_right" style="background-color: #FF9600; color: #000000;">60.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">90.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:25px;"></td>
+<td class="gt_row gt_left">GB</td>
+<td class="gt_row gt_right" style="background-color: #FFC926; color: #000000;">27.8</td>
+<td class="gt_row gt_right" style="background-color: #FFC61E; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFE38E; color: #000000;">15.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB200; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC006; color: #000000;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE598; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD245; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">81.8</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:25px;"></td>
+<td class="gt_row gt_left">LAC</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCF3C; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFC518; color: #000000;">30.8</td>
+<td class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">23.8</td>
+<td class="gt_row gt_right" style="background-color: #FFCB2B; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE289; color: #000000;">13.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEAA9; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE28A; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD759; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:25px;"></td>
+<td class="gt_row gt_left">MIA</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">13.6</td>
+<td class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD656; color: #000000;">21.4</td>
+<td class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFCE38; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE493; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NYJ</td>
+<td class="gt_row gt_right" style="background-color: #FFCE37; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE9A8; color: #000000;">10.5</td>
+<td class="gt_row gt_right" style="background-color: #FFCF3C; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD963; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE080; color: #000000;">17.6</td>
+<td class="gt_row gt_right" style="background-color: #FFDB6C; color: #000000;">17.6</td>
+<td class="gt_row gt_right" style="background-color: #FFD653; color: #000000;">30.8</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">70.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">50.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:25px;"></td>
+<td class="gt_row gt_left">ARI</td>
+<td class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">30.8</td>
+<td class="gt_row gt_right" style="background-color: #FFC51A; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFCF3C; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE28C; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD34A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFE185; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFE69D; color: #000000;">10.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE598; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFC310; color: #000000;">53.3</td>
+<td class="gt_row gt_right" style="background-color: #FF8B00; color: #000000;">76.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD54F; color: #000000;">33.3</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:25px;"></td>
+<td class="gt_row gt_left">JAX</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">61.5</td>
+<td class="gt_row gt_right" style="background-color: #FFB702; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD656; color: #000000;">21.4</td>
+<td class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFCB2B; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCC31; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD653; color: #000000;">30.8</td>
+<td class="gt_row gt_right" style="background-color: #FFECB2; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD54F; color: #000000;">33.3</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:25px;"></td>
+<td class="gt_row gt_left">MIN</td>
+<td class="gt_row gt_right" style="background-color: #FFCB2C; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFC926; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">13.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC822; color: #000000;">26.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC823; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFE083; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC20B; color: #000000;">57.1</td>
+<td class="gt_row gt_right" style="background-color: #FFDD76; color: #000000;">25.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:25px;"></td>
+<td class="gt_row gt_left">SF</td>
+<td class="gt_row gt_right" style="background-color: #FFCE37; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC312; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFF5D7; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFB802; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FF8F00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB601; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">12.5</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD246; color: #000000;">47.1</td>
+<td class="gt_row gt_right" style="background-color: #FFDD76; color: #000000;">25.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:25px;"></td>
+<td class="gt_row gt_left">TB</td>
+<td class="gt_row gt_right" style="background-color: #FFBF06; color: #000000;">35.0</td>
+<td class="gt_row gt_right" style="background-color: #FFB000; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFB802; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FF9100; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">18.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD144; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFCA28; color: #000000;">46.2</td>
+<td class="gt_row gt_right" style="background-color: #FFE69B; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFDD76; color: #000000;">25.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:25px;"></td>
+<td class="gt_row gt_left">HOU</td>
+<td class="gt_row gt_right" style="background-color: #FF9B00; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDE79; color: #000000;">15.4</td>
+<td class="gt_row gt_right" style="background-color: #FFEBAF; color: #000000;">11.8</td>
+<td class="gt_row gt_right" style="background-color: #FFC720; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD550; color: #000000;">31.2</td>
+<td class="gt_row gt_right" style="background-color: #FFAD00; color: #000000;">66.7</td>
+<td class="gt_row gt_right" style="background-color: #FFD759; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:25px;"></td>
+<td class="gt_row gt_left">KC</td>
+<td class="gt_row gt_right" style="background-color: #FFBC05; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFE69C; color: #000000;">11.8</td>
+<td class="gt_row gt_right" style="background-color: #FFAD00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD54E; color: #000000;">18.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD34A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC823; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF9800; color: #000000;">72.7</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:25px;"></td>
+<td class="gt_row gt_left">LA</td>
+<td class="gt_row gt_right" style="background-color: #FFCE37; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCF3C; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">26.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD757; color: #000000;">17.6</td>
+<td class="gt_row gt_right" style="background-color: #FFEBB0; color: #000000;">6.7</td>
+<td class="gt_row gt_right" style="background-color: #FFDD76; color: #000000;">12.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD54E; color: #000000;">26.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">18.2</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF4D0; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEFBF; color: #000000;">31.8</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NE</td>
+<td class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFE084; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFCC31; color: #000000;">23.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD551; color: #000000;">18.8</td>
+<td class="gt_row gt_right" style="background-color: #FFAB00; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFEBB0; color: #000000;">9.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC007; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">47.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD75A; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NO</td>
+<td class="gt_row gt_right" style="background-color: #FFCA28; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FF9A00; color: #000000;">41.7</td>
+<td class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FF9400; color: #000000;">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FFAF00; color: #000000;">53.8</td>
+<td class="gt_row gt_right" style="background-color: #FFA100; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">68.8</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDD74; color: #000000;">41.2</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NYG</td>
+<td class="gt_row gt_right" style="background-color: #FFE495; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE084; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEFBE; color: #000000;">10.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">21.4</td>
+<td class="gt_row gt_right" style="background-color: #FFC314; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD348; color: #000000;">27.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD246; color: #000000;">23.5</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">54.5</td>
+<td class="gt_row gt_right" style="background-color: #FFC006; color: #000000;">55.6</td>
+<td class="gt_row gt_right" style="background-color: #FF8900; color: #000000;">76.9</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:25px;"></td>
 <td class="gt_row gt_left">PIT</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">27.3</td>
-<td class="gt_row gt_right">34.8</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">22.2</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">31.2</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">38.5</td>
-<td class="gt_row gt_right">33.3</td>
-<td class="gt_row gt_right">42.9</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FFDB6C; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFC51A; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">34.8</td>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD03D; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFCE39; color: #000000;">31.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:25px;"></td>
 <td class="gt_row gt_left">SEA</td>
-<td class="gt_row gt_right">15.8</td>
-<td class="gt_row gt_right">23.1</td>
-<td class="gt_row gt_right">15.8</td>
-<td class="gt_row gt_right">18.2</td>
-<td class="gt_row gt_right">16.7</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">40.0</td>
-<td class="gt_row gt_right">25.0</td>
-<td class="gt_row gt_right">43.8</td>
-<td class="gt_row gt_right">11.1</td>
-<td class="gt_row gt_right">27.3</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FFDD73; color: #000000;">15.8</td>
+<td class="gt_row gt_right" style="background-color: #FFCD35; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE28A; color: #000000;">15.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD652; color: #000000;">18.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD963; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC107; color: #000000;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td></tr>
     <tr><td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:25px;"></td>
 <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">TEN</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">8.3</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">50.0</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">37.5</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">36.4</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">7.1</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">10.5</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">0.0</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">25.0</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">33.3</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">40.0</td>
-<td class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">0.0</td></tr>
+<td class="gt_row gt_right" style="background-color: #FFE9A9; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">8.3</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFB501; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFB501; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFEBAD; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE187; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">10.5</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD144; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD245; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">0.0</td></tr>
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>

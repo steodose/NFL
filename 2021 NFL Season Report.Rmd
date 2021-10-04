@@ -38,6 +38,7 @@ library(reactable)
 library(reactablefmtr)
 library(ggalt) #for dumbbell plot
 library(ggforce)
+library(ggsci)
 
 
 # Optional but makes R prefer not to display numbers in scientific notation
@@ -182,6 +183,7 @@ defense <- pbp_rp %>%
 off_def_epa <- offense %>% 
     inner_join(defense, by=c("posteam" = "defteam")) %>%
     left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr"))
+
 
 #Make table using Reactable
 

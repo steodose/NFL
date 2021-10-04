@@ -40,6 +40,7 @@ library(reactable)
 library(reactablefmtr)
 library(ggalt) #for dumbbell plot
 library(ggforce)
+library(ggsci)
 
 
 seasons <- 2010:2021
@@ -158,9 +159,11 @@ theme_custom <- function () {
 
 ### Offensive vs. Defensive EPA
 
-Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, whether the game is being plated indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable. 
+Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, time remaining, whether the game is being played indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable. 
 
-EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards.
+EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards. 
+
+EDITOR'S NOTE: There is currently an issue with the logos in the below plots that will get resolved soon. I know the wordmark logos seen below don't look all that good.
 
 ```{r}
 
@@ -198,8 +201,8 @@ off_def_epa <- offense %>%
 # Make EPA Tiers plot
 
 epa_plot <- off_def_epa %>% 
-    ggplot(aes(x = off_epa, y = def_epa)) +
-    geom_image(aes(image = team_logo_wikipedia), size = 0.065, by = "width", asp = asp_ratio) +
+    ggplot(aes(x = off_epa, y = def_epa)) + #Change image to "team_wordmark" when SSL certificate issue is resolved
+    geom_image(aes(image = team_wordmark), size = 0.095, by = "width", asp = asp_ratio) +  #Change size back to 0.065 when SSL certificate issue is resolved
     geom_hline(yintercept = mean(off_def_epa$off_epa), color = "red", linetype = "dashed") +
     geom_vline(xintercept =  mean(off_def_epa$def_epa), color = "red", linetype = "dashed") +
     theme_custom() +
@@ -238,7 +241,7 @@ epa_play <- pbp_rp %>%
 epa_logos <- epa_play %>%
   left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
   ggplot(aes(x = epa_per_db, y = reorder(posteam, epa_per_db))) +
-  geom_image(aes(image = team_logo_wikipedia), size = 0.045, by = "width", asp = asp_ratio) +
+  geom_image(aes(image = team_wordmark), size = 0.065, by = "width", asp = asp_ratio) + #Change image size to 0.045 when SSL certificate issue is resolved.
   scale_fill_identity(aesthetics = c("fill", "colour")) +
   theme_custom() +
   theme(
@@ -263,12 +266,12 @@ epa_logos
 
 This below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.
 
-```{r, echo = FALSE}
+```{r EPA vs CPOE, echo = FALSE}
 
 epa_cpoe_logos <- epa_play %>%
   left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
   ggplot(aes(x = cpoe_per_db, y = epa_per_db)) +
-  geom_image(aes(image = team_logo_wikipedia), size = 0.055, by = "width", asp = asp_ratio) +
+  geom_image(aes(image = team_wordmark), size = 0.065, by = "width", asp = asp_ratio) +
   scale_fill_identity(aesthetics = c("fill", "colour")) +
   theme_custom() +
   geom_hline(yintercept = 0) +
@@ -289,7 +292,7 @@ epa_cpoe_logos
 ### Explosive Plays
 Some teams are better than others at getting chunk plays. We're defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We're highlighting the Bears simply because I'm a Bears fan and want to easily track how they stack up using this metric. Spoiler: they've been near the bottom of the league in explosive plays the past few years.
 
-```{r, echo = FALSE}
+```{r Explosive Plays, echo = FALSE}
 
 explosive_plays <- pbp_rp %>% 
   filter(
@@ -337,9 +340,7 @@ explosive_plays_plot
 ***
 ## Fourth Downs
 
-Teams are going for it on 4th Down more often nowadays. The below table shows each team's go-for-it rates on fourth-and-short over the last decade. From 2000-17, teams went for it on fourth-and-1,  fourth-and-2, or fourth-and-3 just XX% of the time. In 2018, that rate jumped to 45%. We will track how each team fares on its fourth-down decision making throughout the season. 
-
-```{r, echo = FALSE}
+```{r Fourth Downs Data Wrangling, echo = FALSE}
 library(webshot) #saving images of gt tables
 
 seasons <- 2010:2021
@@ -405,6 +406,8 @@ go_for_it <- fourth_down_plays %>%
                values_to = "2010-2021") %>% 
   arrange(posteam, season)
 
+average_go_for_it_rate <- mean(go_for_it$`2010-2021`) #Get mean go for it rates to put inline with R code down below
+
 # Look at  trends
 trend <- go_for_it %>%
   ungroup() %>%
@@ -422,22 +425,31 @@ go_for_it_by_year <- go_for_it %>%
   ungroup() %>%
   inner_join(trend, by = c("team" = "team")) %>% 
   left_join(teams_colors_logos, by = c('team' = 'team_abbr')) %>% 
-  select(-c(team_name,team_id,team_nick,team_color2,team_color3,team_color4,team_logo_wikipedia, team_wordmark))
+  select(-c(team_name,team_id,team_nick,team_color2,team_color3,team_color4,team_wordmark, team_wordmark))
 
+```
+
+Teams are going for it on 4th Down more often nowadays. The below table shows each team's go-for-it rates on fourth-and-short over the last decade-plus. Year-to-date teams have gone for it in fourth-and-short situations **`r format(average_go_for_it_rate, digits = 3)` percent** of the time in 2021. We will track how each team fares on its fourth-down decision making throughout the season.
+
+```{r Fourth Down Heatmap}
 
 fourth_down_table <- go_for_it_by_year %>%
   select(team_logo_espn, team, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`) %>%
   arrange(desc(`2021`)) %>%
   gt() %>%
-  data_color(columns = 14,
-             colors = scales::col_numeric(
-               palette = c("white", "#3fc1c9"),
-               domain = NULL)) %>%
+  data_color(
+    columns = 3:14, 
+    colors = scales::col_numeric(
+      palette = paletteer::paletteer_d(
+        palette = "ggsci::amber_material"
+      ) %>% as.character(),
+      domain = NULL
+    )) %>%
   gt_nfl_theme_538() %>%
   cols_align(align = "left",
              columns = 1) %>%
   tab_header(title = md("**4th Down Decison Making**"),
-             subtitle = md("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru {current_week}.")) %>%
+             subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru {current_week}.")) %>%
   tab_source_note(
     source_note = md("DATA: nflfastR<br>TABLE: @steodosescu"))
 
