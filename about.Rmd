@@ -6,10 +6,12 @@ This website is your home for everything modern, public NFL analytics have to of
 
 ## Glossary of Terms
 
-* Expected Points Added (EPA):
-* Completion Percentage Over Expectation (CPOE):
-* Average Depth of Target (aDOT):
-* Success Rate (SR): 
+* Expected Points Added (EPA): The change in Expected Points (EP) from play to play.
+* Completion Percentage Over Expectation (CPOE): Difference in expected completion percentage and actual completion percentage. Expected completion percentage is the likelihood of a given pass being completed given target depth. 
+* Average Depth of Target (aDOT): Air yards on passing plays (ie does not consider yards gained after the catch). 
+* Success Rate (SR): The percentage of plays that were successful, defined as plays resulting in positive EPA for the offense and negative EPA for the defense. 
+
+More on these metrics and the models underpinning them can be found at [Open Source Football](https://www.opensourcefootball.com/posts/2020-09-28-nflfastr-ep-wp-and-cp-models/).
 
 ***
 

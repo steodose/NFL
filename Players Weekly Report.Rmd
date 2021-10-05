@@ -291,8 +291,8 @@ comet_plot <- qb_cpoe %>%
     theme(plot.subtitle = element_markdown()) +
     geom_rect(data=qb_cpoe, aes(xmin=0.83, xmax=0.87, ymin=-Inf, ymax=Inf), fill="lightgrey") +
     geom_text(data=qb_cpoe, aes(label = cpoe_per_db, y=name, x=0.85), fontface="bold", size=3, family="Chivo") +
-  annotate(geom = 'label', x = 0.48, y = 4.5, label = "Less Completions\nThan Expected", family = "Chivo", color = "#E64B35FF", fontface = 'bold', fill = "floralwhite", label.size = 0, size = 3) +
-  annotate(geom = 'label', x = 0.75, y = 22.5, label = "More Completions\nThan Expected", family = "Chivo", color = "#00A087FF", fontface = 'bold', fill = "floralwhite", label.size = 0, size = 3)
+  annotate(geom = 'label', x = 0.50, y = 4.5, label = "Less Completions\nThan Expected", family = "Chivo", color = "#E64B35FF", fontface = 'bold', fill = "floralwhite", label.size = 0, size = 3) +
+  annotate(geom = 'label', x = 0.75, y = 24.5, label = "More Completions\nThan Expected", family = "Chivo", color = "#00A087FF", fontface = 'bold', fill = "floralwhite", label.size = 0, size = 3)
 
 comet_plot
 
