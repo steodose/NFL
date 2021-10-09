@@ -39,6 +39,7 @@ library(reactablefmtr)
 library(ggalt) #for dumbbell plot
 library(ggforce)
 library(ggsci)
+library(gtExtras)
 
 
 # Optional but makes R prefer not to display numbers in scientific notation
@@ -147,6 +148,83 @@ theme_custom <- function () {
 
 #Define color palette to use in table
 my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
+
+```
+
+***
+### Current Standings
+
+```{r}
+games_df <- nflreadr::load_schedules() %>% 
+  filter(season == 2021, game_type == "REG") %>% 
+  select(game_id, team_home = home_team, team_away = away_team, result, week) %>% 
+  pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
+  mutate(
+    result = ifelse(home_away == 'home', result, -result),
+    win = ifelse(result == 0 , 0.5, ifelse(result > 0, 1, 0))
+  ) %>% 
+  select(week, team, win) %>% 
+  drop_na()
+
+
+team_df <- nflreadr::load_teams() %>% 
+  select(team_logo_espn, team_abbr, team_conf, team_division)
+
+joined_df <- games_df %>% 
+  group_by(team) %>% 
+  summarise(
+    Wins = length(win[win==1]),
+    Losses = length(win[win==0]),
+    outcomes = list(win), .groups = "drop") %>% 
+  left_join(team_df, by = c("team" = "team_abbr")) %>% 
+  select(team_logo_espn, team_conf, team_division, Wins:outcomes)
+
+# Make AFC table
+final_df <- joined_df %>% 
+  filter(team_conf == "AFC") %>% 
+  group_by(team_division) %>% 
+  arrange(desc(Wins)) %>% 
+  ungroup() %>% 
+  arrange(team_division)
+
+standings_table_afc <- final_df %>% 
+ gt(groupname_col = "team_division") %>%
+  gt_plt_winloss(outcomes, max_wins = 17) %>% 
+  gt_img_rows(columns = team_logo_espn, height = 25) %>% 
+  gtExtras::gt_theme_538() %>%
+  cols_label(
+    team_logo_espn = "Team",
+    team_conf = "Conference"
+  ) %>% 
+  tab_header(title = md("**2021 AFC Standings**"),
+               subtitle = glue("Thru Week {current_week}."))
+
+
+# Make NFC table
+final_df <- joined_df %>% 
+  filter(team_conf == "NFC") %>% 
+  group_by(team_division) %>% 
+  arrange(desc(Wins)) %>% 
+  ungroup() %>% 
+  arrange(team_division)
+
+standings_table_nfc <- final_df %>% 
+ gt(groupname_col = "team_division") %>%
+  gt_plt_winloss(outcomes, max_wins = 17) %>% 
+  gt_img_rows(columns = team_logo_espn, height = 25) %>% 
+  gtExtras::gt_theme_538() %>%
+  cols_label(
+    team_logo_espn = "Team",
+    team_conf = "Conference"
+  ) %>% 
+  tab_header(title = md("**2021 NFC Standings**"),
+               subtitle = glue("Thru Week {current_week}."))
+
+
+standings_table_afc
+standings_table_nfc
+
+
 
 ```
 

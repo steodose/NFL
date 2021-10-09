@@ -298,7 +298,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Weekly Summary Report</h1>
-<h4 class="date">Last updated: 2021-10-05</h4>
+<h4 class="date">Last updated: 2021-10-09</h4>
 
 </div>
 
@@ -306,11 +306,925 @@ $(document).ready(function () {
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAL8AAAEHCAMAAADI2meYAAAA0lBMVEX///8BM2nVCgrTAAAAIGAAFVu9xdHt7/IAMWgAKWQAGF3VAADe4eZ2hqH/+/v44ODqoKAAElsALWbsq6vYMDAAJWLkf3/qoqIAK2UAHF7ic3P0zc0PO2/m6u/gZGTgaGgADVnU2eGoscG0vMpCWoKEkanomJjwubnyw8Pus7MACVgnR3XCydSqs8MAAFOZpLfnkZFoeZc1UHtNY4iTn7Nbb5D55OTdU1N/jaYfQnJqe5n88vLkh4cAAEzN0ttJYIXWFxfbQkLZNjbbSEjXJCTXHx/9N4VqAAATmElEQVR4nO2dCVfbOBeGY2IT2VnAbl3skrTORiELgSxAQid0mfn/f+mT5UW77GyYfCfvOXPO0JvIj+2rK+lKkUqlk0466aSTTjrppJNOwmoVDbCbJr2iCXZSxTLOi2bYRW8ecBtFQ2yvjq9p3qJoiq3VCoCmaVanaI5t1QzxNW3QLhpkOy1MhK8Br1I0yjbq+1osb1o0yxYaB1oq9/jq8GigEdLrRfNsqLatUbL6RRNtpLYBaH7NmBfNtIHaNosPb+B43sBagA9d6KVorpzqBgJ6KP+xaLJcmgeip4/C6DF0pleWhB7KbH704Uxl6srxYVfC+tjDgZHvqPCh7I9ci+uSmktKH35UH2o3lb6TyDEmRZMK1ZfGHUbA7+37Fexe3jnI9fDjVxDs3hhTY4rucrc7qPW4Do9artnd6YKltUX+dW7t8kRaj0FW2OEE/OFo+ytWHgOf4tc119nyibRWtrcpPboDa7rtHUwsE+gMP3wiyy0al/YiMLehD+VYw22eWccLaTn+8A6a482KGk+NTZ49AI7jkBUF+O58s5rXmJh6WIKIP/xXvV/LW9S67ut5ay0wdd+wwXD6NpsC6g7c4C3/S2jXLRfEpCJ+KNOeTnI8kvWLA50wJ7sfDOuddVRq7dHX6O85urXo5kix1OZLI72klD98JPZwvlYU1BovfD8nvGZa3ssozYG2e//MKiWX+S7wdLs3Uaa5Rv2mQX5NwY9uwbd7/S7vSq3RZGEaupe3qdX9OoHVWtwPQmeZC9o6x7Ws2fxc4L3t7ss0YJ+Xmh8VaOqWrfUeX+aTTqczmfdXs6Vv+G5edj4e9G0/aidbtvjzjqtbRnO26k863W533IHX7Gm2pZt885LNHxfpma7r6vA/0/PAJo0spKfiMeze+bP4/6eKguAlwytChdd0JJ/Myb+9TB0/+zGsnf0BwCP4yQadJbEOzA/sFS7c9YNZT9dsnAKqKQaZOS9wUH5Hx12D1kL3YbOluWRd+NjPX+/R4fy8ZzsamBKxZcHUyIyKxZsz+TPCjKxehbJwtja5j3YPtloD7EBMBQDqGxCYs/jN/lBVpMpM+Hn/fpj0b7q6407TdmzkU19xu0p+c95j7Vn8VlvUyGBzTWq28fD2LQCwMZ9FbXllOsMXbNEVOCjVVb1Yo9Zhr5bBD0CpJm5kIrMmNROj88aoDyxH8+wZ36Gi+J0FHE8prtYsVdjMRga/CYdjCgdyoXkpNPvMOG69gFXXCbiUA1V/fNipULSNLnTIN7bCq/mNmrKRkZpNfqaoNoNjY5+JSNTDAeFYti93IBtebcz20NT9t2VJ2ktRmeGbTjRrviR92HPX42bAyOfphYnptiG92hCaK8zV1PwuCiFT2ahcah6kIb7uA9hznscB521WYhQ2ACCWjxq7ZvJnihjLRc638CizmN+xDKR/UIXr3Ed/+UmRtHnCmjU9jZytRzi8gd1w6bQR5Aca6qXpuoH+ZR5EfyVPBcAuFNI9cr3uffSXp+B3FpVWpJgCqVKLnTXDTHpP6BAvvgvvwBEnGSC/txJaRnFpDvfOkGpR3BA/f3MqGMet06ZYbE5HFgY7aJv48B3YwrnTBXyOpihr1k8d3TEFI7KxrRz/Ohb3uOYDHCocX2H23pJ/a6ftbD0A2r1oLNoL3cSx2aF7pUfURDDgwu7CUPo/VMAk6N/olp7J0zUIs508rvZ90OvEb6oNBsL1J9HaDvblrF06HePTPtTCGW55/NFJJ2mbbH6HMq9NHLWddHZrCVss3V5FsaghTkwmIO6QKI6fOjMB4UNjYl5TET89O42C43u+VXQMsTl1rdrCg7FH84KVfOlVJY32zn16A3VBHwLcpzcwGZBtniJ/YuB/97kCo9YyUpcwA48or93XdRj/fGlmqp2iEkGL66TRV1uTMAp+h2grLf75kwvCiEbRZPyk40AaWzbl29UF32PbWBaGvD0Fv048NXacJDdbXLCD3uzJZnxxb4f8nqBFJ6+2Iuqigt9GDjlDLSfbbYIKQnODNcMOd6THYT+Jl7WmLUsL9tJWFrld20VxSNAlRCW0lugtkN4s50dxZGSaqMvIv9LI7LJmMw6ErQHs95jzmFuahTSo7/UHwF3CqFDj+nDoah3bMc2wKCtP/Am7S2GzA9uyLvGgUnMnMfukOXnPnaYd9nsypnlxVYRRqzUMrw7CMUKTrW4QpjELsUHYLhHuKue3K7WkmTAWfEyQmI20K9AKfRu4uior/pK4P8SATze+lR6fGDUqo6RJc5ctAlPKD6YdHGdN0GVKpM3aODETxcFqBnQADMWit7RH5SwesVM4OjuIAUNiVhbYc2yWP39qIpSfFRWbceMbDlWBfr7UnWUO99Ecyj+5MRgwJeY9569M3I/pu2h43P9Hns9/3GrCj9Ke+V08TnFB5EzyeShRO1UwP66tsE+hZyxwUAzVC+NPU/1vDjDV+BVBp2T//BlzFYzZT1oq6BtuxuMXpdq4wM+YuY5FZv5zrpoj4cx+UllhF0AXMBOqCRYJ6efKG3AnM/YGsviNmnKOhDWn/EPgZqxUHQoms2x1nbBb403zn01F+golsGhzwl+zgbTPFmkuqGrmoyJ9hRJYm+Y/w4coTV/FZiqDuU7cx1Qv1W6LlpiFQzeFA4UVinWgDP5wCCkaDiXmFtPZTQaPU2Ar1x9UhNPeIYsiXR9ercsQZuQ/RSlHlTmO/5XAUf9WQfhO0Svj+86Jor4JE3Qz8p8oBHJ9Z7k5jpldXdntLM2oWpokOC3kfEuHSYAmf+ooAbMwc+U/baQowTm+j/4i8p+xGVXRDmGOR7Erk1oWxWpB+QgYNmMh48SJ/hjGNQEMl9E/uOhqIy/6a7mU8zviLi/Of4rNS5AM6k1TnNOM9Ea7uKS487hzDXrC9Eu7qch/ek1B7eumrmdKzWhGAPqwJV+3UhmyId5zBF3UlYHftmA9WJLikvg/sLlsX53MetncAq1VZEZpmrHuseZUbdEiDG5eqbUk3xGX+m30kpGDrP4Ci36rlSHts4w5vR5Kg9R96bBXsqrep4vr2vRN6nTCm0iPyuMP5STnBvvUJGa0OmDJZdBj1aayDq4JiOLq3A83qHw4mQlX5Q/v0yIn9/wVxWYPvuqGLem69RXrQwHOfz4KspVE9n1ONjgqfhwDR6ISsZlIKIVpzPZAGH06rqoniNrCSGwby1ytTaZ3VflnImnp815rEmaiUYSN/Phe0Hh1HPUiRaK7KmrwSRhySUbe/Cc/0paYYQvcv2e7nq1+5hLLKBsffVHQ4JNXq+fLP9hhu1EZotgleKV2SWiGHZ8ZnTGpjHt25kgXaOj6AYpDgh4jgmk7KA6N8uU/wzmbseG4YaBp8PnPxBwmLMk3bleaRAq91unZbo5V3WYYcVe2Znpr0ZQ4ulo/AF6Yyyzl4g+7SwvUpobTZ+y6Ay1c1iY0e6sk1rU7j6aRB15DA4c2SlKBwYtgyQWEaUWxN0znEXkjRf4Tz2r5vQrnQJS5QY7rPH1cO5+spuGCx9wZBhNHdXfZ4sasdviq40967VGu/CfRVDo6WyKY9ikz5eCupW+wPBQVNyMmTIFVZ8IFGBLpUWDU8+SfpSnHXOZNBUg3A1y0o8xavvmXo9CJv1id+IvV/y2/b3xkmVn8/rrykbUyM/it3D8/KkT1E3+hOvEXqxN/scrNf/v1C6NPxOevby553fxAJu6LEl2hTwvKCYuSrfzLzX9VrtIqV4nPP5RF+haafrBflCj69I2woHL5dVf+T+UzRuUL/PkbzgpV/R7xC0zSTwsLgtc6AH/14cj5/ztuftKBjpP/5rj5q5+Pm/+s/HQ8/Fci/svj4b+GDRZ3yT/J53/wxrNqGQXY63K+G4j4PwkKCovauf0tle5+cWVjB3r9xhjL5c/XkanxwN5BFberLH/p4pm7SrX8RfrDgY36b3f/MUWXr7Dx+g9pLFeJ7hG8A4rn21WiT/g7MT8s6Dd9u+Xnp5JUG/Y//6VvoPqbNH4jjIzDXpBIuNqUSt/T76T8pdJP8irVm5JCG/J/Zl8AifmV5KcvI+XHtZvgp2JF+VNJoV35ycIpftpjpfwNEf/lu/FX/+7Ij52uEH7Kgbbiv0ssBfETpW/F/1osf/V5R/7Sc9waFMNPOtB2/HfVIp//WfluR36B3pOfcKCj5CdIj5T/x3HzV78dNz/u6hwr/+1x86eB+0j5Uwc6Wv7b4+avft2e/+kCqVD+s+rW/K9R3+2Z+vC785evt+V/Rl/BTUgx/NUvW/LHg5ei+eOpmNz8SdYlGbsUzR87UF7+6p9vkZLSCuLHV4kcKC//WTrnlfxdCH/5c3qZyIFy87Mqhr96g/9ADnRk/OUnwoF+HiF/6RdOXv46Rv4HwoEujpCfoAong4+On0inhw50fPzEbBV0oOPjJ7DKN0fITzrQv0fX/pZoB3rN3f95/hnpudD+T8hPNGHlT1/y9j9Tong+sDh+0oH+/szLf8X8c4H8xKWqfzfmLz1Ei7OK4ycc6IzqW+fjL/0++/XrV/k79eH35C9Rs9ab8wv1nvyX4sh+IP6Ly3ji/uZpT/xP78qPlyde74lf4kAH4k9D9P74RQuDDsb/vH9+sQMdiP+//fOXfgtzuofhxxmD/fELHegw/E+H4H99P/7rQ/ALHegw/D8Owi9cWnkQ/puD8Isc6DD8uIe+T/7SX96BDsP/fBh+0drog/D/Ogy/wIEOw0+M9rbj/yPkJ97rQfmfduX/QSHif7/jXsBB+C924r/4Sa8DJvh5B9o//+vtF+z+m/Nf/GHXJZNLVDkH2jP/9cOfcrlKOu+m/LfcI64+Y0bOgfbHX3349Eyz74n/rFpN580bh+M/Eyzcz+b3c/DDklMS1oH2yC8Ux6+5ZAnEfthrOT8s5lvMyf7KYid+8ZBOyJ9u4Q6ovYbweWjJfkdi/nQunXWgnfi/CofUQv50hyZm8z56P3UFf8Lyjb7mLvzfsh9/yo+3AqSPG0gPYwJOPn7Ggbbnf/03++mn/NjPmX0ucb2IdyK9Ff6wBrM09sR/Lb4Oe9mYH2/AxOxSi7dZcqJTXF4vn8NF1lJ+xoG25f+U49dK1XCxN8q/4V1wAbu5+iCxaEa6Y981fw+YhXagLfklXkqwQ/jnq6TdWeHoyW5yjHdyi3Y0S+/h5i/ZGhIs++BX/tgtZP/9cI0/vcbbkwXsyUMjvDmfy+wC2Lh++J3cA8HynXwxDP/TrvxlyP7fl1v6V014z2/njSuKOA7O4jcAb8Q9KoKFevcUf+OK+uHYxvzI4e+4X4H18PZX2MdTnRO7IwbCY6Qbtz8/k2sJJfzXX6V1Jgc/7fCkiM1zhZsck1sbB8Izl6BeiadCOhDmv+N/dZiXn3N4Cp/YoigQHY1QwyEIviD1LtpIpAOR/Jwv5+KH7L9Yh8eqTIl96CSbBPepTShFR5UxIvxEyV+VUSX8EofHGumEcwDZJrvU5tiOJfOhVE+Xv5NbUPGHc/VyfuTwlyKHx1pR+8oOZHscV6i9OoE/VZ6ojfR69x2FViU/9asrhr/8R+bwqcYutcufIDomYjaHd+xZnt1Qrn/C/omS/6z8RfLVH1LXStRt0nvA6qqauR5ozB28iY8PZHTxoObPmBWVq8PQa7riVJzwBtgdjB2rOclxtjyWmJ/46XZ+tevc7rO+7ECx9Ds6d9KEa6en8eXQraDXGvKra6gAZN40TAZFyzgWKlRlyW9C6+j2dC7f2ZzRj2dRx3sT/sp53bFc/szlgbBfwGrF7YKN3oIfvM1H+d7D6+W/XPYrL3+t+7IMhBu4ulrOvZVGJvfiotfg+jZYzLvtRnYZF1/oPE4O/sq689LzZZvPgiBHlyBRfSDbfRc4rm7ZzUWOV3FL+pGaHz70nmn7uik9Flxv5vZfVGCP27idugsvfBWrccYLfb2CflTO4F/P3yz40JXbFbt+xpk+vEZT5R2gm9ANc9VVv4fEj8T8tclb4Luqs9jD67iW+AzPDK1nQfb22Z5u9yaCY2QJIT8S8K9ftBy7RDu+OclR34Sqvfh+9lFjjmtP1Q3E69Vnlr/W96zsXaKBG/SUB5pk6nxh69mbJDt6sFDXr2uqo9MZGnngjeZc/WpzqfuoW1k+qmme1czscEeq1QVtE8sO/XI439teem0YI/ysrbWB7vez27f2zM549I6pw9iWERe2uIfOqhnAEK26C9fOuIN2z1YcJRGGZcPu9bt78BrJ9bv9RROGa5k/AdNWHP9Vm8noEbk+XU3OD4ZOcpzPF8AWN/TANSURo1EXH+MRdkuWq8n6PcgJtc77sKMlCK9w4CmqeGNRHAOmb7/N1/v29byqdFe6IIw7AedElR5/lEkYIPsbdWsOofWL43N1Wh/S3jDmHB/WlOHkg2w2un402IhOH+2eHtuemn23/0HgkSoTjRloE0e7t5qM5zv2dLdewSHUHbKpgvhM2jXTkXXsWXZiqQidL+k7MJdhXOnSORmQL6lUjMb0UUdOswLx6YM6h4UHHKXqFK4z7FIpPS87qVq02k3p+c3AmhXVUG0iYf4FeX6u9E3x6gpvwGy+cwdne9WA4CCsWdFUm4g7K9HIzlx+KPXoLCp3UOKHF3XYpnQ+8wPrDbsQfyjmMWia3ICVcaL0R1V8kKy7QeL4Q6mFliR4vaI5ttYoCJMiRVPsoL4uXqtwNJoaRxf4KbWG2Z856aSTTjrppJNOelf9D+9UHLRq6knXAAAAAElFTkSuQmCC" alt="logo" style="position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px"/></p>
 <p>Below you’ll find figures showing key advanced metrics I’m tracking for all 32 NFL teams.</p>
 <hr />
+<div id="current-standings" class="section level3">
+<h3>Current Standings</h3>
+<div id="yubbrqjlxp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#yubbrqjlxp .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 3px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#yubbrqjlxp .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#yubbrqjlxp .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: black;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_col_heading {
+  color: #333333;
+  background-color: white;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#yubbrqjlxp .gt_column_spanner_outer {
+  color: #333333;
+  background-color: white;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#yubbrqjlxp .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#yubbrqjlxp .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#yubbrqjlxp .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: black;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#yubbrqjlxp .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: white;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yubbrqjlxp .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: white;
+  vertical-align: middle;
+}
+
+#yubbrqjlxp .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#yubbrqjlxp .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#yubbrqjlxp .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#yubbrqjlxp .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 0px;
+  border-right-color: white;
+  padding-left: 12px;
+}
+
+#yubbrqjlxp .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yubbrqjlxp .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yubbrqjlxp .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#yubbrqjlxp .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#yubbrqjlxp .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yubbrqjlxp .gt_sourcenote {
+  font-size: 12px;
+  padding: 4px;
+}
+
+#yubbrqjlxp .gt_left {
+  text-align: left;
+}
+
+#yubbrqjlxp .gt_center {
+  text-align: center;
+}
+
+#yubbrqjlxp .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#yubbrqjlxp .gt_font_normal {
+  font-weight: normal;
+}
+
+#yubbrqjlxp .gt_font_bold {
+  font-weight: bold;
+}
+
+#yubbrqjlxp .gt_font_italic {
+  font-style: italic;
+}
+
+#yubbrqjlxp .gt_super {
+  font-size: 65%;
+}
+
+#yubbrqjlxp .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="5" class="gt_heading gt_title gt_font_normal" style><strong>2021 AFC Standings</strong></th>
+    </tr>
+    <tr>
+      <th colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Thru Week 5.</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Conference</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">outcomes</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <td colspan="5" class="gt_group_heading">AFC East</td>
+    </tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="5" class="gt_group_heading">AFC North</td>
+    </tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="5" class="gt_group_heading">AFC South</td>
+    </tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="5" class="gt_group_heading">AFC West</td>
+    </tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:25px;"></td>
+<td class="gt_row gt_left">AFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:25px;"></td>
+<td class="gt_row gt_left" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;">AFC</td>
+<td class="gt_row gt_right" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;">2</td>
+<td class="gt_row gt_right" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;">2</td>
+<td class="gt_row gt_center" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<div id="bdqwfagyyt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+html {
+  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#bdqwfagyyt .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: 300;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 3px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bdqwfagyyt .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bdqwfagyyt .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: black;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_col_heading {
+  color: #333333;
+  background-color: white;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bdqwfagyyt .gt_column_spanner_outer {
+  color: #333333;
+  background-color: white;
+  font-size: 80%;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bdqwfagyyt .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bdqwfagyyt .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bdqwfagyyt .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: black;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bdqwfagyyt .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: white;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bdqwfagyyt .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: white;
+  vertical-align: middle;
+}
+
+#bdqwfagyyt .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bdqwfagyyt .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bdqwfagyyt .gt_row {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bdqwfagyyt .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 80%;
+  font-weight: bolder;
+  text-transform: uppercase;
+  border-right-style: solid;
+  border-right-width: 0px;
+  border-right-color: white;
+  padding-left: 12px;
+}
+
+#bdqwfagyyt .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bdqwfagyyt .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bdqwfagyyt .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bdqwfagyyt .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#bdqwfagyyt .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bdqwfagyyt .gt_sourcenote {
+  font-size: 12px;
+  padding: 4px;
+}
+
+#bdqwfagyyt .gt_left {
+  text-align: left;
+}
+
+#bdqwfagyyt .gt_center {
+  text-align: center;
+}
+
+#bdqwfagyyt .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bdqwfagyyt .gt_font_normal {
+  font-weight: normal;
+}
+
+#bdqwfagyyt .gt_font_bold {
+  font-weight: bold;
+}
+
+#bdqwfagyyt .gt_font_italic {
+  font-style: italic;
+}
+
+#bdqwfagyyt .gt_super {
+  font-size: 65%;
+}
+
+#bdqwfagyyt .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="5" class="gt_heading gt_title gt_font_normal" style><strong>2021 NFC Standings</strong></th>
+    </tr>
+    <tr>
+      <th colspan="5" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Thru Week 5.</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Conference</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Losses</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">outcomes</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <td colspan="5" class="gt_group_heading">NFC East</td>
+    </tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="5" class="gt_group_heading">NFC North</td>
+    </tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="5" class="gt_group_heading">NFC South</td>
+    </tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='8.91' x2='4.68' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="5" class="gt_group_heading">NFC West</td>
+    </tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">0</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='1.89' x2='11.61' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='18.54' y1='1.89' x2='18.54' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NFC</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='8.91' x2='8.14' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='1.89' x2='15.07' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='18.54' y1='8.91' x2='18.54' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:25px;"></td>
+<td class="gt_row gt_left" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;">NFC</td>
+<td class="gt_row gt_right" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;">2</td>
+<td class="gt_row gt_right" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;">2</td>
+<td class="gt_row gt_center" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: transparent;"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='64.80pt' height='10.80pt' viewBox='0 0 64.80 10.80'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw2NC44MHwwLjAwfDEwLjgw'>    <rect x='0.00' y='0.00' width='64.80' height='10.80' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw2NC44MHwwLjAwfDEwLjgw)'><line x1='4.68' y1='1.89' x2='4.68' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='8.14' y1='1.89' x2='8.14' y2='6.10' style='stroke-width: 2.13; stroke: #013369;' /><line x1='11.61' y1='8.91' x2='11.61' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /><line x1='15.07' y1='8.91' x2='15.07' y2='4.70' style='stroke-width: 2.13; stroke: #D50A0A;' /></g></svg></td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<hr />
+</div>
 <div id="current-rankings" class="section level3">
 <h3>Current Rankings</h3>
 <p>Offensive and defensive rankings, according to various advanced metrics. Click a column header to sort by that statistic.</p>
-<div id="htmlwidget-1814e1be1a019130698b" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1814e1be1a019130698b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team_logo_espn":["https://a.espncdn.com/i/teamlogos/nfl/500/buf.png","https://a.espncdn.com/i/teamlogos/nfl/500/ari.png","https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png","https://a.espncdn.com/i/teamlogos/nfl/500/den.png","https://a.espncdn.com/i/teamlogos/nfl/500/dal.png","https://a.espncdn.com/i/teamlogos/nfl/500/lac.png","https://a.espncdn.com/i/teamlogos/nfl/500/cle.png","https://a.espncdn.com/i/teamlogos/nfl/500/no.png","https://a.espncdn.com/i/teamlogos/nfl/500/lar.png","https://a.espncdn.com/i/teamlogos/nfl/500/tb.png","https://a.espncdn.com/i/teamlogos/nfl/500/sf.png","https://a.espncdn.com/i/teamlogos/nfl/500/bal.png","https://a.espncdn.com/i/teamlogos/nfl/500/kc.png","https://a.espncdn.com/i/teamlogos/nfl/500/cin.png","https://a.espncdn.com/i/teamlogos/nfl/500/sea.png","https://a.espncdn.com/i/teamlogos/nfl/500/min.png","https://a.espncdn.com/i/teamlogos/nfl/500/lv.png","https://a.espncdn.com/i/teamlogos/nfl/500/gb.png","https://a.espncdn.com/i/teamlogos/nfl/500/phi.png","https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png","https://a.espncdn.com/i/teamlogos/nfl/500/ne.png","https://a.espncdn.com/i/teamlogos/nfl/500/ind.png","https://a.espncdn.com/i/teamlogos/nfl/500/pit.png","https://a.espncdn.com/i/teamlogos/nfl/500/ten.png","https://a.espncdn.com/i/teamlogos/nfl/500/chi.png","https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png","https://a.espncdn.com/i/teamlogos/nfl/500/hou.png","https://a.espncdn.com/i/teamlogos/nfl/500/atl.png","https://a.espncdn.com/i/teamlogos/nfl/500/mia.png","https://a.espncdn.com/i/teamlogos/nfl/500/det.png","https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png","https://a.espncdn.com/i/teamlogos/nfl/500/jax.png"],"posteam":["BUF","ARI","CAR","DEN","DAL","LAC","CLE","NO","LA","TB","SF","BAL","KC","CIN","SEA","MIN","LV","GB","PHI","NYG","NE","IND","PIT","TEN","CHI","WAS","HOU","ATL","MIA","DET","NYJ","JAX"],"Overall EPA":[0.429684714650807,0.270766200804274,0.210920693838909,0.193622735523911,0.149154685876489,0.111577502789645,0.0987995514590153,0.0956115696540949,0.0906332853247852,0.0840498813826467,0.0690026449324014,0.0480964485654538,0.0474938483158015,0.0471783036984555,0.0287270672933471,0.0187735499529544,0.010326051017503,-0.0183516575887471,-0.02065336022988,-0.0259972270403783,-0.0437862483499019,-0.0719540220130851,-0.103752916890014,-0.105411723341172,-0.120107849561318,-0.139465369816709,-0.200394593711996,-0.202165448834382,-0.20544937613264,-0.211657353112931,-0.225267636092179,-0.245012282405063],"off_epa":[0.0891123132605572,0.193253880746733,0.090394991984587,0.0740976910150977,0.137521438351549,0.108737623305305,0.0664661927788134,0.0189780845037061,0.164674630464109,0.099930940505656,0.128925772957508,0.0573381240495731,0.26905704767303,0.00843086481692684,0.117146818702117,0.0511917718961935,0.0146696452225921,0.0563404901146377,0.0666659092120179,0.104777567969309,-0.0829997322536923,-0.00936879703002035,-0.0762818974106894,0.00481417733373253,-0.119573602196795,0.033752409454551,-0.10500742949586,-0.0713551611765321,-0.136768655270079,-0.011007546116869,-0.217620602615445,-0.0482305451856367],"def_epa":[-0.340572401390249,-0.0775123200575405,-0.120525701854322,-0.119525044508814,-0.0116332475249402,-0.00283987948433973,-0.0323333586802019,-0.0766334851503888,0.0740413451393241,0.0158810591230093,0.0599231280251062,0.00924167548411935,0.221563199357228,-0.0387474388815286,0.0884197514087703,0.0324182219432391,0.00434359420508907,0.0746921477033848,0.0873192694418979,0.130774795009688,-0.0392134839037904,0.0625852249830647,0.0274710194793251,0.110225900674905,0.000534247364522947,0.17321777927126,0.0953871642161356,0.13081028765785,0.0686807208625611,0.200649806996062,0.00764703347673429,0.196781737219427],"epa_per_pass":[0.115438337216586,0.310247211159771,0.186105442887929,0.205653051233523,0.213740868339608,0.174616971771893,0.0718182621390434,0.196326471667833,0.360526513016519,0.14265382367671,0.264382266469626,0.13092122996521,0.420946165114722,0.123155028576194,0.189946045419197,0.169208975225225,0.173482719913673,0.161427143788501,0.105925739128695,0.160490198539304,-0.0490174358353429,0.0273923527603293,-0.0465857649970229,0.0314393947356511,-0.167640218164849,0.143257595440898,0.00502187882646024,0.00797229031207321,-0.0972106103304591,0.0582119189168576,-0.240771077127157,-0.105014024405832],"epa_per_rush":[0.0475449070141963,0.0286349468027243,-0.0616683412263305,-0.12323534931254,0.0301514587161973,-0.0209835680051918,0.0606238575229898,-0.139472523700309,-0.157392909733187,-0.0233550937879565,-0.0755368587588967,-0.0418391056628073,-0.0161569617452591,-0.132418603560787,-0.00570187638295465,-0.15306877232713,-0.302956504159569,-0.10833137955987,-0.0314836655796747,-0.0183404674878394,-0.164034439097449,-0.0722303631715183,-0.164442290513762,-0.0336899832167343,-0.0538498619955781,-0.161614797361999,-0.257948168063886,-0.225834935128027,-0.238960271364097,-0.15944484335586,-0.171595254479064,0.0588095765627771],"def_epa_per_pass":[-0.345868833424718,-0.0868644132800254,-0.0844608763803602,-0.11762999303043,-0.0121862581815023,0.0130440373729573,0.0759245768843065,-0.0288011854080555,0.0862415359002216,0.127795920917116,0.136729070191824,0.104801997280379,0.267825080469845,0.0518233873878292,0.230617489074969,0.060466007669248,0.0744913946081038,0.147581168916334,0.176528270575997,0.227109357903841,-0.0679492301694453,0.240726957999292,0.150957898381375,0.182050464723303,0.0675872884371769,0.303943288961152,0.106922800921783,0.268114344415784,0.161202776589881,0.436328066034776,0.110402078911857,0.364234434508039],"def_epa_per_rush":[-0.328541934340527,-0.0607187763139385,-0.181220164237331,-0.123886258870025,-0.00983150312775416,-0.0279624010443503,-0.250237152060046,-0.187651662330125,0.0481662152837942,-0.349133567036232,-0.0789812354678947,-0.189842328258088,0.144006516315488,-0.223784610829679,-0.115507236717173,-0.00833044788511338,-0.13371324701361,-0.0502604600902427,-0.019589930329919,-0.0146358659626202,-0.000196140350424161,-0.168469894077587,-0.176282330709057,-0.0126739089190212,-0.0980731659776152,-0.065823152733113,0.0788631440702081,-0.114891708645821,-0.054682020107199,-0.0731858844584446,-0.134497446041853,-0.0294262924511545],"success_per_pass":[0.5,0.528301886792453,0.511764705882353,0.5,0.580246913580247,0.50261780104712,0.496503496503497,0.495412844036697,0.554054054054054,0.5,0.5125,0.503225806451613,0.591715976331361,0.5,0.451851851851852,0.483333333333333,0.484375,0.5,0.486486486486487,0.474860335195531,0.467741935483871,0.456140350877193,0.405263157894737,0.526595744680851,0.425373134328358,0.464968152866242,0.446043165467626,0.47027027027027,0.424731182795699,0.512953367875648,0.389221556886228,0.457317073170732],"success_per_rush":[0.447368421052632,0.451327433628319,0.392523364485981,0.355769230769231,0.521739130434783,0.443298969072165,0.465648854961832,0.459016393442623,0.411111111111111,0.457142857142857,0.433962264150943,0.452173913043478,0.488888888888889,0.376237623762376,0.45,0.336538461538462,0.354166666666667,0.43298969072165,0.5,0.407407407407407,0.371794871794872,0.39,0.234375,0.384615384615385,0.408163265306122,0.420454545454545,0.27,0.305263157894737,0.277777777777778,0.4,0.380952380952381,0.517241379310345]},"columns":[{"accessor":"team_logo_espn","name":"","type":"character","minWidth":95,"align":"center","cell":[{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/buf.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ari.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/den.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/dal.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lac.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/cle.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/no.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lar.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/tb.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/sf.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/bal.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/kc.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/cin.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/sea.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/min.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lv.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/gb.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/phi.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ne.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ind.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/pit.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ten.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/chi.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/hou.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/atl.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/mia.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/det.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/jax.png","align":"center","height":"25","width":"30"},"children":[]}]}],"maxWidth":70},{"accessor":"posteam","name":"Team","type":"character","minWidth":95,"align":"left"},{"accessor":"Overall EPA","name":"Overall EPA/Play","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}},"style":[{"background":"#35B0ABFF","color":"black","fontWeight":"normal"},{"background":"#8DD0ABFF","color":"black","fontWeight":"normal"},{"background":"#A3DAADFF","color":"black","fontWeight":"normal"},{"background":"#A8DCAEFF","color":"black","fontWeight":"normal"},{"background":"#B6E3B0FF","color":"black","fontWeight":"normal"},{"background":"#C2E9B2FF","color":"black","fontWeight":"normal"},{"background":"#C6EBB3FF","color":"black","fontWeight":"normal"},{"background":"#C7EBB3FF","color":"black","fontWeight":"normal"},{"background":"#C9ECB4FF","color":"black","fontWeight":"normal"},{"background":"#CBECB5FF","color":"black","fontWeight":"normal"},{"background":"#CEEEB8FF","color":"black","fontWeight":"normal"},{"background":"#D3EFBBFF","color":"black","fontWeight":"normal"},{"background":"#D3EFBBFF","color":"black","fontWeight":"normal"},{"background":"#D3F0BCFF","color":"black","fontWeight":"normal"},{"background":"#D8F1BFFF","color":"black","fontWeight":"normal"},{"background":"#DAF2C1FF","color":"black","fontWeight":"normal"},{"background":"#DCF3C2FF","color":"black","fontWeight":"normal"},{"background":"#E3F5C7FF","color":"black","fontWeight":"normal"},{"background":"#E4F6C8FF","color":"black","fontWeight":"normal"},{"background":"#E5F6C9FF","color":"black","fontWeight":"normal"},{"background":"#EAF8CCFF","color":"black","fontWeight":"normal"},{"background":"#F0FAD1FF","color":"black","fontWeight":"normal"},{"background":"#F4FBD9FF","color":"black","fontWeight":"normal"},{"background":"#F4FBD9FF","color":"black","fontWeight":"normal"},{"background":"#F5FCDDFF","color":"black","fontWeight":"normal"},{"background":"#F6FCE2FF","color":"black","fontWeight":"normal"},{"background":"#FBFDF3FF","color":"black","fontWeight":"normal"},{"background":"#FBFDF3FF","color":"black","fontWeight":"normal"},{"background":"#FBFEF4FF","color":"black","fontWeight":"normal"},{"background":"#FCFEF6FF","color":"black","fontWeight":"normal"},{"background":"#FDFEF9FF","color":"black","fontWeight":"normal"},{"background":"#FFFFFFFF","color":"black","fontWeight":"normal"}]},{"accessor":"off_epa","name":"Off EPA/Play","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa","name":"Def EPA/Play","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"epa_per_pass","name":"EPA/Pass","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"epa_per_rush","name":"EPA/Rush","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa_per_pass","name":"Def EPA/Pass","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa_per_rush","name":"Def EPA/Rush","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"success_per_pass","name":"Pass SR","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}}},{"accessor":"success_per_rush","name":"Rush SR","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}}}],"searchable":true,"defaultPageSize":32,"paginationType":"numbers","showPageInfo":true,"minRows":1,"compact":true,"inline":true,"theme":{"borderColor":"#CDCDCD","style":{"fontFamily":"Chivo"},"headerStyle":{"&:hover[aria-sort]":{"background":"hsl(0, 0%, 80%)"},"&[aria-sort='ascending'], &[aria-sort='descending']":{"background":"#555","color":"#FFF"},"borderColor":"#333"},"searchInputStyle":{"width":"31%","backgroundColor":"#F9F9F9"}},"language":{"searchPlaceholder":"SEARCH FOR A TEAM..."},"dataKey":"60665d0e355fe6de4057966e6e8a044e","key":"60665d0e355fe6de4057966e6e8a044e"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4ca956a42a43eb520dd5" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4ca956a42a43eb520dd5">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team_logo_espn":["https://a.espncdn.com/i/teamlogos/nfl/500/buf.png","https://a.espncdn.com/i/teamlogos/nfl/500/ari.png","https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png","https://a.espncdn.com/i/teamlogos/nfl/500/den.png","https://a.espncdn.com/i/teamlogos/nfl/500/dal.png","https://a.espncdn.com/i/teamlogos/nfl/500/lar.png","https://a.espncdn.com/i/teamlogos/nfl/500/lac.png","https://a.espncdn.com/i/teamlogos/nfl/500/cle.png","https://a.espncdn.com/i/teamlogos/nfl/500/no.png","https://a.espncdn.com/i/teamlogos/nfl/500/tb.png","https://a.espncdn.com/i/teamlogos/nfl/500/sf.png","https://a.espncdn.com/i/teamlogos/nfl/500/bal.png","https://a.espncdn.com/i/teamlogos/nfl/500/kc.png","https://a.espncdn.com/i/teamlogos/nfl/500/cin.png","https://a.espncdn.com/i/teamlogos/nfl/500/min.png","https://a.espncdn.com/i/teamlogos/nfl/500/lv.png","https://a.espncdn.com/i/teamlogos/nfl/500/gb.png","https://a.espncdn.com/i/teamlogos/nfl/500/phi.png","https://a.espncdn.com/i/teamlogos/nfl/500/sea.png","https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png","https://a.espncdn.com/i/teamlogos/nfl/500/ne.png","https://a.espncdn.com/i/teamlogos/nfl/500/ind.png","https://a.espncdn.com/i/teamlogos/nfl/500/pit.png","https://a.espncdn.com/i/teamlogos/nfl/500/ten.png","https://a.espncdn.com/i/teamlogos/nfl/500/chi.png","https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png","https://a.espncdn.com/i/teamlogos/nfl/500/atl.png","https://a.espncdn.com/i/teamlogos/nfl/500/mia.png","https://a.espncdn.com/i/teamlogos/nfl/500/hou.png","https://a.espncdn.com/i/teamlogos/nfl/500/det.png","https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png","https://a.espncdn.com/i/teamlogos/nfl/500/jax.png"],"posteam":["BUF","ARI","CAR","DEN","DAL","LA","LAC","CLE","NO","TB","SF","BAL","KC","CIN","MIN","LV","GB","PHI","SEA","NYG","NE","IND","PIT","TEN","CHI","WAS","ATL","MIA","HOU","DET","NYJ","JAX"],"Overall EPA":[0.441283375653371,0.270766200804274,0.210920693838909,0.193622735523911,0.149154685876489,0.116073384778702,0.111577502789645,0.0987995514590153,0.0956115696540949,0.0840498813826467,0.0690026449324014,0.0480964485654538,0.0474938483158015,0.0471439559993282,0.0187735499529544,0.010326051017503,-0.0183516575887471,-0.02065336022988,-0.0213542457955529,-0.0259972270403783,-0.0437862483499019,-0.0719540220130851,-0.103752916890014,-0.105411723341172,-0.120119018018303,-0.139465369816709,-0.202165448834382,-0.20544937613264,-0.211507955091022,-0.21164725577124,-0.225267636092179,-0.244983445717363],"off_epa":[0.0891123132605572,0.193253880746733,0.090394991984587,0.0740976910150977,0.137521438351549,0.175603254440174,0.108737623305305,0.0664661927788134,0.0189780845037061,0.099930940505656,0.128925772957508,0.0573381240495731,0.26905704767303,0.00839651711779958,0.0511917718961935,0.0146696452225921,0.0563404901146377,0.0666659092120179,0.0890526732615757,0.104777567969309,-0.0829997322536923,-0.00936879703002035,-0.0762818974106894,0.00481417733373253,-0.119574759664161,0.033752409454551,-0.0713551611765321,-0.136768655270079,-0.116120790874887,-0.0109986317374199,-0.217620602615445,-0.0482305451856367],"def_epa":[-0.352171062392814,-0.0775123200575405,-0.120525701854322,-0.119525044508814,-0.0116332475249402,0.0595298696614728,-0.00283987948433973,-0.0323333586802019,-0.0766334851503888,0.0158810591230093,0.0599231280251062,0.00924167548411935,0.221563199357228,-0.0387474388815286,0.0324182219432391,0.00434359420508907,0.0746921477033848,0.0873192694418979,0.110406919057129,0.130774795009688,-0.0392134839037904,0.0625852249830647,0.0274710194793251,0.110225900674905,0.000544258354142336,0.17321777927126,0.13081028765785,0.0686807208625611,0.0953871642161356,0.20064862403382,0.00764703347673429,0.196752900531727],"epa_per_pass":[0.115054241498611,0.310247211159771,0.186105442887929,0.205653051233523,0.213740868339608,0.3624384551701,0.174616971771893,0.0718182621390434,0.196326471667833,0.14265382367671,0.264382266469626,0.13092122996521,0.420946165114722,0.123155028576194,0.169208975225225,0.173482719913673,0.161427143788501,0.105925739128695,0.187271880942569,0.160490198539304,-0.0490174358353429,0.0273889167287468,-0.0465857649970229,0.031426293467723,-0.167594802245561,0.143257595440898,0.00797229031207321,-0.0972106103304591,-0.0140867065662543,0.057999142051337,-0.240771077127157,-0.0963066751686017],"epa_per_rush":[0.0475593131624362,0.0286349468027243,-0.0616683412263305,-0.12323534931254,0.0301514587161973,-0.118899689083268,-0.0209835680051918,0.0606238575229898,-0.139472523700309,-0.0233550937879565,-0.0755368587588967,-0.0418391056628073,-0.0161569617452591,-0.132495120712308,-0.15306877232713,-0.302956504159569,-0.10833137955987,-0.0314836655796747,-0.0823494734758438,-0.0183404674878394,-0.164034439097449,-0.0722244875575122,-0.164442290513762,-0.0336710367677306,-0.0539147014406136,-0.161614797361999,-0.225834935128027,-0.238960271364097,-0.257948168063886,-0.158960524417754,-0.171595254479064,0.0440085414095868],"def_epa_per_pass":[-0.362573823170551,-0.0868644132800254,-0.0844608763803602,-0.11762999303043,-0.0121862581815023,0.103119894512409,0.0130440373729573,0.0759245768843065,-0.0288011854080555,0.127795920917116,0.136729070191824,0.104801997280379,0.267825080469845,0.0585243047299722,0.060466007669248,0.0744913946081038,0.147581168916334,0.176528270575997,0.254349166879206,0.227109357903841,-0.0679492301694453,0.240726957999292,0.150957898381375,0.182050464723303,0.0673135155368737,0.303943288961152,0.268114344415784,0.161199193898414,0.106541514742666,0.436377949093666,0.110387241331312,0.364234434508039],"def_epa_per_rush":[-0.328541934340527,-0.0607187763139385,-0.181220164237331,-0.123886258870025,-0.00983150312775416,-0.0315077043634905,-0.0279624010443503,-0.250237152060046,-0.187651662330125,-0.349133567036232,-0.0789812354678947,-0.189842328258088,0.144006516315488,-0.240692037031492,-0.00833044788511338,-0.13371324701361,-0.0502604600902427,-0.019589930329919,-0.0940460826264589,-0.0146358659626202,-0.000196140350424161,-0.168469894077587,-0.176282330709057,-0.0126739089190212,-0.0976458257381097,-0.065823152733113,-0.114891708645821,-0.0546772431852428,0.0791626543593637,-0.0732464012738111,-0.134476920722099,-0.0294940839625898],"success_per_pass":[0.502762430939227,0.528301886792453,0.511764705882353,0.5,0.580246913580247,0.553763440860215,0.50261780104712,0.496503496503497,0.495412844036697,0.5,0.5125,0.503225806451613,0.591715976331361,0.5,0.483333333333333,0.484375,0.5,0.486486486486487,0.471910112359551,0.474860335195531,0.467741935483871,0.456140350877193,0.405263157894737,0.526595744680851,0.425373134328358,0.464968152866242,0.47027027027027,0.424731182795699,0.446043165467626,0.512953367875648,0.389221556886228,0.460606060606061],"success_per_rush":[0.442477876106195,0.451327433628319,0.392523364485981,0.355769230769231,0.521739130434783,0.423728813559322,0.443298969072165,0.465648854961832,0.459016393442623,0.457142857142857,0.433962264150943,0.452173913043478,0.488888888888889,0.376237623762376,0.336538461538462,0.354166666666667,0.43298969072165,0.5,0.411764705882353,0.407407407407407,0.371794871794872,0.39,0.234375,0.384615384615385,0.408163265306122,0.420454545454545,0.305263157894737,0.277777777777778,0.27,0.4,0.380952380952381,0.511627906976744]},"columns":[{"accessor":"team_logo_espn","name":"","type":"character","minWidth":95,"align":"center","cell":[{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/buf.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ari.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/den.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/dal.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lar.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lac.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/cle.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/no.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/tb.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/sf.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/bal.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/kc.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/cin.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/min.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/lv.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/gb.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/phi.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/sea.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ne.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ind.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/pit.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/ten.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/chi.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/atl.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/mia.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/hou.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/det.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png","align":"center","height":"25","width":"30"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"img","attribs":{"src":"https://a.espncdn.com/i/teamlogos/nfl/500/jax.png","align":"center","height":"25","width":"30"},"children":[]}]}],"maxWidth":70},{"accessor":"posteam","name":"Team","type":"character","minWidth":95,"align":"left"},{"accessor":"Overall EPA","name":"Overall EPA/Play","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}},"style":[{"background":"#35B0ABFF","color":"black","fontWeight":"normal"},{"background":"#92D2ABFF","color":"black","fontWeight":"normal"},{"background":"#A5DBAEFF","color":"black","fontWeight":"normal"},{"background":"#AADEAEFF","color":"black","fontWeight":"normal"},{"background":"#B8E4B1FF","color":"black","fontWeight":"normal"},{"background":"#C3E9B3FF","color":"black","fontWeight":"normal"},{"background":"#C4EAB3FF","color":"black","fontWeight":"normal"},{"background":"#C8EBB3FF","color":"black","fontWeight":"normal"},{"background":"#C9ECB4FF","color":"black","fontWeight":"normal"},{"background":"#CCEDB6FF","color":"black","fontWeight":"normal"},{"background":"#CFEEB9FF","color":"black","fontWeight":"normal"},{"background":"#D4F0BCFF","color":"black","fontWeight":"normal"},{"background":"#D5F0BCFF","color":"black","fontWeight":"normal"},{"background":"#D5F0BCFF","color":"black","fontWeight":"normal"},{"background":"#DBF2C1FF","color":"black","fontWeight":"normal"},{"background":"#DDF3C3FF","color":"black","fontWeight":"normal"},{"background":"#E4F6C8FF","color":"black","fontWeight":"normal"},{"background":"#E5F6C8FF","color":"black","fontWeight":"normal"},{"background":"#E5F6C8FF","color":"black","fontWeight":"normal"},{"background":"#E6F6C9FF","color":"black","fontWeight":"normal"},{"background":"#EAF8CCFF","color":"black","fontWeight":"normal"},{"background":"#F1FAD1FF","color":"black","fontWeight":"normal"},{"background":"#F4FBD9FF","color":"black","fontWeight":"normal"},{"background":"#F4FBDAFF","color":"black","fontWeight":"normal"},{"background":"#F5FCDEFF","color":"black","fontWeight":"normal"},{"background":"#F7FCE3FF","color":"black","fontWeight":"normal"},{"background":"#FBFEF3FF","color":"black","fontWeight":"normal"},{"background":"#FCFEF4FF","color":"black","fontWeight":"normal"},{"background":"#FCFEF6FF","color":"black","fontWeight":"normal"},{"background":"#FCFEF6FF","color":"black","fontWeight":"normal"},{"background":"#FDFEF9FF","color":"black","fontWeight":"normal"},{"background":"#FFFFFFFF","color":"black","fontWeight":"normal"}]},{"accessor":"off_epa","name":"Off EPA/Play","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa","name":"Def EPA/Play","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"epa_per_pass","name":"EPA/Pass","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"epa_per_rush","name":"EPA/Rush","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa_per_pass","name":"Def EPA/Pass","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"def_epa_per_rush","name":"Def EPA/Rush","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":2},"aggregated":{"digits":2}}},{"accessor":"success_per_pass","name":"Pass SR","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}}},{"accessor":"success_per_rush","name":"Rush SR","type":"numeric","minWidth":95,"align":"right","format":{"cell":{"digits":1,"percent":true},"aggregated":{"digits":1,"percent":true}}}],"searchable":true,"defaultPageSize":32,"paginationType":"numbers","showPageInfo":true,"minRows":1,"compact":true,"inline":true,"theme":{"borderColor":"#CDCDCD","style":{"fontFamily":"Chivo"},"headerStyle":{"&:hover[aria-sort]":{"background":"hsl(0, 0%, 80%)"},"&[aria-sort='ascending'], &[aria-sort='descending']":{"background":"#555","color":"#FFF"},"borderColor":"#333"},"searchInputStyle":{"width":"31%","backgroundColor":"#F9F9F9"}},"language":{"searchPlaceholder":"SEARCH FOR A TEAM..."},"dataKey":"18a480f3da515ea46d4d62c4d1f34384","key":"18a480f3da515ea46d4d62c4d1f34384"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 
 <p>Copyright &copy; 2021 Stephan Teodosescu</p>
