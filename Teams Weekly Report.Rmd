@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 
 Below you'll find figures showing key advanced metrics I'm tracking for all 32 NFL teams.
 
-```{r Intro , echo =FALSE}
+```{r Setup , echo =FALSE}
 
 library(nflfastR)
 library(tidyverse)
@@ -201,8 +201,8 @@ off_def_epa <- offense %>%
 # Make EPA Tiers plot
 
 epa_plot <- off_def_epa %>% 
-    ggplot(aes(x = off_epa, y = def_epa)) + #Change image to "team_wordmark" when SSL certificate issue is resolved
-    geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +  #Change size back to 0.065 when SSL certificate issue is resolved
+    ggplot(aes(x = off_epa, y = def_epa)) + 
+    geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
     geom_hline(yintercept = mean(off_def_epa$off_epa), color = "red", linetype = "dashed") +
     geom_vline(xintercept =  mean(off_def_epa$def_epa), color = "red", linetype = "dashed") +
     theme_custom() +
@@ -241,7 +241,7 @@ epa_play <- pbp_rp %>%
 epa_logos <- epa_play %>%
   left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
   ggplot(aes(x = epa_per_db, y = reorder(posteam, epa_per_db))) +
-  geom_image(aes(image = team_logo_espn), size = 0.045, by = "width", asp = asp_ratio) + #Change image size to 0.045 when SSL certificate issue is resolved.
+  geom_image(aes(image = team_logo_espn), size = 0.045, by = "width", asp = asp_ratio) + 
   scale_fill_identity(aesthetics = c("fill", "colour")) +
   theme_custom() +
   theme(
