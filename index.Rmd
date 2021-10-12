@@ -6,4 +6,6 @@ This website is a season-to-date look at how the NFL season has transpired, acco
 
 Football analytics have taken a huge leap forward in the past half decade or so. The NFL has embraced the concept, and data-driven decision making in general, at a rapid pace. Advanced stats have also become much more accessible to the average fan as we now have a wealth of information previously unavailable to the public.
 
+Read more at my blog [Between the Pipes](https://betweenpipes.wordpress.com/category/nfl/).
+
 <img src="/Users/Stephan/Desktop/R Projects/NFL/NFL.png" style="width:25%">
