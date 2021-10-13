@@ -163,7 +163,7 @@ games_df <- nflreadr::load_schedules() %>%
     result = ifelse(home_away == 'home', result, -result),
     win = ifelse(result == 0 , 0.5, ifelse(result > 0, 1, 0))
   ) %>% 
-  select(week, team, win) %>% 
+  select(week, team, win, result) %>% 
   drop_na()
 
 
@@ -175,9 +175,10 @@ joined_df <- games_df %>%
   summarise(
     Wins = length(win[win==1]),
     Losses = length(win[win==0]),
+    result = sum(result),
     outcomes = list(win), .groups = "drop") %>% 
   left_join(team_df, by = c("team" = "team_abbr")) %>% 
-  select(team_logo_espn, team_conf, team_division, Wins:outcomes)
+  select(team_logo_espn, team_conf, team_division, Wins, Losses, result, outcomes)
 
 # Make AFC table
 final_df <- joined_df %>% 
@@ -194,10 +195,11 @@ standings_table_afc <- final_df %>%
   gtExtras::gt_theme_538() %>%
   cols_label(
     team_logo_espn = "Team",
-    team_conf = "Conference"
+    team_conf = "Conference",
+    result = "Point Diff",
   ) %>% 
   tab_header(title = md("**2021 AFC Standings**"),
-               subtitle = glue("Thru Week {current_week}."))
+               subtitle = glue("Thru Week {current_week} games"))
 
 
 # Make NFC table
@@ -215,16 +217,15 @@ standings_table_nfc <- final_df %>%
   gtExtras::gt_theme_538() %>%
   cols_label(
     team_logo_espn = "Team",
-    team_conf = "Conference"
+    team_conf = "Conference",
+    result = "Point Diff",
   ) %>% 
   tab_header(title = md("**2021 NFC Standings**"),
-               subtitle = glue("Thru Week {current_week}."))
+               subtitle = glue("Thru Week {current_week} games"))
 
 
 standings_table_afc
 standings_table_nfc
-
-
 
 ```
 
