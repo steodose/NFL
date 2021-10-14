@@ -198,6 +198,8 @@ standings_table_afc <- final_df %>%
     team_conf = "Conference",
     result = "Point Diff",
   ) %>% 
+  cols_align(align = "center",
+               columns = 2:6) %>%
   tab_header(title = md("**2021 AFC Standings**"),
                subtitle = glue("Thru Week {current_week} games"))
 
@@ -219,7 +221,9 @@ standings_table_nfc <- final_df %>%
     team_logo_espn = "Team",
     team_conf = "Conference",
     result = "Point Diff",
-  ) %>% 
+  ) %>%
+   cols_align(align = "center",
+               columns = 2:6) %>%
   tab_header(title = md("**2021 NFC Standings**"),
                subtitle = glue("Thru Week {current_week} games"))
 
