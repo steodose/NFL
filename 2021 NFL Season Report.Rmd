@@ -234,7 +234,7 @@ standings_table_nfc
 ```
 
 ***
-### Current Rankings
+### Advanced Stats Rankings
 
 Offensive and defensive rankings, according to various advanced metrics. Click a column header to sort by that statistic.
 
@@ -271,9 +271,10 @@ off_def_epa <- offense %>%
 #Make table using Reactable
 
 off_def_epa2 <- off_def_epa %>% 
-    mutate(`Overall EPA` = off_epa - def_epa) %>% 
-  select(team_logo_espn, posteam,`Overall EPA`, off_epa, def_epa, epa_per_pass, epa_per_rush, def_epa_per_pass, def_epa_per_rush, success_per_pass, success_per_rush) %>% 
-  arrange(desc(`Overall EPA`))
+  mutate(`Overall EPA` = off_epa - def_epa) %>%
+  arrange(desc(`Overall EPA`)) %>% 
+  mutate(Rank = row_number()) %>% 
+  select(Rank, team_logo_espn, posteam,`Overall EPA`, off_epa, def_epa, epa_per_pass, epa_per_rush, def_epa_per_pass, def_epa_per_rush, success_per_pass, success_per_rush)
 
 
 statistics_table <- reactable(
