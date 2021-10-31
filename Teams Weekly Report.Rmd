@@ -67,6 +67,7 @@ current_week <- max(pbp_rp$week)
 ```{r Set Themes, echo=FALSE}
 
 library(gt)
+library(gtExtras)
 
 # Create 538 GT table theme from Thomas Mock's blog.Comes from this post: https://themockup.blog/posts/2020-09-26-functions-and-themes-for-gt-tables/?panelset3=theme-code2&panelset4=theme-code3 
 gt_nfl_theme_538 <- function(data,...) {
@@ -433,15 +434,20 @@ Teams are going for it on 4th Down more often nowadays. The below table shows ea
 
 ```{r Fourth Down Heatmap}
 
+# Reorganize list data
+# create list_data column for table graphic
+
 fourth_down_table <- go_for_it_by_year %>%
   select(team_logo_espn, team, `2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`) %>%
-  arrange(desc(`2021`)) %>%
+  arrange(desc(`2021`)) %>% 
+  rowwise() %>% 
+  mutate(`2010-2021` = list(c(`2010`, `2011`, `2012`, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`))) %>% 
   gt() %>%
   data_color(
     columns = 3:14, 
     colors = scales::col_numeric(
       palette = paletteer::paletteer_d(
-        palette = "ggsci::amber_material"
+        palette = "ggsci::deep-orange_material"
       ) %>% as.character(),
       domain = NULL
     )) %>%
@@ -451,7 +457,9 @@ fourth_down_table <- go_for_it_by_year %>%
   tab_header(title = md("**4th Down Decison Making**"),
              subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru Week {current_week}.")) %>%
   tab_source_note(
-    source_note = md("DATA: nflfastR<br>TABLE: @steodosescu"))
+    source_note = md("DATA: nflfastR<br>TABLE: @steodosescu")) %>% 
+  gt_sparkline(`2010-2021`)
+
 
 fourth_down_table
 
