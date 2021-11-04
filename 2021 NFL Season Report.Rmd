@@ -22,7 +22,7 @@ htmltools::img(src = knitr::image_uri("/Users/Stephan/Desktop/R Projects/NFL/NFL
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 ```
 
-Below you'll find figures showing key advanced metrics I'm tracking for all 32 NFL teams.
+Below you'll find figures showing the current NFL standings and key advanced metrics I'm tracking for all 32 NFL teams.
 
 ```{r, echo =FALSE}
 
@@ -39,7 +39,6 @@ library(reactablefmtr)
 library(ggalt) #for dumbbell plot
 library(ggforce)
 library(ggsci)
-library(gtExtras)
 
 
 # Optional but makes R prefer not to display numbers in scientific notation
@@ -61,6 +60,8 @@ current_week <- max(pbp_rp$week)
 ```{r, echo=FALSE}
 
 library(gt)
+library(gtExtras)
+library(webshot)
 
 # Create 538 GT table theme from Thomas Mock's blog.Comes from this post: https://themockup.blog/posts/2020-09-26-functions-and-themes-for-gt-tables/?panelset3=theme-code2&panelset4=theme-code3 
 gt_nfl_theme_538 <- function(data,...) {
@@ -227,16 +228,24 @@ standings_table_nfc <- final_df %>%
   tab_header(title = md("**2021 NFC Standings**"),
                subtitle = glue("Thru Week {current_week} games"))
 
+# standings_table_afc
+# standings_table_nfc
 
-standings_table_afc
-standings_table_nfc
+
+# combine both tables into one using {gtExtras}
+two_tables <- list(standings_table_afc, standings_table_nfc)
+
+combined_tables <- two_tables %>% 
+  gt_two_column_layout( output = 'html', 
+                        vwidth = 725, 
+                        vheight = 475)
+
+combined_tables
 
 ```
 
-***
-### Advanced Stats Rankings
 
-Offensive and defensive rankings, according to various advanced metrics. Click a column header to sort by that statistic.
+***
 
 ```{r}
 
@@ -330,7 +339,13 @@ statistics_table <- reactable(
                   striped = FALSE,
                   fullWidth = FALSE, 
                   defaultColDef = colDef(align = "center", minWidth = 95)
-        )
+        ) %>% 
+  add_title("Advanced Stats Rankings",
+            font_size = 20) %>% 
+  add_subtitle("Offensive and defensive rankings, according to various advanced metrics. Click a column header to sort by that statistic.",
+               font_size = 12,
+               font_weight = "normal") %>% 
+  add_source("Data: nflfastR")
 
 statistics_table
 
