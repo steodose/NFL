@@ -11,7 +11,7 @@
 
 
 
-<title>Players Weekly Report</title>
+<title>Forecast Simulations</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,9 +29,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -223,69 +220,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -293,16 +227,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -367,44 +291,453 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Players Weekly Report</h1>
+<h1 class="title toc-ignore">Forecast Simulations</h1>
 <h4 class="date">Last updated: 2021-12-04</h4>
 
 </div>
 
 
 <p><img src="data:image/png;base64,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" alt="logo" style="position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px"/></p>
-<p>Below you’ll find figures showing key advanced metrics I’m tracking for individual players throughout the season.</p>
-<hr />
-<div id="quarterback-performance" class="section level2">
-<h2>Quarterback Performance</h2>
-<div id="qb-success-rate" class="section level3">
-<h3>QB Success Rate</h3>
-<p>Success rate is defined as the percentage of plays that were successful for the offense – in other words, the percentage of plays with positive EPA. It’s meant to measure the consistency of a team’s performance from play to play. One thing to note is it doesn’t provide context for what happened on a play as it is just a binary indicator of whether a play was successful or not. For example, success rate will classify both an interception and a harmless incomplete pass as unsuccessful plays for the offense, even though the former is far less desirable.</p>
-<p>Here we focus on quarterback play only as the QB position is the most valuable position on the field. As the quarterback goes, the team goes.</p>
-<p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
-</div>
-<div id="difference-in-expected-and-actual-yards" class="section level3">
-<h3>Difference in Expected and Actual Yards</h3>
-<p>The below shows what quarterbacks have completed a either higher percentage or lower percentage of their passes than expected, according to the nflfastR model.</p>
-<p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
-<hr />
-</div>
-</div>
-<div id="receivers-performance" class="section level2">
-<h2>Receivers Performance</h2>
-<div id="receivers-average-depth-of-target-adot-vs.-catch-rate" class="section level3">
-<h3>Receivers average Depth of Target (aDOT) vs. Catch Rate</h3>
-<p>The below shows receiver catch rate againt their average depth of target (air yards).</p>
-<p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
-</div>
-</div>
+<p>Below you’ll find figures showing key advanced metrics I’m tracking for all 32 NFL teams.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">conf</th>
+<th align="left">division</th>
+<th align="left">team</th>
+<th align="right">wins</th>
+<th align="right">playoff</th>
+<th align="right">div1</th>
+<th align="right">seed1</th>
+<th align="right">won_conf</th>
+<th align="right">won_sb</th>
+<th align="right">draft1</th>
+<th align="right">draft5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AFC</td>
+<td align="left">AFC East</td>
+<td align="left">BUF</td>
+<td align="right">10.41</td>
+<td align="right">0.71</td>
+<td align="right">0.40</td>
+<td align="right">0.12</td>
+<td align="right">0.04</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">AFC</td>
+<td align="left">AFC East</td>
+<td align="left">MIA</td>
+<td align="right">8.22</td>
+<td align="right">0.08</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">AFC</td>
+<td align="left">AFC East</td>
+<td align="left">NE</td>
+<td align="right">11.14</td>
+<td align="right">0.95</td>
+<td align="right">0.60</td>
+<td align="right">0.42</td>
+<td align="right">0.22</td>
+<td align="right">0.12</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">AFC</td>
+<td align="left">AFC East</td>
+<td align="left">NYJ</td>
+<td align="right">7.16</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">AFC</td>
+<td align="left">AFC North</td>
+<td align="left">BAL</td>
+<td align="right">11.00</td>
+<td align="right">0.87</td>
+<td align="right">0.69</td>
+<td align="right">0.21</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">AFC</td>
+<td align="left">AFC North</td>
+<td align="left">CIN</td>
+<td align="right">7.89</td>
+<td align="right">0.09</td>
+<td align="right">0.05</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">AFC</td>
+<td align="left">AFC North</td>
+<td align="left">CLE</td>
+<td align="right">9.69</td>
+<td align="right">0.53</td>
+<td align="right">0.25</td>
+<td align="right">0.00</td>
+<td align="right">0.08</td>
+<td align="right">0.05</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">AFC</td>
+<td align="left">AFC North</td>
+<td align="left">PIT</td>
+<td align="right">7.79</td>
+<td align="right">0.04</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">AFC</td>
+<td align="left">AFC South</td>
+<td align="left">HOU</td>
+<td align="right">4.47</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.06</td>
+<td align="right">0.81</td>
+</tr>
+<tr class="even">
+<td align="left">AFC</td>
+<td align="left">AFC South</td>
+<td align="left">IND</td>
+<td align="right">9.48</td>
+<td align="right">0.56</td>
+<td align="right">0.17</td>
+<td align="right">0.01</td>
+<td align="right">0.06</td>
+<td align="right">0.05</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">AFC</td>
+<td align="left">AFC South</td>
+<td align="left">JAX</td>
+<td align="right">3.97</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.13</td>
+<td align="right">0.91</td>
+</tr>
+<tr class="even">
+<td align="left">AFC</td>
+<td align="left">AFC South</td>
+<td align="left">TEN</td>
+<td align="right">10.51</td>
+<td align="right">0.90</td>
+<td align="right">0.83</td>
+<td align="right">0.07</td>
+<td align="right">0.04</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">AFC</td>
+<td align="left">AFC West</td>
+<td align="left">DEN</td>
+<td align="right">10.31</td>
+<td align="right">0.64</td>
+<td align="right">0.34</td>
+<td align="right">0.08</td>
+<td align="right">0.20</td>
+<td align="right">0.13</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">AFC</td>
+<td align="left">AFC West</td>
+<td align="left">KC</td>
+<td align="right">10.00</td>
+<td align="right">0.52</td>
+<td align="right">0.20</td>
+<td align="right">0.02</td>
+<td align="right">0.07</td>
+<td align="right">0.05</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">AFC</td>
+<td align="left">AFC West</td>
+<td align="left">LAC</td>
+<td align="right">10.51</td>
+<td align="right">0.77</td>
+<td align="right">0.42</td>
+<td align="right">0.07</td>
+<td align="right">0.24</td>
+<td align="right">0.14</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">AFC</td>
+<td align="left">AFC West</td>
+<td align="left">LV</td>
+<td align="right">8.80</td>
+<td align="right">0.33</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">NFC</td>
+<td align="left">NFC East</td>
+<td align="left">DAL</td>
+<td align="right">11.65</td>
+<td align="right">0.99</td>
+<td align="right">0.94</td>
+<td align="right">0.39</td>
+<td align="right">0.26</td>
+<td align="right">0.11</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">NFC</td>
+<td align="left">NFC East</td>
+<td align="left">NYG</td>
+<td align="right">4.28</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.97</td>
+</tr>
+<tr class="odd">
+<td align="left">NFC</td>
+<td align="left">NFC East</td>
+<td align="left">PHI</td>
+<td align="right">7.64</td>
+<td align="right">0.16</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">NFC</td>
+<td align="left">NFC East</td>
+<td align="left">WAS</td>
+<td align="right">7.84</td>
+<td align="right">0.28</td>
+<td align="right">0.06</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+</tr>
+<tr class="odd">
+<td align="left">NFC</td>
+<td align="left">NFC North</td>
+<td align="left">CHI</td>
+<td align="right">7.92</td>
+<td align="right">0.27</td>
+<td align="right">0.07</td>
+<td align="right">0.00</td>
+<td align="right">0.07</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">NFC</td>
+<td align="left">NFC North</td>
+<td align="left">DET</td>
+<td align="right">2.45</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.77</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="odd">
+<td align="left">NFC</td>
+<td align="left">NFC North</td>
+<td align="left">GB</td>
+<td align="right">10.53</td>
+<td align="right">0.89</td>
+<td align="right">0.53</td>
+<td align="right">0.07</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">NFC</td>
+<td align="left">NFC North</td>
+<td align="left">MIN</td>
+<td align="right">9.29</td>
+<td align="right">0.70</td>
+<td align="right">0.40</td>
+<td align="right">0.00</td>
+<td align="right">0.22</td>
+<td align="right">0.09</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">NFC</td>
+<td align="left">NFC South</td>
+<td align="left">ATL</td>
+<td align="right">7.93</td>
+<td align="right">0.18</td>
+<td align="right">0.09</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">NFC</td>
+<td align="left">NFC South</td>
+<td align="left">CAR</td>
+<td align="right">6.29</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.13</td>
+</tr>
+<tr class="odd">
+<td align="left">NFC</td>
+<td align="left">NFC South</td>
+<td align="left">NO</td>
+<td align="right">6.47</td>
+<td align="right">0.03</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.11</td>
+</tr>
+<tr class="even">
+<td align="left">NFC</td>
+<td align="left">NFC South</td>
+<td align="left">TB</td>
+<td align="right">11.43</td>
+<td align="right">0.94</td>
+<td align="right">0.88</td>
+<td align="right">0.30</td>
+<td align="right">0.12</td>
+<td align="right">0.06</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">NFC</td>
+<td align="left">NFC West</td>
+<td align="left">ARI</td>
+<td align="right">11.82</td>
+<td align="right">1.00</td>
+<td align="right">0.77</td>
+<td align="right">0.21</td>
+<td align="right">0.08</td>
+<td align="right">0.05</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">NFC</td>
+<td align="left">NFC West</td>
+<td align="left">LA</td>
+<td align="right">9.40</td>
+<td align="right">0.59</td>
+<td align="right">0.06</td>
+<td align="right">0.01</td>
+<td align="right">0.04</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">NFC</td>
+<td align="left">NFC West</td>
+<td align="left">SEA</td>
+<td align="right">4.89</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.80</td>
+</tr>
+<tr class="even">
+<td align="left">NFC</td>
+<td align="left">NFC West</td>
+<td align="left">SF</td>
+<td align="right">10.82</td>
+<td align="right">0.96</td>
+<td align="right">0.17</td>
+<td align="right">0.02</td>
+<td align="right">0.14</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table>
 
 <p>Copyright &copy; 2021 Stephan Teodosescu</p>
 
 
-</div>
-</div>
 
 </div>
 
@@ -437,35 +770,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
