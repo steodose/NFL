@@ -9,6 +9,8 @@ navbar:
       href: Teams-Weekly-Report.html
     - text: "Players"
       href: Players-Weekly-Report.html
+    - text: "Games"
+      href: Games.html
     - text: "About"
       href: about.html
     - icon: fa-home fa-lg
