@@ -1,8 +1,8 @@
 name: "Yay internet!"
 output_dir: "."
 navbar:
-  title: "NFL Analytics"
-  right:
+  title: "<img id=\"logo\" style=\"width: 36px;\" src=\"NFL.png\" />"
+  left:
     - text: "Summary"
       href: 2021-NFL-Season-Report.html
     - text: "Teams"
@@ -13,6 +13,7 @@ navbar:
       href: Games.html
     - text: "About"
       href: about.html
+  right:
     - icon: fa-home fa-lg
       href: https://stephanteodosescu.com/      
     - icon: fa-twitter fa-lg
