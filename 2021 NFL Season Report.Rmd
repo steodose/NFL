@@ -339,13 +339,14 @@ statistics_table <- reactable(
                   striped = FALSE,
                   fullWidth = FALSE, 
                   defaultColDef = colDef(align = "center", minWidth = 95)
-        ) %>% 
-  add_title("Advanced Stats Rankings",
-            font_size = 20) %>% 
-  add_subtitle("Offensive and defensive rankings, according to various advanced metrics. Click a column header to sort by that statistic.",
-               font_size = 12,
-               font_weight = "normal") %>% 
-  add_source("Data: nflfastR")
+  ) 
+#%>% 
+  #add_title("Advanced Stats Rankings",
+   #         font_size = 20) %>% 
+  #add_subtitle("Offensive and defensive rankings, according to various advanced metrics. Click a column header to sort by that statistic.",
+   #            font_size = 12,
+    #           font_weight = "normal") %>% 
+  #add_source("Data: nflfastR")
 
 statistics_table
 
