@@ -3,8 +3,6 @@ title: "Players Weekly Report"
 date: 'Last updated: `r format(Sys.Date())`'
 output:
   html_document:
-    toc: yes
-    toc_float: yes
     dpi: 500
     fig_width: 10
     fig_height: 7

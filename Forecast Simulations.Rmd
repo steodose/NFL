@@ -1,0 +1,162 @@
+---
+title: "Forecast Simulations"
+date: 'Last updated: `r format(Sys.Date())`'
+output:
+  html_document:
+    dpi: 500
+    fig_width: 10
+    fig_height: 7
+---
+
+```{r, echo=FALSE}
+
+# Insert NFL logo in top right of report
+htmltools::img(src = knitr::image_uri("/Users/Stephan/Desktop/R Projects/NFL/NFL.png"), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px')
+
+```
+
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+```
+
+Below you'll find predictions for the 2022 NFL season after simulating the remaining schedule 1,000x. The model I use is similar to that described by Wayne Winston, and popularized at Pro-Football-Reference, where victory for an NFL team in a given game can be approximated as a  normal random variable with a mean of the "spread" and a standard deviation between 12-13 (using 12.7 based on Winston's research).
+
+```{r, echo =FALSE}
+
+library(nflfastR)
+library(nflseedR) # For forecast simulations
+library(tidyverse)
+library(teamcolors) # NFL team colors and logos
+library(extrafont) # for extra fonts
+library(ggrepel) # better labels
+library(ggimage)
+library(glue)
+library(ggtext)
+library(reactable)
+library(reactablefmtr)
+library(ggalt) #for dumbbell plot
+library(ggforce)
+
+
+# Optional but makes R prefer not to display numbers in scientific notation
+options(scipen = 9999)
+
+# Identify current week
+#current_week <- max(pbp_rp$week)
+
+# Random ELO method
+set.seed(82722) #don't think we need this once the season starts
+sims <- simulate_nfl(
+  nfl_season = 2022,
+  fresh_season = FALSE,
+  simulations = 100
+)
+
+summary(sims)
+
+
+# Build stupid games model (alphabetical team wins 90% of the time)
+stupid_games_model <- function(teams, games, week_num, ...) {
+  # make the earlier alphabetical team win 90% of the time
+  games <- games %>%
+    dplyr::mutate(
+      result = dplyr::case_when(
+        !is.na(result) | week != week_num ~ result,
+        away_team < home_team ~ sample(c(-3, 3), n(), prob = c(0.9, 0.1), replace = TRUE),
+        away_team > home_team ~ sample(c(-3, 3), n(), prob = c(0.1, 0.9), replace = TRUE),
+        TRUE ~ 0
+      )
+    )
+  
+  # return values
+  return(list(teams = teams, games = games))
+}
+
+# Run sims for this model
+sims2 <- simulate_nfl(
+  nfl_season = 2021,
+  process_games = stupid_games_model,
+  fresh_season = TRUE,
+  simulations = 100
+)
+
+#summary(sims2)
+
+
+# Biased games model 
+biased_games_model <- function(teams, games, week_num, ...) {
+  
+  # arguments
+  args <- list(...)
+  best <- ""
+  worst <- ""
+  
+  # best team?
+  if ("best" %in% names(args)) {
+    best <- args$best
+  }
+  
+  # worst team?
+  if ("worst" %in% names(args)) {
+    worst <- args$worst
+  }
+
+  # make the best team always win and the worst team always lose
+  # otherwise, make the earlier alphabetical team win 90% of the time
+  games <- games %>%
+    dplyr::mutate(
+      result = dplyr::case_when(
+        !is.na(result) | week != week_num ~ result,
+        away_team == best | home_team == worst ~ -3,
+        away_team == worst | home_team == best ~ 3,
+        away_team < home_team ~ sample(c(-3, 3), n(), prob = c(0.9, 0.1), replace = TRUE),
+        away_team > home_team ~ sample(c(-3, 3), n(), prob = c(0.1, 0.9), replace = TRUE),
+        TRUE ~ 0
+      )
+    )
+  
+  # return values
+  return(list(teams = teams, games = games))
+}
+
+
+sims3 <- simulate_nfl(
+  nfl_season = 2021,
+  process_games = biased_games_model, 
+  fresh_season = TRUE, 
+  simulations = 100,
+  best = "CHI", 
+  worst = "GB"
+)
+
+#summary(sims3)
+
+
+## Actual model I want to build: win probability model from PFR: https://www.pro-football-reference.com/about/win_prob.htm
+
+#victory for an NFL team in a given game can be approximated as a 
+#normal random variable with a mean of the "spread" and a 
+#standard deviation between 12-13 (using 12.7 based on Wayne Winston's Analytics Stories research).
+
+#Your function’s job - by whatever means you choose - is to update the result column for that week’s games in each of the sims with the number of points the home team won by (or lost by if negative, or 0 if the game ended in a tie).
+
+nfl_games_model <- function(teams, games, week_num, ...) {
+  # make the earlier alphabetical team win 90% of the time
+  games <- games %>%
+    dplyr::mutate(
+      result = dplyr::case_when(
+        !is.na(result) | week != week_num ~ result,
+        away_team < home_team ~ sample(c(-3, 3), n(), prob = c(0.9, 0.1), replace = TRUE),
+        away_team > home_team ~ sample(c(-3, 3), n(), prob = c(0.1, 0.9), replace = TRUE),
+        TRUE ~ 0
+      )
+    )
+  
+  # return values
+  return(list(teams = teams, games = games))
+}
+
+```

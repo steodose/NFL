@@ -13,7 +13,7 @@
 
 <title>Teams Weekly Report</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -65,6 +65,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -85,6 +86,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -310,18 +314,15 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">NFL Analytics</a>
+      <a class="navbar-brand" href="index.html"><div><img src="nfl-logo.png" width="24px"></img> NFL Analytics</div></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="2021-NFL-Season-Report.html">Summary</a>
 </li>
@@ -332,9 +333,17 @@ div.tocify {
   <a href="Players-Weekly-Report.html">Players</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="Games.html">Games</a>
 </li>
 <li>
+  <a href="Forecast-Simulations.html">Predictions</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
   <a href="https://stephanteodosescu.com/">
     <span class="fa fa-home fa-lg"></span>
      
@@ -368,12 +377,12 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Teams Weekly Report</h1>
-<h4 class="date">Last updated: 2022-01-10</h4>
+<h4 class="date">Last updated: 2022-08-27</h4>
 
 </div>
 
 
-<p><img src="data:image/png;base64,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" alt="logo" style="position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px"/></p>
+<img src="data:image/png;base64,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" alt="logo" style="position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px"/>
 <p>Below you’ll find figures showing key advanced metrics I’m tracking for all 32 NFL teams.</p>
 <hr />
 <div id="team-level-performance" class="section level2">
@@ -382,7 +391,6 @@ div.tocify {
 <h3>Offensive vs. Defensive EPA</h3>
 <p>Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, time remaining, whether the game is being played indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable.</p>
 <p>EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards.</p>
-<p>EDITOR’S NOTE: There is currently an issue with the logos in the below plots that will get resolved soon. I know the wordmark logos seen below don’t look all that good.</p>
 <p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
 </div>
 <div id="epa-per-dropback-by-team" class="section level3">
@@ -392,26 +400,31 @@ div.tocify {
 </div>
 <div id="epa-vs-cpoe-per-dropback-by-team" class="section level3">
 <h3>EPA vs CPOE per dropback by team</h3>
-<p>This below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It’s a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.</p>
+<p>The below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It’s a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.</p>
 <p><img src="Teams-Weekly-Report_files/figure-html/EPA%20vs%20CPOE-1.png" width="960" /></p>
 </div>
 <div id="explosive-plays" class="section level3">
 <h3>Explosive Plays</h3>
 <p>Some teams are better than others at getting chunk plays. We’re defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We’re highlighting the Bears simply because I’m a Bears fan and want to easily track how they stack up using this metric. Spoiler: they’ve been near the bottom of the league in explosive plays the past few years.</p>
+<pre><code>## List of 1
+##  $ legend.position: chr &quot;none&quot;
+##  - attr(*, &quot;class&quot;)= chr [1:2] &quot;theme&quot; &quot;gg&quot;
+##  - attr(*, &quot;complete&quot;)= logi FALSE
+##  - attr(*, &quot;validate&quot;)= logi TRUE</code></pre>
 <p><img src="Teams-Weekly-Report_files/figure-html/Explosive%20Plays-1.png" width="960" /></p>
 <hr />
 </div>
 </div>
 <div id="fourth-downs" class="section level2">
 <h2>Fourth Downs</h2>
-<p>Teams are going for it on 4th Down more often nowadays. The below table shows each team’s go-for-it rates on fourth-and-short over the last decade-plus. Year-to-date teams have gone for it in fourth-and-short situations <strong>33.7 percent</strong> of the time in 2021. We will track how each team fares on its fourth-down decision making throughout the season.</p>
-<div id="gmzorzjfmi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<p>Teams are going for it on 4th Down more often nowadays. The below table shows each team’s go-for-it rates on fourth-and-short over the last decade-plus. Year-to-date teams have gone for it in fourth-and-short situations <strong>35.3 percent</strong> of the time in 2021. We will track how each team fares on its fourth-down decision making throughout the season.</p>
+<div id="uqfxiftvuv" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 html {
   font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#gmzorzjfmi .gt_table {
+#uqfxiftvuv .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -424,19 +437,19 @@ html {
   width: auto;
   border-top-style: solid;
   border-top-width: 3px;
-  border-top-color: transparent;
+  border-top-color: rgba(255, 255, 255, 0);
   border-right-style: none;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
   border-bottom-style: solid;
   border-bottom-width: 3px;
-  border-bottom-color: transparent;
+  border-bottom-color: rgba(255, 255, 255, 0);
   border-left-style: none;
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_heading {
+#uqfxiftvuv .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -448,39 +461,43 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_title {
+#uqfxiftvuv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
   padding-top: 4px;
   padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
 
-#gmzorzjfmi .gt_subtitle {
+#uqfxiftvuv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#gmzorzjfmi .gt_bottom_border {
+#uqfxiftvuv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_col_headings {
+#uqfxiftvuv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
-  border-top-color: transparent;
+  border-top-color: rgba(255, 255, 255, 0);
   border-bottom-style: solid;
   border-bottom-width: 3px;
-  border-bottom-color: black;
+  border-bottom-color: #000000;
   border-left-style: none;
   border-left-width: 1px;
   border-left-color: #D3D3D3;
@@ -489,9 +506,9 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_col_heading {
+#uqfxiftvuv .gt_col_heading {
   color: #333333;
-  background-color: white;
+  background-color: #FFFFFF;
   font-size: 80%;
   font-weight: bolder;
   text-transform: uppercase;
@@ -509,9 +526,9 @@ html {
   overflow-x: hidden;
 }
 
-#gmzorzjfmi .gt_column_spanner_outer {
+#uqfxiftvuv .gt_column_spanner_outer {
   color: #333333;
-  background-color: white;
+  background-color: #FFFFFF;
   font-size: 80%;
   font-weight: bolder;
   text-transform: uppercase;
@@ -521,28 +538,31 @@ html {
   padding-right: 4px;
 }
 
-#gmzorzjfmi .gt_column_spanner_outer:first-child {
+#uqfxiftvuv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gmzorzjfmi .gt_column_spanner_outer:last-child {
+#uqfxiftvuv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gmzorzjfmi .gt_column_spanner {
+#uqfxiftvuv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 3px;
-  border-bottom-color: black;
+  border-bottom-color: #000000;
   vertical-align: bottom;
   padding-top: 5px;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   overflow-x: hidden;
   display: inline-block;
   width: 100%;
 }
 
-#gmzorzjfmi .gt_group_heading {
-  padding: 8px;
+#uqfxiftvuv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -563,7 +583,7 @@ html {
   vertical-align: middle;
 }
 
-#gmzorzjfmi .gt_empty_group_heading {
+#uqfxiftvuv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -578,15 +598,15 @@ html {
   vertical-align: middle;
 }
 
-#gmzorzjfmi .gt_from_md > :first-child {
+#uqfxiftvuv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gmzorzjfmi .gt_from_md > :last-child {
+#uqfxiftvuv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gmzorzjfmi .gt_row {
+#uqfxiftvuv .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -605,7 +625,7 @@ html {
   overflow-x: hidden;
 }
 
-#gmzorzjfmi .gt_stub {
+#uqfxiftvuv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -614,10 +634,29 @@ html {
   border-right-style: solid;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
-  padding-left: 12px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-#gmzorzjfmi .gt_summary_row {
+#uqfxiftvuv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#uqfxiftvuv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#uqfxiftvuv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -627,17 +666,26 @@ html {
   padding-right: 5px;
 }
 
-#gmzorzjfmi .gt_first_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
+#uqfxiftvuv .gt_first_summary_row {
   border-top-style: solid;
-  border-top-width: 2px;
   border-top-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_grand_summary_row {
+#uqfxiftvuv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#uqfxiftvuv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uqfxiftvuv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -647,7 +695,7 @@ html {
   padding-right: 5px;
 }
 
-#gmzorzjfmi .gt_first_grand_summary_row {
+#uqfxiftvuv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -657,11 +705,11 @@ html {
   border-top-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_striped {
+#uqfxiftvuv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gmzorzjfmi .gt_table_body {
+#uqfxiftvuv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -670,7 +718,7 @@ html {
   border-bottom-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_footnotes {
+#uqfxiftvuv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -684,13 +732,16 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_footnote {
+#uqfxiftvuv .gt_footnote {
   margin: 0px;
   font-size: 90%;
-  padding: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-#gmzorzjfmi .gt_sourcenotes {
+#uqfxiftvuv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -704,44 +755,80 @@ html {
   border-right-color: #D3D3D3;
 }
 
-#gmzorzjfmi .gt_sourcenote {
+#uqfxiftvuv .gt_sourcenote {
   font-size: 12px;
-  padding: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-#gmzorzjfmi .gt_left {
+#uqfxiftvuv .gt_left {
   text-align: left;
 }
 
-#gmzorzjfmi .gt_center {
+#uqfxiftvuv .gt_center {
   text-align: center;
 }
 
-#gmzorzjfmi .gt_right {
+#uqfxiftvuv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gmzorzjfmi .gt_font_normal {
+#uqfxiftvuv .gt_font_normal {
   font-weight: normal;
 }
 
-#gmzorzjfmi .gt_font_bold {
+#uqfxiftvuv .gt_font_bold {
   font-weight: bold;
 }
 
-#gmzorzjfmi .gt_font_italic {
+#uqfxiftvuv .gt_font_italic {
   font-style: italic;
 }
 
-#gmzorzjfmi .gt_super {
+#uqfxiftvuv .gt_super {
   font-size: 65%;
 }
 
-#gmzorzjfmi .gt_footnote_marks {
+#uqfxiftvuv .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#uqfxiftvuv .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
-  font-size: 65%;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#uqfxiftvuv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#uqfxiftvuv .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#uqfxiftvuv .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#uqfxiftvuv .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
 }
 </style>
 <table class="gt_table">
@@ -750,7 +837,7 @@ html {
       <th colspan="13" class="gt_heading gt_title gt_font_normal" style><strong>4th Down Decison Making</strong></th>
     </tr>
     <tr>
-      <th colspan="13" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Percentages shown are how often a team went for it when it on 4th &amp; short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru Week 18.</th>
+      <th colspan="13" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Percentages shown are how often a team went for it when it on 4th &amp; short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru Week 22.</th>
     </tr>
   </thead>
   <thead class="gt_col_headings">
@@ -773,420 +860,420 @@ html {
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:25px;"></td>
 <td class="gt_row gt_left">IND</td>
-<td class="gt_row gt_right" style="background-color: #FF9E80; color: #000000;">18.8</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000;">21.4</td>
-<td class="gt_row gt_right" style="background-color: #F5521E; color: #FFFFFF;">37.5</td>
-<td class="gt_row gt_right" style="background-color: #FFAB91; color: #000000;">11.1</td>
-<td class="gt_row gt_right" style="background-color: #FF6535; color: #000000;">38.5</td>
-<td class="gt_row gt_right" style="background-color: #FFCAB9; color: #000000;">7.7</td>
-<td class="gt_row gt_right" style="background-color: #FF5722; color: #000000;">43.8</td>
-<td class="gt_row gt_right" style="background-color: #F5511E; color: #FFFFFF;">63.2</td>
-<td class="gt_row gt_right" style="background-color: #E94B1A; color: #FFFFFF;">68.4</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">92.3</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.20 14.91,9.90 21.22,8.07 27.53,11.07 33.84,7.96 40.15,11.46 46.46,7.35 52.77,5.15 59.09,4.56 65.40,1.84 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='1.84' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='11.46' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='1.84' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='3.48' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>92.3</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFDC6F; color: #000000;">18.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">21.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB401; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFEBB0; color: #000000;">7.7</td>
+<td class="gt_row gt_right" style="background-color: #FFC107; color: #000000;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FFB400; color: #000000;">63.2</td>
+<td class="gt_row gt_right" style="background-color: #FFA400; color: #000000;">68.4</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">92.3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='3.48' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>92.3</text><polyline points='8.60,10.20 14.91,9.90 21.22,8.07 27.53,11.07 33.84,7.96 40.15,11.46 46.46,7.35 52.77,5.15 59.09,4.56 65.40,1.84 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='1.84' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='11.46' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='1.84' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:25px;"></td>
 <td class="gt_row gt_left">PHI</td>
-<td class="gt_row gt_right" style="background-color: #E44918; color: #FFFFFF;">44.4</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">55.6</td>
-<td class="gt_row gt_right" style="background-color: #FF5E2C; color: #000000;">30.0</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">77.8</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">64.7</td>
-<td class="gt_row gt_right" style="background-color: #DE4617; color: #FFFFFF;">60.0</td>
-<td class="gt_row gt_right" style="background-color: #F6521F; color: #FFFFFF;">62.5</td>
-<td class="gt_row gt_right" style="background-color: #F4511E; color: #FFFFFF;">63.6</td>
-<td class="gt_row gt_right" style="background-color: #C93B10; color: #FFFFFF;">88.9</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,7.29 14.91,6.01 21.22,8.92 27.53,6.65 33.84,3.49 40.15,4.98 46.46,5.51 52.77,5.23 59.09,5.10 65.40,2.22 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='2.22' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='21.22' cy='8.92' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='2.22' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='3.87' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>88.9</text></g></svg></td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:25px;"></td>
-<td class="gt_row gt_left">KC</td>
-<td class="gt_row gt_right" style="background-color: #F04F1C; color: #FFFFFF;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FF8964; color: #000000;">18.8</td>
-<td class="gt_row gt_right" style="background-color: #FF8660; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6433; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6B3C; color: #000000;">36.4</td>
-<td class="gt_row gt_right" style="background-color: #FFA183; color: #000000;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #F4511E; color: #FFFFFF;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6635; color: #000000;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #DF4717; color: #FFFFFF;">72.7</td>
-<td class="gt_row gt_right" style="background-color: #E74B1A; color: #FFFFFF;">75.0</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,7.79 14.91,10.20 21.22,10.06 27.53,9.49 33.84,8.20 40.15,10.44 46.46,6.65 52.77,6.65 59.09,4.07 65.40,3.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='3.80' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='10.44' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='3.80' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='5.45' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>75.0</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FF9E00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">55.6</td>
+<td class="gt_row gt_right" style="background-color: #FFC314; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">77.8</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">64.7</td>
+<td class="gt_row gt_right" style="background-color: #FF9600; color: #000000;">60.0</td>
+<td class="gt_row gt_right" style="background-color: #FFB501; color: #000000;">62.5</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">63.6</td>
+<td class="gt_row gt_right" style="background-color: #FF7D00; color: #000000;">88.9</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='3.87' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>88.9</text><polyline points='8.60,7.29 14.91,6.01 21.22,8.92 27.53,6.65 33.84,3.49 40.15,4.98 46.46,5.51 52.77,5.23 59.09,5.10 65.40,2.22 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='2.22' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='21.22' cy='8.92' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='2.22' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:25px;"></td>
 <td class="gt_row gt_left">DET</td>
-<td class="gt_row gt_right" style="background-color: #FFBAA4; color: #000000;">14.3</td>
-<td class="gt_row gt_right" style="background-color: #FF6A3B; color: #000000;">26.3</td>
-<td class="gt_row gt_right" style="background-color: #FF6433; color: #000000;">28.6</td>
-<td class="gt_row gt_right" style="background-color: #FF8A65; color: #000000;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #FF6F41; color: #000000;">35.0</td>
-<td class="gt_row gt_right" style="background-color: #FFCCBD; color: #000000;">7.1</td>
-<td class="gt_row gt_right" style="background-color: #FFC0AC; color: #000000;">21.1</td>
-<td class="gt_row gt_right" style="background-color: #FFAB91; color: #000000;">28.6</td>
-<td class="gt_row gt_right" style="background-color: #FF774C; color: #000000;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #EB4D1B; color: #FFFFFF;">72.7</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.71 14.91,9.34 21.22,9.08 27.53,10.44 33.84,8.35 40.15,11.53 46.46,9.94 52.77,9.08 59.09,6.65 65.40,4.07 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.07' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='4.07' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='5.71' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>72.7</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFE598; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC822; color: #000000;">26.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFD54F; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">35.0</td>
+<td class="gt_row gt_right" style="background-color: #FFECB4; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE7A1; color: #000000;">21.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFA700; color: #000000;">72.7</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='5.71' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>72.7</text><polyline points='8.60,10.71 14.91,9.34 21.22,9.08 27.53,10.44 33.84,8.35 40.15,11.53 46.46,9.94 52.77,9.08 59.09,6.65 65.40,4.07 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.07' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='4.07' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:25px;"></td>
 <td class="gt_row gt_left">LAC</td>
-<td class="gt_row gt_right" style="background-color: #FF6130; color: #000000;">30.8</td>
-<td class="gt_row gt_right" style="background-color: #FF7448; color: #000000;">23.8</td>
-<td class="gt_row gt_right" style="background-color: #FF7245; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000;">0.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6535; color: #000000;">38.5</td>
-<td class="gt_row gt_right" style="background-color: #FFB097; color: #000000;">13.3</td>
-<td class="gt_row gt_right" style="background-color: #FFC5B3; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FFB097; color: #000000;">27.3</td>
-<td class="gt_row gt_right" style="background-color: #FF906D; color: #000000;">44.4</td>
-<td class="gt_row gt_right" style="background-color: #EC4D1B; color: #FFFFFF;">72.2</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,8.83 14.91,9.63 21.22,9.49 27.53,12.34 33.84,7.96 40.15,10.82 46.46,10.06 52.77,9.23 59.09,7.29 65.40,4.12 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.12' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='27.53' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='4.12' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='5.77' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>72.2</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFC518; color: #000000;">30.8</td>
+<td class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">23.8</td>
+<td class="gt_row gt_right" style="background-color: #FFCB2B; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE289; color: #000000;">13.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEAA9; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE28A; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD759; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFA800; color: #000000;">72.2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='5.77' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>72.2</text><polyline points='8.60,8.83 14.91,9.63 21.22,9.49 27.53,12.34 33.84,7.96 40.15,10.82 46.46,10.06 52.77,9.23 59.09,7.29 65.40,4.12 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.12' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='27.53' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='4.12' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:25px;"></td>
 <td class="gt_row gt_left">ARI</td>
-<td class="gt_row gt_right" style="background-color: #FF7C53; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FFB29A; color: #000000;">11.1</td>
-<td class="gt_row gt_right" style="background-color: #FF8660; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #F4511E; color: #FFFFFF;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FFAD94; color: #000000;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #FFBDA8; color: #000000;">10.5</td>
-<td class="gt_row gt_right" style="background-color: #FFBAA4; color: #000000;">22.2</td>
-<td class="gt_row gt_right" style="background-color: #FF5C29; color: #000000;">53.3</td>
-<td class="gt_row gt_right" style="background-color: #D54114; color: #FFFFFF;">76.5</td>
-<td class="gt_row gt_right" style="background-color: #EE4E1C; color: #FFFFFF;">71.4</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,9.49 14.91,11.07 21.22,10.06 27.53,8.55 33.84,10.44 40.15,11.14 46.46,9.81 52.77,6.27 59.09,3.63 65.40,4.21 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.21' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='11.14' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='3.63' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='5.86' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>71.4</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFCF3C; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE28C; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD34A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFE185; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFE69D; color: #000000;">10.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE598; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFC310; color: #000000;">53.3</td>
+<td class="gt_row gt_right" style="background-color: #FF8B00; color: #000000;">76.5</td>
+<td class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">71.4</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='5.86' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>71.4</text><polyline points='8.60,9.49 14.91,11.07 21.22,10.06 27.53,8.55 33.84,10.44 40.15,11.14 46.46,9.81 52.77,6.27 59.09,3.63 65.40,4.21 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.21' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='11.14' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='3.63' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:25px;"></td>
+<td class="gt_row gt_left">KC</td>
+<td class="gt_row gt_right" style="background-color: #FFAD00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD54E; color: #000000;">18.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD34A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC823; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF9800; color: #000000;">72.7</td>
+<td class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">71.4</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='5.86' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>71.4</text><polyline points='8.60,7.79 14.91,10.20 21.22,10.06 27.53,9.49 33.84,8.20 40.15,10.44 46.46,6.65 52.77,6.65 59.09,4.07 65.40,4.21 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.21' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='10.44' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='4.07' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:25px;"></td>
 <td class="gt_row gt_left">GB</td>
-<td class="gt_row gt_right" style="background-color: #FFB39B; color: #000000;">15.4</td>
-<td class="gt_row gt_right" style="background-color: #F3511E; color: #FFFFFF;">37.5</td>
-<td class="gt_row gt_right" style="background-color: #FF6433; color: #000000;">28.6</td>
-<td class="gt_row gt_right" style="background-color: #E34918; color: #FFFFFF;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FE5722; color: #000000;">43.8</td>
-<td class="gt_row gt_right" style="background-color: #FD5621; color: #000000;">37.5</td>
-<td class="gt_row gt_right" style="background-color: #FFBAA4; color: #000000;">22.2</td>
-<td class="gt_row gt_right" style="background-color: #FF835B; color: #000000;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">81.8</td>
-<td class="gt_row gt_right" style="background-color: #F1501D; color: #FFFFFF;">69.2</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.58 14.91,8.07 21.22,9.08 27.53,7.79 33.84,7.35 40.15,8.07 46.46,9.81 52.77,7.79 59.09,3.03 65.40,4.46 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.46' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.58' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='3.03' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.11' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>69.2</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFE38E; color: #000000;">15.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB200; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFA300; color: #000000;">38.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC006; color: #000000;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE598; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD245; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">81.8</td>
+<td class="gt_row gt_right" style="background-color: #FFAF00; color: #000000;">69.2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.11' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>69.2</text><polyline points='8.60,10.58 14.91,8.07 21.22,9.08 27.53,8.00 33.84,7.35 40.15,8.07 46.46,9.81 52.77,7.79 59.09,3.03 65.40,4.46 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.46' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.58' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='3.03' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:25px;"></td>
 <td class="gt_row gt_left">JAX</td>
-<td class="gt_row gt_right" style="background-color: #FF8E6B; color: #000000;">21.4</td>
-<td class="gt_row gt_right" style="background-color: #E34918; color: #FFFFFF;">44.4</td>
-<td class="gt_row gt_right" style="background-color: #FF7245; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000;">0.0</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000;">30.0</td>
-<td class="gt_row gt_right" style="background-color: #FF754A; color: #000000;">27.3</td>
-<td class="gt_row gt_right" style="background-color: #FF8D68; color: #000000;">30.8</td>
-<td class="gt_row gt_right" style="background-color: #FFCCBB; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FFA88D; color: #000000;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #F1501D; color: #FFFFFF;">69.2</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,9.90 14.91,7.29 21.22,9.49 27.53,12.34 33.84,8.92 40.15,9.23 46.46,8.83 52.77,10.06 59.09,7.79 65.40,4.46 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.46' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='27.53' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='4.46' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.11' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>69.2</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFD656; color: #000000;">21.4</td>
+<td class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFCB2B; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCC31; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD653; color: #000000;">30.8</td>
+<td class="gt_row gt_right" style="background-color: #FFECB2; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFAF00; color: #000000;">69.2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.11' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>69.2</text><polyline points='8.60,9.90 14.91,7.29 21.22,9.49 27.53,12.34 33.84,8.92 40.15,9.23 46.46,8.83 52.77,10.06 59.09,7.79 65.40,4.46 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.46' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='27.53' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='4.46' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:25px;"></td>
 <td class="gt_row gt_left">LA</td>
-<td class="gt_row gt_right" style="background-color: #FF774C; color: #000000;">26.1</td>
-<td class="gt_row gt_right" style="background-color: #FF8F6C; color: #000000;">17.6</td>
-<td class="gt_row gt_right" style="background-color: #FFCABA; color: #000000;">6.7</td>
-<td class="gt_row gt_right" style="background-color: #FFA386; color: #000000;">12.5</td>
-<td class="gt_row gt_right" style="background-color: #FF8964; color: #000000;">26.3</td>
-<td class="gt_row gt_right" style="background-color: #FF9A79; color: #000000;">18.2</td>
-<td class="gt_row gt_right" style="background-color: #FFAB91; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FDDED7; color: #000000;">14.3</td>
-<td class="gt_row gt_right" style="background-color: #FED3C7; color: #000000;">31.8</td>
-<td class="gt_row gt_right" style="background-color: #F1501D; color: #FFFFFF;">69.2</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,9.37 14.91,10.33 21.22,11.57 27.53,10.91 33.84,9.34 40.15,10.27 46.46,9.49 52.77,10.71 59.09,8.72 65.40,4.46 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.46' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='21.22' cy='11.57' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='4.46' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.11' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>69.2</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">26.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD757; color: #000000;">17.6</td>
+<td class="gt_row gt_right" style="background-color: #FFECB4; color: #000000;">6.2</td>
+<td class="gt_row gt_right" style="background-color: #FFDD76; color: #000000;">12.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD54E; color: #000000;">26.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">18.2</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF4D0; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEFBF; color: #000000;">31.8</td>
+<td class="gt_row gt_right" style="background-color: #FFB000; color: #000000;">68.8</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.16' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>68.8</text><polyline points='8.60,9.37 14.91,10.33 21.22,11.63 27.53,10.91 33.84,9.34 40.15,10.27 46.46,9.49 52.77,10.71 59.09,8.72 65.40,4.51 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.51' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='21.22' cy='11.63' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='4.51' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:25px;"></td>
 <td class="gt_row gt_left">DAL</td>
-<td class="gt_row gt_right" style="background-color: #FF835C; color: #000000;">23.5</td>
-<td class="gt_row gt_right" style="background-color: #FFB29A; color: #000000;">11.1</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">57.1</td>
-<td class="gt_row gt_right" style="background-color: #FF7F57; color: #000000;">19.0</td>
-<td class="gt_row gt_right" style="background-color: #FF9D7D; color: #000000;">21.1</td>
-<td class="gt_row gt_right" style="background-color: #F95420; color: #000000;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #F95420; color: #000000;">47.1</td>
-<td class="gt_row gt_right" style="background-color: #FF6635; color: #000000;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #D34113; color: #FFFFFF;">76.9</td>
-<td class="gt_row gt_right" style="background-color: #F8531F; color: #FFFFFF;">64.7</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,9.66 14.91,11.07 21.22,5.84 27.53,10.17 33.84,9.94 40.15,7.79 46.46,6.98 52.77,6.65 59.09,3.59 65.40,4.98 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.98' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='14.91' cy='11.07' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='3.59' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.62' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>64.7</text></g></svg></td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:25px;"></td>
-<td class="gt_row gt_left">LV</td>
-<td class="gt_row gt_right" style="background-color: #FFC0AC; color: #000000;">13.3</td>
-<td class="gt_row gt_right" style="background-color: #FFC7B5; color: #000000;">7.1</td>
-<td class="gt_row gt_right" style="background-color: #FFC8B7; color: #000000;">7.1</td>
-<td class="gt_row gt_right" style="background-color: #E34918; color: #FFFFFF;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FFBDA9; color: #000000;">12.5</td>
-<td class="gt_row gt_right" style="background-color: #FA5520; color: #000000;">38.9</td>
-<td class="gt_row gt_right" style="background-color: #FF6C3E; color: #000000;">38.5</td>
-<td class="gt_row gt_right" style="background-color: #FF916D; color: #000000;">35.7</td>
-<td class="gt_row gt_right" style="background-color: #F5511E; color: #FFFFFF;">63.2</td>
-<td class="gt_row gt_right" style="background-color: #F85320; color: #FFFFFF;">64.3</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.82 14.91,11.53 21.22,11.53 27.53,7.79 33.84,10.91 40.15,7.91 46.46,7.96 52.77,8.28 59.09,5.15 65.40,5.02 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.02' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='14.91' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='21.22' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='5.02' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.67' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>64.3</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFD246; color: #000000;">23.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE28C; color: #000000;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">57.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD040; color: #000000;">19.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDB6D; color: #000000;">21.1</td>
+<td class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">47.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF8900; color: #000000;">76.9</td>
+<td class="gt_row gt_right" style="background-color: #FFB802; color: #000000;">64.7</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.62' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>64.7</text><polyline points='8.60,9.66 14.91,11.07 21.22,5.84 27.53,10.17 33.84,9.94 40.15,7.79 46.46,6.98 52.77,6.65 59.09,3.59 65.40,4.98 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='4.98' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='14.91' cy='11.07' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='3.59' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:25px;"></td>
 <td class="gt_row gt_left">BUF</td>
-<td class="gt_row gt_right" style="background-color: #FED8CD; color: #000000;">9.1</td>
-<td class="gt_row gt_right" style="background-color: #FF794E; color: #000000;">22.7</td>
-<td class="gt_row gt_right" style="background-color: #FF9D7E; color: #000000;">15.4</td>
-<td class="gt_row gt_right" style="background-color: #FF7B51; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6B3C; color: #000000;">36.4</td>
-<td class="gt_row gt_right" style="background-color: #FFA183; color: #000000;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #D84315; color: #FFFFFF;">62.5</td>
-<td class="gt_row gt_right" style="background-color: #F95420; color: #000000;">60.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6737; color: #000000;">53.8</td>
-<td class="gt_row gt_right" style="background-color: #F95420; color: #000000;">63.6</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,11.30 14.91,9.75 21.22,10.58 27.53,10.06 33.84,8.20 40.15,10.44 46.46,5.23 52.77,5.51 59.09,6.22 65.40,5.10 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.10' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='11.30' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='5.10' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.75' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>63.6</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFF1C6; color: #000000;">9.1</td>
+<td class="gt_row gt_right" style="background-color: #FFCE37; color: #000000;">22.7</td>
+<td class="gt_row gt_right" style="background-color: #FFDB6D; color: #000000;">15.4</td>
+<td class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FF8F00; color: #000000;">62.5</td>
+<td class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">60.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC71F; color: #000000;">53.8</td>
+<td class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">64.3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.67' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>64.3</text><polyline points='8.60,11.30 14.91,9.75 21.22,10.58 27.53,10.06 33.84,8.55 40.15,10.44 46.46,5.23 52.77,5.51 59.09,6.22 65.40,5.02 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.02' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='11.30' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='5.02' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:25px;"></td>
+<td class="gt_row gt_left">LV</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">13.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEAAC; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FFEBAD; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE79D; color: #000000;">12.5</td>
+<td class="gt_row gt_right" style="background-color: #FFBB04; color: #000000;">38.9</td>
+<td class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD75A; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFB400; color: #000000;">63.2</td>
+<td class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">64.3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.67' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>64.3</text><polyline points='8.60,10.82 14.91,11.53 21.22,11.53 27.53,7.79 33.84,10.91 40.15,7.91 46.46,7.96 52.77,8.28 59.09,5.15 65.40,5.02 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.02' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='14.91' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='21.22' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='5.02' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:25px;"></td>
 <td class="gt_row gt_left">CAR</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">54.5</td>
-<td class="gt_row gt_right" style="background-color: #DE4617; color: #FFFFFF;">46.7</td>
-<td class="gt_row gt_right" style="background-color: #FF6737; color: #000000;">27.8</td>
-<td class="gt_row gt_right" style="background-color: #EE4E1C; color: #FFFFFF;">35.7</td>
-<td class="gt_row gt_right" style="background-color: #FF9878; color: #000000;">22.2</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF602E; color: #000000;">41.7</td>
-<td class="gt_row gt_right" style="background-color: #EA4C1A; color: #FFFFFF;">70.0</td>
-<td class="gt_row gt_right" style="background-color: #DF4717; color: #FFFFFF;">72.7</td>
-<td class="gt_row gt_right" style="background-color: #F95420; color: #000000;">63.6</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,6.14 14.91,7.02 21.22,9.17 27.53,8.28 33.84,9.81 40.15,9.49 46.46,7.59 52.77,4.37 59.09,4.07 65.40,5.10 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.10' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='33.84' cy='9.81' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='4.07' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.75' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>63.6</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">54.5</td>
+<td class="gt_row gt_right" style="background-color: #FF9700; color: #000000;">46.7</td>
+<td class="gt_row gt_right" style="background-color: #FFC71F; color: #000000;">27.8</td>
+<td class="gt_row gt_right" style="background-color: #FFAB00; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC416; color: #000000;">41.7</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">70.0</td>
+<td class="gt_row gt_right" style="background-color: #FF9800; color: #000000;">72.7</td>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">63.6</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.75' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>63.6</text><polyline points='8.60,6.14 14.91,7.02 21.22,9.17 27.53,8.28 33.84,9.81 40.15,9.49 46.46,7.59 52.77,4.37 59.09,4.07 65.40,5.10 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.10' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='33.84' cy='9.81' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='4.07' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:25px;"></td>
 <td class="gt_row gt_left">NO</td>
-<td class="gt_row gt_right" style="background-color: #FF9776; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FF612F; color: #000000;">28.6</td>
-<td class="gt_row gt_right" style="background-color: #FC5621; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #DC4516; color: #FFFFFF;">42.9</td>
-<td class="gt_row gt_right" style="background-color: #F14F1D; color: #FFFFFF;">53.8</td>
-<td class="gt_row gt_right" style="background-color: #E74A19; color: #FFFFFF;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">68.8</td>
-<td class="gt_row gt_right" style="background-color: #FF9A79; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FFA184; color: #000000;">41.2</td>
-<td class="gt_row gt_right" style="background-color: #F95420; color: #000000;">63.6</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.06 14.91,9.08 21.22,8.55 27.53,7.46 33.84,6.22 40.15,6.65 46.46,4.51 52.77,8.55 59.09,7.65 65.40,5.10 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.10' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.06' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='46.46' cy='4.51' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.75' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>63.6</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FF9400; color: #000000;">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FFAF00; color: #000000;">53.8</td>
+<td class="gt_row gt_right" style="background-color: #FFA100; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">68.8</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDD74; color: #000000;">41.2</td>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">63.6</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.75' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>63.6</text><polyline points='8.60,10.06 14.91,9.08 21.22,8.55 27.53,7.46 33.84,6.22 40.15,6.65 46.46,4.51 52.77,8.55 59.09,7.65 65.40,5.10 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.10' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.06' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='46.46' cy='4.51' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:25px;"></td>
 <td class="gt_row gt_left">ATL</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000;">5.9</td>
-<td class="gt_row gt_right" style="background-color: #FF6839; color: #000000;">26.7</td>
-<td class="gt_row gt_right" style="background-color: #FFB9A3; color: #000000;">10.0</td>
-<td class="gt_row gt_right" style="background-color: #E74A19; color: #FFFFFF;">38.5</td>
-<td class="gt_row gt_right" style="background-color: #EA4C1A; color: #FFFFFF;">58.3</td>
-<td class="gt_row gt_right" style="background-color: #FF8862; color: #000000;">22.2</td>
-<td class="gt_row gt_right" style="background-color: #FF825A; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #E84B1A; color: #FFFFFF;">71.4</td>
-<td class="gt_row gt_right" style="background-color: #E24818; color: #FFFFFF;">71.4</td>
-<td class="gt_row gt_right" style="background-color: #FB5520; color: #000000;">62.5</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,11.67 14.91,9.30 21.22,11.20 27.53,7.96 33.84,5.70 40.15,9.81 46.46,8.55 52.77,4.21 59.09,4.21 65.40,5.23 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.23' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='11.67' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='52.77' cy='4.21' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><circle cx='59.09' cy='4.21' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='6.87' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>62.5</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">5.9</td>
+<td class="gt_row gt_right" style="background-color: #FFC720; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFE597; color: #000000;">10.0</td>
+<td class="gt_row gt_right" style="background-color: #FFA100; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">58.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD144; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFA200; color: #000000;">71.4</td>
+<td class="gt_row gt_right" style="background-color: #FF9B00; color: #000000;">71.4</td>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">62.5</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='6.87' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>62.5</text><polyline points='8.60,11.67 14.91,9.30 21.22,11.20 27.53,7.96 33.84,5.70 40.15,9.81 46.46,8.55 52.77,4.21 59.09,4.21 65.40,5.23 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.23' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='11.67' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='52.77' cy='4.21' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /><circle cx='59.09' cy='4.21' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:25px;"></td>
 <td class="gt_row gt_left">CHI</td>
-<td class="gt_row gt_right" style="background-color: #E44918; color: #FFFFFF;">44.4</td>
-<td class="gt_row gt_right" style="background-color: #ED4E1C; color: #FFFFFF;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FF5925; color: #000000;">31.2</td>
-<td class="gt_row gt_right" style="background-color: #FF8761; color: #000000;">17.4</td>
-<td class="gt_row gt_right" style="background-color: #FF612F; color: #000000;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000;">0.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6C3E; color: #000000;">38.5</td>
-<td class="gt_row gt_right" style="background-color: #FFC0AC; color: #000000;">23.1</td>
-<td class="gt_row gt_right" style="background-color: #FFB59E; color: #000000;">37.5</td>
-<td class="gt_row gt_right" style="background-color: #FD5621; color: #000000;">61.1</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,7.29 14.91,7.79 21.22,8.79 27.53,10.36 33.84,7.79 40.15,12.34 46.46,7.96 52.77,9.71 59.09,8.07 65.40,5.39 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.39' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='5.39' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='7.03' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>61.1</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FF9E00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC20C; color: #000000;">31.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD44B; color: #000000;">17.4</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE492; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">61.1</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='7.03' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>61.1</text><polyline points='8.60,7.29 14.91,7.79 21.22,8.79 27.53,10.36 33.84,7.79 40.15,12.34 46.46,7.96 52.77,9.71 59.09,8.07 65.40,5.39 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.39' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='5.39' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:25px;"></td>
 <td class="gt_row gt_left">DEN</td>
-<td class="gt_row gt_right" style="background-color: #FFB39B; color: #000000;">15.4</td>
-<td class="gt_row gt_right" style="background-color: #F3511E; color: #FFFFFF;">37.5</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000;">0.0</td>
-<td class="gt_row gt_right" style="background-color: #FF5F2D; color: #000000;">26.1</td>
-<td class="gt_row gt_right" style="background-color: #FFB198; color: #000000;">15.8</td>
-<td class="gt_row gt_right" style="background-color: #FF612F; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF9472; color: #000000;">29.4</td>
-<td class="gt_row gt_right" style="background-color: #FFC0AC; color: #000000;">23.1</td>
-<td class="gt_row gt_right" style="background-color: #FCE3DE; color: #000000;">28.6</td>
-<td class="gt_row gt_right" style="background-color: #FF5925; color: #000000;">58.8</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.58 14.91,8.07 21.22,12.34 27.53,9.37 33.84,10.54 40.15,8.55 46.46,8.99 52.77,9.71 59.09,9.08 65.40,5.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='21.22' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='5.65' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='7.29' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>58.8</text></g></svg></td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:25px;"></td>
-<td class="gt_row gt_left">CLE</td>
-<td class="gt_row gt_right" style="background-color: #FF9776; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FB5520; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF6433; color: #000000;">28.6</td>
-<td class="gt_row gt_right" style="background-color: #FF5925; color: #000000;">27.3</td>
-<td class="gt_row gt_right" style="background-color: #FF825B; color: #000000;">28.6</td>
-<td class="gt_row gt_right" style="background-color: #DC4516; color: #FFFFFF;">55.6</td>
-<td class="gt_row gt_right" style="background-color: #F4511E; color: #FFFFFF;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #EF4F1C; color: #FFFFFF;">66.7</td>
-<td class="gt_row gt_right" style="background-color: #F6521F; color: #FFFFFF;">62.5</td>
-<td class="gt_row gt_right" style="background-color: #FF5A27; color: #000000;">58.3</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.06 14.91,8.55 21.22,9.08 27.53,9.23 33.84,9.08 40.15,6.01 46.46,6.65 52.77,4.75 59.09,5.23 65.40,5.70 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.70' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.06' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='52.77' cy='4.75' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='7.35' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>58.3</text></g></svg></td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:25px;"></td>
-<td class="gt_row gt_left">BAL</td>
-<td class="gt_row gt_right" style="background-color: #FF9776; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FB5520; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #D13F12; color: #FFFFFF;">52.6</td>
-<td class="gt_row gt_right" style="background-color: #E14718; color: #FFFFFF;">40.9</td>
-<td class="gt_row gt_right" style="background-color: #FF5D2A; color: #000000;">41.2</td>
-<td class="gt_row gt_right" style="background-color: #EE4E1C; color: #FFFFFF;">46.2</td>
-<td class="gt_row gt_right" style="background-color: #DE4617; color: #FFFFFF;">60.0</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">90.0</td>
-<td class="gt_row gt_right" style="background-color: #FF774C; color: #000000;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FF612F; color: #000000;">56.2</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.06 14.91,8.55 21.22,6.35 27.53,7.68 33.84,7.65 40.15,7.08 46.46,5.51 52.77,2.10 59.09,6.65 65.40,5.94 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.94' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.06' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='52.77' cy='2.10' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='7.59' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>56.2</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFE38E; color: #000000;">15.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB200; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC415; color: #000000;">26.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE28B; color: #000000;">15.8</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD85F; color: #000000;">29.4</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFF5D7; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFC20B; color: #000000;">58.8</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='7.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>58.8</text><polyline points='8.60,10.58 14.91,8.07 21.22,12.34 27.53,9.37 33.84,10.54 40.15,8.55 46.46,8.99 52.77,9.71 59.09,9.08 65.40,5.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='21.22' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='5.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:25px;"></td>
 <td class="gt_row gt_left">SF</td>
-<td class="gt_row gt_right" style="background-color: #FCE3DD; color: #000000;">7.1</td>
-<td class="gt_row gt_right" style="background-color: #FF6F42; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #F8531F; color: #FFFFFF;">35.7</td>
-<td class="gt_row gt_right" style="background-color: #D84315; color: #FFFFFF;">44.4</td>
-<td class="gt_row gt_right" style="background-color: #F6521F; color: #FFFFFF;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FF612F; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000;">12.5</td>
-<td class="gt_row gt_right" style="background-color: #FF774C; color: #000000;">43.8</td>
-<td class="gt_row gt_right" style="background-color: #FF835C; color: #000000;">47.1</td>
-<td class="gt_row gt_right" style="background-color: #FF612F; color: #000000;">56.2</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,11.53 14.91,9.49 21.22,8.28 27.53,7.29 33.84,6.65 40.15,8.55 46.46,10.91 52.77,7.35 59.09,6.98 65.40,5.94 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.94' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='65.40' cy='5.94' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='7.59' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>56.2</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFF5D7; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFB802; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FF8F00; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFB601; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">12.5</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD246; color: #000000;">47.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC20B; color: #000000;">58.8</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='7.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>58.8</text><polyline points='8.60,11.53 14.91,9.49 21.22,8.28 27.53,7.29 33.84,6.65 40.15,8.55 46.46,10.91 52.77,7.35 59.09,6.98 65.40,5.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.40' cy='5.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:25px;"></td>
+<td class="gt_row gt_left">CLE</td>
+<td class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFC20C; color: #000000;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD244; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FF9400; color: #000000;">55.6</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFAD00; color: #000000;">66.7</td>
+<td class="gt_row gt_right" style="background-color: #FFB601; color: #000000;">62.5</td>
+<td class="gt_row gt_right" style="background-color: #FFC20E; color: #000000;">58.3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='7.35' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>58.3</text><polyline points='8.60,10.06 14.91,8.55 21.22,9.08 27.53,9.23 33.84,9.08 40.15,6.01 46.46,6.65 52.77,4.75 59.09,5.23 65.40,5.70 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.70' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.06' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='52.77' cy='4.75' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:25px;"></td>
+<td class="gt_row gt_left">BAL</td>
+<td class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FF8600; color: #000000;">52.6</td>
+<td class="gt_row gt_right" style="background-color: #FF9A00; color: #000000;">40.9</td>
+<td class="gt_row gt_right" style="background-color: #FFC312; color: #000000;">41.2</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FF9600; color: #000000;">60.0</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">90.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC418; color: #000000;">56.2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='7.59' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>56.2</text><polyline points='8.60,10.06 14.91,8.55 21.22,6.35 27.53,7.68 33.84,7.65 40.15,7.46 46.46,5.51 52.77,2.10 59.09,6.65 65.40,5.94 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='5.94' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.06' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='52.77' cy='2.10' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:25px;"></td>
 <td class="gt_row gt_left">NYJ</td>
-<td class="gt_row gt_right" style="background-color: #FF7C53; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000;">0.0</td>
-<td class="gt_row gt_right" style="background-color: #FF9675; color: #000000;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #FF7B51; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FFAA8F; color: #000000;">17.6</td>
-<td class="gt_row gt_right" style="background-color: #FF9C7D; color: #000000;">17.6</td>
-<td class="gt_row gt_right" style="background-color: #FF8D68; color: #000000;">30.8</td>
-<td class="gt_row gt_right" style="background-color: #EA4C1A; color: #FFFFFF;">70.0</td>
-<td class="gt_row gt_right" style="background-color: #FF774C; color: #000000;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FF7448; color: #000000;">50.0</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,9.49 14.91,12.34 21.22,10.44 27.53,10.06 33.84,10.33 40.15,10.33 46.46,8.83 52.77,4.37 59.09,6.65 65.40,6.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='6.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='14.91' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='52.77' cy='4.37' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='8.29' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>50.0</text></g></svg></td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:25px;"></td>
-<td class="gt_row gt_left">HOU</td>
-<td class="gt_row gt_right" style="background-color: #FFC9B8; color: #000000;">11.8</td>
-<td class="gt_row gt_right" style="background-color: #FF6839; color: #000000;">26.7</td>
-<td class="gt_row gt_right" style="background-color: #FC5621; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #BF360C; color: #FFFFFF;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FF7448; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF8A65; color: #000000;">31.2</td>
-<td class="gt_row gt_right" style="background-color: #EF4F1C; color: #FFFFFF;">66.7</td>
-<td class="gt_row gt_right" style="background-color: #FF906D; color: #000000;">44.4</td>
-<td class="gt_row gt_right" style="background-color: #FF825A; color: #000000;">45.5</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.99 14.91,9.30 21.22,8.55 27.53,6.65 33.84,8.55 40.15,9.49 46.46,8.79 52.77,4.75 59.09,7.29 65.40,7.16 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.16' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.99' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='52.77' cy='4.75' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='8.81' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>45.5</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFCF3C; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD963; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE080; color: #000000;">17.6</td>
+<td class="gt_row gt_right" style="background-color: #FFDB6C; color: #000000;">17.6</td>
+<td class="gt_row gt_right" style="background-color: #FFD653; color: #000000;">30.8</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">70.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">50.0</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='8.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>50.0</text><polyline points='8.60,9.49 14.91,12.34 21.22,10.44 27.53,10.06 33.84,10.33 40.15,10.33 46.46,8.83 52.77,4.37 59.09,6.65 65.40,6.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='6.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='14.91' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='52.77' cy='4.37' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:25px;"></td>
 <td class="gt_row gt_left">TEN</td>
-<td class="gt_row gt_right" style="background-color: #F6521F; color: #FFFFFF;">37.5</td>
-<td class="gt_row gt_right" style="background-color: #F5521E; color: #FFFFFF;">36.4</td>
-<td class="gt_row gt_right" style="background-color: #FFC8B7; color: #000000;">7.1</td>
-<td class="gt_row gt_right" style="background-color: #FFAF96; color: #000000;">10.5</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000;">0.0</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF825A; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF835B; color: #000000;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FF774C; color: #000000;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FF825A; color: #000000;">45.5</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,8.07 14.91,8.20 21.22,11.53 27.53,11.14 33.84,12.34 40.15,9.49 46.46,8.55 52.77,7.79 59.09,6.65 65.40,7.16 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.16' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='33.84' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='8.81' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>45.5</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFB501; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFB501; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFEBAD; color: #000000;">7.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE187; color: #000000;">10.5</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD144; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD245; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD141; color: #000000;">46.2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='8.73' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>46.2</text><polyline points='8.60,8.07 14.91,8.20 21.22,11.53 27.53,11.14 33.84,12.34 40.15,9.49 46.46,8.55 52.77,7.79 59.09,6.65 65.40,7.08 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.08' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='33.84' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:25px;"></td>
+<td class="gt_row gt_left">HOU</td>
+<td class="gt_row gt_right" style="background-color: #FFEBAF; color: #000000;">11.8</td>
+<td class="gt_row gt_right" style="background-color: #FFC720; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FF6F00; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD550; color: #000000;">31.2</td>
+<td class="gt_row gt_right" style="background-color: #FFAD00; color: #000000;">66.7</td>
+<td class="gt_row gt_right" style="background-color: #FFD759; color: #000000;">44.4</td>
+<td class="gt_row gt_right" style="background-color: #FFD244; color: #000000;">45.5</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='8.81' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>45.5</text><polyline points='8.60,10.99 14.91,9.30 21.22,8.55 27.53,6.65 33.84,8.55 40.15,9.49 46.46,8.79 52.77,4.75 59.09,7.29 65.40,7.16 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.16' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.99' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='52.77' cy='4.75' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:25px;"></td>
 <td class="gt_row gt_left">WAS</td>
-<td class="gt_row gt_right" style="background-color: #FA5420; color: #000000;">35.3</td>
-<td class="gt_row gt_right" style="background-color: #FFA68A; color: #000000;">13.3</td>
-<td class="gt_row gt_right" style="background-color: #FF7A4F; color: #000000;">23.1</td>
-<td class="gt_row gt_right" style="background-color: #FF8A65; color: #000000;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #FF8E6A; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF7144; color: #000000;">28.6</td>
-<td class="gt_row gt_right" style="background-color: #FF5B27; color: #000000;">42.9</td>
-<td class="gt_row gt_right" style="background-color: #FCE4E0; color: #000000;">12.5</td>
-<td class="gt_row gt_right" style="background-color: #FF8761; color: #000000;">46.2</td>
-<td class="gt_row gt_right" style="background-color: #FF855F; color: #000000;">44.4</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,8.32 14.91,10.82 21.22,9.71 27.53,10.44 33.84,9.49 40.15,9.08 46.46,7.46 52.77,10.91 59.09,7.08 65.40,7.29 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.29' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='52.77' cy='10.91' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='7.08' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='8.93' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>44.4</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFBB04; color: #000000;">35.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDE7B; color: #000000;">13.3</td>
+<td class="gt_row gt_right" style="background-color: #FFCE38; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD54F; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFD655; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFCA29; color: #000000;">28.6</td>
+<td class="gt_row gt_right" style="background-color: #FFC20E; color: #000000;">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FFF6DA; color: #000000;">12.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD44B; color: #000000;">46.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD349; color: #000000;">44.4</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='8.93' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>44.4</text><polyline points='8.60,8.32 14.91,10.82 21.22,9.71 27.53,10.44 33.84,9.49 40.15,9.08 46.46,7.46 52.77,10.91 59.09,7.08 65.40,7.29 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.29' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='52.77' cy='10.91' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='7.08' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:25px;"></td>
 <td class="gt_row gt_left">NYG</td>
-<td class="gt_row gt_right" style="background-color: #FED3C6; color: #000000;">10.0</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000;">21.4</td>
-<td class="gt_row gt_right" style="background-color: #FF5E2C; color: #000000;">30.0</td>
-<td class="gt_row gt_right" style="background-color: #FF9878; color: #000000;">14.3</td>
-<td class="gt_row gt_right" style="background-color: #FF855E; color: #000000;">27.8</td>
-<td class="gt_row gt_right" style="background-color: #FF835C; color: #000000;">23.5</td>
-<td class="gt_row gt_right" style="background-color: #EA4C1A; color: #FFFFFF;">54.5</td>
-<td class="gt_row gt_right" style="background-color: #FE5722; color: #000000;">55.6</td>
-<td class="gt_row gt_right" style="background-color: #D34113; color: #FFFFFF;">76.9</td>
-<td class="gt_row gt_right" style="background-color: #FF8761; color: #000000;">43.8</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,11.20 14.91,9.90 21.22,8.92 27.53,10.71 33.84,9.17 40.15,9.66 46.46,6.14 52.77,6.01 59.09,3.59 65.40,7.35 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.35' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='11.20' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='3.59' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='9.00' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>43.8</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFEFBE; color: #000000;">10.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">21.4</td>
+<td class="gt_row gt_right" style="background-color: #FFC314; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD348; color: #000000;">27.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD246; color: #000000;">23.5</td>
+<td class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">54.5</td>
+<td class="gt_row gt_right" style="background-color: #FFC006; color: #000000;">55.6</td>
+<td class="gt_row gt_right" style="background-color: #FF8900; color: #000000;">76.9</td>
+<td class="gt_row gt_right" style="background-color: #FFD44B; color: #000000;">43.8</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='9.00' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>43.8</text><polyline points='8.60,11.20 14.91,9.90 21.22,8.92 27.53,10.71 33.84,9.17 40.15,9.66 46.46,6.14 52.77,6.01 59.09,3.59 65.40,7.35 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.35' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='11.20' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='3.59' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:25px;"></td>
 <td class="gt_row gt_left">MIA</td>
-<td class="gt_row gt_right" style="background-color: #FF8E6B; color: #000000;">21.4</td>
-<td class="gt_row gt_right" style="background-color: #FF7B51; color: #000000;">22.2</td>
-<td class="gt_row gt_right" style="background-color: #FF7A4F; color: #000000;">23.1</td>
-<td class="gt_row gt_right" style="background-color: #FF6C3E; color: #000000;">23.1</td>
-<td class="gt_row gt_right" style="background-color: #FFB6A0; color: #000000;">14.3</td>
-<td class="gt_row gt_right" style="background-color: #FF612F; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FFAB91; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6635; color: #000000;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FFA88D; color: #000000;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FF8F6B; color: #000000;">41.7</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,9.90 14.91,9.81 21.22,9.71 27.53,9.71 33.84,10.71 40.15,8.55 46.46,9.49 52.77,6.65 59.09,7.79 65.40,7.59 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.59' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='33.84' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='52.77' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='9.24' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>41.7</text></g></svg></td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:25px;"></td>
-<td class="gt_row gt_left">MIN</td>
-<td class="gt_row gt_right" style="background-color: #FFC0AC; color: #000000;">13.3</td>
-<td class="gt_row gt_right" style="background-color: #FF6A3B; color: #000000;">26.3</td>
-<td class="gt_row gt_right" style="background-color: #FF6B3D; color: #000000;">26.7</td>
-<td class="gt_row gt_right" style="background-color: #FF7B51; color: #000000;">20.0</td>
-<td class="gt_row gt_right" style="background-color: #FF8862; color: #000000;">26.7</td>
-<td class="gt_row gt_right" style="background-color: #FFAB91; color: #000000;">14.3</td>
-<td class="gt_row gt_right" style="background-color: #F4511E; color: #FFFFFF;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FF9A79; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF5925; color: #000000;">57.1</td>
-<td class="gt_row gt_right" style="background-color: #FF9C7C; color: #000000;">38.5</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.82 14.91,9.34 21.22,9.30 27.53,10.06 33.84,9.30 40.15,10.71 46.46,6.65 52.77,8.55 59.09,5.84 65.40,7.96 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.96' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.82' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='5.84' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='9.60' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>38.5</text></g></svg></td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:25px;"></td>
-<td class="gt_row gt_left">TB</td>
-<td class="gt_row gt_right" style="background-color: #F8531F; color: #FFFFFF;">36.4</td>
-<td class="gt_row gt_right" style="background-color: #FF6F42; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #DA4415; color: #FFFFFF;">50.0</td>
-<td class="gt_row gt_right" style="background-color: #FF9878; color: #000000;">14.3</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000;">30.0</td>
-<td class="gt_row gt_right" style="background-color: #FF9A79; color: #000000;">18.2</td>
-<td class="gt_row gt_right" style="background-color: #FF825A; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF7043; color: #000000;">46.2</td>
-<td class="gt_row gt_right" style="background-color: #FFBBA6; color: #000000;">36.4</td>
-<td class="gt_row gt_right" style="background-color: #FFA488; color: #000000;">36.4</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,8.20 14.91,9.49 21.22,6.65 27.53,10.71 33.84,8.92 40.15,10.27 46.46,8.55 52.77,7.08 59.09,8.20 65.40,8.20 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='8.20' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='27.53' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='21.22' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='9.84' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>36.4</text></g></svg></td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:25px;"></td>
-<td class="gt_row gt_left">NE</td>
-<td class="gt_row gt_right" style="background-color: #FFAB91; color: #000000;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #FF754A; color: #000000;">23.5</td>
-<td class="gt_row gt_right" style="background-color: #FF8B67; color: #000000;">18.8</td>
-<td class="gt_row gt_right" style="background-color: #EE4E1C; color: #FFFFFF;">35.7</td>
-<td class="gt_row gt_right" style="background-color: #FFCABA; color: #000000;">9.1</td>
-<td class="gt_row gt_right" style="background-color: #FE5722; color: #000000;">36.4</td>
-<td class="gt_row gt_right" style="background-color: #F95420; color: #000000;">47.1</td>
-<td class="gt_row gt_right" style="background-color: #FF916D; color: #000000;">35.7</td>
-<td class="gt_row gt_right" style="background-color: #FFA88D; color: #000000;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FFB198; color: #000000;">33.3</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.44 14.91,9.66 21.22,10.20 27.53,8.28 33.84,11.30 40.15,8.20 46.46,6.98 52.77,8.28 59.09,7.79 65.40,8.55 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='8.55' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='33.84' cy='11.30' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='46.46' cy='6.98' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='10.19' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>33.3</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFD656; color: #000000;">21.4</td>
+<td class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFCE38; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFE493; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD757; color: #000000;">41.7</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='9.24' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>41.7</text><polyline points='8.60,9.90 14.91,9.81 21.22,9.71 27.53,9.71 33.84,10.71 40.15,8.55 46.46,9.49 52.77,6.65 59.09,7.79 65.40,7.59 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.59' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='33.84' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='52.77' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:25px;"></td>
 <td class="gt_row gt_left">CIN</td>
-<td class="gt_row gt_right" style="background-color: #F95420; color: #000000;">35.7</td>
-<td class="gt_row gt_right" style="background-color: #ED4E1C; color: #FFFFFF;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FF8B67; color: #000000;">18.8</td>
-<td class="gt_row gt_right" style="background-color: #E34918; color: #FFFFFF;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FF9573; color: #000000;">23.1</td>
-<td class="gt_row gt_right" style="background-color: #FFA183; color: #000000;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #FC5521; color: #000000;">45.5</td>
-<td class="gt_row gt_right" style="background-color: #FF7043; color: #000000;">46.2</td>
-<td class="gt_row gt_right" style="background-color: #FFB59E; color: #000000;">37.5</td>
-<td class="gt_row gt_right" style="background-color: #FFC3B1; color: #000000;">28.6</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,8.28 14.91,7.79 21.22,10.20 27.53,7.79 33.84,9.71 40.15,10.44 46.46,7.16 52.77,7.08 59.09,8.07 65.40,9.08 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='9.08' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='10.44' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='52.77' cy='7.08' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='10.73' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>28.6</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD551; color: #000000;">18.8</td>
+<td class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD961; color: #000000;">23.1</td>
+<td class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFBD05; color: #000000;">45.5</td>
+<td class="gt_row gt_right" style="background-color: #FFCA28; color: #000000;">46.2</td>
+<td class="gt_row gt_right" style="background-color: #FFE492; color: #000000;">37.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD75A; color: #000000;">41.2</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='9.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>41.2</text><polyline points='8.60,8.28 14.91,7.79 21.22,10.20 27.53,7.79 33.84,9.71 40.15,10.44 46.46,7.16 52.77,7.08 59.09,8.07 65.40,7.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='40.15' cy='10.44' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='52.77' cy='7.08' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:25px;"></td>
+<td class="gt_row gt_left">MIN</td>
+<td class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">13.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC822; color: #000000;">26.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC823; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">26.7</td>
+<td class="gt_row gt_right" style="background-color: #FFE083; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFC20B; color: #000000;">57.1</td>
+<td class="gt_row gt_right" style="background-color: #FFDB6B; color: #000000;">38.5</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='9.60' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>38.5</text><polyline points='8.60,10.82 14.91,9.34 21.22,9.30 27.53,10.06 33.84,9.30 40.15,10.71 46.46,6.65 52.77,8.55 59.09,5.84 65.40,7.96 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='7.96' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='8.60' cy='10.82' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='5.84' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:25px;"></td>
+<td class="gt_row gt_left">TB</td>
+<td class="gt_row gt_right" style="background-color: #FFB802; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FF9100; color: #000000;">50.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">14.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">30.0</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">18.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD144; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFCA28; color: #000000;">46.2</td>
+<td class="gt_row gt_right" style="background-color: #FFE69B; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFDE78; color: #000000;">36.4</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='9.84' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>36.4</text><polyline points='8.60,8.20 14.91,9.49 21.22,6.65 27.53,10.71 33.84,8.92 40.15,10.27 46.46,8.55 52.77,7.08 59.09,8.20 65.40,8.20 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='8.20' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='27.53' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='21.22' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:25px;"></td>
+<td class="gt_row gt_left">NE</td>
+<td class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFCC31; color: #000000;">23.5</td>
+<td class="gt_row gt_right" style="background-color: #FFD551; color: #000000;">18.8</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFEBB0; color: #000000;">9.1</td>
+<td class="gt_row gt_right" style="background-color: #FFC007; color: #000000;">36.4</td>
+<td class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">47.1</td>
+<td class="gt_row gt_right" style="background-color: #FFD75A; color: #000000;">35.7</td>
+<td class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFE28A; color: #000000;">33.3</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='10.19' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>33.3</text><polyline points='8.60,10.44 14.91,9.66 21.22,10.20 27.53,8.55 33.84,11.30 40.15,8.20 46.46,6.98 52.77,8.28 59.09,7.79 65.40,8.55 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='8.55' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='33.84' cy='11.30' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='46.46' cy='6.98' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:25px;"></td>
 <td class="gt_row gt_left">PIT</td>
-<td class="gt_row gt_right" style="background-color: #FB5521; color: #000000;">34.8</td>
-<td class="gt_row gt_right" style="background-color: #FB5520; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF7D54; color: #000000;">22.2</td>
-<td class="gt_row gt_right" style="background-color: #F4511E; color: #FFFFFF;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF7A50; color: #000000;">31.2</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF6C3E; color: #000000;">38.5</td>
-<td class="gt_row gt_right" style="background-color: #FF9A79; color: #000000;">33.3</td>
-<td class="gt_row gt_right" style="background-color: #FF9878; color: #000000;">42.9</td>
-<td class="gt_row gt_right" style="background-color: #FFCBBB; color: #000000;">26.7</td>
-<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,8.38 14.91,8.55 21.22,9.81 27.53,8.55 33.84,8.79 40.15,9.49 46.46,7.96 52.77,8.55 59.09,7.46 65.40,9.30 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='9.30' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='21.22' cy='9.81' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='59.09' cy='7.46' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='10.94' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>26.7</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">34.8</td>
+<td class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFD03D; color: #000000;">22.2</td>
+<td class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFCE39; color: #000000;">31.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">38.5</td>
+<td class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
+<td class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">42.9</td>
+<td class="gt_row gt_right" style="background-color: #FFF0C3; color: #000000;">23.5</td>
+<td class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='11.31' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>23.5</text><polyline points='8.60,8.38 14.91,8.55 21.22,9.81 27.53,8.55 33.84,8.79 40.15,9.49 46.46,7.96 52.77,8.55 59.09,7.46 65.40,9.66 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='9.66' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='21.22' cy='9.81' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='59.09' cy='7.46' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
     <tr><td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:25px;"></td>
 <td class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">SEA</td>
-<td class="gt_row gt_right" style="background-color: #FFB198; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">15.8</td>
-<td class="gt_row gt_right" style="background-color: #FF8C67; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">18.2</td>
-<td class="gt_row gt_right" style="background-color: #FF9675; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">16.7</td>
-<td class="gt_row gt_right" style="background-color: #FF6433; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF612F; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">40.0</td>
-<td class="gt_row gt_right" style="background-color: #FF7E55; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">25.0</td>
-<td class="gt_row gt_right" style="background-color: #FF5722; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">43.8</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">11.1</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">27.3</td>
-<td class="gt_row gt_right" style="background-color: #FBE9E7; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">18.2</td>
-<td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><polyline points='8.60,10.54 14.91,10.27 21.22,10.44 27.53,9.49 33.84,7.79 40.15,9.49 46.46,7.35 52.77,11.07 59.09,9.23 65.40,10.27 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='10.27' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='52.77' cy='11.07' r='0.89' style='stroke-width: 0.71; stroke: #FF0000; fill: #FF0000;' /><circle cx='46.46' cy='7.35' r='0.89' style='stroke-width: 0.71; stroke: #0000FF; fill: #0000FF;' /><text x='68.55' y='11.91' style='font-size: 5.69px; font-weight: 0; font-family: Courier;' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>18.2</text></g></svg></td></tr>
+<td class="gt_row gt_right" style="background-color: #FFE28A; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">15.8</td>
+<td class="gt_row gt_right" style="background-color: #FFD652; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">18.2</td>
+<td class="gt_row gt_right" style="background-color: #FFD963; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">16.7</td>
+<td class="gt_row gt_right" style="background-color: #FFC61B; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC417; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">40.0</td>
+<td class="gt_row gt_right" style="background-color: #FFD03E; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">25.0</td>
+<td class="gt_row gt_right" style="background-color: #FFC107; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">43.8</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">11.1</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">27.3</td>
+<td class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">18.2</td>
+<td class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.55' y='11.91' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>18.2</text><polyline points='8.60,10.54 14.91,10.27 21.22,10.44 27.53,9.49 33.84,7.79 40.15,9.49 46.46,7.35 52.77,11.07 59.09,9.23 65.40,10.27 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.40' cy='10.27' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='52.77' cy='11.07' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='46.46' cy='7.35' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>

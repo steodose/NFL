@@ -41,17 +41,10 @@ library(reactablefmtr)
 library(ggalt) #for dumbbell plot
 library(ggforce)
 library(ggsci)
+library(paletteer)
 
-
-seasons <- 2010:2021
-data <- purrr::map_df(seasons, function(x) {
-   readRDS(
-     url(
-       glue::glue("https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_{x}.rds")
-     )
-   )
- })
-
+# load pbp data
+data <- load_pbp(2012:2021)
 
 # Filter for Run/Pass plays for the 2021 season only
 pbp_rp <- data %>%
@@ -164,8 +157,6 @@ Expected Points Added: The change in Expected Points (EP) from one play to the n
 
 EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards. 
 
-EDITOR'S NOTE: There is currently an issue with the logos in the below plots that will get resolved soon. I know the wordmark logos seen below don't look all that good.
-
 ```{r}
 
 #Set aspect ratio for logo based plots
@@ -265,7 +256,7 @@ epa_logos
 
 ### EPA vs CPOE per dropback by team
 
-This below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.
+The below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.
 
 ```{r EPA vs CPOE, echo = FALSE}
 
@@ -344,7 +335,8 @@ explosive_plays_plot_logos <- explosive_plays %>%
   theme(plot.title = element_markdown()) +
   geom_vline(xintercept = mean(explosive_plays$explosive_share), color = "red", linetype = "dashed") +
   scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, suffix = " %")) +
-  theme(axis.text.y = element_markdown(margin = margin(r = -25, unit = "pt"))) +
+  #theme(axis.text.y = element_markdown(margin = margin(r = -25, unit = "pt"))) +
+  theme(axis.text.y = element_markdown())
   theme(legend.position = "none")
 
 explosive_plays_plot_logos
@@ -356,14 +348,7 @@ explosive_plays_plot_logos
 ```{r Fourth Downs Data Wrangling, echo = FALSE}
 library(webshot) #saving images of gt tables
 
-seasons <- 2012:2021
-fourth_down_plays <- purrr::map_df(seasons, function(x) {
-   readRDS(
-     url(
-       glue::glue("https://raw.githubusercontent.com/guga31bb/nflfastR-data/master/data/play_by_play_{x}.rds")
-     )
-   )
- }) %>%
+fourth_down_plays <- pbp_rp %>%
    filter(
      down == 4,
      qb_kneel == 0,
@@ -459,9 +444,11 @@ fourth_down_table <- go_for_it_by_year %>%
     columns = 3:12, 
     colors = scales::col_numeric(
       palette = paletteer::paletteer_d(
-        palette = "ggsci::deep-orange_material"
+        palette = "ggsci::amber_material",
+        direction = 1
       ) %>% as.character(),
-      domain = NULL
+      domain = NULL, 
+      na.color = "#005C55FF"
     )) %>%
   gt_nfl_theme_538() %>%
   cols_align(align = "left",
@@ -470,7 +457,7 @@ fourth_down_table <- go_for_it_by_year %>%
              subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2021 data is thru Week {current_week}.")) %>%
   tab_source_note(
     source_note = md("DATA: nflfastR<br>TABLE: @steodosescu")) %>% 
-  gt_sparkline(`2012-2021`)
+  gt_plt_sparkline(`2012-2021`)
 
 
 fourth_down_table
