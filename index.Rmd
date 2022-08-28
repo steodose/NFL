@@ -8,4 +8,6 @@ Football analytics have taken a huge leap forward in the past half decade or so.
 
 Read more at my blog [Between the Pipes](https://betweenpipes.wordpress.com/category/nfl/).
 
+This site is not associated with the NFL.
+
 <img src="/Users/Stephan/Desktop/R Projects/NFL/NFL.png" style="width:25%">

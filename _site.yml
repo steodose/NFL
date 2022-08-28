@@ -1,7 +1,7 @@
 name: "Yay internet!"
 output_dir: "."
 navbar:
-  title: "<img id=\"logo\" style=\"width: 36px;\" src=\"NFL.png\" />"
+  title: '<div><img src="nfl-logo.png" width="24px"></img> NFL Analytics</div>'
   left:
     - text: "Summary"
       href: 2021-NFL-Season-Report.html
@@ -11,6 +11,8 @@ navbar:
       href: Players-Weekly-Report.html
     - text: "Games"
       href: Games.html
+    - text: "Predictions"
+      href: Forecast-Simulations.html
     - text: "About"
       href: about.html
   right:
