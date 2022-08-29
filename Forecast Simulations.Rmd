@@ -1,5 +1,4 @@
 ---
-title: "Forecast Simulations"
 date: 'Last updated: `r format(Sys.Date())`'
 output:
   html_document:
@@ -8,19 +7,66 @@ output:
     fig_height: 7
 ---
 
-```{r, echo=FALSE}
-
-# Insert NFL logo in top right of report
-htmltools::img(src = knitr::image_uri("/Users/Stephan/Desktop/R Projects/NFL/NFL.png"), 
-               alt = 'logo', 
-               style = 'position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px')
-
-```
-
-
 ```{r setup, include=FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 ```
+
+```{r, echo=FALSE}
+
+library(nflfastR)
+library(nflseedR) # For forecast simulations
+library(espnscrapeR)
+library(htmltools)
+library(tidyverse)
+library(teamcolors) # NFL team colors and logos
+library(extrafont) # for extra fonts
+library(ggrepel) # better labels
+library(ggimage)
+library(glue)
+library(ggtext)
+library(reactable)
+library(reactablefmtr)
+library(ggalt) #for dumbbell plot
+library(ggforce)
+library(gt)
+library(gtExtras)
+library(webshot)
+
+
+# Define 538 table theme for Reactable table(s) below
+theme_538 <- function() {
+    reactable::reactableTheme(
+        searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
+        style = list(
+            fontFamily = "Chivo"
+        ),
+        headerStyle = list(
+            "&:hover[aria-sort]" = list(
+                background = "hsl(0, 0%, 80%)"),
+            "&[aria-sort='ascending'], &[aria-sort='descending']" = list(
+                background = "#555",
+                color = "#FFF"
+            ),
+            borderColor = "#333"
+        ),
+        borderColor = "#CDCDCD"
+    )
+}
+
+# Custom ggplot theme (inspired by Owen Phillips at the F5 substack blog)
+theme_custom <- function () { 
+  theme_minimal(base_size=11, base_family="Chivo") %+replace% 
+    theme(
+      panel.grid.minor = element_blank(),
+      plot.background = element_rect(fill = 'floralwhite', color = "floralwhite")
+    )
+}
+
+#Define color palette to use in table
+my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
+
+```
+
 
 Below you'll find predictions for the 2022 NFL season after simulating the remaining schedule 1,000x. The model I use is similar to that described by Wayne Winston, and popularized at Pro-Football-Reference, where victory for an NFL team in a given game can be approximated as a  normal random variable with a mean of the "spread" and a standard deviation between 12-13 (using 12.7 based on Winston's research).
 
@@ -28,6 +74,7 @@ Below you'll find predictions for the 2022 NFL season after simulating the remai
 
 library(nflfastR)
 library(nflseedR) # For forecast simulations
+library(espnscrapeR)
 library(tidyverse)
 library(teamcolors) # NFL team colors and logos
 library(extrafont) # for extra fonts
@@ -44,10 +91,9 @@ library(ggforce)
 # Optional but makes R prefer not to display numbers in scientific notation
 options(scipen = 9999)
 
-# Identify current week
-#current_week <- max(pbp_rp$week)
 
-# Random ELO method
+# Random ELO method given in the nflseedr documentation
+
 set.seed(82722) #don't think we need this once the season starts
 sims <- simulate_nfl(
   nfl_season = 2022,
@@ -55,7 +101,8 @@ sims <- simulate_nfl(
   simulations = 100
 )
 
-summary(sims)
+# summary function outputs gt table
+#summary(sims)
 
 
 # Build stupid games model (alphabetical team wins 90% of the time)
@@ -86,54 +133,6 @@ sims2 <- simulate_nfl(
 #summary(sims2)
 
 
-# Biased games model 
-biased_games_model <- function(teams, games, week_num, ...) {
-  
-  # arguments
-  args <- list(...)
-  best <- ""
-  worst <- ""
-  
-  # best team?
-  if ("best" %in% names(args)) {
-    best <- args$best
-  }
-  
-  # worst team?
-  if ("worst" %in% names(args)) {
-    worst <- args$worst
-  }
-
-  # make the best team always win and the worst team always lose
-  # otherwise, make the earlier alphabetical team win 90% of the time
-  games <- games %>%
-    dplyr::mutate(
-      result = dplyr::case_when(
-        !is.na(result) | week != week_num ~ result,
-        away_team == best | home_team == worst ~ -3,
-        away_team == worst | home_team == best ~ 3,
-        away_team < home_team ~ sample(c(-3, 3), n(), prob = c(0.9, 0.1), replace = TRUE),
-        away_team > home_team ~ sample(c(-3, 3), n(), prob = c(0.1, 0.9), replace = TRUE),
-        TRUE ~ 0
-      )
-    )
-  
-  # return values
-  return(list(teams = teams, games = games))
-}
-
-
-sims3 <- simulate_nfl(
-  nfl_season = 2021,
-  process_games = biased_games_model, 
-  fresh_season = TRUE, 
-  simulations = 100,
-  best = "CHI", 
-  worst = "GB"
-)
-
-#summary(sims3)
-
 
 ## Actual model I want to build: win probability model from PFR: https://www.pro-football-reference.com/about/win_prob.htm
 
@@ -143,20 +142,231 @@ sims3 <- simulate_nfl(
 
 #Your function’s job - by whatever means you choose - is to update the result column for that week’s games in each of the sims with the number of points the home team won by (or lost by if negative, or 0 if the game ended in a tie).
 
-nfl_games_model <- function(teams, games, week_num, ...) {
-  # make the earlier alphabetical team win 90% of the time
-  games <- games %>%
-    dplyr::mutate(
-      result = dplyr::case_when(
-        !is.na(result) | week != week_num ~ result,
-        away_team < home_team ~ sample(c(-3, 3), n(), prob = c(0.9, 0.1), replace = TRUE),
-        away_team > home_team ~ sample(c(-3, 3), n(), prob = c(0.1, 0.9), replace = TRUE),
-        TRUE ~ 0
-      )
-    )
-  
-  # return values
-  return(list(teams = teams, games = games))
+
+
+
+```
+
+
+```{r, echo =FALSE}
+
+#### An interactive {reactable} table with {nflseedR} data, styled like FiveThirtyEight...Tom Mock
+rating_column <- function(maxWidth = 55, ...) {
+  colDef(maxWidth = maxWidth, align = "center", class = "cell number", ...)
+}
+
+playoff_pct_color <- scales::col_numeric(
+  palette = c("white", "#6fc0e7", "#018fd5"), 
+  domain = c(0, 1)
+  )
+
+draft_pct_color <- scales::col_numeric(
+  palette = c("white", "lightsalmon", "salmon"), 
+  domain = c(0, 1)
+  )
+
+playoff_column <- function(maxWidth = 70, class = NULL, color_type = "playoff", ...) {
+  colDef(
+    defaultSortOrder = "desc",
+    cell = format_pct,
+    maxWidth = maxWidth,
+    class = paste("cell number", class),
+    style = function(value) {
+      # Lighter color for <1%
+      if (value < 0.01) {
+        list(color = "#aaa")
+      } else if(value >= 0.01 & color_type == "playoff") {
+        list(color = "#111", background = playoff_pct_color(value))
+      } else if(value >= 0.01 & color_type == "draft") {
+        list(color = "#111", background = draft_pct_color(value))
+      }
+    },
+    ...
+  )
+}
+
+format_pct <- function(value) {
+  if (value == 0) "  \u2013 "    # en dash for 0%
+  else if (value == 1) "\u2713"  # checkmark for 100%
+  else if (value < 0.01) " <1%"
+  else if (value > 0.99) ">99%"
+  else formatC(paste0(round(value * 100), "%"), width = 4)
+}
+```
+
+
+```{r, echo = FALSE}
+team_logos <- select(nflfastR::teams_colors_logos, team = team_abbr, team_nick, team_logo_espn)
+
+overall_sim <- sims$overall %>%
+  left_join(team_logos, by = "team") %>% 
+  select(team = team_nick, team_logo_espn, group = division, wins, playoff:draft5) %>% 
+  group_by(group) %>% 
+  arrange(desc(won_sb)) %>% 
+  ungroup()
+
+sim_table <- reactable(
+  select(overall_sim, -team_logo_espn),
+  pagination = FALSE,
+  defaultSorted = list(group = "asc", won_sb = "desc"),
+  defaultSortOrder = "desc",
+  defaultColDef = colDef(class = "cell", headerClass = "header"),
+  defaultColGroup = colGroup(headerClass = "group-header"),
+  columnGroups = list(
+    colGroup(
+      name = "PLAYOFF CHANCES", 
+      columns = c("playoff", "div1", "seed1", "won_conf", "won_sb")
+      ),
+    colGroup(name = "DRAFT CHANCES", columns = c("draft1", "draft5"))
+  ),
+  columns = list(
+    team = colDef(
+      name = "TEAM",
+      minWidth = 120,
+      defaultSortOrder = "asc",
+      headerStyle = list(fontWeight = 700),
+      cell = function(value, index) {
+        
+        logos <- overall_sim$team_logo_espn[index]
+        
+        div(
+          class = "team",
+          # add team logos here
+          img(class = "logo", alt = paste(value, "logo"), src = logos, height = "24px"),
+          div(class = "team-name", value)
+          # div(class = "record", sprintf("%s pts.", forecasts[index, "points"]))
+        )
+      }
+    ),
+    group = colDef(
+      name = "DIVISION",
+      defaultSortOrder = "asc",
+      align = "center",
+      maxWidth = 120,
+      class = "cell group",
+      headerStyle = list(fontWeight = 700)
+    ),
+    wins = colDef(
+      name = "Wins",
+      format = colFormat(digits = 1),
+      maxWidth = 100,
+      class = "cell number"
+    ),
+    playoff = playoff_column(name = "Make Playoff", class = "border-left", maxWidth = 75),
+    div1 = playoff_column(name = "Win Div"),
+    seed1 = playoff_column(name = "1st RD Bye"),
+    won_conf = playoff_column(name = "Win Conf"),
+    won_sb = playoff_column(name = "Win SB"),
+    draft1 = playoff_column(name = "First Pick", class = "border-left", color_type = "draft"),
+    draft5 = playoff_column(name = "Top 5 Pick", color_type = "draft")
+  ),
+  # Emphasize borders between groups when sorting by division
+  rowClass = JS("
+    function(rowInfo, state) {
+      const firstSorted = state.sorted[0]
+      if (firstSorted && firstSorted.id === 'group') {
+        const nextRow = state.pageRows[rowInfo.viewIndex + 1]
+        if (nextRow && rowInfo.row.group !== nextRow.group) {
+          return 'group-last'
+        }
+      }
+    }"),
+  showSortIcon = FALSE,
+  borderless = TRUE,
+  class = "standings-table"
+)
+div(
+  class = "standings",
+  div(
+    class = "title",
+    h1("2022 NFL Simulations"),
+    "Team points simulated based off random Elo model via {nflseedR}"
+  ),
+  sim_table,
+  "Simulation by @steodosescu via 1,000 {nflseedR} simulated games | Inspired by Tom Mock"
+)
+```
+
+```{css, echo = FALSE}
+tags$link(href = "https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&display=fallback", rel = "stylesheet")
+.standings {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+.title {
+  margin: 18px 0;
+  font-size: 16px;
+}
+.title h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.standings-table {
+  margin-bottom: 20px;
+}
+/* Align header text to the bottom */
+.header,
+.group-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.header {
+  border-bottom-color: #555;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+/* Highlight headers when sorting */
+.header:hover,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #eee;
+}
+.border-left {
+  border-left: 2px solid #555;
+}
+/* Use box-shadow to create row borders that appear behind vertical borders */
+.cell {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  padding: 5px 12px;
+}
+.group-last .cell {
+  box-shadow: inset 0 -2px 0 #555;
+}
+.team {
+  display: flex;
+}
+.record {
+  margin-left: 5px;
+  color: #999;
+  font-size: 13px;
+}
+.team-name {
+  font-size: 18px;
+  font-weight: 700;
+}
+.logo {
+  margin-right: 8px;
+  height: 24px;
+}
+.group {
+  font-size: 19px;
+}
+.number {
+  font-family: "Fira Mono", Consolas, Monaco, monospace;
+  font-size: 16px;
+  line-height: 30px;
+  white-space: pre;
+}
+.wins {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 50%;
+  color: #000;
+  font-size: 13px;
+  letter-spacing: -2px;
 }
 
 ```

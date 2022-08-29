@@ -245,7 +245,6 @@ combined_tables
 ```
 
 
-***
 
 ```{r}
 

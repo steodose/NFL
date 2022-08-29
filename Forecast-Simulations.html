@@ -11,7 +11,7 @@
 
 
 
-<title>Forecast Simulations</title>
+<title>Forecast-Simulations.knit</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,6 +32,12 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="site_libs/react-17.0.0/react.min.js"></script>
+<script src="site_libs/react-17.0.0/react-dom.min.js"></script>
+<script src="site_libs/reactwidget-1.0.0/react-tools.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/reactable-binding-0.3.0/reactable.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -300,779 +306,103 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Forecast Simulations</h1>
-<h4 class="date">Last updated: 2022-08-27</h4>
 
 </div>
 
 
-<img src="data:image/png;base64,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" alt="logo" style="position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px"/>
 <p>Below you’ll find predictions for the 2022 NFL season after simulating the remaining schedule 1,000x. The model I use is similar to that described by Wayne Winston, and popularized at Pro-Football-Reference, where victory for an NFL team in a given game can be approximated as a normal random variable with a mean of the “spread” and a standard deviation between 12-13 (using 12.7 based on Winston’s research).</p>
-<div id="ddzoreztaz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>@import url("https://fonts.googleapis.com/css2?family=Prosto+One:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Prosto+One:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Audiowide:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-html {
-  font-family: Chivo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
-}
-
-#ddzoreztaz .gt_table {
-  display: table;
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: 300;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: none;
-  border-top-width: 3px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_heading {
-  background-color: #4D4D4D;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_title {
-  color: #FFFFFF;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#ddzoreztaz .gt_subtitle {
-  color: #FFFFFF;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 0;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#ddzoreztaz .gt_bottom_border {
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_col_headings {
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #000000;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: normal;
-  text-transform: uppercase;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#ddzoreztaz .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: normal;
-  text-transform: uppercase;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#ddzoreztaz .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#ddzoreztaz .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#ddzoreztaz .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #000000;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#ddzoreztaz .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: bolder;
-  text-transform: uppercase;
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#ddzoreztaz .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: bolder;
-  border-top-style: none;
-  border-top-width: 2px;
-  border-top-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: #FFFFFF;
-  vertical-align: middle;
-}
-
-#ddzoreztaz .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#ddzoreztaz .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#ddzoreztaz .gt_row {
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#ddzoreztaz .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: bolder;
-  text-transform: uppercase;
-  border-right-style: solid;
-  border-right-width: 0px;
-  border-right-color: #FFFFFF;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ddzoreztaz .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#ddzoreztaz .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#ddzoreztaz .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ddzoreztaz .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#ddzoreztaz .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ddzoreztaz .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#ddzoreztaz .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ddzoreztaz .gt_sourcenotes {
-  color: #FFFFFF;
-  background-color: #4D4D4D;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#ddzoreztaz .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#ddzoreztaz .gt_left {
-  text-align: left;
-}
-
-#ddzoreztaz .gt_center {
-  text-align: center;
-}
-
-#ddzoreztaz .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#ddzoreztaz .gt_font_normal {
-  font-weight: normal;
-}
-
-#ddzoreztaz .gt_font_bold {
-  font-weight: bold;
-}
-
-#ddzoreztaz .gt_font_italic {
-  font-style: italic;
-}
-
-#ddzoreztaz .gt_super {
-  font-size: 65%;
-}
-
-#ddzoreztaz .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
-#ddzoreztaz .gt_footnote_marks {
-  font-style: italic;
-  font-weight: normal;
-  font-size: 75%;
-  vertical-align: 0.4em;
-}
-
-#ddzoreztaz .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#ddzoreztaz .gt_slash_mark {
-  font-size: 0.7em;
-  line-height: 0.7em;
-  vertical-align: 0.15em;
-}
-
-#ddzoreztaz .gt_fraction_numerator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: 0.45em;
-}
-
-#ddzoreztaz .gt_fraction_denominator {
-  font-size: 0.6em;
-  line-height: 0.6em;
-  vertical-align: -0.05em;
-}
-</style>
-<table class="gt_table">
-  <thead class="gt_header">
-    <tr>
-      <th colspan="18" class="gt_heading gt_title gt_font_normal" style="font-family: &#39;Prosto One&#39;, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Oxygen, Ubuntu, Cantarell, &#39;Helvetica Neue&#39;, &#39;Fira Sans&#39;, &#39;Droid Sans&#39;, Arial, sans-serif; font-weight: bold;">Simulating the 2022 NFL Season</th>
-    </tr>
-    <tr>
-      <th colspan="18" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="font-family: &#39;Prosto One&#39;, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Oxygen, Ubuntu, Cantarell, &#39;Helvetica Neue&#39;, &#39;Fira Sans&#39;, &#39;Droid Sans&#39;, Arial, sans-serif; font-weight: normal;">Summary of 100 Simulations using nflseedR</th>
-    </tr>
-  </thead>
-  <thead class="gt_col_headings">
-    <tr>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="9">
-        <span class="gt_column_spanner"><img src="https://github.com/nflverse/nflfastR-data/raw/master/AFC.png" style="height:25px;"></span>
-      </th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="9">
-        <span class="gt_column_spanner"><img src="https://github.com/nflverse/nflfastR-data/raw/master/NFC.png" style="height:25px;"></span>
-      </th>
-    </tr>
-    <tr>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;"></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">AVG.<br>WINS</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Make<br>POST</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Win<br>DIV</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">No.1<br>Seed</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Win<br>Conf</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Win<br>SB</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">No.1<br>Pick</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Top-5<br>Pick</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black; border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">AVG.<br>WINS</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Make<br>POST</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Win<br>DIV</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">No.1<br>Seed</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Win<br>Conf</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Win<br>SB</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">No.1<br>Pick</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 0px; border-top-style: solid; border-top-color: black;">Top-5<br>Pick</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <td colspan="18" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; text-align: center; font-weight: bold; background-color: #F0F0F0;">E A S T</td>
-    </tr>
-    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">12.7</td>
-<td class="gt_row gt_right" style="background-color: #0167AB; color: #FFFFFF;">95%</td>
-<td class="gt_row gt_right" style="background-color: #0181C9; color: #FFFFFF;">84%</td>
-<td class="gt_row gt_right" style="background-color: #9ADCFB; color: #000000;">25%</td>
-<td class="gt_row gt_right" style="background-color: #C0EAFD; color: #000000;">17%</td>
-<td class="gt_row gt_right" style="background-color: #EDF8FE; color: #000000;">6%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">12.8</td>
-<td class="gt_row gt_right" style="background-color: #0174B9; color: #FFFFFF;">91%</td>
-<td class="gt_row gt_right" style="background-color: #028FD9; color: #FFFFFF;">76%</td>
-<td class="gt_row gt_right" style="background-color: #86D5F9; color: #000000;">29%</td>
-<td class="gt_row gt_right" style="background-color: #90D8FA; color: #000000;">27%</td>
-<td class="gt_row gt_right" style="background-color: #CAEDFD; color: #000000;">15%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">8.5</td>
-<td class="gt_row gt_right" style="background-color: #73CEF8; color: #000000;">33%</td>
-<td class="gt_row gt_right" style="background-color: #CEEEFD; color: #000000;">14%</td>
-<td class="gt_row gt_right" style="background-color: #F6FCFF; color: #000000;">3%</td>
-<td class="gt_row gt_right" style="background-color: #F9FDFF; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFF7EC; color: #000000;">6%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">8.8</td>
-<td class="gt_row gt_right" style="background-color: #36BAF6; color: #000000;">47%</td>
-<td class="gt_row gt_right" style="background-color: #D3F0FD; color: #000000;">13%</td>
-<td class="gt_row gt_right" style="background-color: #F6FCFF; color: #000000;">3%</td>
-<td class="gt_row gt_right" style="background-color: #EDF8FE; color: #000000;">6%</td>
-<td class="gt_row gt_right" style="background-color: #F9FDFF; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFAF2; color: #000000;">4%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">5.9</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFC670; color: #000000;">33%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">8.8</td>
-<td class="gt_row gt_right" style="background-color: #41BEF7; color: #000000;">44%</td>
-<td class="gt_row gt_right" style="background-color: #DCF3FE; color: #000000;">11%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFF6E9; color: #000000;">7%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">5.5</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFF7EC; color: #000000;">6%</td>
-<td class="gt_row gt_right" style="background-color: #FFBD5C; color: #000000;">37%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">5.9</td>
-<td class="gt_row gt_right" style="background-color: #DCF3FE; color: #000000;">11%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFCF9; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #FFD493; color: #000000;">26%</td></tr>
-    <tr class="gt_group_heading_row">
-      <td colspan="18" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; text-align: center; font-weight: bold; background-color: #F0F0F0;">N O R T H</td>
-    </tr>
-    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">12.6</td>
-<td class="gt_row gt_right" style="background-color: #016DB2; color: #FFFFFF;">93%</td>
-<td class="gt_row gt_right" style="background-color: #0FACF4; color: #000000;">58%</td>
-<td class="gt_row gt_right" style="background-color: #90D8FA; color: #000000;">27%</td>
-<td class="gt_row gt_right" style="background-color: #9FDEFB; color: #000000;">24%</td>
-<td class="gt_row gt_right" style="background-color: #CAEDFD; color: #000000;">15%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">9.9</td>
-<td class="gt_row gt_right" style="background-color: #02A9F3; color: #000000;">60%</td>
-<td class="gt_row gt_right" style="background-color: #3EBCF7; color: #000000;">45%</td>
-<td class="gt_row gt_right" style="background-color: #F9FDFF; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #F6FCFF; color: #000000;">3%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFBF5; color: #000000;">3%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">10.1</td>
-<td class="gt_row gt_right" style="background-color: #02A9F3; color: #000000;">60%</td>
-<td class="gt_row gt_right" style="background-color: #9FDEFB; color: #000000;">24%</td>
-<td class="gt_row gt_right" style="background-color: #F3FBFF; color: #000000;">4%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #F6FCFF; color: #000000;">3%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFAF2; color: #000000;">4%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">8.2</td>
-<td class="gt_row gt_right" style="background-color: #5AC6F7; color: #000000;">38%</td>
-<td class="gt_row gt_right" style="background-color: #A9E1FB; color: #000000;">22%</td>
-<td class="gt_row gt_right" style="background-color: #F6FCFF; color: #000000;">3%</td>
-<td class="gt_row gt_right" style="background-color: #F3FBFF; color: #000000;">4%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFECD1; color: #000000;">13%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">9.7</td>
-<td class="gt_row gt_right" style="background-color: #23B3F5; color: #000000;">52%</td>
-<td class="gt_row gt_right" style="background-color: #BCE8FC; color: #000000;">18%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #F3FBFF; color: #000000;">4%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">7.4</td>
-<td class="gt_row gt_right" style="background-color: #8BD7FA; color: #000000;">28%</td>
-<td class="gt_row gt_right" style="background-color: #B7E7FC; color: #000000;">19%</td>
-<td class="gt_row gt_right" style="background-color: #F9FDFF; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFEED6; color: #000000;">12%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">3.5</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFF2DF; color: #000000;">10%</td>
-<td class="gt_row gt_right" style="background-color: #FC9000; color: #000000;">67%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">7.3</td>
-<td class="gt_row gt_right" style="background-color: #86D5F9; color: #000000;">29%</td>
-<td class="gt_row gt_right" style="background-color: #CEEEFD; color: #000000;">14%</td>
-<td class="gt_row gt_right" style="background-color: #F6FCFF; color: #000000;">3%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFF8EF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FFDDAD; color: #000000;">21%</td></tr>
-    <tr class="gt_group_heading_row">
-      <td colspan="18" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; text-align: center; font-weight: bold; background-color: #F0F0F0;">S O U T H</td>
-    </tr>
-    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">11.0</td>
-<td class="gt_row gt_right" style="background-color: #0185CF; color: #FFFFFF;">81%</td>
-<td class="gt_row gt_right" style="background-color: #21B2F5; color: #000000;">53%</td>
-<td class="gt_row gt_right" style="background-color: #E3F5FE; color: #000000;">9%</td>
-<td class="gt_row gt_right" style="background-color: #E0F4FE; color: #000000;">10%</td>
-<td class="gt_row gt_right" style="background-color: #EDF8FE; color: #000000;">6%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFCF9; color: #000000;">2%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">11.4</td>
-<td class="gt_row gt_right" style="background-color: #0187D1; color: #FFFFFF;">80%</td>
-<td class="gt_row gt_right" style="background-color: #2DB7F6; color: #000000;">49%</td>
-<td class="gt_row gt_right" style="background-color: #B7E7FC; color: #000000;">19%</td>
-<td class="gt_row gt_right" style="background-color: #C5EBFD; color: #000000;">16%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">9.7</td>
-<td class="gt_row gt_right" style="background-color: #1EB1F5; color: #000000;">54%</td>
-<td class="gt_row gt_right" style="background-color: #7CD1F9; color: #000000;">31%</td>
-<td class="gt_row gt_right" style="background-color: #F3FBFF; color: #000000;">4%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #F6FCFF; color: #000000;">3%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFCF9; color: #000000;">2%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">11.3</td>
-<td class="gt_row gt_right" style="background-color: #0189D3; color: #FFFFFF;">79%</td>
-<td class="gt_row gt_right" style="background-color: #48C0F7; color: #000000;">42%</td>
-<td class="gt_row gt_right" style="background-color: #D3F0FD; color: #000000;">13%</td>
-<td class="gt_row gt_right" style="background-color: #CEEEFD; color: #000000;">14%</td>
-<td class="gt_row gt_right" style="background-color: #E9F7FE; color: #000000;">7%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">7.7</td>
-<td class="gt_row gt_right" style="background-color: #8BD7FA; color: #000000;">28%</td>
-<td class="gt_row gt_right" style="background-color: #D7F1FE; color: #000000;">12%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #F6FCFF; color: #000000;">3%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFEACD; color: #000000;">14%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">7.2</td>
-<td class="gt_row gt_right" style="background-color: #B7E7FC; color: #000000;">19%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFF5E5; color: #000000;">8%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">4.5</td>
-<td class="gt_row gt_right" style="background-color: #E6F6FE; color: #000000;">8%</td>
-<td class="gt_row gt_right" style="background-color: #F3FBFF; color: #000000;">4%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFF8EF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FF9C10; color: #000000;">57%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">6.5</td>
-<td class="gt_row gt_right" style="background-color: #D3F0FD; color: #000000;">13%</td>
-<td class="gt_row gt_right" style="background-color: #F3FBFF; color: #000000;">4%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFE3BB; color: #000000;">18%</td></tr>
-    <tr class="gt_group_heading_row">
-      <td colspan="18" class="gt_group_heading" style="border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: black; text-align: center; font-weight: bold; background-color: #F0F0F0;">W E S T</td>
-    </tr>
-    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">12.4</td>
-<td class="gt_row gt_right" style="background-color: #0177BD; color: #FFFFFF;">90%</td>
-<td class="gt_row gt_right" style="background-color: #029EE9; color: #FFFFFF;">67%</td>
-<td class="gt_row gt_right" style="background-color: #C5EBFD; color: #000000;">16%</td>
-<td class="gt_row gt_right" style="background-color: #C5EBFD; color: #000000;">16%</td>
-<td class="gt_row gt_right" style="background-color: #E3F5FE; color: #000000;">9%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">11.1</td>
-<td class="gt_row gt_right" style="background-color: #0187D1; color: #FFFFFF;">80%</td>
-<td class="gt_row gt_right" style="background-color: #02A6F0; color: #000000;">62%</td>
-<td class="gt_row gt_right" style="background-color: #CAEDFD; color: #000000;">15%</td>
-<td class="gt_row gt_right" style="background-color: #CAEDFD; color: #000000;">15%</td>
-<td class="gt_row gt_right" style="background-color: #E9F7FE; color: #000000;">7%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">10.2</td>
-<td class="gt_row gt_right" style="background-color: #02A3ED; color: #000000;">64%</td>
-<td class="gt_row gt_right" style="background-color: #A4E0FB; color: #000000;">23%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #E6F6FE; color: #000000;">8%</td>
-<td class="gt_row gt_right" style="background-color: #EDF8FE; color: #000000;">6%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">8.5</td>
-<td class="gt_row gt_right" style="background-color: #45BFF7; color: #000000;">43%</td>
-<td class="gt_row gt_right" style="background-color: #CAEDFD; color: #000000;">15%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #F9FDFF; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #F9FDFF; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFF5E5; color: #000000;">8%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">6.5</td>
-<td class="gt_row gt_right" style="background-color: #C0EAFD; color: #000000;">17%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFEFC; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFD493; color: #000000;">26%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">8.3</td>
-<td class="gt_row gt_right" style="background-color: #5AC6F7; color: #000000;">38%</td>
-<td class="gt_row gt_right" style="background-color: #A4E0FB; color: #000000;">23%</td>
-<td class="gt_row gt_right" style="background-color: #F3FBFF; color: #000000;">4%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFF3E2; color: #000000;">9%</td></tr>
-    <tr><td class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">6.4</td>
-<td class="gt_row gt_right" style="background-color: #CAEDFD; color: #000000;">15%</td>
-<td class="gt_row gt_right" style="background-color: #F0F9FF; color: #000000;">5%</td>
-<td class="gt_row gt_right" style="background-color: #FCFEFF; color: #000000;">1%</td>
-<td class="gt_row gt_right" style="background-color: #F9FDFF; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #F9FDFF; color: #000000;">2%</td>
-<td class="gt_row gt_right" style="background-color: #FFFAF2; color: #000000;">4%</td>
-<td class="gt_row gt_right" style="background-color: #FFD28E; color: #000000;">27%</td>
-<td class="gt_row gt_left" style="border-left-width: 2px; border-left-style: solid; border-left-color: #000000;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:30px;"></td>
-<td class="gt_row gt_right" style="font-weight: bold;">1.7</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FFFFFF; color: #000000;">0%</td>
-<td class="gt_row gt_right" style="background-color: #FF9800; color: #000000;">60%</td>
-<td class="gt_row gt_right" style="background-color: #EA5F00; color: #FFFFFF;">95%</td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" style="font-family: Audiowide, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Oxygen, Ubuntu, Cantarell, &#39;Helvetica Neue&#39;, &#39;Fira Sans&#39;, &#39;Droid Sans&#39;, Arial, sans-serif; font-size: large; text-align: right;" colspan="18">nflseedR</td>
-    </tr>
-  </tfoot>
-  
-</table>
+<div class="standings">
+<div class="title">
+<h1>2022 NFL Simulations</h1>
+Team points simulated based off random Elo model via {nflseedR}
 </div>
+<div id="htmlwidget-d90e11247d7993803ff9" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d90e11247d7993803ff9">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"team":["Bengals","Eagles","Broncos","Falcons","49ers","Dolphins","Texans","Chiefs","Panthers","Steelers","Ravens","Colts","Titans","Raiders","Cowboys","Seahawks","Patriots","Commanders","Lions","Packers","Cardinals","Bills","Jets","Browns","Jaguars","Chargers","Giants","Bears","Vikings","Saints","Buccaneers","Rams"],"group":["AFC North","NFC East","AFC West","NFC South","NFC West","AFC East","AFC South","AFC West","NFC South","AFC North","AFC North","AFC South","AFC South","AFC West","NFC East","NFC West","AFC East","NFC East","NFC North","NFC North","NFC West","AFC East","AFC East","AFC North","AFC South","AFC West","NFC East","NFC North","NFC North","NFC South","NFC South","NFC West"],"wins":[12.57,12.76,12.4,11.32,11.1,12.7,11.03,10.25,11.41,9.65,10.14,7.73,9.68,6.4,8.83,8.52,8.5,8.78,9.86,7.26,8.34,5.49,5.9,3.49,4.55,6.49,5.9,7.38,8.19,6.47,7.24,1.67],"playoff":[0.93,0.91,0.9,0.79,0.8,0.95,0.81,0.64,0.8,0.52,0.6,0.28,0.54,0.15,0.47,0.43,0.33,0.44,0.6,0.29,0.38,0.05,0.05,0,0.08,0.17,0.11,0.28,0.38,0.13,0.19,0],"div1":[0.58,0.76,0.67,0.42,0.62,0.84,0.53,0.23,0.49,0.18,0.24,0.12,0.31,0.05,0.13,0.15,0.14,0.11,0.45,0.14,0.23,0.01,0.01,0,0.04,0.05,0,0.19,0.22,0.04,0.05,0],"seed1":[0.27,0.29,0.16,0.13,0.15,0.25,0.09,0.05,0.19,0.05,0.04,0.01,0.04,0.01,0.03,0.01,0.03,0.05,0.02,0.03,0.04,0,0,0,0,0,0,0.02,0.03,0,0.01,0],"won_conf":[0.24,0.27,0.16,0.14,0.15,0.17,0.1,0.08,0.16,0.05,0.05,0.05,0.05,0.02,0.06,0.02,0.02,0.05,0.03,0.01,0.05,0,0,0,0,0.01,0,0.01,0.04,0.01,0,0],"won_sb":[0.15,0.15,0.09,0.07,0.07,0.06,0.06,0.06,0.05,0.04,0.03,0.03,0.03,0.02,0.02,0.02,0.01,0.01,0.01,0.01,0.01,0,0,0,0,0,0,0,0,0,0,0],"draft1":[0,0,0,0,0,0,0,0,0,0,0.01,0.01,0,0.04,0.01,0.01,0,0,0,0.05,0,0.06,0,0.1,0.05,0.01,0.02,0,0.01,0.01,0.01,0.6],"draft5":[0,0,0,0,0,0,0.02,0.01,0,0,0.04,0.14,0.02,0.27,0.04,0.08,0.06,0.07,0.03,0.21,0.09,0.37,0.33,0.67,0.57,0.26,0.26,0.12,0.13,0.18,0.08,0.95]},"columns":[{"accessor":"team","name":"TEAM","type":"character","className":"cell","headerClassName":"header","defaultSortDesc":false,"cell":[{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Bengals logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/cin.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Bengals"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Eagles logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/phi.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Eagles"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Broncos logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/den.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Broncos"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Falcons logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/atl.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Falcons"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"49ers logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/sf.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["49ers"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Dolphins logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/mia.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Dolphins"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Texans logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/hou.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Texans"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Chiefs logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/kc.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Chiefs"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Panthers logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Panthers"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Steelers logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/pit.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Steelers"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Ravens logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/bal.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Ravens"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Colts logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/ind.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Colts"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Titans logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/ten.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Titans"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Raiders logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/lv.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Raiders"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Cowboys logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/dal.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Cowboys"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Seahawks logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/sea.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Seahawks"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Patriots logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/ne.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Patriots"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Commanders logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Commanders"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Lions logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/det.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Lions"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Packers logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/gb.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Packers"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Cardinals logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/ari.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Cardinals"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Bills logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/buf.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Bills"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Jets logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Jets"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Browns logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/cle.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Browns"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Jaguars logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/jax.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Jaguars"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Chargers logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/lac.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Chargers"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Giants logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Giants"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Bears logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/chi.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Bears"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Vikings logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/min.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Vikings"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Saints logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/no.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Saints"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Buccaneers logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/tb.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Buccaneers"]}]},{"name":"div","attribs":{"className":"team"},"children":[{"name":"img","attribs":{"alt":"Rams logo","src":"https://a.espncdn.com/i/teamlogos/nfl/500/lar.png","height":"24px","className":"logo"},"children":[]},{"name":"div","attribs":{"className":"team-name"},"children":["Rams"]}]}],"minWidth":120,"headerStyle":{"fontWeight":700}},{"accessor":"group","name":"DIVISION","type":"character","className":"cell group","headerClassName":"header","defaultSortDesc":false,"maxWidth":120,"align":"center","headerStyle":{"fontWeight":700}},{"accessor":"wins","name":"Wins","type":"numeric","className":"cell number","headerClassName":"header","format":{"cell":{"digits":1},"aggregated":{"digits":1}},"maxWidth":100},{"accessor":"playoff","name":"Make Playoff","type":"numeric","className":"cell number border-left","headerClassName":"header","defaultSortDesc":true,"cell":[" 93%"," 91%"," 90%"," 79%"," 80%"," 95%"," 81%"," 64%"," 80%"," 52%"," 60%"," 28%"," 54%"," 15%"," 47%"," 43%"," 33%"," 44%"," 60%"," 29%"," 38%","  5%","  5%","  – ","  8%"," 17%"," 11%"," 28%"," 38%"," 13%"," 19%","  – "],"maxWidth":75,"style":[{"color":"#111","background":"#2596D8"},{"color":"#111","background":"#2A98D8"},{"color":"#111","background":"#2D99D9"},{"color":"#111","background":"#44A3DD"},{"color":"#111","background":"#42A2DC"},{"color":"#111","background":"#1E94D7"},{"color":"#111","background":"#41A1DC"},{"color":"#111","background":"#5CB2E2"},{"color":"#111","background":"#42A2DC"},{"color":"#111","background":"#6CBEE6"},{"color":"#111","background":"#62B6E3"},{"color":"#111","background":"#B4DBF2"},{"color":"#111","background":"#6ABCE6"},{"color":"#111","background":"#D8ECF8"},{"color":"#111","background":"#7AC4E8"},{"color":"#111","background":"#87C9EA"},{"color":"#111","background":"#A6D5EF"},{"color":"#111","background":"#84C7EA"},{"color":"#111","background":"#62B6E3"},{"color":"#111","background":"#B1DAF1"},{"color":"#111","background":"#97CFED"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#F2F9FD"},{"color":"#aaa"},{"color":"#111","background":"#EAF5FB"},{"color":"#111","background":"#D2E9F7"},{"color":"#111","background":"#E2F1FA"},{"color":"#111","background":"#B4DBF2"},{"color":"#111","background":"#97CFED"},{"color":"#111","background":"#DDEEF9"},{"color":"#111","background":"#CDE7F6"},{"color":"#aaa"}]},{"accessor":"div1","name":"Win Div","type":"numeric","className":"cell number ","headerClassName":"header","defaultSortDesc":true,"cell":[" 58%"," 76%"," 67%"," 42%"," 62%"," 84%"," 53%"," 23%"," 49%"," 18%"," 24%"," 12%"," 31%","  5%"," 13%"," 15%"," 14%"," 11%"," 45%"," 14%"," 23%","  1%","  1%","  – ","  4%","  5%","  – "," 19%"," 22%","  4%","  5%","  – "],"maxWidth":70,"style":[{"color":"#111","background":"#64B8E4"},{"color":"#111","background":"#49A6DE"},{"color":"#111","background":"#58AFE1"},{"color":"#111","background":"#8ACAEB"},{"color":"#111","background":"#5FB4E3"},{"color":"#111","background":"#3B9EDB"},{"color":"#111","background":"#6BBDE6"},{"color":"#111","background":"#C2E2F4"},{"color":"#111","background":"#73C1E7"},{"color":"#111","background":"#D0E8F7"},{"color":"#111","background":"#BFE0F4"},{"color":"#111","background":"#E0F0F9"},{"color":"#111","background":"#ABD8F0"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#DDEEF9"},{"color":"#111","background":"#D8ECF8"},{"color":"#111","background":"#DAEDF8"},{"color":"#111","background":"#E2F1FA"},{"color":"#111","background":"#80C6E9"},{"color":"#111","background":"#DAEDF8"},{"color":"#111","background":"#C2E2F4"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#FCFEFF"},{"color":"#aaa"},{"color":"#111","background":"#F5FAFD"},{"color":"#111","background":"#F2F9FD"},{"color":"#aaa"},{"color":"#111","background":"#CDE7F6"},{"color":"#111","background":"#C5E3F5"},{"color":"#111","background":"#F5FAFD"},{"color":"#111","background":"#F2F9FD"},{"color":"#aaa"}]},{"accessor":"seed1","name":"1st RD Bye","type":"numeric","className":"cell number ","headerClassName":"header","defaultSortDesc":true,"cell":[" 27%"," 29%"," 16%"," 13%"," 15%"," 25%","  9%","  5%"," 19%","  5%","  4%","  1%","  4%","  1%","  3%","  1%","  3%","  5%","  2%","  3%","  4%","  – ","  – ","  – ","  – ","  – ","  – ","  2%","  3%","  – ","  1%","  – "],"maxWidth":70,"style":[{"color":"#111","background":"#B7DDF2"},{"color":"#111","background":"#B1DAF1"},{"color":"#111","background":"#D5EBF7"},{"color":"#111","background":"#DDEEF9"},{"color":"#111","background":"#D8ECF8"},{"color":"#111","background":"#BCDFF3"},{"color":"#111","background":"#E8F3FB"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#CDE7F6"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#F5FAFD"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#F5FAFD"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#F7FBFE"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#F7FBFE"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#FAFCFE"},{"color":"#111","background":"#F7FBFE"},{"color":"#111","background":"#F5FAFD"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#111","background":"#FAFCFE"},{"color":"#111","background":"#F7FBFE"},{"color":"#aaa"},{"color":"#111","background":"#FCFEFF"},{"color":"#aaa"}]},{"accessor":"won_conf","name":"Win Conf","type":"numeric","className":"cell number ","headerClassName":"header","defaultSortDesc":true,"cell":[" 24%"," 27%"," 16%"," 14%"," 15%"," 17%"," 10%","  8%"," 16%","  5%","  5%","  5%","  5%","  2%","  6%","  2%","  2%","  5%","  3%","  1%","  5%","  – ","  – ","  – ","  – ","  1%","  – ","  1%","  4%","  1%","  – ","  – "],"maxWidth":70,"style":[{"color":"#111","background":"#BFE0F4"},{"color":"#111","background":"#B7DDF2"},{"color":"#111","background":"#D5EBF7"},{"color":"#111","background":"#DAEDF8"},{"color":"#111","background":"#D8ECF8"},{"color":"#111","background":"#D2E9F7"},{"color":"#111","background":"#E5F2FA"},{"color":"#111","background":"#EAF5FB"},{"color":"#111","background":"#D5EBF7"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#FAFCFE"},{"color":"#111","background":"#EFF7FC"},{"color":"#111","background":"#FAFCFE"},{"color":"#111","background":"#FAFCFE"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#F7FBFE"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#F2F9FD"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#111","background":"#FCFEFF"},{"color":"#aaa"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#F5FAFD"},{"color":"#111","background":"#FCFEFF"},{"color":"#aaa"},{"color":"#aaa"}]},{"accessor":"won_sb","name":"Win SB","type":"numeric","className":"cell number ","headerClassName":"header","defaultSortDesc":true,"cell":[" 15%"," 15%","  9%","  7%","  7%","  6%","  6%","  6%","  5%","  4%","  3%","  3%","  3%","  2%","  2%","  2%","  1%","  1%","  1%","  1%","  1%","  – ","  – ","  – ","  – ","  – ","  – ","  – ","  – ","  – ","  – ","  – "],"maxWidth":70,"style":[{"color":"#111","background":"#D8ECF8"},{"color":"#111","background":"#D8ECF8"},{"color":"#111","background":"#E8F3FB"},{"color":"#111","background":"#EDF6FC"},{"color":"#111","background":"#EDF6FC"},{"color":"#111","background":"#EFF7FC"},{"color":"#111","background":"#EFF7FC"},{"color":"#111","background":"#EFF7FC"},{"color":"#111","background":"#F2F9FD"},{"color":"#111","background":"#F5FAFD"},{"color":"#111","background":"#F7FBFE"},{"color":"#111","background":"#F7FBFE"},{"color":"#111","background":"#F7FBFE"},{"color":"#111","background":"#FAFCFE"},{"color":"#111","background":"#FAFCFE"},{"color":"#111","background":"#FAFCFE"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#FCFEFF"},{"color":"#111","background":"#FCFEFF"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"}]},{"accessor":"draft1","name":"First Pick","type":"numeric","className":"cell number border-left","headerClassName":"header","defaultSortDesc":true,"cell":["  – ","  – ","  – ","  – ","  – ","  – ","  – ","  – ","  – ","  – ","  1%","  1%","  – ","  4%","  1%","  1%","  – ","  – ","  – ","  5%","  – ","  6%","  – "," 10%","  5%","  1%","  2%","  – ","  1%","  1%","  1%"," 60%"],"maxWidth":70,"style":[{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#111","background":"#FFFDFC"},{"color":"#111","background":"#FFFDFC"},{"color":"#aaa"},{"color":"#111","background":"#FFF7F4"},{"color":"#111","background":"#FFFDFC"},{"color":"#111","background":"#FFFDFC"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#111","background":"#FFF5F1"},{"color":"#aaa"},{"color":"#111","background":"#FFF4EE"},{"color":"#aaa"},{"color":"#111","background":"#FFECE3"},{"color":"#111","background":"#FFF5F1"},{"color":"#111","background":"#FFFDFC"},{"color":"#111","background":"#FFFBF9"},{"color":"#aaa"},{"color":"#111","background":"#FFFDFC"},{"color":"#111","background":"#FFFDFC"},{"color":"#111","background":"#FFFDFC"},{"color":"#111","background":"#FE9A78"}]},{"accessor":"draft5","name":"Top 5 Pick","type":"numeric","className":"cell number ","headerClassName":"header","defaultSortDesc":true,"cell":["  – ","  – ","  – ","  – ","  – ","  – ","  2%","  1%","  – ","  – ","  4%"," 14%","  2%"," 27%","  4%","  8%","  6%","  7%","  3%"," 21%","  9%"," 37%"," 33%"," 67%"," 57%"," 26%"," 26%"," 12%"," 13%"," 18%","  8%"," 95%"],"maxWidth":70,"style":[{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#111","background":"#FFFBF9"},{"color":"#111","background":"#FFFDFC"},{"color":"#aaa"},{"color":"#aaa"},{"color":"#111","background":"#FFF7F4"},{"color":"#111","background":"#FFE4D9"},{"color":"#111","background":"#FFFBF9"},{"color":"#111","background":"#FFCCB6"},{"color":"#111","background":"#FFF7F4"},{"color":"#111","background":"#FFF0E9"},{"color":"#111","background":"#FFF4EE"},{"color":"#111","background":"#FFF2EC"},{"color":"#111","background":"#FFF9F7"},{"color":"#111","background":"#FFD7C6"},{"color":"#111","background":"#FFEEE6"},{"color":"#111","background":"#FFB99B"},{"color":"#111","background":"#FFC0A6"},{"color":"#111","background":"#FD9577"},{"color":"#111","background":"#FE9C79"},{"color":"#111","background":"#FFCEB8"},{"color":"#111","background":"#FFCEB8"},{"color":"#111","background":"#FFE8DE"},{"color":"#111","background":"#FFE6DB"},{"color":"#111","background":"#FFDDCE"},{"color":"#111","background":"#FFF0E9"},{"color":"#111","background":"#FB8373"}]}],"columnGroups":[{"headerClassName":"group-header","name":"PLAYOFF CHANCES","columns":["playoff","div1","seed1","won_conf","won_sb"]},{"headerClassName":"group-header","name":"DRAFT CHANCES","columns":["draft1","draft5"]}],"defaultSortDesc":true,"defaultSorted":[{"id":"group","desc":false},{"id":"won_sb","desc":true}],"pagination":false,"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"borderless":true,"showSortIcon":false,"className":"standings-table","rowClassName":"\n    function(rowInfo, state) {\n      const firstSorted = state.sorted[0]\n      if (firstSorted && firstSorted.id === 'group') {\n        const nextRow = state.pageRows[rowInfo.viewIndex + 1]\n        if (nextRow && rowInfo.row.group !== nextRow.group) {\n          return 'group-last'\n        }\n      }\n    }","dataKey":"3ab70da58da9382b1ba7c97d13207726"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.rowClassName"],"jsHooks":[]}</script>
+Simulation by @steodosescu via 1,000 {nflseedR} simulated games | Inspired by Tom Mock
+</div>
+<style type="text/css">
+tags$link(href = "https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&display=fallback", rel = "stylesheet")
+.standings {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+.title {
+  margin: 18px 0;
+  font-size: 16px;
+}
+.title h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.standings-table {
+  margin-bottom: 20px;
+}
+/* Align header text to the bottom */
+.header,
+.group-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.header {
+  border-bottom-color: #555;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+/* Highlight headers when sorting */
+.header:hover,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #eee;
+}
+.border-left {
+  border-left: 2px solid #555;
+}
+/* Use box-shadow to create row borders that appear behind vertical borders */
+.cell {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  padding: 5px 12px;
+}
+.group-last .cell {
+  box-shadow: inset 0 -2px 0 #555;
+}
+.team {
+  display: flex;
+}
+.record {
+  margin-left: 5px;
+  color: #999;
+  font-size: 13px;
+}
+.team-name {
+  font-size: 18px;
+  font-weight: 700;
+}
+.logo {
+  margin-right: 8px;
+  height: 24px;
+}
+.group {
+  font-size: 19px;
+}
+.number {
+  font-family: "Fira Mono", Consolas, Monaco, monospace;
+  font-size: 16px;
+  line-height: 30px;
+  white-space: pre;
+}
+.wins {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 50%;
+  color: #000;
+  font-size: 13px;
+  letter-spacing: -2px;
+}
+
+</style>
 
 <p>Copyright &copy; 2021 Stephan Teodosescu</p>
 
