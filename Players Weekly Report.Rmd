@@ -43,9 +43,9 @@ library(ggforce)
 options(scipen = 9999)
 
 
-data <- load_pbp(2021) #Load 2021 PBP data from nflfastR
+data <- load_pbp(2022) #Load PBP data from nflfastR
 
-# Filter for Run/Pass plays for the 2021 season only
+# Filter for Run/Pass plays for the current season only
 pbp_rp <- data %>%
   filter(rush == 1 | pass == 1, !is.na(epa)) # Exclude plays with missing EPA.
 
@@ -169,7 +169,7 @@ qbs <- pbp_rp %>%
     epa_per_play = sum(epa) / n_plays,
     success_per_play = sum(success) / n_plays
   ) %>%
-  filter(n_dropbacks >= 50) %>% #Change this No. later in the season
+  filter(n_dropbacks >= 5) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
@@ -190,7 +190,7 @@ qb_success_rate <- qbs %>%
     y = "EPA per play",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = "QB success rate and EPA/play",
-    subtitle = "2020 season, min 50 pass attempts, includes all QB's rush and pass plays. Size represents no. of plays"
+    subtitle = "2022 season, min 5 pass attempts, includes all QB's rush and pass plays. Size represents no. of plays"
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold")) +
@@ -229,7 +229,7 @@ qb_cpoe <- pbp_rp %>%
     cpoe_per_db >= 0 ~ "Overachieving", 
     TRUE ~ "Underachieving",
   )) %>% 
-  filter(n_dropbacks >= 50) %>% #Change this No. later in the season
+  filter(n_dropbacks >= 5) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 # Make QB CPOE dumbbell plot (Commenting this out in favor of the comet plot below)
@@ -283,7 +283,7 @@ comet_plot <- qb_cpoe %>%
   theme(legend.position = 'none') +
   labs(x = "Rate (%)", y = "",
          title = "Who's Over/Underachieving in the Pass Game?", 
-         subtitle = glue("Difference between **Expected Completion %** and **Actual Completion %**. Minimum 20 passes. Thru Week {current_week}"),
+         subtitle = glue("Difference between **Expected Completion %** and **Actual Completion %**. Minimum 5 passes. Thru Week {current_week}"),
          caption = "Data Source: nflfastR \nGraphic: @steodosescu") +
     theme(plot.title = element_text(face="bold"), text = element_text(family = "Chivo")) +
     theme(plot.subtitle = element_markdown()) +
@@ -309,7 +309,7 @@ receiving <- pbp_rp %>%
   filter(!is.na(receiver_player_name) & play_type == "pass" & down <= 4) %>%
   group_by(receiver_player_name) %>%
   summarize(adot = mean(air_yards), targets = n(), catch_rate = sum(complete_pass)/targets) %>%
-  filter(targets >= 50) %>% #Change this No. later in the season
+  filter(targets >= 5) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
@@ -325,7 +325,7 @@ receiver_plot <- receiving %>%
   labs(x = "aDOT (Yards)", 
        y = "Catch Rate (%)",
        title = "Catch Rate vs aDOT",
-       subtitle = glue("Minimum 50 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
+       subtitle = glue("Minimum 5 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
        caption = "Data Source: nflfastR \nGraphic: @steodosescu"
        ) +
       theme(plot.title = element_text(face="bold"), text = element_text(family = "Chivo")) +
