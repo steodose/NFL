@@ -1,4 +1,5 @@
 ---
+title: "Forecast Simulations"
 date: 'Last updated: `r format(Sys.Date())`'
 output:
   html_document:
@@ -142,7 +143,28 @@ sims2 <- simulate_nfl(
 
 #Your function’s job - by whatever means you choose - is to update the result column for that week’s games in each of the sims with the number of points the home team won by (or lost by if negative, or 0 if the game ended in a tie).
 
+#nfl_games_model <- function(teams, games, week_num, ...) {
+ # games <- games %>%
+  #  dplyr::mutate(
+   #   result = dplyr::case_when(
+    #    !is.na(result) | week != week_num ~ result,
+     #   rnorm(length(games), mean = spread_line, sd = 12.7),
+      #  TRUE ~ 0
+      #)
+    #)
+  
+  # return values
+ # return(list(teams = teams, games = games))
+#}
 
+
+# Run sims for this model
+#sims3 <- simulate_nfl(
+ # nfl_season = 2022,
+  #process_games = nfl_games_model,
+  #fresh_season = TRUE,
+  #simulations = 100
+#)
 
 
 ```
