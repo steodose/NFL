@@ -301,7 +301,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Players Weekly Report</h1>
-<h4 class="date">Last updated: 2022-09-20</h4>
+<h4 class="date">Last updated: 2022-09-22</h4>
 
 </div>
 
@@ -321,6 +321,742 @@ $(document).ready(function () {
 <h3>Difference in Expected and Actual Yards</h3>
 <p>The below shows what quarterbacks have completed a either higher percentage or lower percentage of their passes than expected, according to the nflfastR model.</p>
 <p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
+</div>
+<div id="quarterback-summary" class="section level3">
+<h3>Quarterback Summary</h3>
+<p>The below shows a summary of QB performances so far…</p>
+<div id="elucafauxo" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: Chivo;
+}
+
+#elucafauxo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000000;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: rgba(255, 255, 255, 0);
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#elucafauxo .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#elucafauxo .gt_title {
+  color: #000000;
+  font-size: 28px;
+  font-weight: bold;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#elucafauxo .gt_subtitle {
+  color: #000000;
+  font-size: 14px;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#elucafauxo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#elucafauxo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#elucafauxo .gt_col_heading {
+  color: #000000;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#elucafauxo .gt_column_spanner_outer {
+  color: #000000;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#elucafauxo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#elucafauxo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#elucafauxo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#elucafauxo .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #000000;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#elucafauxo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #000000;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#elucafauxo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#elucafauxo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#elucafauxo .gt_row {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#elucafauxo .gt_stub {
+  color: #000000;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elucafauxo .gt_stub_row_group {
+  color: #000000;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#elucafauxo .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#elucafauxo .gt_summary_row {
+  color: #000000;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elucafauxo .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#elucafauxo .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#elucafauxo .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#elucafauxo .gt_grand_summary_row {
+  color: #000000;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elucafauxo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#elucafauxo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#elucafauxo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#elucafauxo .gt_footnotes {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#elucafauxo .gt_footnote {
+  margin: 0px;
+  font-size: 12px;
+  padding-left: 1px;
+  padding-right: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elucafauxo .gt_sourcenotes {
+  color: #000000;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#elucafauxo .gt_sourcenote {
+  font-size: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elucafauxo .gt_left {
+  text-align: left;
+}
+
+#elucafauxo .gt_center {
+  text-align: center;
+}
+
+#elucafauxo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#elucafauxo .gt_font_normal {
+  font-weight: normal;
+}
+
+#elucafauxo .gt_font_bold {
+  font-weight: bold;
+}
+
+#elucafauxo .gt_font_italic {
+  font-style: italic;
+}
+
+#elucafauxo .gt_super {
+  font-size: 65%;
+}
+
+#elucafauxo .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#elucafauxo .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#elucafauxo .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#elucafauxo .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#elucafauxo .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#elucafauxo .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#elucafauxo .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <td colspan="8" class="gt_heading gt_title gt_font_normal" style><strong>Quarterback Passing Summary</strong></td>
+    </tr>
+    <tr>
+      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Minimum 100 pass attempts. Thru Week <strong>{current_week}.</strong></td>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">Player</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">Comps</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">Att</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">Pass Yds</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">Pass TDs</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col">Comp %</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <td colspan="8" class="gt_group_heading">AFC - East</td>
+    </tr>
+    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/btfnqtymqsqgybnv4u6n" style="height:30px;"></td>
+<td class="gt_row gt_left">Josh Allen</td>
+<td class="gt_row gt_left">BUF</td>
+<td class="gt_row gt_right">52</td>
+<td class="gt_row gt_right">69</td>
+<td class="gt_row gt_right">614</td>
+<td class="gt_row gt_right" style="background-color: #00441B; color: #FFFFFF;">7</td>
+<td class="gt_row gt_right">75.4%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/dyrrl1knhcxqjwuvhcwm" style="height:30px;"></td>
+<td class="gt_row gt_left">Tua Tagovailoa</td>
+<td class="gt_row gt_left">MIA</td>
+<td class="gt_row gt_right">59</td>
+<td class="gt_row gt_right">83</td>
+<td class="gt_row gt_right">739</td>
+<td class="gt_row gt_right" style="background-color: #00441B; color: #FFFFFF;">7</td>
+<td class="gt_row gt_right">71.1%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/kygd4zisxpt6uwztrxhk" style="height:30px;"></td>
+<td class="gt_row gt_left">Joe Flacco</td>
+<td class="gt_row gt_left">NYJ</td>
+<td class="gt_row gt_right">63</td>
+<td class="gt_row gt_right">103</td>
+<td class="gt_row gt_right">616</td>
+<td class="gt_row gt_right" style="background-color: #9BD597; color: #000000;">5</td>
+<td class="gt_row gt_right">61.2%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/hhexcwf5oe7onhlemzq9" style="height:30px;"></td>
+<td class="gt_row gt_left">Mac Jones</td>
+<td class="gt_row gt_left">NE</td>
+<td class="gt_row gt_right">42</td>
+<td class="gt_row gt_right">65</td>
+<td class="gt_row gt_right">465</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">64.6%</td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="8" class="gt_group_heading">AFC - North</td>
+    </tr>
+    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/gylnuxkxgm3zd4j0d0ku" style="height:30px;"></td>
+<td class="gt_row gt_left">Lamar Jackson</td>
+<td class="gt_row gt_left">BAL</td>
+<td class="gt_row gt_right">38</td>
+<td class="gt_row gt_right">59</td>
+<td class="gt_row gt_right">531</td>
+<td class="gt_row gt_right" style="background-color: #388F49; color: #FFFFFF;">6</td>
+<td class="gt_row gt_right">64.4%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/pbl27kxsr5ulgxmvtvfn" style="height:30px;"></td>
+<td class="gt_row gt_left">Joe Burrow</td>
+<td class="gt_row gt_left">CIN</td>
+<td class="gt_row gt_right">57</td>
+<td class="gt_row gt_right">89</td>
+<td class="gt_row gt_right">537</td>
+<td class="gt_row gt_right" style="background-color: #ECDEEC; color: #000000;">3</td>
+<td class="gt_row gt_right">64.0%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/z12an2n54jj6ycouwg9h" style="height:30px;"></td>
+<td class="gt_row gt_left">Jacoby Brissett</td>
+<td class="gt_row gt_left">CLE</td>
+<td class="gt_row gt_right">40</td>
+<td class="gt_row gt_right">61</td>
+<td class="gt_row gt_right">376</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">65.6%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/uq45fzmoanzoypqrs5df" style="height:30px;"></td>
+<td class="gt_row gt_left">Mitchell Trubisky</td>
+<td class="gt_row gt_left">PIT</td>
+<td class="gt_row gt_right">42</td>
+<td class="gt_row gt_right">71</td>
+<td class="gt_row gt_right">362</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">59.2%</td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="8" class="gt_group_heading">AFC - South</td>
+    </tr>
+    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/nel2x2crpaasltsb6vwj" style="height:30px;"></td>
+<td class="gt_row gt_left">Trevor Lawrence</td>
+<td class="gt_row gt_left">JAX</td>
+<td class="gt_row gt_right">49</td>
+<td class="gt_row gt_right">72</td>
+<td class="gt_row gt_right">510</td>
+<td class="gt_row gt_right" style="background-color: #ECDEEC; color: #000000;">3</td>
+<td class="gt_row gt_right">68.1%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/hknfdi8rwhtpgpmwlhcy" style="height:30px;"></td>
+<td class="gt_row gt_left">Ryan Tannehill</td>
+<td class="gt_row gt_left">TEN</td>
+<td class="gt_row gt_right">31</td>
+<td class="gt_row gt_right">53</td>
+<td class="gt_row gt_right">383</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">58.5%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/objv34ak0xhzjvixm5sr" style="height:30px;"></td>
+<td class="gt_row gt_left">Davis Mills</td>
+<td class="gt_row gt_left">HOU</td>
+<td class="gt_row gt_right">42</td>
+<td class="gt_row gt_right">75</td>
+<td class="gt_row gt_right">417</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">56.0%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/s6zam4ekrrnonsck6vak" style="height:30px;"></td>
+<td class="gt_row gt_left">Matt Ryan</td>
+<td class="gt_row gt_left">IND</td>
+<td class="gt_row gt_right">48</td>
+<td class="gt_row gt_right">80</td>
+<td class="gt_row gt_right">547</td>
+<td class="gt_row gt_right" style="background-color: #854994; color: #FFFFFF;">1</td>
+<td class="gt_row gt_right">60.0%</td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="8" class="gt_group_heading">AFC - West</td>
+    </tr>
+    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/vs40h82nvqaqvyephwwu" style="height:30px;"></td>
+<td class="gt_row gt_left">Patrick Mahomes</td>
+<td class="gt_row gt_left">KC</td>
+<td class="gt_row gt_right">54</td>
+<td class="gt_row gt_right">74</td>
+<td class="gt_row gt_right">595</td>
+<td class="gt_row gt_right" style="background-color: #00441B; color: #FFFFFF;">7</td>
+<td class="gt_row gt_right">73.0%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/qknkhe4w6liovjubzmnh" style="height:30px;"></td>
+<td class="gt_row gt_left">Justin Herbert</td>
+<td class="gt_row gt_left">LAC</td>
+<td class="gt_row gt_right">59</td>
+<td class="gt_row gt_right">82</td>
+<td class="gt_row gt_right">613</td>
+<td class="gt_row gt_right" style="background-color: #388F49; color: #FFFFFF;">6</td>
+<td class="gt_row gt_right">72.0%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/l1eqjrajbnisr91dmlcl" style="height:30px;"></td>
+<td class="gt_row gt_left">Derek Carr</td>
+<td class="gt_row gt_left">LV</td>
+<td class="gt_row gt_right">47</td>
+<td class="gt_row gt_right">76</td>
+<td class="gt_row gt_right">547</td>
+<td class="gt_row gt_right" style="background-color: #E2F2DD; color: #000000;">4</td>
+<td class="gt_row gt_right">61.8%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/gebzv2aljujgleboe4ns" style="height:30px;"></td>
+<td class="gt_row gt_left">Russell Wilson</td>
+<td class="gt_row gt_left">DEN</td>
+<td class="gt_row gt_right">43</td>
+<td class="gt_row gt_right">73</td>
+<td class="gt_row gt_right">559</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">58.9%</td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="8" class="gt_group_heading">NFC - East</td>
+    </tr>
+    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/komdw34m3vpzadqftxzh" style="height:30px;"></td>
+<td class="gt_row gt_left">Carson Wentz</td>
+<td class="gt_row gt_left">WAS</td>
+<td class="gt_row gt_right">57</td>
+<td class="gt_row gt_right">87</td>
+<td class="gt_row gt_right">650</td>
+<td class="gt_row gt_right" style="background-color: #00441B; color: #FFFFFF;">7</td>
+<td class="gt_row gt_right">65.5%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/af6nbjqa6qubnu8oi4ms" style="height:30px;"></td>
+<td class="gt_row gt_left">Daniel Jones</td>
+<td class="gt_row gt_left">NYG</td>
+<td class="gt_row gt_right">39</td>
+<td class="gt_row gt_right">55</td>
+<td class="gt_row gt_right">364</td>
+<td class="gt_row gt_right" style="background-color: #ECDEEC; color: #000000;">3</td>
+<td class="gt_row gt_right">70.9%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/dnq0smzas3ifwi7sydu6" style="height:30px;"></td>
+<td class="gt_row gt_left">Jalen Hurts</td>
+<td class="gt_row gt_left">PHI</td>
+<td class="gt_row gt_right">44</td>
+<td class="gt_row gt_right">63</td>
+<td class="gt_row gt_right">576</td>
+<td class="gt_row gt_right" style="background-color: #854994; color: #FFFFFF;">1</td>
+<td class="gt_row gt_right">69.8%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/jljqcj2lqtdzofclzxa7" style="height:30px;"></td>
+<td class="gt_row gt_left">Cooper Rush</td>
+<td class="gt_row gt_left">DAL</td>
+<td class="gt_row gt_right">19</td>
+<td class="gt_row gt_right">31</td>
+<td class="gt_row gt_right">235</td>
+<td class="gt_row gt_right" style="background-color: #854994; color: #FFFFFF;">1</td>
+<td class="gt_row gt_right">61.3%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/ofhu8bvafse5folcjzyu" style="height:30px;"></td>
+<td class="gt_row gt_left">Dak Prescott</td>
+<td class="gt_row gt_left">DAL</td>
+<td class="gt_row gt_right">14</td>
+<td class="gt_row gt_right">29</td>
+<td class="gt_row gt_right">134</td>
+<td class="gt_row gt_right" style="background-color: #40004B; color: #FFFFFF;">0</td>
+<td class="gt_row gt_right">48.3%</td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="8" class="gt_group_heading">NFC - North</td>
+    </tr>
+    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/s4hzfab5iglq2tmjb0xy" style="height:30px;"></td>
+<td class="gt_row gt_left">Jared Goff</td>
+<td class="gt_row gt_left">DET</td>
+<td class="gt_row gt_right">41</td>
+<td class="gt_row gt_right">71</td>
+<td class="gt_row gt_right">471</td>
+<td class="gt_row gt_right" style="background-color: #388F49; color: #FFFFFF;">6</td>
+<td class="gt_row gt_right">57.7%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/h9ndf9ralxifgjvot2q4" style="height:30px;"></td>
+<td class="gt_row gt_left">Kirk Cousins</td>
+<td class="gt_row gt_left">MIN</td>
+<td class="gt_row gt_right">50</td>
+<td class="gt_row gt_right">78</td>
+<td class="gt_row gt_right">498</td>
+<td class="gt_row gt_right" style="background-color: #ECDEEC; color: #000000;">3</td>
+<td class="gt_row gt_right">64.1%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/mee42twdk3qpcdotzdka" style="height:30px;"></td>
+<td class="gt_row gt_left">Aaron Rodgers</td>
+<td class="gt_row gt_left">GB</td>
+<td class="gt_row gt_right">41</td>
+<td class="gt_row gt_right">59</td>
+<td class="gt_row gt_right">429</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">69.5%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/wllk6sizrqmxhcjavard" style="height:30px;"></td>
+<td class="gt_row gt_left">Justin Fields</td>
+<td class="gt_row gt_left">CHI</td>
+<td class="gt_row gt_right">8</td>
+<td class="gt_row gt_right">17</td>
+<td class="gt_row gt_right">121</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">47.1%</td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="8" class="gt_group_heading">NFC - South</td>
+    </tr>
+    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/dccgvojszpt06iwtmgv7" style="height:30px;"></td>
+<td class="gt_row gt_left">Jameis Winston</td>
+<td class="gt_row gt_left">NO</td>
+<td class="gt_row gt_right">48</td>
+<td class="gt_row gt_right">74</td>
+<td class="gt_row gt_right">505</td>
+<td class="gt_row gt_right" style="background-color: #ECDEEC; color: #000000;">3</td>
+<td class="gt_row gt_right">64.9%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/sd59iwjj69atxaqjti1r" style="height:30px;"></td>
+<td class="gt_row gt_left">Marcus Mariota</td>
+<td class="gt_row gt_left">ATL</td>
+<td class="gt_row gt_right">37</td>
+<td class="gt_row gt_right">59</td>
+<td class="gt_row gt_right">411</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">62.7%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/n7fj5fjblf6pdgjdtphr" style="height:30px;"></td>
+<td class="gt_row gt_left">Tom Brady</td>
+<td class="gt_row gt_left">TB</td>
+<td class="gt_row gt_right">36</td>
+<td class="gt_row gt_right">61</td>
+<td class="gt_row gt_right">402</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">59.0%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/zgqgouo8be09qvnrqdnr" style="height:30px;"></td>
+<td class="gt_row gt_left">Baker Mayfield</td>
+<td class="gt_row gt_left">CAR</td>
+<td class="gt_row gt_right">30</td>
+<td class="gt_row gt_right">56</td>
+<td class="gt_row gt_right">380</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">53.6%</td></tr>
+    <tr class="gt_group_heading_row">
+      <td colspan="8" class="gt_group_heading">NFC - West</td>
+    </tr>
+    <tr class="gt_row_group_first"><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/eteieq8zzws1fbcgzbip" style="height:30px;"></td>
+<td class="gt_row gt_left">Matthew Stafford</td>
+<td class="gt_row gt_left">LA</td>
+<td class="gt_row gt_right">56</td>
+<td class="gt_row gt_right">77</td>
+<td class="gt_row gt_right">512</td>
+<td class="gt_row gt_right" style="background-color: #E2F2DD; color: #000000;">4</td>
+<td class="gt_row gt_right">72.7%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/nkb9x92lbea6ayknzoba" style="height:30px;"></td>
+<td class="gt_row gt_left">Kyler Murray</td>
+<td class="gt_row gt_left">ARI</td>
+<td class="gt_row gt_right">53</td>
+<td class="gt_row gt_right">83</td>
+<td class="gt_row gt_right">470</td>
+<td class="gt_row gt_right" style="background-color: #ECDEEC; color: #000000;">3</td>
+<td class="gt_row gt_right">63.9%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/jdkrvzqqhkbg62hstgtw" style="height:30px;"></td>
+<td class="gt_row gt_left">Geno Smith</td>
+<td class="gt_row gt_left">SEA</td>
+<td class="gt_row gt_right">47</td>
+<td class="gt_row gt_right">58</td>
+<td class="gt_row gt_right">392</td>
+<td class="gt_row gt_right" style="background-color: #BC9DCA; color: #000000;">2</td>
+<td class="gt_row gt_right">81.0%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/fuepwtifp7wd9grpzvwb" style="height:30px;"></td>
+<td class="gt_row gt_left">Jimmy Garoppolo</td>
+<td class="gt_row gt_left">SF</td>
+<td class="gt_row gt_right">13</td>
+<td class="gt_row gt_right">21</td>
+<td class="gt_row gt_right">154</td>
+<td class="gt_row gt_right" style="background-color: #854994; color: #FFFFFF;">1</td>
+<td class="gt_row gt_right">61.9%</td></tr>
+    <tr><td class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/wyd6t28jc7wwg5vyseoc" style="height:30px;"></td>
+<td class="gt_row gt_left">Trey Lance</td>
+<td class="gt_row gt_left">SF</td>
+<td class="gt_row gt_right">13</td>
+<td class="gt_row gt_right">28</td>
+<td class="gt_row gt_right">164</td>
+<td class="gt_row gt_right" style="background-color: #40004B; color: #FFFFFF;">0</td>
+<td class="gt_row gt_right">46.4%</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="8">Table: @steodosescu | Data: nflfastR</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
 <hr />
 </div>
 </div>
@@ -329,7 +1065,7 @@ $(document).ready(function () {
 <div id="receivers-average-depth-of-target-adot-vs.-catch-rate" class="section level3">
 <h3>Receivers average Depth of Target (aDOT) vs. Catch Rate</h3>
 <p>The below shows receiver catch rate againt their average depth of target (air yards).</p>
-<p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+<p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
 </div>
 </div>
 

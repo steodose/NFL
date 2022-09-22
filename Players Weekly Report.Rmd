@@ -38,6 +38,8 @@ library(reactable)
 library(reactablefmtr)
 library(ggalt) #for dumbbell plot
 library(ggforce)
+library(gt)
+library(gtExtras)
 
 # Optional but makes R prefer not to display numbers in scientific notation
 options(scipen = 9999)
@@ -294,7 +296,97 @@ comet_plot <- qb_cpoe %>%
 
 comet_plot
 
+
 ```
+
+### Quarterback Summary
+
+The below shows a summary of QB performances so far...
+
+```{r, echo=FALSE}
+
+#load data
+player_stats <- load_player_stats()
+
+nfl_qb <- player_stats |>
+  filter(position=="QB")
+
+nfl_team <- teams_colors_logos
+
+#reshape data
+qb_summary_data <- nfl_qb |>
+  filter(passing_yards>100)|> 
+  select(headshot_url, player_name, player_display_name, recent_team, completions, attempts, passing_yards, passing_tds, interceptions, sacks, rushing_yards, rushing_tds)|>
+  group_by(headshot_url, player_name, player_display_name, recent_team,) |> 
+  summarise(total_completions = sum(completions),
+            total_attempts = sum(attempts),
+            total_passing_yards = sum(passing_yards),
+            total_passing_tds = sum(passing_tds),
+            total_interceptions = sum(interceptions),
+            total_sacks = sum(sacks),
+            total_rushing_yards = sum(rushing_yards),
+            total_rushing_tds = sum(rushing_tds)) |> 
+  inner_join(teams_colors_logos|>select(team_abbr, team_nick, team_division), by=c("recent_team"="team_abbr"))|>
+  separate(team_division, into=c("conference","division"), sep=" ")|>
+  mutate(comp_perc = total_completions/total_attempts)|>
+  arrange(conference, division, -total_passing_tds, -comp_perc, -total_passing_yards)|>
+  group_by(conference, division)|>
+  mutate(rank = row_number(), 
+         pos = -rank)
+
+
+# Create gt table
+qb_summary_data |> 
+  select(headshot_url,player_display_name:total_passing_tds, conference:comp_perc) |> 
+  gt() |> 
+  tab_header(
+    title = md("**Quarterback Passing Summary**"), 
+    subtitle = md("Minimum 100 pass attempts. Thru Week **{current_week}.**")
+    )  %>%
+  cols_label(headshot_url = "",
+             player_display_name = "Player",
+             recent_team = "Team",
+             total_completions = "Comps",
+             total_attempts = "Att",
+             total_passing_yards = "Pass Yds",
+             total_passing_tds = "Pass TDs",
+             comp_perc = "Comp %") %>% 
+  gt_img_rows(headshot_url) %>%
+  data_color(
+    columns = vars(total_passing_tds),
+    colors = scales::col_numeric(
+      palette = paletteer::paletteer_d(
+        palette = "RColorBrewer::PRGn",
+        direction  = 1
+      ) %>% as.character(),
+      domain = NULL, 
+      na.color = "#00441BFF"
+    )
+  ) %>%
+   fmt_percent(
+    columns = comp_perc,
+    decimals = 1
+  ) |> 
+  tab_options(
+    table.background.color = "white",
+    heading.title.font.size  = 28,
+    heading.title.font.weight = 'bold',
+    heading.subtitle.font.size = 14,
+    table.font.names = "Chivo", 
+    table.font.color = 'black',
+    table.border.top.color = "transparent",
+    footnotes.font.size = 12,
+    source_notes.font.size = 12,
+    data_row.padding = px(2), 
+    footnotes.padding = px(1), 
+  ) %>%
+  tab_source_note(
+    source_note = md("Table: @steodosescu | Data: nflfastR")
+  )
+
+```
+
+
 
 ***
 ## Receivers Performance
