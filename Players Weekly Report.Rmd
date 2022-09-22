@@ -336,12 +336,12 @@ qb_summary_data <- nfl_qb |>
 
 
 # Create gt table
-qb_summary_data |> 
+qb_summary_table <- qb_summary_data |> 
   select(headshot_url,player_display_name:total_passing_tds, conference:comp_perc) |> 
   gt() |> 
   tab_header(
     title = md("**Quarterback Passing Summary**"), 
-    subtitle = md("Minimum 100 pass attempts. Thru Week **{current_week}.**")
+    subtitle = glue("Minimum 100 pass attempts. Thru Week {current_week}.")
     )  %>%
   cols_label(headshot_url = "",
              player_display_name = "Player",
@@ -383,6 +383,8 @@ qb_summary_data |>
   tab_source_note(
     source_note = md("Table: @steodosescu | Data: nflfastR")
   )
+
+qb_summary_table
 
 ```
 
