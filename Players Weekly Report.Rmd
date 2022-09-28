@@ -316,13 +316,14 @@ nfl_team <- teams_colors_logos
 #reshape data
 qb_summary_data <- nfl_qb |>
   filter(passing_yards>100)|> 
-  select(headshot_url, player_name, player_display_name, recent_team, completions, attempts, passing_yards, passing_tds, interceptions, sacks, rushing_yards, rushing_tds)|>
+  select(headshot_url, player_name, player_display_name, recent_team, completions, attempts, passing_yards, passing_tds, interceptions, passing_epa, sacks, rushing_yards, rushing_tds)|>
   group_by(headshot_url, player_name, player_display_name, recent_team,) |> 
   summarise(total_completions = sum(completions),
             total_attempts = sum(attempts),
             total_passing_yards = sum(passing_yards),
             total_passing_tds = sum(passing_tds),
             total_interceptions = sum(interceptions),
+            total_passing_epa = sum(passing_epa),
             total_sacks = sum(sacks),
             total_rushing_yards = sum(rushing_yards),
             total_rushing_tds = sum(rushing_tds)) |> 
@@ -338,11 +339,11 @@ qb_summary_data <- nfl_qb |>
 
 # Create gt table
 qb_summary_table <- qb_summary_data |> 
-  select(headshot_url, player_display_name, team_logo_espn, recent_team:total_interceptions, conference:comp_perc) |> 
+  select(headshot_url, player_display_name, team_logo_espn, recent_team:total_interceptions, conference:comp_perc, total_passing_epa) |> 
   gt() |> 
   tab_header(
     title = md("**Quarterback Passing Summary**"), 
-    subtitle = glue("Minimum 100 pass attempts. Thru Week {current_week}.")
+    subtitle = glue("Minimum 100 attempts, and ordered by passing TDs thrown. Thru Week {current_week}.")
     )  %>%
   cols_label(headshot_url = "",
              player_display_name = "Player",
@@ -353,11 +354,12 @@ qb_summary_table <- qb_summary_data |>
              total_passing_yards = "Pass Yds",
              total_passing_tds = "Pass TDs",
              total_interceptions = "INTs",
-             comp_perc = "Comp %") %>% 
+             comp_perc = "Comp %",
+             total_passing_epa = "Pass EPA") %>% 
   gt_img_rows(headshot_url) %>%
   gt_img_rows(team_logo_espn) %>%
   data_color(
-    columns = vars(total_passing_tds),
+    columns = vars(total_passing_epa),
     colors = scales::col_numeric(
       palette = paletteer::paletteer_d(
         palette = "RColorBrewer::PRGn",
@@ -369,6 +371,10 @@ qb_summary_table <- qb_summary_data |>
   ) %>%
    fmt_percent(
     columns = comp_perc,
+    decimals = 1
+  ) |> 
+  fmt_number(
+    columns = total_passing_epa,
     decimals = 1
   ) |> 
   tab_options(
