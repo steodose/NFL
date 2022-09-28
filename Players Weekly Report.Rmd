@@ -301,7 +301,7 @@ comet_plot
 
 ### Quarterback Summary
 
-The below shows a summary of QB performances so far...
+The below shows a summary of QB performances so far this season.
 
 ```{r, echo=FALSE}
 
@@ -326,7 +326,8 @@ qb_summary_data <- nfl_qb |>
             total_sacks = sum(sacks),
             total_rushing_yards = sum(rushing_yards),
             total_rushing_tds = sum(rushing_tds)) |> 
-  inner_join(teams_colors_logos|>select(team_abbr, team_nick, team_division), by=c("recent_team"="team_abbr"))|>
+  inner_join(teams_colors_logos|>
+               select(team_abbr, team_nick, team_division, team_logo_espn), by=c("recent_team"="team_abbr"))|>
   separate(team_division, into=c("conference","division"), sep=" ")|>
   mutate(comp_perc = total_completions/total_attempts)|>
   arrange(conference, division, -total_passing_tds, -comp_perc, -total_passing_yards)|>
@@ -337,7 +338,7 @@ qb_summary_data <- nfl_qb |>
 
 # Create gt table
 qb_summary_table <- qb_summary_data |> 
-  select(headshot_url,player_display_name:total_passing_tds, conference:comp_perc) |> 
+  select(headshot_url, player_display_name, team_logo_espn, recent_team:total_interceptions, conference:comp_perc) |> 
   gt() |> 
   tab_header(
     title = md("**Quarterback Passing Summary**"), 
@@ -346,12 +347,15 @@ qb_summary_table <- qb_summary_data |>
   cols_label(headshot_url = "",
              player_display_name = "Player",
              recent_team = "Team",
+             team_logo_espn = "",
              total_completions = "Comps",
              total_attempts = "Att",
              total_passing_yards = "Pass Yds",
              total_passing_tds = "Pass TDs",
+             total_interceptions = "INTs",
              comp_perc = "Comp %") %>% 
   gt_img_rows(headshot_url) %>%
+  gt_img_rows(team_logo_espn) %>%
   data_color(
     columns = vars(total_passing_tds),
     colors = scales::col_numeric(
