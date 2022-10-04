@@ -17,6 +17,8 @@ htmltools::img(src = knitr::image_uri("/Users/Stephan/Desktop/R Projects/NFL/NFL
 
 ```
 
+***
+
 ### NFL Win Probability
 
 The NFL Win Probability Tool is [available here](https://steodosescu.shinyapps.io/nfl-win-probability/). 
