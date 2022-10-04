@@ -4,13 +4,17 @@ navbar:
   title: '<div><img src="nfl-logo.png" width="24px"></img> NFL Analytics</div>'
   left:
     - text: "Summary"
-      href: NFL-Summary-Report.html
+      href: NFL-Summary -Report.html
     - text: "Teams"
       href: Teams-Weekly-Report.html
     - text: "Players"
       href: Players-Weekly-Report.html
-    - text: "Games"
-      href: Games.html
+    - text: Games
+      menu:
+      - text: "Scores & Schedule"
+        href: Games.html
+      - text: "Win Probability"
+        href: Win-Probability.html
     - text: "Predictions"
       href: Forecast-Simulations.html
     - text: "About"
