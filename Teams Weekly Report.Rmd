@@ -144,6 +144,11 @@ theme_custom <- function () {
       plot.background = element_rect(fill = 'floralwhite', color = "floralwhite")
     )
 }
+
+
+#Set aspect ratio for logo based plots
+asp_ratio <- 1.618
+
 ```
 
 ***
@@ -158,8 +163,6 @@ EPA helps provide better context around what plays are more valuable. For exampl
 
 ```{r}
 
-#Set aspect ratio for logo based plots
-asp_ratio <- 1.618
 
 offense <- pbp_rp %>%
     group_by(posteam)%>%
@@ -222,7 +225,7 @@ epa_plot
 
 ### Performance vs Expectations
 
-The below...
+The below shows current win totals -- expressed in win percentage -- compared to pre-season win total expectations according to Vegas bookmakers. Bet365 data was pulled one week before the season began for this analysis.
 
 ```{r, echo = FALSE}
 
@@ -281,7 +284,8 @@ expected_totals_barplot <- joined_df %>%
     asp = asp_ratio
   ) +
   geom_hline(yintercept = 0, color = "black", size = 1) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  scale_y_continuous(labels = scales::percent_format(),
+                       breaks = scales::pretty_breaks(n = 10)) +
   theme_custom() + 
   theme(axis.text.x = element_blank(), 
         panel.grid.major.x = element_blank(),
@@ -290,14 +294,13 @@ expected_totals_barplot <- joined_df %>%
        y = "Win % over Expected", 
        caption = "Data: nflverse/vegasinsider.com | Plot: @steodosescu",
        title = glue("Performance Relative to Expecations"),
-       subtitle = glue("Actual win totals vs. Predicted. Estimated totals from Bet365 sportsbook as of August 26, 2022.")) +
+       subtitle = glue("Actual win totals vs. Predicted. Estimated totals pulled from Bet365 sportsbook as of August 26, 2022.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
                                   hjust = 0.5
     ),
     plot.subtitle = element_text(
-      size = 10,
       hjust = 0.5)
   )
   
@@ -307,73 +310,55 @@ expected_totals_barplot
 ```
 
 
-### EPA per Dropback by Team
+### Point Differential
 
-The below isolates Expected Points Added for pass plays only to get a sense of how each team's quarterback is performing on a per-dropback basis.
+The below shows cumulative point differential for each team this season.
 
 ```{r, echo = FALSE}
 
-epa_play <- pbp_rp %>% 
-  filter(pass == 1, !is.na(posteam)) %>% 
-  group_by(posteam) %>% 
-  summarize(
-    n = n(),
-    epa_per_db = sum(epa, na.rm = TRUE) / n,
-    cpoe_per_db = sum(cpoe, na.rm = TRUE) / n,
-    success_rate = sum(epa, na.rm = TRUE) / n
+# create point differential barplot
+point_diff_barplot <- games_df %>% 
+  ggplot(aes(x = fct_reorder(team_name, -result), y = result)) +
+  geom_col(aes(fill = team_color, 
+               color = after_scale(clr_darken(fill, 0.3))
+  ),
+  width = 0.4, 
+  alpha = .75,
+  ) + 
+  scale_color_identity(aesthetics =  c("fill"))  +
+  geom_image(
+    aes(
+      image = team_logo_espn                                  
+    ), 
+    size = 0.035, 
+    by = "width", 
+    asp = asp_ratio
+  ) +
+  geom_hline(yintercept = 0, color = "black", size = 1) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  theme_custom() + 
+  theme(axis.text.x = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank()) + 
+  labs(x = "", 
+       y = "Point Differential", 
+       caption = "Data: nflverse | Plot: @steodosescu",
+       title = glue("NFL Point Differential"),
+       subtitle = glue("Thru Week {current_week} games")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      hjust = 0.5)
   )
   
 
-epa_logos <- epa_play %>%
-  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
-  ggplot(aes(x = epa_per_db, y = reorder(posteam, epa_per_db))) +
-  geom_image(aes(image = team_logo_espn), size = 0.045, by = "width", asp = asp_ratio) + 
-  scale_fill_identity(aesthetics = c("fill", "colour")) +
-  theme_custom() +
-  theme(
-    panel.grid.major.y = element_blank(),
-    axis.text.y = element_blank(),
-  ) +
-  geom_hline(yintercept = 0) +
-  scale_x_continuous(breaks = seq(-0.5, 0.5, 0.1)) +
-  labs(
-    x = "EPA per Dropback",
-    y = "",
-    title = "Quarterback Efficiency, 2022 NFL Season",
-    subtitle = glue("EPA per dropback measured thru **Week {current_week}**."),
-    caption = "Data: @nflfastR | Plot: @steodosescu") +
-  theme(plot.title = element_text(face = "bold")) +
-  theme(plot.subtitle = element_markdown())
+point_diff_barplot
 
-epa_logos
 ```
 
-### EPA vs CPOE per dropback by team
-
-The below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.
-
-```{r EPA vs CPOE, echo = FALSE}
-
-epa_cpoe_logos <- epa_play %>%
-  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
-  ggplot(aes(x = cpoe_per_db, y = epa_per_db)) +
-  geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
-  scale_fill_identity(aesthetics = c("fill", "colour")) +
-  theme_custom() +
-  geom_hline(yintercept = 0) +
-  labs(
-    x = "Completion % Over Expectation (CPOE)",
-    y = "Expected Points Added (EPA) per Dropback",
-    title = "Quarterback Performance, 2022 NFL Season",
-    subtitle = glue("Perfomance as defined by a composite of EPA and CPOE. Thru **Week {current_week}**"),
-    caption = "Data: @nflfastR | Plot: @steodosescu") +
-  geom_hline(yintercept = mean(epa_play$epa_per_db), color = "red", linetype = "dashed") +
-  geom_vline(xintercept = mean(epa_play$cpoe_per_db), color = "red", linetype = "dashed") +
-  theme(plot.title = element_text(face = "bold")) +
-  theme(plot.subtitle = element_markdown())
-
-epa_cpoe_logos
-```
 
 ### Explosive Plays
 Some teams are better than others at getting chunk plays. We're defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We're highlighting the Bears simply because I'm a Bears fan and want to easily track how they stack up using this metric. Spoiler: they've been near the bottom of the league in explosive plays the past few years.
@@ -424,7 +409,10 @@ explosive_plays_plot_logos <- explosive_plays %>%
     subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru **Week {current_week}**.")
   ) +
   theme_custom() +
-  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    )) +
   theme(plot.subtitle = element_markdown()) +
   theme(plot.title = element_markdown()) +
   geom_vline(xintercept = mean(explosive_plays$explosive_share), color = "red", linetype = "dashed") +

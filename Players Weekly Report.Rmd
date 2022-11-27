@@ -144,160 +144,14 @@ theme_custom <- function () {
       plot.background = element_rect(fill = 'floralwhite', color = "floralwhite")
     )
 }
+
+#Set aspect ratio for logo based plots
+asp_ratio <- 1.618
+
 ```
 
 ***
 ## Quarterback Performance
-
-### QB Success Rate
-
-Success rate is defined as the percentage of plays that were successful for the offense -- in other words, the percentage of plays with positive EPA. It's meant to measure the consistency of a team’s performance from play to play. One thing to note is it doesn't provide context for what happened on a play as it is just a binary indicator of whether a play was successful or not. For example, success rate will classify both an interception and a harmless incomplete pass as unsuccessful plays for the offense, even though the former is far less desirable.
-
-Here we focus on quarterback play only as the QB position is the most valuable position on the field. As the quarterback goes, the team goes.
-
-```{r}
-
-qbs <- pbp_rp %>%
-  filter(
-    play_type %in% c("pass", "run"),
-    penalty == 0,
-    !is.na(epa)
-  ) %>% 
-  group_by(name, posteam) %>%
-  summarize(
-    n_dropbacks = sum(pass),
-    n_rush = sum(rush),
-    n_plays = n(),
-    epa_per_play = sum(epa) / n_plays,
-    success_per_play = sum(success) / n_plays
-  ) %>%
-  filter(n_dropbacks >= 5) %>% #Change this No. later in the season
-  ungroup() # always ungroup if you no longer need the grouping effect
-
-
-qb_success_rate <- qbs %>%
-  ggplot(aes(x = success_per_play, y = epa_per_play)) +
-  # Notice that color/size inside aes()
-  geom_point(aes(color = if_else(posteam == "CHI", "#C83803", "#0B162A"), size = n_plays / 60), alpha = 0.50) +
-  # we need this to assign red/black to the actual color
-  scale_color_identity() +
-  
-  # add labels for all players
-  geom_text_repel(aes(label = name, color = if_else(posteam == "CHI", "#C83803", "#0B162A")),
-                  force = 1, point.padding = 0.1,
-                  segment.size = 0.2
-  ) +
-  labs(
-    x = "Success rate",
-    y = "EPA per play",
-    caption = "Data: @nflscrapR | Plot: @steodosescu",
-    title = "QB success rate and EPA/play",
-    subtitle = "2022 season, min 5 pass attempts, includes all QB's rush and pass plays. Size represents no. of plays"
-  ) +
-  theme_custom() +
-  theme(plot.title = element_text(face = "bold")) +
-  theme(plot.subtitle = element_markdown()) +
-  theme(legend.position = "none")
-
-qb_success_rate +
-  stat_smooth(method = "lm", geom = "line", alpha = 0.5, se = FALSE, color = "red", size = 1)
-
-```
-
-### Difference in Expected and Actual Yards
-
-The below shows what quarterbacks have completed a either higher percentage or lower percentage of their passes than expected, according to the nflfastR model.
-
-```{r, echo = FALSE}
-
-qb_cpoe <- pbp_rp %>%
-  filter(
-    play_type %in% c("pass"),
-    penalty == 0,
-    !is.na(epa)
-  ) %>% 
-  group_by(name, posteam) %>%
-  summarize(
-    n_dropbacks = sum(pass),
-    n_rush = sum(rush),
-    n_plays = n(),
-    epa_per_play = sum(epa) / n_plays,
-    success_per_play = sum(success) / n_plays,
-    cpoe_per_db = round(sum(cpoe, na.rm = TRUE) / n_plays,2),
-    cp_per_db = round(sum(cp, na.rm = TRUE) / n_plays,2)
-  ) %>%
-  mutate(exp_cp_per_db = round(cp_per_db - cpoe_per_db/100,2)) %>% 
-  mutate(pos_neg = case_when(
-    cpoe_per_db >= 0 ~ "Overachieving", 
-    TRUE ~ "Underachieving",
-  )) %>% 
-  filter(n_dropbacks >= 5) %>% #Change this No. later in the season
-  ungroup() # always ungroup if you no longer need the grouping effect
-
-# Make QB CPOE dumbbell plot (Commenting this out in favor of the comet plot below)
-
-# qb_cpoe_plot <- qb_cpoe %>% 
-  #  ggplot(aes(x = exp_cp_per_db, xend = cp_per_db, y = reorder(name, cpoe_per_db), group = name)) # + 
-  #  geom_dumbbell(colour = "#dddddd",
-   #               size = 2,
-    #              colour_x = "#1380A1",
-     #             colour_xend = "#FAAB18") + 
-    #labs(x = "Rate (%)", y = "",
-     #    title = "Who's Overachieving in the Pass Game?", 
-      #   subtitle = glue("Difference between <span style = 'color:#1380A1'>Expected Completion # %</span> and <span style = 'color:#FAAB18'>Actual Completion %</span>. Minimum 20 passes."),
-#         caption = "Data Source: nflfastR \nGraphic: @steodosescu") +
- #   theme_custom() +
-  #  theme(plot.title = element_text(face="bold"), text = element_text(family = "Chivo")) +
-   # theme(plot.subtitle = element_markdown()) +
-    #geom_text(data=qb_cpoe, aes(x=cp_per_db, y=name, label=cp_per_db),
-     #         color="#FAAB18", size=2.75, vjust=2.5, family="Chivo") +
-    #geom_text(data=qb_cpoe, aes(x=exp_cp_per_db, y=name, label=exp_cp_per_db),
-     #         color="#1380A1", size=2.75, vjust=2.5, family="Chivo") +
-    # geom_rect(data=qb_cpoe, aes(xmin=0.82, xmax=0.88, ymin=-Inf, ymax=Inf), fill="lightgrey") +
-    #geom_text(data=qb_cpoe, aes(label = cpoe_per_db, y=name, x=0.85), fontface="bold", size=3, # family="Chivo")
-
-# qb_cpoe_plot
-
-
-# Make comet plot
-
-comet_plot <- qb_cpoe %>% 
-  ggplot() + 
-  geom_link(aes(x = exp_cp_per_db, y = reorder(name, cpoe_per_db), xend = cp_per_db, yend = reorder(name, cpoe_per_db), color = pos_neg, size = stat(index))) +
-  scale_color_manual(values = c("#00A087FF", "#E64B35FF")) +
-  scale_size(range = c(.01, 4)) + 
-  # scale_x_continuous(labels = c("-10", "-5", "0", "+5", "+10"), breaks = seq(-10, 10, 5)) +
-  theme_custom() +
-  geom_point(
-    data = filter(qb_cpoe, cpoe_per_db > 0),
-    aes(cp_per_db, y = reorder(name, cpoe_per_db), color = pos_neg),
-    shape = 21,
-    fill = "white",
-    size = 3.5
-  )  +
-  geom_point(
-    data = filter(qb_cpoe, cpoe_per_db < 0),
-    aes(cp_per_db, y = reorder(name, cpoe_per_db), color = pos_neg),
-    shape = 21,
-    fill = "white",
-    size = 3.5
-  ) + 
-  theme(legend.position = 'none') +
-  labs(x = "Rate (%)", y = "",
-         title = "Who's Over/Underachieving in the Pass Game?", 
-         subtitle = glue("Difference between **Expected Completion %** and **Actual Completion %**. Minimum 5 passes. Thru Week {current_week}"),
-         caption = "Data Source: nflfastR \nGraphic: @steodosescu") +
-    theme(plot.title = element_text(face="bold"), text = element_text(family = "Chivo")) +
-    theme(plot.subtitle = element_markdown()) +
-    geom_rect(data=qb_cpoe, aes(xmin=0.83, xmax=0.87, ymin=-Inf, ymax=Inf), fill="lightgrey") +
-    geom_text(data=qb_cpoe, aes(label = cpoe_per_db, y=name, x=0.85), fontface="bold", size=3, family="Chivo") +
-  annotate(geom = 'label', x = 0.50, y = 4.5, label = "Less Completions\nThan Expected", family = "Chivo", color = "#E64B35FF", fontface = 'bold', fill = "floralwhite", label.size = 0, size = 3) +
-  annotate(geom = 'label', x = 0.75, y = 24.5, label = "More Completions\nThan Expected", family = "Chivo", color = "#00A087FF", fontface = 'bold', fill = "floralwhite", label.size = 0, size = 3)
-
-comet_plot
-
-
-```
 
 ### Quarterback Summary
 
@@ -343,7 +197,7 @@ qb_summary_table <- qb_summary_data |>
   gt() |> 
   tab_header(
     title = md("**Quarterback Passing Summary**"), 
-    subtitle = glue("Minimum 100 attempts, and ordered by passing TDs thrown. Thru Week {current_week}.")
+    subtitle = glue("Minimum 100 pass yards, and ordered by passing TDs thrown. Thru Week {current_week}.")
     )  %>%
   cols_label(headshot_url = "",
              player_display_name = "Player",
@@ -398,6 +252,244 @@ qb_summary_table
 
 ```
 
+***
+
+### EPA per Dropback by Team
+
+The below isolates Expected Points Added for pass plays only to get a sense of how each team's quarterback is performing on a per-dropback basis.
+
+```{r, echo = FALSE}
+
+epa_play <- pbp_rp %>% 
+  filter(pass == 1, !is.na(posteam)) %>% 
+  group_by(posteam) %>% 
+  summarize(
+    n = n(),
+    epa_per_db = sum(epa, na.rm = TRUE) / n,
+    cpoe_per_db = sum(cpoe, na.rm = TRUE) / n,
+    success_rate = sum(epa, na.rm = TRUE) / n
+  )
+  
+
+epa_logos <- epa_play %>%
+  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
+  ggplot(aes(x = epa_per_db, y = reorder(posteam, epa_per_db))) +
+  geom_image(aes(image = team_logo_espn), size = 0.045, by = "width", asp = asp_ratio) + 
+  scale_fill_identity(aesthetics = c("fill", "colour")) +
+  theme_custom() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    axis.text.y = element_blank(),
+  ) +
+  geom_hline(yintercept = 0) +
+  scale_x_continuous(breaks = seq(-0.5, 0.5, 0.1)) +
+  labs(
+    x = "EPA per Dropback",
+    y = "",
+    title = "Quarterback Efficiency, 2022 NFL Season",
+    subtitle = glue("EPA per dropback measured thru **Week {current_week}**."),
+    caption = "Data: @nflfastR | Plot: @steodosescu") +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5)
+    ) +
+  theme(plot.subtitle = element_markdown(
+    hjust = 0.5)
+    )
+
+epa_logos
+```
+
+### EPA vs CPOE per dropback by team
+
+The below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.
+
+```{r EPA vs CPOE, echo = FALSE}
+
+epa_cpoe_logos <- epa_play %>%
+  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
+  ggplot(aes(x = cpoe_per_db, y = epa_per_db)) +
+  geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
+  scale_fill_identity(aesthetics = c("fill", "colour")) +
+  theme_custom() +
+  geom_hline(yintercept = 0) +
+  labs(
+    x = "Completion % Over Expectation (CPOE)",
+    y = "Expected Points Added (EPA) per Dropback",
+    title = "Quarterback Performance, 2022 NFL Season",
+    subtitle = glue("Perfomance as defined by a composite of EPA and CPOE. Thru **Week {current_week}**"),
+    caption = "Data: @nflfastR | Plot: @steodosescu") +
+  geom_hline(yintercept = mean(epa_play$epa_per_db), color = "red", linetype = "dashed") +
+  geom_vline(xintercept = mean(epa_play$cpoe_per_db), color = "red", linetype = "dashed") +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    )) +
+  theme(plot.subtitle = element_markdown(
+    hjust = 0.5)
+    )
+
+epa_cpoe_logos
+```
+
+### QB Success Rate
+
+Success rate is defined as the percentage of plays that were successful for the offense -- in other words, the percentage of plays with positive EPA. It's meant to measure the consistency of a team’s performance from play to play. One thing to note is it doesn't provide context for what happened on a play as it is just a binary indicator of whether a play was successful or not. For example, success rate will classify both an interception and a harmless incomplete pass as unsuccessful plays for the offense, even though the former is far less desirable.
+
+Here we focus on quarterback play only as the QB position is the most valuable position on the field. As the quarterback goes, the team goes.
+
+```{r}
+
+qbs <- pbp_rp %>%
+  filter(
+    play_type %in% c("pass", "run"),
+    penalty == 0,
+    !is.na(epa)
+  ) %>% 
+  group_by(name, posteam) %>%
+  summarize(
+    n_dropbacks = sum(pass),
+    n_rush = sum(rush),
+    n_plays = n(),
+    epa_per_play = sum(epa) / n_plays,
+    success_per_play = sum(success) / n_plays
+  ) %>%
+  filter(n_dropbacks >= 50) %>% #Change this No. later in the season
+  ungroup() # always ungroup if you no longer need the grouping effect
+
+
+qb_success_rate <- qbs %>%
+  ggplot(aes(x = success_per_play, y = epa_per_play)) +
+  # Notice that color/size inside aes()
+  geom_point(aes(color = if_else(posteam == "CHI", "#C83803", "#0B162A"), size = n_plays / 60), alpha = 0.50) +
+  # we need this to assign red/black to the actual color
+  scale_color_identity() +
+  
+  # add labels for all players
+  geom_text_repel(aes(label = name, color = if_else(posteam == "CHI", "#C83803", "#0B162A")),
+                  force = 1, point.padding = 0.1,
+                  segment.size = 0.2
+  ) +
+  labs(
+    x = "Success rate",
+    y = "EPA per play",
+    caption = "Data: @nflscrapR | Plot: @steodosescu",
+    title = "QB success rate and EPA/play",
+    subtitle = "2022 season, min 50 pass attempts, includes all QB's rush and pass plays. Size represents no. of plays"
+  ) +
+  theme_custom() +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    )) +
+  theme(plot.subtitle = element_markdown(
+    hjust = 0.5)
+    ) +
+  theme(legend.position = "none")
+
+qb_success_rate +
+  stat_smooth(method = "lm", geom = "line", alpha = 0.5, se = FALSE, color = "red", size = 1)
+
+```
+
+### Difference in Expected and Actual Yards
+
+The below shows what quarterbacks have completed a either higher percentage or lower percentage of their passes than expected, according to the nflfastR model.
+
+```{r, echo = FALSE}
+
+qb_cpoe <- pbp_rp %>%
+  filter(
+    play_type %in% c("pass"),
+    penalty == 0,
+    !is.na(epa)
+  ) %>% 
+  group_by(name, posteam) %>%
+  summarize(
+    n_dropbacks = sum(pass),
+    n_rush = sum(rush),
+    n_plays = n(),
+    epa_per_play = sum(epa) / n_plays,
+    success_per_play = sum(success) / n_plays,
+    cpoe_per_db = round(sum(cpoe, na.rm = TRUE) / n_plays,2),
+    cp_per_db = round(sum(cp, na.rm = TRUE) / n_plays,2)
+  ) %>%
+  mutate(exp_cp_per_db = round(cp_per_db - cpoe_per_db/100,2)) %>% 
+  mutate(pos_neg = case_when(
+    cpoe_per_db >= 0 ~ "Overachieving", 
+    TRUE ~ "Underachieving",
+  )) %>% 
+  filter(n_dropbacks >= 50) %>% #Change this No. later in the season
+  ungroup() # always ungroup if you no longer need the grouping effect
+
+# Make QB CPOE dumbbell plot (Commenting this out in favor of the comet plot below)
+
+# qb_cpoe_plot <- qb_cpoe %>% 
+  #  ggplot(aes(x = exp_cp_per_db, xend = cp_per_db, y = reorder(name, cpoe_per_db), group = name)) # + 
+  #  geom_dumbbell(colour = "#dddddd",
+   #               size = 2,
+    #              colour_x = "#1380A1",
+     #             colour_xend = "#FAAB18") + 
+    #labs(x = "Rate (%)", y = "",
+     #    title = "Who's Overachieving in the Pass Game?", 
+      #   subtitle = glue("Difference between <span style = 'color:#1380A1'>Expected Completion # %</span> and <span style = 'color:#FAAB18'>Actual Completion %</span>. Minimum 20 passes."),
+#         caption = "Data Source: nflfastR \nGraphic: @steodosescu") +
+ #   theme_custom() +
+  #  theme(plot.title = element_text(face="bold"), text = element_text(family = "Chivo")) +
+   # theme(plot.subtitle = element_markdown()) +
+    #geom_text(data=qb_cpoe, aes(x=cp_per_db, y=name, label=cp_per_db),
+     #         color="#FAAB18", size=2.75, vjust=2.5, family="Chivo") +
+    #geom_text(data=qb_cpoe, aes(x=exp_cp_per_db, y=name, label=exp_cp_per_db),
+     #         color="#1380A1", size=2.75, vjust=2.5, family="Chivo") +
+    # geom_rect(data=qb_cpoe, aes(xmin=0.82, xmax=0.88, ymin=-Inf, ymax=Inf), fill="lightgrey") +
+    #geom_text(data=qb_cpoe, aes(label = cpoe_per_db, y=name, x=0.85), fontface="bold", size=3, # family="Chivo")
+
+# qb_cpoe_plot
+
+
+# Make comet plot
+
+comet_plot <- qb_cpoe %>% 
+  ggplot() + 
+  geom_link(aes(x = exp_cp_per_db, y = reorder(name, cpoe_per_db), xend = cp_per_db, yend = reorder(name, cpoe_per_db), color = pos_neg, size = stat(index))) +
+  scale_color_manual(values = c("#00A087FF", "#E64B35FF")) +
+  scale_size(range = c(.01, 4)) + 
+  # scale_x_continuous(labels = c("-10", "-5", "0", "+5", "+10"), breaks = seq(-10, 10, 5)) +
+  theme_custom() +
+  geom_point(
+    data = filter(qb_cpoe, cpoe_per_db > 0),
+    aes(cp_per_db, y = reorder(name, cpoe_per_db), color = pos_neg),
+    shape = 21,
+    fill = "white",
+    size = 3.5
+  )  +
+  geom_point(
+    data = filter(qb_cpoe, cpoe_per_db < 0),
+    aes(cp_per_db, y = reorder(name, cpoe_per_db), color = pos_neg),
+    shape = 21,
+    fill = "white",
+    size = 3.5
+  ) + 
+  theme(legend.position = 'none') +
+  labs(x = "Rate (%)", y = "",
+         title = "Who's Over/Underachieving in the Pass Game?", 
+         subtitle = glue("Difference between **Expected Completion %** and **Actual Completion %**. Minimum 50 passes. Thru Week {current_week}"),
+         caption = "Data Source: nflfastR \nGraphic: @steodosescu") +
+    theme(plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    )) +
+    theme(plot.subtitle = element_markdown()) +
+    geom_rect(data=qb_cpoe, aes(xmin=0.83, xmax=0.87, ymin=-Inf, ymax=Inf), fill="lightgrey") +
+    geom_text(data=qb_cpoe, aes(label = cpoe_per_db, y=name, x=0.85), fontface="bold", size=3, family="Chivo") +
+  annotate(geom = 'label', x = 0.50, y = 4.5, label = "Less Completions\nThan Expected", family = "Chivo", color = "#E64B35FF", fontface = 'bold', fill = "floralwhite", label.size = 0, size = 3) +
+  annotate(geom = 'label', x = 0.75, y = 24.5, label = "More Completions\nThan Expected", family = "Chivo", color = "#00A087FF", fontface = 'bold', fill = "floralwhite", label.size = 0, size = 3)
+
+comet_plot
+
+
+```
+
 
 
 ***
@@ -413,7 +505,7 @@ receiving <- pbp_rp %>%
   filter(!is.na(receiver_player_name) & play_type == "pass" & down <= 4) %>%
   group_by(receiver_player_name) %>%
   summarize(adot = mean(air_yards), targets = n(), catch_rate = sum(complete_pass)/targets) %>%
-  filter(targets >= 5) %>% #Change this No. later in the season
+  filter(targets >= 25) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
@@ -429,11 +521,16 @@ receiver_plot <- receiving %>%
   labs(x = "aDOT (Yards)", 
        y = "Catch Rate (%)",
        title = "Catch Rate vs aDOT",
-       subtitle = glue("Minimum 5 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
+       subtitle = glue("Minimum 25 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
        caption = "Data Source: nflfastR \nGraphic: @steodosescu"
        ) +
-      theme(plot.title = element_text(face="bold"), text = element_text(family = "Chivo")) +
-    theme(plot.subtitle = element_markdown())
+      theme(plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    )) +
+    theme(plot.subtitle = element_markdown(
+    hjust = 0.5)
+    )
 
 receiver_plot
   
