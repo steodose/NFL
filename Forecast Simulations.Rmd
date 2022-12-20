@@ -69,7 +69,7 @@ my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
 ```
 
 
-Below you'll find predictions for the 2022 NFL season after simulating the remaining schedule 1,000x. The model used is the default simulation code picks a random Elo for every team, and uses those as the starting Elo ratings for all 32 teams. However, the default code Elo will adjust independently within each simulation as each week is simulated. (The Elo model used is loosely based off of that of FiveThirtyEight.)
+Below you'll find predictions for the 2022 NFL season after simulating the remaining schedule 1\,000x. The model used is the default simulation code picks a random Elo for every team, and uses those as the starting Elo ratings for all 32 teams. However, the default code Elo will adjust independently within each simulation as each week is simulated. (The Elo model used is loosely based off of that of FiveThirtyEight.)
 
 ```{r, echo =FALSE}
 
@@ -99,7 +99,7 @@ set.seed(82722) #don't think we need this once the season starts
 sims <- simulate_nfl(
   nfl_season = 2022,
   fresh_season = FALSE,
-  simulations = 100
+  simulations = 1000
 )
 
 # summary function outputs gt table
@@ -224,7 +224,7 @@ overall_sim <- sims$overall %>%
   left_join(team_logos, by = "team") %>% 
   select(team = team_nick, team_logo_espn, group = division, wins, playoff:draft5) %>% 
   group_by(group) %>% 
-  arrange(desc(won_sb)) %>% 
+  arrange(desc(wins)) %>% 
   ungroup()
 
 sim_table <- reactable(
@@ -264,12 +264,12 @@ sim_table <- reactable(
       name = "DIVISION",
       defaultSortOrder = "asc",
       align = "center",
-      maxWidth = 120,
+      minWidth = 100,
       class = "cell group",
       headerStyle = list(fontWeight = 700)
     ),
     wins = colDef(
-      name = "Wins",
+      name = "Avg Wins",
       format = colFormat(digits = 1),
       maxWidth = 100,
       class = "cell number"
