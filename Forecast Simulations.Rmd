@@ -69,7 +69,7 @@ my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
 ```
 
 
-Below you'll find predictions for the 2022 NFL season after simulating the remaining schedule 1,000x. The model I use is similar to that described by Wayne Winston, and popularized at Pro-Football-Reference, where victory for an NFL team in a given game can be approximated as a  normal random variable with a mean of the "spread" and a standard deviation between 12-13 (using 12.7 based on Winston's research).
+Below you'll find predictions for the 2022 NFL season after simulating the remaining schedule 1,000x. The model used is the default simulation code picks a random Elo for every team, and uses those as the starting Elo ratings for all 32 teams. However, the default code Elo will adjust independently within each simulation as each week is simulated. (The Elo model used is loosely based off of that of FiveThirtyEight.)
 
 ```{r, echo =FALSE}
 
@@ -93,7 +93,7 @@ library(ggforce)
 options(scipen = 9999)
 
 
-# Random ELO method given in the nflseedr documentation
+# Random ELO method given in the nflseedr documentation. the default simulation code picks a random Elo for every team, and uses those as the starting Elo ratings for all 32 teams. However, the default code Elo will adjust independently within each simulation as each week is simulated https://nflseedr.com/articles/nflsim.html
 
 set.seed(82722) #don't think we need this once the season starts
 sims <- simulate_nfl(
