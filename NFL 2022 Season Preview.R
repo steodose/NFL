@@ -1,5 +1,5 @@
-##### NFL Data Analysis Testing #####
-##### August 2022 2022 #####
+##### NFL 2022 Season Preview #####
+##### August 2022 #####
 ##### By: Stephan Teodosescu #####
 
 library(nflverse)
