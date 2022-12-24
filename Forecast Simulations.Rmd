@@ -274,7 +274,7 @@ sim_table <- reactable(
       maxWidth = 100,
       class = "cell number"
     ),
-    playoff = playoff_column(name = "Make Playoff", class = "border-left", maxWidth = 75),
+    playoff = playoff_column(name = "Make Playoffs", class = "border-left", maxWidth = 75),
     div1 = playoff_column(name = "Win Div"),
     seed1 = playoff_column(name = "1st RD Bye"),
     won_conf = playoff_column(name = "Win Conf"),
