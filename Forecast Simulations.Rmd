@@ -95,7 +95,7 @@ options(scipen = 9999)
 
 # Random ELO method given in the nflseedr documentation. the default simulation code picks a random Elo for every team, and uses those as the starting Elo ratings for all 32 teams. However, the default code Elo will adjust independently within each simulation as each week is simulated https://nflseedr.com/articles/nflsim.html
 
-set.seed(82722) #don't think we need this once the season starts
+set.seed(82723) #don't think we need this once the season starts
 sims <- simulate_nfl(
   nfl_season = 2022,
   fresh_season = FALSE,
