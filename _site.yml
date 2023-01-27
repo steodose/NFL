@@ -27,7 +27,7 @@ navbar:
     - icon: fa-github fa-lg
       href: https://github.com/steodose/NFL
     - icon: fa-wordpress fa-lg
-      href: https://betweenpipes.wordpress.com/
+      href: https://betweenthepipes.substack.com/
 output:
   html_document:
     theme: cosmo

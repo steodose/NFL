@@ -310,6 +310,70 @@ expected_totals_barplot
 ```
 
 
+
+### Pythagorean Wins
+
+The below shows each team's actual win percentage vs their pythagoroean win percentage. Pythagorean winning percentage is important to look at because it's a better predictor of future success than actual wins. According to Sumer Sports, pythagorean winning percentage has an R^2 of 0.14 to next year's winning percentage while actual winning percentage is only 0.11.
+
+``` {r, echo = FALSE}
+
+games_df2 <-  nflreadr::load_schedules() %>% 
+  filter(season == 2022, game_type == "REG") %>% 
+  select(game_id, team_home = home_team, team_away = away_team, away_score, home_score, result, week) %>% 
+  pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
+  mutate(
+    result = ifelse(home_away == 'home', result, -result),
+    win = ifelse(result == 0 , 0.5, ifelse(result > 0, 1, 0))
+  ) %>% 
+  mutate(
+    PF = ifelse(home_away == 'home', home_score, 0),
+    PA = ifelse(home_away == 'away', away_score, 0),
+  ) %>% 
+  group_by(team) %>%
+summarise(
+    wins = length(win[win==1]),
+    losses = length(win[win==0]),
+    pf = sum(PF),
+    pa = sum(PA))
+
+
+pyth_wins_df <- games_df2 %>%
+  mutate(total_games = wins + losses,
+         win_total_perc = wins/total_games,
+         pyth_win_perc = ((pf/pa)^2)/(1+(pf/pa)^2)) %>%
+  left_join(team_df, by = c("team" = "team_abbr")) 
+
+
+py_wins_plot <- pyth_wins_df %>% 
+    ggplot(aes(x = win_total_perc, y = pyth_win_perc)) + 
+    geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
+    geom_hline(yintercept = 0.5, color = "red", linetype = "dashed") +
+    geom_vline(xintercept =  0.5, color = "red", linetype = "dashed") +
+    theme_custom() +
+  geom_abline(slope = 1, intercept = c(0,0), alpha = .2) +
+    labs(x = "Actual Win %",
+         y = "Pythagorean Win %",
+         caption = "Data: @nflfastR | Plot: @steodosescu",
+         title = glue("Actual and Pythagorean Win Percentage"),
+        subtitle = glue("Pythagorean Win % is an indicator of potential future success. Formula = (PF/PA)^2 / 1 + (PF/PA)^2. Thru **Regular Season**.")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      size = 10,
+      hjust = 0.5)
+  ) +
+  theme(plot.subtitle = element_markdown())
+
+py_wins_plot
+
+
+```
+
+
+
 ### Point Differential
 
 The below shows cumulative point differential for each team this season.
