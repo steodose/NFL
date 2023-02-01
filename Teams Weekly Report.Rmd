@@ -205,7 +205,7 @@ epa_plot <- off_def_epa %>%
          y = "Defense EPA/play",
          caption = "Data: @nflscrapR | Plot: @steodosescu",
          title = glue("Expected Points Added (EPA) Tiers"),
-        subtitle = glue("Rush and pass plays only. Thru **Week {current_week}**.")) +
+        subtitle = glue("Rush and pass plays only. Thru **Week Regular Season**.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -326,46 +326,55 @@ games_df2 <-  nflreadr::load_schedules() %>%
     win = ifelse(result == 0 , 0.5, ifelse(result > 0, 1, 0))
   ) %>% 
   mutate(
-    PF = ifelse(home_away == 'home', home_score, 0),
-    PA = ifelse(home_away == 'away', away_score, 0),
+    PF = ifelse(home_away == 'home', home_score, away_score),
+    PA = ifelse(home_away == 'home', away_score, home_score),
   ) %>% 
   group_by(team) %>%
-summarise(
+  summarise(
     wins = length(win[win==1]),
     losses = length(win[win==0]),
+    ties = length(win[win==0.5]),
     pf = sum(PF),
     pa = sum(PA))
 
 
+# pyth_wins_df <- games_df2 %>%
+#   mutate(total_games = wins + losses,
+#          win_total_perc = wins/total_games,
+#          pyth_win_perc = ((pf/pa)^2)/(1+(pf/pa)^2)) %>%
+#   left_join(team_df, by = c("team" = "team_abbr")) 
+
 pyth_wins_df <- games_df2 %>%
   mutate(total_games = wins + losses,
-         win_total_perc = wins/total_games,
-         pyth_win_perc = ((pf/pa)^2)/(1+(pf/pa)^2)) %>%
+         win_total_perc = (wins/total_games)+(ties*0.005),
+         pyth_win_perc = ((pf/pa)^2)/(1+(pf/pa)^2),
+         pyth_wins = (pf^2.37/(pf^2.37+pa^2.37))*17) %>%
   left_join(team_df, by = c("team" = "team_abbr")) 
 
 
 py_wins_plot <- pyth_wins_df %>% 
-    ggplot(aes(x = win_total_perc, y = pyth_win_perc)) + 
-    geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
-    geom_hline(yintercept = 0.5, color = "red", linetype = "dashed") +
-    geom_vline(xintercept =  0.5, color = "red", linetype = "dashed") +
-    theme_custom() +
-  geom_abline(slope = 1, intercept = c(0,0), alpha = .2) +
+  ggplot(aes(x = win_total_perc, y = pyth_win_perc)) + 
+  geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
+  annotate("text", x=0.3, y=0.65, label = "Better than Record", color = "#00BA38", family = 'Outfit') +
+  annotate("text", x=0.7, y=0.35, label = "Worse than Record", color = "#F8766D", family = 'Outfit') +
+  theme_custom() +
+  #geom_abline(slope = 1, alpha = .2) +
+  geom_smooth(method = "lm", se = FALSE, color="gray", alpha = 0.2) +
   scale_y_continuous(labels = scales::percent_format()) +
   scale_x_continuous(labels = scales::percent_format()) +
-    labs(x = "Actual Win %",
-         y = "Pythagorean Win %",
-         caption = "Data: @nflfastR | Plot: @steodosescu",
-         title = glue("Actual and Pythagorean Win Percentage"),
-        subtitle = glue("Pythagorean Win % is an indicator of potential future success. Formula = (PF/PA)^2 / 1 + (PF/PA)^2. Thru **Regular Season**.")) +
+  labs(x = "Actual Win %",
+       y = "Pythagorean Win %",
+       caption = "Data: @nflfastR | Plot: @steodosescu",
+       title = glue("Actual and Pythagorean Win Percentage"),
+       subtitle = glue("Pythagorean Win % is an indicator of potential future success. Formula = (PF/PA)^2 / 1 + (PF/PA)^2. Thru **Regular Season**.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
                                   hjust = 0.5
-    ),
-    plot.subtitle = element_text(
-      size = 10,
-      hjust = 0.5)
+        ),
+        plot.subtitle = element_text(
+          size = 10,
+          hjust = 0.5)
   ) +
   theme(plot.subtitle = element_markdown())
 
@@ -410,7 +419,7 @@ point_diff_barplot <- games_df %>%
        y = "Point Differential", 
        caption = "Data: nflverse | Plot: @steodosescu",
        title = glue("NFL Point Differential"),
-       subtitle = glue("Thru Week {current_week} games")) +
+       subtitle = glue("Thru Regular Season")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -472,7 +481,7 @@ explosive_plays_plot_logos <- explosive_plays %>%
     y = "",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = glue("Most Explosive Teams, 2022 NFL Season"),
-    subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru **Week {current_week}**.")
+    subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru Regular Season.")
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
@@ -602,7 +611,7 @@ fourth_down_table <- go_for_it_by_year %>%
   cols_align(align = "left",
              columns = 1) %>%
   tab_header(title = md("**4th Down Decison Making**"),
-             subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2022 data is thru Week {current_week}.")) %>%
+             subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2022 data is thru Regular Season.")) %>%
   tab_source_note(
     source_note = md("DATA: nflfastR<br>TABLE: @steodosescu")) %>% 
   gt_plt_sparkline(`2013-2022`)
