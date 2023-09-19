@@ -50,7 +50,7 @@ options(scipen = 9999)
 
 #Load 2021 games data from Lee Sharpe/nflseedR
 games <- load_sharpe_games() %>% 
-  filter(season == 2022)
+  filter(season == 2023)
 
 ```
 
@@ -90,7 +90,7 @@ games2 <- games %>%
 team_logos <- nflfastR::teams_colors_logos
 
 # Get player headshots
-rosters <- nflfastR::fast_scraper_roster(seasons = 2022) %>% 
+rosters <- nflfastR::fast_scraper_roster(seasons = 2023) %>% 
   select(full_name, headshot_url)
 
 
@@ -166,7 +166,7 @@ games_table <- reactable(
                   fullWidth = FALSE, 
                   defaultColDef = colDef(align = "center", minWidth = 95)
         ) %>% 
-  add_title("2022 NFL Season",
+  add_title("2023 NFL Season",
             font_size = 28) %>% 
   add_subtitle("Every NFL game by week, including scores and Vegas spreads. Click a column header to sort by that statistic.",
                font_size = 14,

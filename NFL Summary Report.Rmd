@@ -45,9 +45,9 @@ library(ggsci)
 options(scipen = 9999)
 
 
-data <- load_pbp(2022) #Load PBP data from nflfastR
+data <- load_pbp(2023) #Load PBP data from nflfastR
 
-# Filter for Run/Pass plays for the 2022 season only
+# Filter for Run/Pass plays for the 2023 season only
 pbp_rp <- data %>%
   filter(rush == 1 | pass == 1, !is.na(epa)) # Exclude plays with missing EPA.
 
@@ -157,7 +157,7 @@ my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
 
 ```{r}
 games_df <- nflreadr::load_schedules() %>% 
-  filter(season == 2022, game_type == "REG") %>% 
+  filter(season == 2023, game_type == "REG") %>% 
   select(game_id, team_home = home_team, team_away = away_team, result, week) %>% 
   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
   mutate(
@@ -201,7 +201,7 @@ standings_table_afc <- final_df %>%
   ) %>% 
   cols_align(align = "center",
                columns = 2:6) %>%
-  tab_header(title = md("**2022 AFC Standings**"),
+  tab_header(title = md("**2023 AFC Standings**"),
                subtitle = glue("Thru Week {current_week} games"))
 
 
@@ -225,7 +225,7 @@ standings_table_nfc <- final_df %>%
   ) %>%
    cols_align(align = "center",
                columns = 2:6) %>%
-  tab_header(title = md("**2022 NFC Standings**"),
+  tab_header(title = md("**2023 NFC Standings**"),
                subtitle = glue("Thru Week {current_week} games"))
 
 # standings_table_afc
