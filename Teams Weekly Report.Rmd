@@ -320,6 +320,7 @@ The below shows each team's actual win percentage vs their pythagoroean win perc
 games_df2 <-  nflreadr::load_schedules() %>% 
   filter(season == 2023, game_type == "REG") %>% 
   select(game_id, team_home = home_team, team_away = away_team, away_score, home_score, result, week) %>% 
+  drop_na() %>%
   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
   mutate(
     result = ifelse(home_away == 'home', result, -result),
