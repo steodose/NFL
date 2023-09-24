@@ -83,8 +83,12 @@ theme_538 <- function() {
 
 # Make games table
 games2 <- games %>% 
+   mutate(home_pred = 1- (pnorm(0.5, mean = spread_line, sd = 12.7)
+                    ),
+          away_pred = 1-home_pred
+         ) %>%
   select(game_id, game_type, gameday, week, away_team:home_score, spread_line, 
-         away_spread_odds, home_spread_odds,away_qb_name, home_qb_name, stadium)
+         away_pred, home_pred,away_qb_name, home_qb_name, stadium)
 
 # Get team logos
 team_logos <- nflfastR::teams_colors_logos
@@ -104,7 +108,7 @@ games2 <- left_join(games2, team_logos, by = c("home_team" = "team_abbr")) #Home
 
 # set it up for the table
 games2 <- games2 %>% 
-  select(week, gameday, game_type, team_logo_espn.x, away_team, away_score, team_logo_espn.y, home_team, home_score, spread_line,  away_spread_odds, home_spread_odds) %>% 
+  select(week, gameday, game_type, team_logo_espn.x, away_team, away_score, team_logo_espn.y, home_team, home_score, spread_line,  away_pred, home_pred) %>% 
   rename(team_logo_espn_away = team_logo_espn.x,
          team_logo_espn_home = team_logo_espn.y)
 # %>% drop_na() #uncomment once first game has been played
@@ -132,17 +136,25 @@ games_table <- reactable(
                       away_team = colDef(name = "Away",
                                        align = "right"),
                       away_score = colDef(name = "Away Score",
+                                           style = color_scales(games2, colors = paletteer::paletteer_d(
+                                         palette = "ggsci::amber_material"
+                                     )),
                                        align = "right"),
                       home_team = colDef(name = "Home",
                                        align = "right"),
                       home_score = colDef(name = "Home Score",
+                                          style = color_scales(games2, colors = paletteer::paletteer_d(
+                                         palette = "ggsci::amber_material"
+                                     )),
                                        align = "right"),
                       spread_line = colDef(name = "Spread Line",
                                            style = list(borderLeft = "2px solid #555"),
                                        align = "right"),
-                      away_spread_odds = colDef(name = "Away Spread",
+                      away_pred = colDef(name = "Away Prob",
+                                         format =  colFormat(percent = TRUE, digits = 0),
                                        align = "right"),
-                      home_spread_odds = colDef(name = "Home Spread",
+                      home_pred = colDef(name = "Home Prob",
+                                         format =  colFormat(percent = TRUE, digits = 0),
                                        align = "right"),
                       
                       ### add logos using embed_img()
