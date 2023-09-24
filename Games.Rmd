@@ -83,6 +83,7 @@ theme_538 <- function() {
 
 # Make games table
 games2 <- games %>% 
+  # using PFR's methodology to turn spreads into win probabilities
    mutate(home_pred = 1- (pnorm(0.5, mean = spread_line, sd = 12.7)
                     ),
           away_pred = 1-home_pred
