@@ -148,7 +148,7 @@ games_table <- reactable(
                                          palette = "ggsci::amber_material"
                                      )),
                                        align = "right"),
-                      spread_line = colDef(name = "Spread Line",
+                      spread_line = colDef(name = "Home Spread",
                                            style = list(borderLeft = "2px solid #555"),
                                        align = "right"),
                       away_pred = colDef(name = "Away Prob",
@@ -181,7 +181,7 @@ games_table <- reactable(
         ) %>% 
   add_title("2023 NFL Season",
             font_size = 28) %>% 
-  add_subtitle("Every NFL game by week, including scores and Vegas spreads. Click a column header to sort by that statistic.",
+  add_subtitle("Every NFL game by week, including scores, schedules, and pre-game Vegas odds. Click a column header to sort by that statistic.",
                font_size = 14,
                font_weight = "normal") %>% 
   add_source("Data: nflverse")
