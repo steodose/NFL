@@ -93,6 +93,8 @@ library(ggforce)
 options(scipen = 9999)
 
 
+# ---------------- Method 1. Random Elo (default method) --------------------- #
+
 # Random ELO method given in the nflseedr documentation. the default simulation code picks a random Elo for every team, and uses those as the starting Elo ratings for all 32 teams. However, the default code Elo will adjust independently within each simulation as each week is simulated https://nflseedr.com/articles/nflsim.html
 
 set.seed(82723) #don't think we need this once the season starts
@@ -106,65 +108,138 @@ sims <- simulate_nfl(
 #summary(sims)
 
 
-# Build stupid games model (alphabetical team wins 90% of the time)
-stupid_games_model <- function(teams, games, week_num, ...) {
-  # make the earlier alphabetical team win 90% of the time
-  games <- games %>%
-    dplyr::mutate(
-      result = dplyr::case_when(
-        !is.na(result) | week != week_num ~ result,
-        away_team < home_team ~ sample(c(-3, 3), n(), prob = c(0.9, 0.1), replace = TRUE),
-        away_team > home_team ~ sample(c(-3, 3), n(), prob = c(0.1, 0.9), replace = TRUE),
-        TRUE ~ 0
-      )
-    )
-  
-  # return values
-  return(list(teams = teams, games = games))
+# ----------------  Method 2. Starting Elo Model ------------------ #
+
+# determine starting ELO for each team based off Neil Paine's model. Process this file # to get just team and elo
+# npaine <- read_csv('https://raw.githubusercontent.com/Neil-Paine-1/NFL-elo-ratings/main/NFL-elo-ratings.csv') %>%
+#   filter(date == '2023-09-10' | date == '2023-09-07' | date == '2023-09-11')
+# 
+# npaine <- npaine %>%
+#   select(team1, elo1_pre) %>%
+#   rename(team = team1, elo = elo1_pre) %>%
+#   mutate(team = case_when(
+#         team == "OAK" ~ "LV",
+#         team == "WSH" ~ "WAS",
+#         team == "LAR" ~ "LA",
+#         TRUE ~ team
+#     ))
+# 
+# write_csv(npaine, "preseason_elo.csv")
+
+
+elo_model <- function(teams, games, week_num, ...) {
+      # teams = teams data
+      # games = games data
+      #
+      # this example estimates at PK/0 and 50%
+      # estimate = is the median spread expected (positive = home team favored)
+      # wp = is the probability of the team winning the game
+      #
+      # only simulate games through week week_num
+      # only simulate games with is.na(result)
+      # result = how many points home team won by
+
+      # round out (away from zero)
+      round_out <- function(x) {
+        x[!is.na(x) & x < 0] <- floor(x[!is.na(x) & x < 0])
+        x[!is.na(x) & x > 0] <- ceiling(x[!is.na(x) & x > 0])
+        return(x)
+      }
+
+      # get elo if not in teams data already
+      if (!("elo" %in% colnames(teams))) {
+        args <- list(...)
+        if ("elo" %in% names(args)) {
+          # pull from custom arguments
+          teams <- teams %>%
+            dplyr::inner_join(args$elo %>% select(team, elo), by = c("team" = "team"))
+        } else {
+          # fetch preseason elo ratings from Neil Paine's Elo moded via Github
+          ratings <- read_csv('https://raw.githubusercontent.com/steodose/NFL/master/preseason_elo.csv')
+          ratings <- as_tibble(ratings)
+          teams <- teams %>%
+            dplyr::inner_join(ratings, by = "team")
+        }
+      }
+
+      # pull ratings from teams data
+      ratings <- teams %>% select(sim, team, elo)
+
+      # mark estimate, wp, and result for games
+      games <- games %>%
+        dplyr::inner_join(ratings, by = c("sim" = "sim", "away_team" = "team")) %>%
+        dplyr::rename(away_elo = elo) %>%
+        dplyr::inner_join(ratings, by = c("sim" = "sim", "home_team" = "team")) %>%
+        dplyr::rename(home_elo = elo) %>%
+        dplyr::mutate(
+          elo_diff = home_elo - away_elo,
+          elo_diff = elo_diff + ifelse(location == "Home", 20, 0),
+          elo_diff = elo_diff + (home_rest - away_rest) / 7 * 25,
+          elo_diff = elo_diff * ifelse(game_type == "REG", 1, 1.2),
+          wp = 1 / (10^(-elo_diff / 400) + 1),
+          estimate = elo_diff / 25,
+          result = case_when(
+            is.na(result) & week == week_num ~
+            as.integer(round_out(rnorm(n(), estimate, 13))),
+            TRUE ~ as.integer(result)
+          ),
+          outcome = case_when(
+            is.na(result) ~ NA_real_,
+            result > 0 ~ 1,
+            result < 0 ~ 0,
+            TRUE ~ 0.5
+          ),
+          elo_input = case_when(
+            is.na(result) ~ NA_real_,
+            result > 0 ~ elo_diff * 0.001 + 2.2,
+            result < 0 ~ -elo_diff * 0.001 + 2.2,
+            TRUE ~ 1.0,
+          ),
+          elo_mult = log(pmax(abs(result), 1) + 1.0) * 2.2 / elo_input,
+          elo_shift = 20 * elo_mult * (outcome - wp)
+        ) %>%
+        dplyr::select(
+          -away_elo, -home_elo, -elo_diff, -wp, -estimate,
+          -outcome, -elo_input, -elo_mult
+        )
+
+      # apply elo shifts
+      teams <- teams %>%
+        dplyr::left_join(games %>%
+          filter(week == week_num) %>%
+          select(sim, away_team, elo_shift),
+        by = c("sim" = "sim", "team" = "away_team")
+        ) %>%
+        dplyr::mutate(elo = elo - ifelse(!is.na(elo_shift), elo_shift, 0)) %>%
+        dplyr::select(-elo_shift) %>%
+        dplyr::left_join(games %>%
+          filter(week == week_num) %>%
+          select(sim, home_team, elo_shift),
+        by = c("sim" = "sim", "team" = "home_team")
+        ) %>%
+        dplyr::mutate(elo = elo + ifelse(!is.na(elo_shift), elo_shift, 0)) %>%
+        dplyr::select(-elo_shift)
+
+      # remove elo shift
+      games <- games %>%
+        dplyr::select(-elo_shift)
+
+      return(list(teams = teams, games = games))
 }
 
+
 # Run sims for this model
+set.seed(8236)
 sims2 <- simulate_nfl(
-  nfl_season = 2021,
-  process_games = stupid_games_model,
-  fresh_season = TRUE,
-  simulations = 100
+  nfl_season = 2023,
+  process_games = elo_model,
+  fresh_season = FALSE,
+  simulations = 1000
 )
+
 
 #summary(sims2)
 
-
-
-## Actual model I want to build: win probability model from PFR: https://www.pro-football-reference.com/about/win_prob.htm
-
-#victory for an NFL team in a given game can be approximated as a 
-#normal random variable with a mean of the "spread" and a 
-#standard deviation between 12-13 (using 12.7 based on Wayne Winston's Analytics Stories research).
-
-#Your function’s job - by whatever means you choose - is to update the result column for that week’s games in each of the sims with the number of points the home team won by (or lost by if negative, or 0 if the game ended in a tie).
-
-#nfl_games_model <- function(teams, games, week_num, ...) {
- # games <- games %>%
-  #  dplyr::mutate(
-   #   result = dplyr::case_when(
-    #    !is.na(result) | week != week_num ~ result,
-     #   rnorm(length(games), mean = spread_line, sd = 12.7),
-      #  TRUE ~ 0
-      #)
-    #)
-  
-  # return values
- # return(list(teams = teams, games = games))
-#}
-
-
-# Run sims for this model
-#sims3 <- simulate_nfl(
- # nfl_season = 2022,
-  #process_games = nfl_games_model,
-  #fresh_season = TRUE,
-  #simulations = 100
-#)
 
 
 ```
@@ -172,7 +247,7 @@ sims2 <- simulate_nfl(
 
 ```{r, echo =FALSE}
 
-#### An interactive {reactable} table with {nflseedR} data, styled like FiveThirtyEight...Tom Mock
+#### An interactive {reactable} table with {nflseedR} data, styled like FiveThirtyEight...using Tom Mock's original work
 rating_column <- function(maxWidth = 55, ...) {
   colDef(maxWidth = maxWidth, align = "center", class = "cell number", ...)
 }
@@ -220,7 +295,7 @@ format_pct <- function(value) {
 ```{r, echo = FALSE}
 team_logos <- select(nflfastR::teams_colors_logos, team = team_abbr, team_nick, team_logo_espn)
 
-overall_sim <- sims$overall %>%
+overall_sim <- sims2$overall %>%
   left_join(team_logos, by = "team") %>% 
   select(team = team_nick, team_logo_espn, group = division, wins, playoff:draft5) %>% 
   group_by(group) %>% 
