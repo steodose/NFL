@@ -45,7 +45,7 @@ library(gtExtras)
 options(scipen = 9999)
 
 
-data <- load_pbp(2022) #Load PBP data from nflfastR
+data <- load_pbp(2023) #Load PBP data from nflfastR
 
 # Filter for Run/Pass plays for the current season only
 pbp_rp <- data %>%
@@ -286,7 +286,7 @@ epa_logos <- epa_play %>%
   labs(
     x = "EPA per Dropback",
     y = "",
-    title = "Quarterback Efficiency, 2022 NFL Season",
+    title = "Quarterback Efficiency, 2023 NFL Season",
     subtitle = glue("EPA per dropback measured thru **Week {current_week}**."),
     caption = "Data: @nflfastR | Plot: @steodosescu") +
   theme(plot.title = element_text(face = "bold", 
@@ -316,7 +316,7 @@ epa_cpoe_logos <- epa_play %>%
   labs(
     x = "Completion % Over Expectation (CPOE)",
     y = "Expected Points Added (EPA) per Dropback",
-    title = "Quarterback Performance, 2022 NFL Season",
+    title = "Quarterback Performance, 2023 NFL Season",
     subtitle = glue("Perfomance as defined by a composite of EPA and CPOE. Thru **Week {current_week}**"),
     caption = "Data: @nflfastR | Plot: @steodosescu") +
   geom_hline(yintercept = mean(epa_play$epa_per_db), color = "red", linetype = "dashed") +
@@ -375,7 +375,7 @@ qb_success_rate <- qbs %>%
     y = "EPA per play",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = "QB success rate and EPA/play",
-    subtitle = "2022 season, min 50 pass attempts, includes all QB's rush and pass plays. Size represents no. of plays"
+    subtitle = "2023 season, min 50 pass attempts, includes all QB's rush and pass plays. Size represents no. of plays"
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
