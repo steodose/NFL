@@ -3,7 +3,7 @@ output_dir: "."
 navbar:
   title: '<div><img src="nfl-logo.png" width="24px"></img> NFL Analytics</div>'
   left:
-    - text: "Summary"
+    - text: "League"
       href: NFL-Summary-Report.html
     - text: "Teams"
       href: Teams-Weekly-Report.html
