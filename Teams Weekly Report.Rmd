@@ -205,7 +205,7 @@ epa_plot <- off_def_epa %>%
          y = "Defense EPA/play",
          caption = "Data: @nflscrapR | Plot: @steodosescu",
          title = glue("Expected Points Added (EPA) Tiers"),
-        subtitle = glue("Rush and pass plays only. Thru **Week Regular Season**.")) +
+        subtitle = glue("Rush and pass plays only. Thru Week {current_week}.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -367,7 +367,7 @@ py_wins_plot <- pyth_wins_df %>%
        y = "Pythagorean Win %",
        caption = "Data: @nflfastR | Plot: @steodosescu",
        title = glue("Actual and Pythagorean Win Percentage"),
-       subtitle = glue("Pythagorean Win % is an indicator of potential future success. Formula = (PF/PA)^2 / 1 + (PF/PA)^2. Thru **Regular Season**.")) +
+       subtitle = glue("Pythagorean Win % is an indicator of potential future success. Formula = (PF/PA)^2 / 1 + (PF/PA)^2. Thru Week {current_week}.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -420,7 +420,7 @@ point_diff_barplot <- games_df %>%
        y = "Point Differential", 
        caption = "Data: nflverse | Plot: @steodosescu",
        title = glue("NFL Point Differential"),
-       subtitle = glue("Thru Regular Season")) +
+       subtitle = glue("Thru Week {current_week}.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -482,7 +482,7 @@ explosive_plays_plot_logos <- explosive_plays %>%
     y = "",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = glue("Most Explosive Teams, 2023 NFL Season"),
-    subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru Regular Season.")
+    subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru Week {current_week}.")
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
@@ -613,7 +613,7 @@ fourth_down_table <- go_for_it_by_year %>%
   cols_align(align = "left",
              columns = 1) %>%
   tab_header(title = md("**4th Down Decison Making**"),
-             subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2023 data is thru Regular Season.")) %>%
+             subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2023 data is Thru Week {current_week}.")) %>%
   tab_source_note(
     source_note = md("DATA: nflfastR<br>TABLE: @steodosescu")) %>% 
   gt_plt_sparkline(`2013-2023`)

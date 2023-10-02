@@ -185,7 +185,7 @@ qb_summary_data <- nfl_qb |>
                select(team_abbr, team_nick, team_division, team_logo_espn), by=c("recent_team"="team_abbr"))|>
   separate(team_division, into=c("conference","division"), sep=" ")|>
   mutate(comp_perc = total_completions/total_attempts)|>
-  arrange(conference, division, -total_passing_tds, -comp_perc, -total_passing_yards)|>
+  arrange(conference, division, -total_passing_epa, -total_passing_tds, -total_passing_yards)|>
   group_by(conference, division)|>
   mutate(rank = row_number(), 
          pos = -rank)
