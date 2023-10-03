@@ -256,7 +256,7 @@ games_df <- games_df %>%
 
 
 # load preseason win totals from Bet365
-vegas_totals <- read_csv("https://raw.githubusercontent.com/steodose/BlogPosts/master/NFL%202022/Vegas%20Insider%20Win%20Totals.csv")
+vegas_totals <- read_csv("https://raw.githubusercontent.com/steodose/NFL/master/Vegas%20Win%20Totals_2023.csv")
 
 # join vegas win totals to current win totals
 joined_df <- games_df %>%
@@ -292,9 +292,9 @@ expected_totals_barplot <- joined_df %>%
         panel.grid.major.y = element_blank()) + 
   labs(x = "", 
        y = "Win % over Expected", 
-       caption = "Data: nflverse/vegasinsider.com | Plot: @steodosescu",
+       caption = "Data: nflverse/DraftKings | Plot: @steodosescu",
        title = glue("Performance Relative to Expecations"),
-       subtitle = glue("Actual win totals vs. Predicted. Estimated totals pulled from Bet365 sportsbook as of August 26, 2022.")) +
+       subtitle = glue("Actual win totals vs. Predicted. Estimated totals pulled from DraftKings as of September 12, 2023.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 

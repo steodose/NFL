@@ -286,7 +286,7 @@ epa_logos <- epa_play %>%
   labs(
     x = "EPA per Dropback",
     y = "",
-    title = "Quarterback Efficiency, 2023 NFL Season",
+    title = "Team QB Efficiency, 2023 NFL Season",
     subtitle = glue("EPA per dropback measured thru **Week {current_week}**."),
     caption = "Data: @nflfastR | Plot: @steodosescu") +
   theme(plot.title = element_text(face = "bold", 
@@ -300,41 +300,41 @@ epa_logos <- epa_play %>%
 epa_logos
 ```
 
+<!-- ### EPA vs CPOE per dropback by team -->
+
+<!-- The below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown. -->
+
+<!-- ```{r EPA vs CPOE, echo = FALSE} -->
+
+<!-- epa_cpoe_logos <- epa_play %>% -->
+<!--   left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>%  -->
+<!--   ggplot(aes(x = cpoe_per_db, y = epa_per_db)) + -->
+<!--   geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) + -->
+<!--   scale_fill_identity(aesthetics = c("fill", "colour")) + -->
+<!--   theme_custom() + -->
+<!--   geom_hline(yintercept = 0) + -->
+<!--   labs( -->
+<!--     x = "Completion % Over Expectation (CPOE)", -->
+<!--     y = "Expected Points Added (EPA) per Dropback", -->
+<!--     title = "Team QB Performance, 2023 NFL Season", -->
+<!--     subtitle = glue("Perfomance as defined by a composite of EPA and CPOE. Thru **Week {current_week}**"), -->
+<!--     caption = "Data: @nflfastR | Plot: @steodosescu") + -->
+<!--   geom_hline(yintercept = mean(epa_play$epa_per_db), color = "red", linetype = "dashed") + -->
+<!--   geom_vline(xintercept = mean(epa_play$cpoe_per_db), color = "red", linetype = "dashed") + -->
+<!--   theme(plot.title = element_text(face = "bold",  -->
+<!--                                   size = 20,  -->
+<!--                                   hjust = 0.5 -->
+<!--     )) + -->
+<!--   theme(plot.subtitle = element_markdown( -->
+<!--     hjust = 0.5) -->
+<!--     ) -->
+
+<!-- epa_cpoe_logos -->
+<!-- ``` -->
+
 ### EPA vs CPOE per dropback by team
 
 The below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.
-
-```{r EPA vs CPOE, echo = FALSE}
-
-epa_cpoe_logos <- epa_play %>%
-  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
-  ggplot(aes(x = cpoe_per_db, y = epa_per_db)) +
-  geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
-  scale_fill_identity(aesthetics = c("fill", "colour")) +
-  theme_custom() +
-  geom_hline(yintercept = 0) +
-  labs(
-    x = "Completion % Over Expectation (CPOE)",
-    y = "Expected Points Added (EPA) per Dropback",
-    title = "Quarterback Performance, 2023 NFL Season",
-    subtitle = glue("Perfomance as defined by a composite of EPA and CPOE. Thru **Week {current_week}**"),
-    caption = "Data: @nflfastR | Plot: @steodosescu") +
-  geom_hline(yintercept = mean(epa_play$epa_per_db), color = "red", linetype = "dashed") +
-  geom_vline(xintercept = mean(epa_play$cpoe_per_db), color = "red", linetype = "dashed") +
-  theme(plot.title = element_text(face = "bold", 
-                                  size = 20, 
-                                  hjust = 0.5
-    )) +
-  theme(plot.subtitle = element_markdown(
-    hjust = 0.5)
-    )
-
-epa_cpoe_logos
-```
-
-### QB Success Rate
-
-Success rate is defined as the percentage of plays that were successful for the offense -- in other words, the percentage of plays with positive EPA. It's meant to measure the consistency of a team’s performance from play to play. One thing to note is it doesn't provide context for what happened on a play as it is just a binary indicator of whether a play was successful or not. For example, success rate will classify both an interception and a harmless incomplete pass as unsuccessful plays for the offense, even though the former is far less desirable.
 
 Here we focus on quarterback play only as the QB position is the most valuable position on the field. As the quarterback goes, the team goes.
 
@@ -352,16 +352,19 @@ qbs <- pbp_rp %>%
     n_rush = sum(rush),
     n_plays = n(),
     epa_per_play = sum(epa) / n_plays,
+    cpoe_per_play = sum(cpoe, na.rm = TRUE) / n_plays,
     success_per_play = sum(success) / n_plays
   ) %>%
-  filter(n_dropbacks >= 50) %>% #Change this No. later in the season
+  filter(n_dropbacks >= 80) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
 qb_success_rate <- qbs %>%
-  ggplot(aes(x = success_per_play, y = epa_per_play)) +
+  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>%
+  ggplot(aes(x = cpoe_per_play, y = epa_per_play)) +
+  geom_image(aes(image = team_logo_espn), size = 0.030, by = "width", asp = asp_ratio) +
   # Notice that color/size inside aes()
-  geom_point(aes(color = if_else(posteam == "CHI", "#C83803", "#0B162A"), size = n_plays / 60), alpha = 0.50) +
+  #geom_point(aes(color = if_else(posteam == "CHI", "#C83803", "#0B162A"), size = n_plays / 60), alpha = 0.50) +
   # we need this to assign red/black to the actual color
   scale_color_identity() +
   
@@ -371,11 +374,11 @@ qb_success_rate <- qbs %>%
                   segment.size = 0.2
   ) +
   labs(
-    x = "Success rate",
+    x = "Completion % Over Expecation (CPOE)",
     y = "EPA per play",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
-    title = "QB success rate and EPA/play",
-    subtitle = "2023 season, min 50 pass attempts, includes all QB's rush and pass plays. Size represents no. of plays"
+    title = "Quarterback Performance",
+    subtitle = "2023 season, min 80 pass attempts, includes all QB's rush and pass plays."
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
@@ -419,7 +422,7 @@ qb_cpoe <- pbp_rp %>%
     cpoe_per_db >= 0 ~ "Overachieving", 
     TRUE ~ "Underachieving",
   )) %>% 
-  filter(n_dropbacks >= 50) %>% #Change this No. later in the season
+  filter(n_dropbacks >= 80) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 # Make QB CPOE dumbbell plot (Commenting this out in favor of the comet plot below)
@@ -473,7 +476,7 @@ comet_plot <- qb_cpoe %>%
   theme(legend.position = 'none') +
   labs(x = "Rate (%)", y = "",
          title = "Who's Over/Underachieving in the Pass Game?", 
-         subtitle = glue("Difference between **Expected Completion %** and **Actual Completion %**. Minimum 50 passes. Thru Week {current_week}"),
+         subtitle = glue("Difference between **Expected Completion %** and **Actual Completion %**. Minimum 80 passes. Thru Week {current_week}"),
          caption = "Data Source: nflfastR \nGraphic: @steodosescu") +
     theme(plot.title = element_text(face = "bold", 
                                   size = 20, 
