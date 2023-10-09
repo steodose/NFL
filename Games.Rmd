@@ -48,7 +48,7 @@ library(RSQLite)
 # Optional but makes R prefer not to display numbers in scientific notation
 options(scipen = 9999)
 
-#Load 2021 games data from Lee Sharpe/nflseedR
+#Load games data from Lee Sharpe/nflseedR
 games <- load_sharpe_games() %>% 
   filter(season == 2023)
 

@@ -163,7 +163,6 @@ EPA helps provide better context around what plays are more valuable. For exampl
 
 ```{r}
 
-
 offense <- pbp_rp %>%
     group_by(posteam)%>%
     summarize(
@@ -498,6 +497,43 @@ explosive_plays_plot_logos <- explosive_plays %>%
   theme(legend.position = "none")
 
 explosive_plays_plot_logos
+```
+
+
+***
+## Strength of Schedule
+```{r, echo=FALSE}
+
+epa_only <- off_def_epa %>%
+  select(posteam, off_epa, def_epa) %>%
+  mutate(epa_play = off_epa - def_epa) %>%
+  select(posteam, epa_play)
+
+#load games data and join epa for home and away teams
+games_epa <- load_sharpe_games() %>% 
+  filter(season == 2023, game_type == "REG") %>%
+  left_join(epa_only, by = c('away_team' = 'posteam')) %>%
+  rename(away_epa_play = epa_play) %>%
+  left_join(epa_only, by = c('home_team' = 'posteam')) %>%
+  rename(home_epa_play = epa_play)
+
+# transformations
+games_epa <- games_epa %>%
+  select(game_id, week, team_home = home_team, team_away = away_team, away_epa_play, home_epa_play) %>% 
+  pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>%
+  mutate( #this ensures you grab the opposing team's epa_play for SOS analysis
+    opp_epa_play = ifelse(home_away == 'home', away_epa_play, home_epa_play)
+  ) %>% 
+  group_by(team) %>%
+  summarise(
+    opp_epa_play = sum(opp_epa_play)) %>%
+  arrange(desc(opp_epa_play)) %>% 
+  mutate(rank = row_number()) %>%
+  select(rank, team, opp_epa_play)
+
+
+
+
 ```
 
 ***
