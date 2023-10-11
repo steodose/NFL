@@ -69,7 +69,7 @@ my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
 ```
 
 
-Below you'll find predictions for the 2023 NFL season after simulating the remaining schedule 1\,000x. The model used is the default simulation code picks a random Elo for every team, and uses those as the starting Elo ratings for all 32 teams. However, the default code Elo will adjust independently within each simulation as each week is simulated. (The Elo model used is loosely based off of that of FiveThirtyEight.)
+Below you'll find predictions for the 2023 NFL season after simulating the remaining schedule 1\,000x. The model uses Neil Paine's starting Elo ratings for all 32 teams, and adjusts independently within each simulation as each week is simulated.
 
 ```{r, echo =FALSE}
 
@@ -97,12 +97,12 @@ options(scipen = 9999)
 
 # Random ELO method given in the nflseedr documentation. the default simulation code picks a random Elo for every team, and uses those as the starting Elo ratings for all 32 teams. However, the default code Elo will adjust independently within each simulation as each week is simulated https://nflseedr.com/articles/nflsim.html
 
-set.seed(82723) #don't think we need this once the season starts
-sims <- simulate_nfl(
-  nfl_season = 2023,
-  fresh_season = FALSE,
-  simulations = 1000
-)
+# set.seed(82723) #don't think we need this once the season starts
+# sims <- simulate_nfl(
+#   nfl_season = 2023,
+#   fresh_season = FALSE,
+#   simulations = 1000
+# )
 
 # summary function outputs gt table
 #summary(sims)
@@ -377,7 +377,7 @@ div(
   div(
     class = "title",
     h1("2023 NFL Simulations"),
-    "Team points simulated based off random Elo model via {nflseedR}"
+    "Team wins simulated based off Elo model using {nflseedR}"
   ),
   sim_table,
   "Simulation by @steodosescu via 1,000 {nflseedR} simulated games | Inspired by Tom Mock"
