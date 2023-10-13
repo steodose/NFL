@@ -27,6 +27,7 @@ Below you'll find figures showing key advanced metrics I'm tracking for all 32 N
 ```{r Setup , echo =FALSE}
 
 library(nflfastR)
+library(nflseedR)
 library(tidyverse)
 library(teamcolors) # NFL team colors and logos
 library(extrafont) # for extra fonts
