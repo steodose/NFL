@@ -508,7 +508,7 @@ receiving <- pbp_rp %>%
   filter(!is.na(receiver_player_name) & play_type == "pass" & down <= 4) %>%
   group_by(receiver_player_name) %>%
   summarize(adot = mean(air_yards), targets = n(), catch_rate = sum(complete_pass)/targets) %>%
-  filter(targets >= 25) %>% #Change this No. later in the season
+  filter(targets >= 50) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
@@ -569,13 +569,13 @@ rushing_plot <- rushing %>%
   #ggplot(aes(x = success_per_rush, y = epa_per_rush)) + 
   #geom_point(size = receiving$targets/20, alpha = 0.5) + 
   # add labels for all players
-  geom_text_repel(aes(label = rusher_player_name), color = "grey40", segment.color = "black") + 
+  geom_text_repel(aes(label = rusher_player_name), segment.color = "black") + 
   geom_smooth(method = lm, alpha = 0.5, linetype = "dashed", se = FALSE, color = "red", size = 1) + 
   #scale_y_continuous(breaks = c(.4,.45,.5,.55,.6,.65,.7,.75,.8,.85)) +
   theme_custom() + 
   labs(x = "Success Rate (%)", 
        y = "Rush EPA",
-       title = "Ground Attack: Performance of NFL Rushers",
+       title = "Ground Attack: Rushing Efficiency",
        subtitle = glue("Minimum 30 Rushes. Thru Week **{current_week}**."),
        caption = "Data Source: nflfastR \nGraphic: @steodosescu"
        ) +
