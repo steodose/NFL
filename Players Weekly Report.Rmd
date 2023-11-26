@@ -508,7 +508,7 @@ receiving <- pbp_rp %>%
   filter(!is.na(receiver_player_name) & play_type == "pass" & down <= 4) %>%
   group_by(receiver_player_name) %>%
   summarize(adot = mean(air_yards), targets = n(), catch_rate = sum(complete_pass)/targets) %>%
-  filter(targets >= 50) %>% #Change this No. later in the season
+  filter(targets >= 80) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
@@ -524,7 +524,7 @@ receiver_plot <- receiving %>%
   labs(x = "aDOT (Yards)", 
        y = "Catch Rate (%)",
        title = "Catch Rate vs aDOT",
-       subtitle = glue("Minimum 25 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
+       subtitle = glue("Minimum 80 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
        caption = "Data Source: nflfastR \nGraphic: @steodosescu"
        ) +
       theme(plot.title = element_text(face = "bold", 
