@@ -523,16 +523,16 @@ games_epa <- load_sharpe_games() %>%
 
 # transformations
 # games_epa <- games_epa %>%
-#   select(game_id, week, team_home = home_team, team_away = away_team, away_epa_play, home_epa_play, game_played) %>% 
+#   select(game_id, week, team_home = home_team, team_away = away_team, away_epa_play, home_epa_play, game_played) %>%
 #   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>%
 #   mutate( #this ensures you grab the opposing team's epa_play for SOS analysis
 #     played_opp_epa_play = ifelse(home_away == 'home' & game_played == 'played', away_epa_play, home_epa_play),
 #      not_played_opp_epa_play = ifelse(home_away == 'home' & game_played == 'not played', away_epa_play, home_epa_play)
-#   ) %>% 
+#   ) %>%
 #   group_by(team) %>% #may need to alter this
 #   summarise(
 #     opp_epa_play = sum(opp_epa_play)) %>%
-#   arrange(desc(opp_epa_play)) %>% 
+#   arrange(desc(opp_epa_play)) %>%
 #   mutate(rank = row_number()) %>%
 #   select(rank, team, opp_epa_play)
 
