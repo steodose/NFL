@@ -464,7 +464,7 @@ explosive_plays <- pbp_rp %>%
 # Add logos instead of team names for the y axis
 
 # Define function to link to images
-link_to_img <- function(x, width = 30) {
+link_to_img <- function(x, width = 25) {
   glue::glue("<img src='{x}' width='{width}'/>")
 }
 
