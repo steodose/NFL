@@ -1,0 +1,159 @@
+---
+title: "Current Week Odds"
+date: 'Last updated: `r format(Sys.Date())`'
+output:
+  html_document:
+    dpi: 500
+    fig_width: 10
+    fig_height: 7
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+```
+
+```{r, echo=FALSE}
+
+library(nflfastR)
+library(nflseedR)
+library(htmltools)
+library(tidyverse)
+library(teamcolors) # NFL team colors and logos
+library(extrafont) # for extra fonts
+library(ggrepel) # better labels
+library(ggimage)
+library(glue)
+library(ggtext)
+library(reactable)
+library(reactablefmtr)
+library(ggalt) #for dumbbell plot
+library(ggforce)
+library(gt)
+library(gtExtras)
+library(webshot)
+
+
+# Define 538 table theme for Reactable table(s) below
+theme_538 <- function() {
+    reactable::reactableTheme(
+        searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
+        style = list(
+            fontFamily = "Chivo"
+        ),
+        headerStyle = list(
+            "&:hover[aria-sort]" = list(
+                background = "hsl(0, 0%, 80%)"),
+            "&[aria-sort='ascending'], &[aria-sort='descending']" = list(
+                background = "#555",
+                color = "#FFF"
+            ),
+            borderColor = "#333"
+        ),
+        borderColor = "#CDCDCD"
+    )
+}
+
+
+
+```
+
+
+Below you'll find current week playoff odds sourced from a variety of sportsbooks. 
+
+```{r, echo=FALSE}
+
+# Optional but makes R prefer not to display numbers in scientific notation
+options(scipen = 9999)
+
+# load team logos and colors
+team_df <- nflreadr::load_teams() %>% 
+  select(team_logo_espn, team_abbr, team_name, team_conf, team_division, team_color)
+
+#Load games data from Lee Sharpe/nflseedR
+games <- load_sharpe_games() %>% 
+  filter(season == 2023)
+
+# filter for current week games only
+current_week_games <- games %>%
+  filter(gameday >= Sys.Date())
+
+# Identify current week
+current_week <- max(current_week_games$week)
+
+# join team logs and colors
+current_week_games<- left_join(current_week_games, team_df, by = c("away_team" = "team_abbr")) #Away
+current_week_games <- left_join(current_week_games, team_df, by = c("home_team" = "team_abbr")) #Home
+
+# filter for relevant columns
+current_week_games2 <- current_week_games %>%
+  mutate(away_implied_odds = if_else(away_moneyline < 0, (away_moneyline)/(away_moneyline-100), 1-away_moneyline/(away_moneyline+100)),
+         home_implied_odds = if_else(home_moneyline < 0, (home_moneyline)/(home_moneyline-100), 1-home_moneyline/(home_moneyline+100))) %>%
+  select(week, gameday, game_type, team_logo_espn.x, away_team, away_score, team_logo_espn.y, home_team, home_score, away_moneyline, home_moneyline, away_implied_odds, home_implied_odds, spread_line, total_line) %>% 
+  rename(team_logo_espn_away = team_logo_espn.x,
+         team_logo_espn_home = team_logo_espn.y) %>%
+  mutate(xaway_score = (total_line/2) + (spread_line/2)*-1,
+         xhome_score =total_line -  xaway_score) %>%
+  # make list for implied odds bar chart
+  mutate(list_data = list(c(away_implied_odds, home_implied_odds))) %>%
+  gather(attr_num, list_data, c(away_implied_odds, home_implied_odds)) %>%
+  group_by_at(vars(-attr_num, -list_data)) %>%
+  summarise(list_data = list(list_data)) %>%
+  ungroup()
+
+# Make gt table
+
+current_week_games2 %>%
+  select(gameday, team_logo_espn_away, list_data, team_logo_espn_home, spread_line, total_line, xaway_score, xhome_score) %>%
+  gt() %>%
+  gt_img_rows(team_logo_espn_away, height = 30) %>%
+  gt_img_rows(team_logo_espn_home, height = 30) %>%
+  # Relabel columns
+  cols_label(
+    gameday = "Gameday",
+    team_logo_espn_away = "",
+    team_logo_espn_home = "",
+    spread_line = "Spread",
+    total_line = "Total",
+    xaway_score = "Away",
+    xhome_score = "Home"
+  ) %>%
+  tab_spanner(label = "Projected Score", 
+              columns = xaway_score:xhome_score) %>%
+  tab_header(
+    title = md("**NFL Playoff Odds**"),
+    subtitle = glue("2023 Playoffs: Week {current_week}")
+  ) %>%
+  tab_source_note(
+    source_note = md("DATA: nflfastR")
+  ) %>%
+  gt_plt_bar_stack(list_data,
+    width = 60,
+    labels = c("  Away  ", "  Home  "),
+    palette = c("#ff4343", "#bfbfbf")
+  ) %>%
+  tab_footnote(
+    footnote = "Implied win probability is the moneyline converted odds with vig removed.",
+    locations = cells_column_labels(vars(list_data))
+  ) %>%
+  opt_table_font(
+    font = "Chivo"
+    ) %>%
+  tab_options(
+    column_labels.background.color = "white",
+    table.border.top.width = px(3),
+    table.border.top.color = "transparent",
+    table.border.bottom.color = "transparent",
+    table.border.bottom.width = px(3),
+    column_labels.border.top.width = px(3),
+    #column_labels.border.top.color = "transparent",
+    column_labels.border.bottom.width = px(3),
+    column_labels.border.bottom.color = "black",
+    data_row.padding = px(3),
+    source_notes.font.size = 12,
+    table.font.size = 16,
+    heading.align = "center",
+    heading.background.color = "black",
+  )
+
+
+```

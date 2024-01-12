@@ -15,6 +15,8 @@ navbar:
         href: Games.html
       - text: "Win Probability"
         href: Win-Probability.html
+      - text: "Current Week Odds"
+        href: Current-Week-Odds.html
     - text: "Predictions"
       href: Forecast-Simulations.html
     - text: "About"
