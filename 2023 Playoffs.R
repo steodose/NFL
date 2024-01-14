@@ -232,6 +232,14 @@ composite_odds %>%
       ) %>% as.character(),
       domain = NULL
     )) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(
+      columns = c(conf_odds, sb_odds)
+    )
+  ) %>%
   fmt_percent(columns = ends_with('odds'),
              decimals = 1) %>%
   tab_spanner(label = "Pinnacle", 
