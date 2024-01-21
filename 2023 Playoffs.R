@@ -1,5 +1,5 @@
 ##### NFL 2023 Playoffs #####
-##### December 2023 #####
+##### December 2024 #####
 ##### By: Stephan Teodosescu #####
 
 library(nflverse)
@@ -141,7 +141,7 @@ vegas_odds %>%
        y = "",
        caption = "Data: Pinnacle.com\nGraphic: @steodosescu",
        title = glue("The Betting Favorites"),
-       subtitle =  glue("Implied win prob % based on Pinnacle odds. Data as of Jan 8th, 2023.")) +
+       subtitle =  glue("Implied win prob % as of Divisional Round. Based on Pinnacle odds. Data as of Jan 19th, 2023.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -171,7 +171,7 @@ magick::image_write(champs_odds_with_logo, "2023 Championship Odds with Logo.png
 
 ## ------------- 2. Composite Odds --------------------
 
-composite_odds <- read_csv("/Users/Stephan/Desktop/R Projects/NFL/composite_odds.csv")
+composite_odds <- read_csv("/Users/Stephan/Desktop/R Projects/NFL/composite_odds_divisional.csv")
 
 # change vegas odds to implied percentages and calculate means
 composite_odds <- composite_odds %>%
@@ -256,8 +256,8 @@ composite_odds %>%
               columns = fpi_conf_odds:fpi_sb_odds) %>%
   tab_spanner(label = "Composite", 
               columns = conf_odds:sb_odds) %>%
-  tab_header(title = md("**2023 NFL Composite Playoff Odds**"),
-             subtitle = glue("Using publicly available models. Data as of January 8, 2023.")) %>%
+  tab_header(title = md("**2023 NFL Divisional Round Odds**"),
+             subtitle = glue("Composite odds using publicly available models. Data as of January 19, 2023.")) %>%
   opt_align_table_header(align = "center") %>%
   tab_source_note(
     source_note = md("Data: Pinnacle.com, Neil Paine (The Messenger), Opta Analyst, PFF.com, Sumer Sports, ESPN<br>Table: @steodosescu")) %>% 
