@@ -101,7 +101,6 @@ current_week_games2 <- current_week_games %>%
   ungroup()
 
 # Make gt table
-
 current_week_games2 %>%
   select(gameday, team_logo_espn_away, list_data, team_logo_espn_home, spread_line, total_line, xaway_score, xhome_score) %>%
   gt() %>%
@@ -129,7 +128,7 @@ current_week_games2 %>%
   gt_plt_bar_stack(list_data,
     width = 60,
     labels = c("  Away  ", "  Home  "),
-    palette = c("#ff4343", "#bfbfbf")
+    palette = c("#ff4343", "#0038A8")
   ) %>%
   tab_footnote(
     footnote = "Implied win probability is the moneyline converted odds with vig removed.",
