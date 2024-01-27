@@ -130,7 +130,7 @@ vegas_odds %>%
     aes(
       image = team_logo_espn                                  
     ), 
-    size = 0.045, 
+    size = 0.1, #change back to 0.045 with more teams
     by = "width", 
     asp = asp_ratio
   ) +
@@ -141,7 +141,7 @@ vegas_odds %>%
        y = "",
        caption = "Data: Pinnacle.com\nGraphic: @steodosescu",
        title = glue("The Betting Favorites"),
-       subtitle =  glue("Implied win prob % as of Divisional Round. Based on Pinnacle odds. Data as of Jan 19th, 2023.")) +
+       subtitle =  glue("Implied win prob % as of Conference Championships games. Based on Pinnacle odds. Data as of Jan 25th, 2024.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -169,9 +169,10 @@ champs_odds_with_logo <- add_logo(
 magick::image_write(champs_odds_with_logo, "2023 Championship Odds with Logo.png")
 
 
+
 ## ------------- 2. Composite Odds --------------------
 
-composite_odds <- read_csv("/Users/Stephan/Desktop/R Projects/NFL/composite_odds_divisional.csv")
+composite_odds <- read_csv("/Users/Stephan/Desktop/R Projects/NFL/composite_odds_conference.csv")
 
 # change vegas odds to implied percentages and calculate means
 composite_odds <- composite_odds %>%
@@ -298,3 +299,63 @@ composite_odds_with_logo <- add_logo(
 
 # save the image and write to working directory
 magick::image_write(composite_odds_with_logo, "2023 NFL Playoffs Composite Rankings with Logo.png")
+
+
+## ------------- 3. Playoff Probabilities (composite) --------------------
+
+composite_odds$conf_implied_odds_label <- percent(composite_odds$conf_odds, accuracy = 1)
+composite_odds$sb_implied_odds_label <- percent(composite_odds$sb_odds, accuracy = 1)
+
+
+composite_odds %>%
+  select(team_abbr, team_logo_espn, conf_odds, sb_odds, team_color) %>%
+  ggplot(aes(y = reorder(team_abbr, -conf_odds), x = conf_odds, fill =  team_color)) +
+  geom_col(aes(fill = team_color, color = after_scale(clr_darken(fill, 0.3))),
+           width = 0.7,
+           alpha = 0.5) + 
+  geom_col(aes(x = sb_odds), width = 0.7) +
+  geom_text(data= composite_odds,  aes(label = conf_implied_odds_label), family = 'Outfit', color = 'white', size = 4, position = position_stack(vjust = 0.7)) +
+  geom_text(data= composite_odds,  aes(label = sb_implied_odds_label), family = 'Outfit', color = 'white', size = 4, position = position_stack(vjust = 0.3)) +
+  scale_color_identity(aesthetics =  c("fill"))  +
+  geom_image(
+    aes(
+      image = team_logo_espn                                  
+    ), 
+    size = 0.1, #change back to 0.045 with more teams
+    by = "width", 
+    asp = asp_ratio
+  ) +
+  theme_custom() +
+  coord_flip() +
+  scale_x_continuous(limits = c(0,1), labels = scales::percent_format()) +
+  labs(x = "Super Bowl Odds | Conference Champ Odds", y = "",
+       y = "",
+       caption = "Data: Pinnacle, Neil Paine (The Messenger), Opta Analyst, PFF.com, Sumer Sports, ESPN\nGraphic: @steodosescu",
+       title = glue("The Betting Favorites"),
+       subtitle =  glue("Composite odds based on publicly available models for Conference Championships. Data as of Jan 25th, 2024.")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+        ),
+        plot.subtitle = element_text(
+          size = 10,
+          hjust = 0.5)
+  ) +
+  theme(plot.subtitle = element_markdown()) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+
+ggsave("2023 Championship Odds Composite.png")
+
+# Add logo to plot
+champs_odds_composite_with_logo <- add_logo(
+  plot_path = "/Users/Stephan/Desktop/R Projects/NFL/2023 Championship Odds Composite.png", # url or local file for the plot
+  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/nfl-logo.png", # url or local file for the logo
+  logo_position = "top left", # choose a corner
+  # 'top left', 'top right', 'bottom left' or 'bottom right'
+  logo_scale = 20
+)
+
+# save the image and write to working directory
+magick::image_write(champs_odds_composite_with_logo, "2023 Championship Odds Composite with Logo.png")
+
