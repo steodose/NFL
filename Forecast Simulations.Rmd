@@ -155,7 +155,7 @@ elo_model <- function(teams, games, week_num, ...) {
             dplyr::inner_join(args$elo %>% select(team, elo), by = c("team" = "team"))
         } else {
           # fetch preseason elo ratings from Neil Paine's Elo moded via Github
-          ratings <- read_csv('https://raw.githubusercontent.com/steodose/NFL/master/preseason_elo.csv')
+          ratings <- read_csv('https://raw.githubusercontent.com/steodose/NFL/master/preseason_elo_2024.csv')
           ratings <- as_tibble(ratings)
           teams <- teams %>%
             dplyr::inner_join(ratings, by = "team")
@@ -231,7 +231,7 @@ elo_model <- function(teams, games, week_num, ...) {
 # Run sims for this model
 set.seed(8236)
 sims2 <- simulate_nfl(
-  nfl_season = 2023,
+  nfl_season = 2024,
   process_games = elo_model,
   fresh_season = FALSE,
   simulations = 1000
@@ -376,7 +376,7 @@ div(
   class = "standings",
   div(
     class = "title",
-    h1("2023 NFL Simulations"),
+    h1("2024 NFL Simulations"),
     "Team wins simulated based off Elo model using {nflseedR}"
   ),
   sim_table,
