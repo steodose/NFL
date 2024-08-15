@@ -50,7 +50,7 @@ options(scipen = 9999)
 
 #Load games data from Lee Sharpe/nflseedR
 games <- load_sharpe_games() %>% 
-  filter(season == 2023)
+  filter(season == 2024)
 
 ```
 
@@ -136,18 +136,32 @@ games_table <- reactable(
                                        align = "right"),
                       away_team = colDef(name = "Away",
                                        align = "right"),
-                      away_score = colDef(name = "Away Score",
-                                           style = color_scales(games2, colors = paletteer::paletteer_d(
-                                         palette = "ggsci::amber_material"
-                                     )),
+                      away_score = colDef(
+                        name = "Away Score",
+                        style = if (all(is.na(games2$away_score))) {
+                          NULL  # Don't apply color scales if all values are NA
+                        } else {
+                          color_scales(
+                            games2,
+                            colors = paletteer::paletteer_d(palette = "ggsci::amber_material")
+                          )
+                        },
+                        align = "right"
+                      ),
+                    home_team = colDef(name = "Home",
                                        align = "right"),
-                      home_team = colDef(name = "Home",
-                                       align = "right"),
-                      home_score = colDef(name = "Home Score",
-                                          style = color_scales(games2, colors = paletteer::paletteer_d(
-                                         palette = "ggsci::amber_material"
-                                     )),
-                                       align = "right"),
+                    home_score = colDef(
+                      name = "Home Score",
+                      style = if (all(is.na(games2$home_score))) {
+                        NULL  # Don't apply color scales if all values are NA
+                      } else {
+                        color_scales(
+                          games2,
+                          colors = paletteer::paletteer_d(palette = "ggsci::amber_material")
+                        )
+                      },
+                      align = "right"
+                    ),
                       spread_line = colDef(name = "Home Spread",
                                            style = list(borderLeft = "2px solid #555"),
                                        align = "right"),
@@ -179,7 +193,7 @@ games_table <- reactable(
                   fullWidth = FALSE, 
                   defaultColDef = colDef(align = "center", minWidth = 95)
         ) %>% 
-  add_title("2023 NFL Season",
+  add_title("2024 NFL Season",
             font_size = 28) %>% 
   add_subtitle("Every NFL game by week, including scores, schedules, and pre-game Vegas odds. Click a column header to sort by that statistic.",
                font_size = 14,

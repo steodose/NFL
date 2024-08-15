@@ -344,8 +344,8 @@ sim_table <- reactable(
       headerStyle = list(fontWeight = 700)
     ),
     wins = colDef(
-      name = "Avg Wins",
-      format = colFormat(digits = 1),
+      name = "Sim Wins",
+      format = colFormat(digits = 0.1), # changed the number of decimals this outputs
       maxWidth = 100,
       class = "cell number"
     ),
