@@ -257,6 +257,10 @@ tab_name <- "NFL Combined Odds"
 # Read the specific tab into a dataframe
 vegas_odds <- read_sheet(sheet_url, sheet = tab_name)
 
+vegas_odds  <- vegas_odds %>%
+  slice(-n()) # remove the sum total row from sheets
+  
+
 
 # scrape NFL win totals from vegas insider
 viURL <- "https://www.vegasinsider.com/nfl/odds/win-totals/"
@@ -313,7 +317,7 @@ vegas_combined <- vi_clean %>%
 
 # make bar plot
 vegas_combined %>% 
-  ggplot(aes(x = fct_rev(fct_reorder(team, vegas_win_total)), y = vegas_win_total)) +
+  ggplot(aes(x = fct_rev(fct_reorder(team, adjusted_prob)), y = vegas_win_total)) +
   geom_col(aes(fill = team_color, 
                color = after_scale(clr_darken(fill, 0.3))
   ),
@@ -329,7 +333,7 @@ vegas_combined %>%
     by = "width", 
     asp = asp_ratio
   ) +
-  geom_text(aes(label = scales::percent(odds, accuracy = 1)), 
+  geom_text(aes(label = scales::percent(adjusted_prob, accuracy = 1)), 
             vjust = -1.5, 
             size = 3, 
             family = "Outfit") +
@@ -343,7 +347,7 @@ vegas_combined %>%
        y = "Vegas Win Total", 
        caption = "Data: nflverse/Bet365 | Plot: @steodosescu",
        title = glue("What does Vegas think?"),
-       subtitle = glue("Vegas win totals and implied Super Bowl odds for 2024 season. Data as of August 4, 2024.")) +
+       subtitle = glue("Vegas win totals and implied Super Bowl odds for 2024 season. Vig is removed. Data as of August 17, 2024.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
