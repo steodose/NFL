@@ -240,6 +240,10 @@ sims2 <- simulate_nfl(
 
 #summary(sims2)
 
+# write latest sim results to wd
+latest_game_predictions <- sims2$game_summary
+write_csv(latest_game_predictions, "Latest Game Predictions.csv")
+
 
 
 ```

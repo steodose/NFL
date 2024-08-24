@@ -31,6 +31,7 @@ library(ggforce)
 library(gt)
 library(gtExtras)
 library(webshot)
+library(scales)
 
 
 # Define 538 table theme for Reactable table(s) below
@@ -58,7 +59,7 @@ theme_538 <- function() {
 ```
 
 
-Below you'll find current week playoff odds sourced from a variety of sportsbooks. 
+Below you'll find current week game odds based on my simulations of the remainder of the NFL season.
 
 ```{r, echo=FALSE}
 
@@ -70,15 +71,22 @@ team_df <- nflreadr::load_teams() %>%
   select(team_logo_espn, team_abbr, team_name, team_conf, team_division, team_color)
 
 #Load games data from Lee Sharpe/nflseedR
-games <- load_sharpe_games() %>% 
-  filter(season == 2023)
+# games <- load_sharpe_games() %>% 
+#   filter(season == 2024)
 
-# filter for current week games only
-current_week_games <- games %>%
-  filter(gameday >= Sys.Date())
+# Load games from output of forecast simulations
+games <- read_csv('/Users/Stephan/Desktop/R Projects/NFL/Latest Game Predictions.csv')
 
 # Identify current week
-current_week <- max(current_week_games$week)
+#current_week <- max(current_week_games$week)
+current_week <- 1
+
+# filter for current week games only
+# current_week_games <- games %>%
+#   filter(gameday >= Sys.Date())
+
+current_week_games <- games %>%
+  filter(current_week == games$week)
 
 # join team logs and colors
 current_week_games<- left_join(current_week_games, team_df, by = c("away_team" = "team_abbr")) #Away
@@ -86,53 +94,60 @@ current_week_games <- left_join(current_week_games, team_df, by = c("home_team" 
 
 # filter for relevant columns
 current_week_games2 <- current_week_games %>%
-  mutate(away_implied_odds = if_else(away_moneyline < 0, (away_moneyline)/(away_moneyline-100), 1-away_moneyline/(away_moneyline+100)),
-         home_implied_odds = if_else(home_moneyline < 0, (home_moneyline)/(home_moneyline-100), 1-home_moneyline/(home_moneyline+100))) %>%
-  select(week, gameday, game_type, team_logo_espn.x, away_team, away_score, team_logo_espn.y, home_team, home_score, away_moneyline, home_moneyline, away_implied_odds, home_implied_odds, spread_line, total_line) %>% 
+  select(week, game_type, team_logo_espn.x, away_team, team_logo_espn.y, home_team, result, away_percentage, home_percentage) %>% 
   rename(team_logo_espn_away = team_logo_espn.x,
          team_logo_espn_home = team_logo_espn.y) %>%
-  mutate(xaway_score = (total_line/2) + (spread_line/2)*-1,
-         xhome_score =total_line -  xaway_score) %>%
   # make list for implied odds bar chart
-  mutate(list_data = list(c(away_implied_odds, home_implied_odds))) %>%
-  gather(attr_num, list_data, c(away_implied_odds, home_implied_odds)) %>%
+  mutate(list_data = list(c(away_percentage, home_percentage))) %>%
+  gather(attr_num, list_data, c(away_percentage, home_percentage)) %>%
   group_by_at(vars(-attr_num, -list_data)) %>%
   summarise(list_data = list(list_data)) %>%
   ungroup()
 
 # Make gt table
 current_week_games2 %>%
-  select(gameday, team_logo_espn_away, list_data, team_logo_espn_home, spread_line, total_line, xaway_score, xhome_score) %>%
+  select(game_type, week, away_team, team_logo_espn_away, list_data, home_team, team_logo_espn_home, result) %>%
   gt() %>%
   gt_img_rows(team_logo_espn_away, height = 30) %>%
   gt_img_rows(team_logo_espn_home, height = 30) %>%
   # Relabel columns
   cols_label(
-    gameday = "Gameday",
+    game_type = "Game Type",
+    week = "Week",
+    away_team = "",
     team_logo_espn_away = "",
+    home_team = "",
     team_logo_espn_home = "",
-    spread_line = "Spread",
-    total_line = "Total",
-    xaway_score = "Away",
-    xhome_score = "Home"
+    result = "Predicted Spread"
   ) %>%
-  tab_spanner(label = "Projected Score", 
-              columns = xaway_score:xhome_score) %>%
+  fmt_number(
+    columns = vars(result),
+    decimals = 1
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = vars(week)  # Center align the week column
+  ) %>%
   tab_header(
-    title = md("**NFL Playoff Odds**"),
-    subtitle = glue("2023 Playoffs: Week {current_week}")
+    title = md("**NFL Current Week Odds**"),
+    subtitle = glue("2024 Regular Season: Week {current_week}")
   ) %>%
   tab_source_note(
     source_note = md("DATA: nflfastR")
   ) %>%
   gt_plt_bar_stack(list_data,
     width = 60,
+    #scale_type = "percent",
     labels = c("  Away  ", "  Home  "),
     palette = c("#ff4343", "#0038A8")
   ) %>%
   tab_footnote(
-    footnote = "Implied win probability is the moneyline converted odds with vig removed.",
+    footnote = "Win probabilities based on 1,000x simulations of remaining games using Between the Pipes' team power ratings.",
     locations = cells_column_labels(vars(list_data))
+  ) %>%
+  tab_footnote(
+    footnote = "Spread from the perspective of the home team.",
+    locations = cells_column_labels(vars(result))
   ) %>%
   opt_table_font(
     font = "Chivo"
