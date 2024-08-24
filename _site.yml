@@ -13,10 +13,10 @@ navbar:
       menu:
       - text: "Scores & Schedule"
         href: Games.html
-      - text: "Win Probability"
-        href: Win-Probability.html
       - text: "Current Week Odds"
         href: Current-Week-Odds.html
+      - text: "Win Probability"
+        href: Win-Probability.html
     - text: "Predictions"
       href: Forecast-Simulations.html
     - text: "About"

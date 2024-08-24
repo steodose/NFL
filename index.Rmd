@@ -2,12 +2,55 @@
 title: "Welcome"
 ---
 
-This website is a season-to-date look at how the NFL season has transpired, according to advanced analytics. We use play-by-play data from Ben Baldwin and Sebastian Carl's fantastic nflfastR package to tell the story of the 2021 season thus far. nflfastR is an extension of the original work done by the nflscrapR team (Maksim Horowitz, Ron Yurko, and Sam Ventura).
+This website is a season-to-date look at how the NFL season has transpired, according to advanced analytics. We use play-by-play data from Ben Baldwin and Sebastian Carl's fantastic nflfastR package to tell the story of the 2024 season. nflfastR is an extension of the original work done by the nflscrapR team (Maksim Horowitz, Ron Yurko, and Sam Ventura).
 
-Football analytics have taken a huge leap forward in the past half decade or so. The NFL has embraced the concept, and data-driven decision making in general, at a rapid pace. Advanced stats have also become much more accessible to the average fan as we now have a wealth of information previously unavailable to the public.
+Explore the various pages available using the links below.
 
 Read more at my blog [Between the Pipes](https://betweenthepipes.substack.com/).
 
 This site is not associated with the NFL.
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r, include=FALSE}
+library(htmltools)
+source("R/create_proj_card.R")
+```
+
+
+```{r}
+# create_proj_card(
+#   img_src = "images/bar-graph.png",
+#   url = "https://steodose.github.io/NFL/Forecast-Simulations.html",
+#   title = "Forecasts",
+#   text = "Simulating the NFL season 1,000x",
+#   text2 = NULL
+# )
+# 
+# 
+# create_proj_card(
+#   img_src = "images/american-football.png",
+#   url = "https://steodose.github.io/NFL/Teams-Weekly-Report.html",
+#   title = "Team Stats",
+#   text = "Weekly team report",
+#   text2 = NULL
+# )
+# 
+# 
+# create_proj_card(
+#   img_src = "images/american-football-2.png",
+#   url = "https://steodose.github.io/NFL/Players-Weekly-Report.html",
+#   title = "Player Stats",
+#   text = "Weekly team report",
+#   text2 = NULL
+# )
+
+```
+
 
 <img src="/Users/Stephan/Desktop/R Projects/NFL/NFL.png" style="width:25%">
