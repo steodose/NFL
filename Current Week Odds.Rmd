@@ -26,11 +26,11 @@ library(glue)
 library(ggtext)
 library(reactable)
 library(reactablefmtr)
-library(ggalt) #for dumbbell plot
 library(ggforce)
 library(gt)
 library(gtExtras)
 library(webshot)
+library(webshot2)
 library(scales)
 
 
@@ -79,7 +79,7 @@ games <- read_csv('/Users/Stephan/Desktop/R Projects/NFL/Latest Game Predictions
 
 # Identify current week
 #current_week <- max(current_week_games$week)
-current_week <- 1
+current_week <- 2
 
 # filter for current week games only
 # current_week_games <- games %>%
