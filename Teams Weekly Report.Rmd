@@ -44,11 +44,11 @@ library(paletteer)
 library(prismatic)
 
 # load pbp data
-data <- load_pbp(2013:2023)
+data <- load_pbp(2013:2024)
 
 # Filter for Run/Pass plays for the current season only
 pbp_rp <- data %>%
-  filter(season == 2023) %>%
+  filter(season == 2024) %>%
   filter(rush == 1 | pass == 1, !is.na(epa)) # Exclude plays with missing EPA.
 
 # Identify current week
@@ -231,7 +231,7 @@ The below shows current win totals -- expressed in win percentage -- compared to
 
 # get current wins
 games_df <- nflreadr::load_schedules() %>% 
-  filter(season == 2023, game_type == "REG") %>% 
+  filter(season == 2024, game_type == "REG") %>% 
   select(game_id, team_home = home_team, team_away = away_team, result, week) %>% 
   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
   mutate(
@@ -318,7 +318,7 @@ The below shows each team's actual win percentage vs their pythagoroean win perc
 ``` {r, echo = FALSE}
 
 games_df2 <-  nflreadr::load_schedules() %>% 
-  filter(season == 2023, game_type == "REG") %>% 
+  filter(season == 2024, game_type == "REG") %>% 
   select(game_id, team_home = home_team, team_away = away_team, away_score, home_score, result, week) %>% 
   drop_na() %>%
   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
@@ -481,7 +481,7 @@ explosive_plays_plot_logos <- explosive_plays %>%
     x = "Explosive Play Share (%)",
     y = "",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
-    title = glue("Most Explosive Teams, 2023 NFL Season"),
+    title = glue("Most Explosive Teams, 2024 NFL Season"),
     subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru Week {current_week}.")
   ) +
   theme_custom() +
@@ -514,7 +514,7 @@ epa_only <- off_def_epa %>%
 
 #load games data and join epa for home and away teams
 games_epa <- load_sharpe_games() %>% 
-  filter(season == 2023, game_type == "REG") %>%
+  filter(season == 2024, game_type == "REG") %>%
   left_join(epa_only, by = c('away_team' = 'posteam')) %>%
   rename(away_epa_play = epa_play) %>%
   left_join(epa_only, by = c('home_team' = 'posteam')) %>%
@@ -594,33 +594,33 @@ go_for_it <- fourth_down_plays %>%
            wp < .80) %>%
   dplyr::group_by(season, posteam, play_type) %>%
   summarize(n = n()) %>% 
-  mutate(`2013-2023` = round(100 * (n / sum(n)), 1)) %>%
+  mutate(`2013-2024` = round(100 * (n / sum(n)), 1)) %>%
   select(-c(n)) %>% 
-  pivot_wider(names_from = "season", values_from = "2013-2023") %>%
+  pivot_wider(names_from = "season", values_from = "2013-2024") %>%
   filter(play_type == "Run/Pass") %>%
   ungroup() %>%
   mutate_if(is.numeric, list(~replace_na(., 0))) %>% 
   pivot_longer(cols = starts_with("20"),
                names_to = "season",
-               values_to = "2013-2023") %>% 
+               values_to = "2013-2024") %>% 
   arrange(posteam, season)
 
-average_go_for_it_rate <- mean(go_for_it$`2013-2023
+average_go_for_it_rate <- mean(go_for_it$`2013-2024
                                `) #Get mean go for it rates to put inline with R code down below
 
 # Look at  trends
 trend <- go_for_it %>%
   ungroup() %>%
-  select(team = posteam, `2013-2023`) %>%
+  select(team = posteam, `2013-2024`) %>%
   group_by(team) %>%
-  mutate(`2013-2023` = list(`2013-2023`)) %>%
-  distinct(team, `2013-2023`) %>%
+  mutate(`2013-2024` = list(`2013-2024`)) %>%
+  distinct(team, `2013-2024`) %>%
   ungroup()
 
 # Go for it data by year
 go_for_it_by_year <- go_for_it %>%
-  select(season, team = posteam, `2013-2023`) %>%
-  pivot_wider(names_from = "season", values_from = "2013-2023") %>%
+  select(season, team = posteam, `2013-2024`) %>%
+  pivot_wider(names_from = "season", values_from = "2013-2024") %>%
   mutate_if(is.numeric, list(~replace_na(., 0))) %>% 
   ungroup() %>%
   inner_join(trend, by = c("team" = "team")) %>% 
@@ -629,7 +629,7 @@ go_for_it_by_year <- go_for_it %>%
 
 ```
 
-Teams are going for it on 4th Down more often nowadays. The below table shows each team's go-for-it rates on fourth-and-short over the last decade-plus. Year-to-date teams have gone for it in fourth-and-short situations **`r format(average_go_for_it_rate, digits = 3)` percent** of the time in 2023. We will track how each team fares on its fourth-down decision making throughout the season.
+Teams are going for it on 4th Down more often nowadays. The below table shows each team's go-for-it rates on fourth-and-short over the last decade-plus. Year-to-date teams have gone for it in fourth-and-short situations **`r format(average_go_for_it_rate, digits = 3)` percent** of the time in 2024. We will track how each team fares on its fourth-down decision making throughout the season.
 
 ```{r Fourth Down Heatmap}
 
@@ -637,10 +637,10 @@ Teams are going for it on 4th Down more often nowadays. The below table shows ea
 # create list_data column for table graphic
 
 fourth_down_table <- go_for_it_by_year %>%
-  select(team_logo_espn, team, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`, `2022`, `2023`) %>%
-  arrange(desc(`2023`)) %>% 
+  select(team_logo_espn, team, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`, `2022`, `2023`, `2024`) %>%
+  arrange(desc(`2024`)) %>% 
   rowwise() %>% 
-  mutate(`2013-2023` = list(c(`2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`, `2022`, `2023`))) %>% 
+  mutate(`2013-2024` = list(c(`2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`, `2022`, `2023`, `2024`))) %>% 
   gt() %>%
   data_color(
     columns = 3:13, 
@@ -656,10 +656,10 @@ fourth_down_table <- go_for_it_by_year %>%
   cols_align(align = "left",
              columns = 1) %>%
   tab_header(title = md("**4th Down Decison Making**"),
-             subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2023 data is Thru Week {current_week}.")) %>%
+             subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2024 data is Thru Week {current_week}.")) %>%
   tab_source_note(
     source_note = md("DATA: nflfastR<br>TABLE: @steodosescu")) %>% 
-  gt_plt_sparkline(`2013-2023`)
+  gt_plt_sparkline(`2013-2024`)
 
 
 fourth_down_table
