@@ -120,6 +120,10 @@ games2 <- games2 %>%
 games_table <- reactable(
   games2,
   theme = theme_538,
+  columnGroups = list(
+                      colGroup(name = "Pre-Game Vegas Odds", 
+                               columns = c("spread_line", "away_pred", "home_pred"))
+                  ),
                   showSortIcon = TRUE,
                   searchable = TRUE,
                   language = reactableLang(
