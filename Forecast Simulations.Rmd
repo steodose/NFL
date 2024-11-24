@@ -176,7 +176,7 @@ elo_model <- function(teams, games, week_num, ...) {
           elo_diff = elo_diff + ifelse(location == "Home", 20, 0),
           elo_diff = elo_diff + (home_rest - away_rest) / 7 * 25,
           elo_diff = elo_diff * ifelse(game_type == "REG", 1, 1.2),
-          wp = 1 / (10^(-elo_diff / 400) + 1),
+          wp = 1 / (10^(-elo_diff / 400) + 1), #calculate the home team's win percentage
           estimate = elo_diff / 25,
           result = case_when(
             is.na(result) & week == week_num ~
@@ -220,7 +220,7 @@ elo_model <- function(teams, games, week_num, ...) {
         dplyr::mutate(elo = elo + ifelse(!is.na(elo_shift), elo_shift, 0)) %>%
         dplyr::select(-elo_shift)
 
-      # remove elo shift
+      # we need to keep `elo_shift` out of `games`
       games <- games %>%
         dplyr::select(-elo_shift)
 
