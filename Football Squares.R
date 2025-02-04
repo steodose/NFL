@@ -1,5 +1,5 @@
 ##### Super Bowl Squares #####
-##### February 2022 #####
+##### Updated February 2025 #####
 ##### By: Stephan Teodosescu #####
 
 library(tidyverse)
@@ -112,7 +112,7 @@ games2 <- games %>%
 squares_heatmap <- games2 %>%
   ggplot(aes(home_digit, away_digit, fill = perc)) +
   geom_tile() +
-  scale_fill_material("deep-orange", 
+  scale_fill_material("amber", 
                       labels = scales::percent_format()) +
   geom_text(aes(label = perc_display), family = "Chivo") +
   scale_x_continuous(breaks = 0:9) +
@@ -129,7 +129,7 @@ squares_heatmap <- games2 %>%
   theme(plot.margin = margin(0.5, 0.5, 1.5, 2, "cm")) +
   labs(x = "",
        y = "",
-       subtitle = "The relative probability of common pairs of end-of-game NFL scores. Using data from 2015-2022 seasons.",
+       subtitle = "The relative probability of common pairs of end-of-game NFL scores. Using data from 2015-2024 seasons.",
        title = "Super Bowl Squares",
        caption = "Data: nflfastR | Plot: @steodosescu",
        fill = "% of games")
@@ -155,7 +155,7 @@ ggsave("Squares Heatmap.png", dpi = 300)
 # Add logo to plot
 heatmap_with_logo <- add_logo(
   plot_path = "/Users/Stephan/Desktop/R Projects/NFL/Squares Heatmap.png", # url or local file for the plot
-  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LVII_logo.png", # url or local file for the logo
+  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LIX_Logo.png", # url or local file for the logo
   logo_position = "top left", # choose a corner
   # 'top left', 'top right', 'bottom left' or 'bottom right'
   logo_scale = 15
@@ -175,7 +175,7 @@ games3 <- games2 %>%
 squares_heatmap_dollars <- games3 %>%
   ggplot(aes(home_digit, away_digit, fill = perc)) +
   geom_tile() +
-  scale_fill_material("deep-orange", 
+  scale_fill_material("deep-purple", 
                       labels = scales::percent_format()) +
   geom_text(aes(label = ev_display), family = "Chivo") +
   scale_x_continuous(breaks = 0:9) +
@@ -190,7 +190,7 @@ squares_heatmap_dollars <- games3 %>%
   theme(plot.margin = margin(0.5, 0.5, 1.5, 2, "cm")) +
   labs(x = "",
        y = "",
-       subtitle = "Expected Value of end-of-game NFL scores on a $20 bet. Using data from 2015-2022 seasons.",
+       subtitle = "Expected Value of end-of-game NFL scores on a $20 bet. Using data from 2015-2023 seasons.",
        title = "Super Bowl Squares",
        caption = "Data: nflfastR | Plot: @steodosescu")
 
@@ -200,13 +200,13 @@ squares_heatmap_dollars
 squares_heatmap_dollars1 <- ggdraw() + 
   draw_plot(squares_heatmap_dollars) +
   draw_image(
-    'https://a.espncdn.com/i/teamlogos/nfl/500/phi.png', x = 0.50, y = 0.01, 
+    'https://a.espncdn.com/i/teamlogos/nfl/500/kc.png', x = 0.50, y = 0.01, 
     width = 0.10, height = 0.10)
 
 ggdraw() + 
   draw_plot(squares_heatmap_dollars1) +
   draw_image(
-    'https://a.espncdn.com/i/teamlogos/nfl/500/kc.png', x = 0.01, y = 0.50, 
+    'https://a.espncdn.com/i/teamlogos/nfl/500/sf.png', x = 0.01, y = 0.50, 
     width = 0.10, height = 0.10)
 
 ggsave("Squares Heatmap Dollars.png", dpi = 300)
@@ -214,7 +214,7 @@ ggsave("Squares Heatmap Dollars.png", dpi = 300)
 # Add logo to plot
 heatmap_dollars_with_logo <- add_logo(
   plot_path = "/Users/Stephan/Desktop/R Projects/NFL/Squares Heatmap Dollars.png", # url or local file for the plot
-  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LVII_logo.png", # url or local file for the logo
+  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LVIII_logo.png", # url or local file for the logo
   logo_position = "top left", # choose a corner
   # 'top left', 'top right', 'bottom left' or 'bottom right'
   logo_scale = 12
@@ -267,7 +267,7 @@ ggsave("Scores Histogram.png")
 # Add logo to plot
 scores_histo_with_logo <- add_logo(
   plot_path = "/Users/Stephan/Desktop/R Projects/NFL/Scores Histogram.png", # url or local file for the plot
-  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LVII_logo.png", # url or local file for the logo
+  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LIX_logo.png", # url or local file for the logo
   logo_position = "top left", # choose a corner
   # 'top left', 'top right', 'bottom left' or 'bottom right'
   logo_scale = 16
@@ -281,7 +281,7 @@ magick::image_write(scores_histo_with_logo, "Scores Histogram with Logo.png")
 ##### Quarterly Data #####
 
 # Load pbp data for every game since 1999
-pbp <- load_pbp(1999:2022)
+pbp <- load_pbp(1999:2024)
 
 #Get the scores at the end of each quarter
 pbp_grouped <- pbp %>% 
@@ -309,7 +309,7 @@ squares_heatmap_quarters <- pbp_grouped2 %>%
   filter(qtr != 6) %>% 
   ggplot(aes(home_digit, away_digit, fill = perc)) +
   geom_tile() +
-  scale_fill_material("deep-orange", 
+  scale_fill_material("amber", 
                       labels = scales::percent_format()) +
   geom_text(aes(label = perc_display), size = 2, family = "Chivo") +
   scale_x_continuous(breaks = 0:9) +
@@ -327,7 +327,7 @@ squares_heatmap_quarters <- pbp_grouped2 %>%
   theme(plot.margin = margin(0.5, 0.5, 1.5, 2, "cm")) +
   labs(x = "",
        y = "",
-       subtitle = "Probability of NFL scores by quarter. Using data from 1999-2022 seasons.",
+       subtitle = "Probability of NFL scores by quarter. Using data from 1999-2024 seasons.",
        title = "Super Bowl Squares",
        caption = "Data: nflfastR | Plot: @steodosescu",
        fill = "% of games")
@@ -352,7 +352,7 @@ ggsave("Squares Heatmap Quarters.png", dpi = 300)
 # Add logo to plot
 squares_heatmap_quarters_with_logo <- add_logo(
   plot_path = "/Users/Stephan/Desktop/R Projects/NFL/Squares Heatmap Quarters.png", # url or local file for the plot
-  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LVII_logo.png", # url or local file for the logo
+  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LIX_logo.png", # url or local file for the logo
   logo_position = "top left", # choose a corner
   # 'top left', 'top right', 'bottom left' or 'bottom right'
   logo_scale = 16
@@ -468,7 +468,7 @@ ggsave("Scores Histogram Quarters.png")
 # Add logo to plot
 scores_histo_qtrs_with_logo <- add_logo(
   plot_path = "/Users/Stephan/Desktop/R Projects/NFL/Scores Histogram Quarters.png", # url or local file for the plot
-  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LVII_logo.png", # url or local file for the logo
+  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LIX_logo.png", # url or local file for the logo
   logo_position = "top left", # choose a corner
   # 'top left', 'top right', 'bottom left' or 'bottom right'
   logo_scale = 16
@@ -502,7 +502,7 @@ total_expected_value %>%
   cols_align(align = "center",
              columns = paired_score) %>%
   tab_header(
-    title = md("**SB LVII Squares Win Probability**"), 
+    title = md("**SB LIX Squares Win Probability**"), 
     subtitle = "Top 10 scores ranked by highest likelihood of earning money in a per-quarter payout system."
   )  %>%
   data_color(columns = total_value,
@@ -531,7 +531,7 @@ total_expected_value %>%
 # Add logo to plot
 scores_table_with_logo <- add_logo(
   plot_path = "/Users/Stephan/Desktop/R Projects/NFL/SB Squares Payout Table.png", # url or local file for the plot
-  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LVII_logo.png", # url or local file for the logo
+  logo_path = "/Users/Stephan/Desktop/R Projects/NFL/Super_Bowl_LIX_logo.png", # url or local file for the logo
   logo_position = "top left", # choose a corner
   # 'top left', 'top right', 'bottom left' or 'bottom right'
   logo_scale = 16
