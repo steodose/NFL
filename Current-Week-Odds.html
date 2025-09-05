@@ -13,7 +13,7 @@
 
 <title>Current Week Odds</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -143,11 +143,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -176,8 +180,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -185,16 +189,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -316,29 +313,30 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Current Week Odds</h1>
-<h4 class="date">Last updated: 2025-01-27</h4>
+<h4 class="date">Last updated: 2025-09-05</h4>
 
 </div>
 
 
-<p>Below you’ll find current week game odds based on my simulations of the remainder of the NFL season.</p>
-<div id="kbbodwhyvp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kbbodwhyvp table {
+<p>Below you’ll find current week game odds based on my simulations of
+the remainder of the NFL season.</p>
+<div id="atarhaknho" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#atarhaknho table {
   font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kbbodwhyvp thead, #kbbodwhyvp tbody, #kbbodwhyvp tfoot, #kbbodwhyvp tr, #kbbodwhyvp td, #kbbodwhyvp th {
+#atarhaknho thead, #atarhaknho tbody, #atarhaknho tfoot, #atarhaknho tr, #atarhaknho td, #atarhaknho th {
   border-style: none;
 }
 
-#kbbodwhyvp p {
+#atarhaknho p {
   margin: 0;
   padding: 0;
 }
 
-#kbbodwhyvp .gt_table {
+#atarhaknho .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -364,12 +362,12 @@ $(document).ready(function () {
   border-left-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_caption {
+#atarhaknho .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kbbodwhyvp .gt_title {
+#atarhaknho .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -381,7 +379,7 @@ $(document).ready(function () {
   border-bottom-width: 0;
 }
 
-#kbbodwhyvp .gt_subtitle {
+#atarhaknho .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -393,7 +391,7 @@ $(document).ready(function () {
   border-top-width: 0;
 }
 
-#kbbodwhyvp .gt_heading {
+#atarhaknho .gt_heading {
   background-color: #000000;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -405,13 +403,13 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_bottom_border {
+#atarhaknho .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_col_headings {
+#atarhaknho .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #D3D3D3;
@@ -426,7 +424,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_col_heading {
+#atarhaknho .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -446,7 +444,7 @@ $(document).ready(function () {
   overflow-x: hidden;
 }
 
-#kbbodwhyvp .gt_column_spanner_outer {
+#atarhaknho .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -458,15 +456,15 @@ $(document).ready(function () {
   padding-right: 4px;
 }
 
-#kbbodwhyvp .gt_column_spanner_outer:first-child {
+#atarhaknho .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kbbodwhyvp .gt_column_spanner_outer:last-child {
+#atarhaknho .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kbbodwhyvp .gt_column_spanner {
+#atarhaknho .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
@@ -478,11 +476,11 @@ $(document).ready(function () {
   width: 100%;
 }
 
-#kbbodwhyvp .gt_spanner_row {
+#atarhaknho .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kbbodwhyvp .gt_group_heading {
+#atarhaknho .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -508,7 +506,7 @@ $(document).ready(function () {
   text-align: left;
 }
 
-#kbbodwhyvp .gt_empty_group_heading {
+#atarhaknho .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -523,15 +521,15 @@ $(document).ready(function () {
   vertical-align: middle;
 }
 
-#kbbodwhyvp .gt_from_md > :first-child {
+#atarhaknho .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kbbodwhyvp .gt_from_md > :last-child {
+#atarhaknho .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kbbodwhyvp .gt_row {
+#atarhaknho .gt_row {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -550,7 +548,7 @@ $(document).ready(function () {
   overflow-x: hidden;
 }
 
-#kbbodwhyvp .gt_stub {
+#atarhaknho .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -563,7 +561,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#kbbodwhyvp .gt_stub_row_group {
+#atarhaknho .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -577,15 +575,15 @@ $(document).ready(function () {
   vertical-align: top;
 }
 
-#kbbodwhyvp .gt_row_group_first td {
+#atarhaknho .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kbbodwhyvp .gt_row_group_first th {
+#atarhaknho .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kbbodwhyvp .gt_summary_row {
+#atarhaknho .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -595,16 +593,16 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#kbbodwhyvp .gt_first_summary_row {
+#atarhaknho .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_first_summary_row.thick {
+#atarhaknho .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kbbodwhyvp .gt_last_summary_row {
+#atarhaknho .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -614,7 +612,7 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_grand_summary_row {
+#atarhaknho .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -624,7 +622,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#kbbodwhyvp .gt_first_grand_summary_row {
+#atarhaknho .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -634,7 +632,7 @@ $(document).ready(function () {
   border-top-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_last_grand_summary_row_top {
+#atarhaknho .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -644,11 +642,11 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_striped {
+#atarhaknho .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kbbodwhyvp .gt_table_body {
+#atarhaknho .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -657,7 +655,7 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_footnotes {
+#atarhaknho .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -671,7 +669,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_footnote {
+#atarhaknho .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -680,7 +678,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#kbbodwhyvp .gt_sourcenotes {
+#atarhaknho .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -694,7 +692,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#kbbodwhyvp .gt_sourcenote {
+#atarhaknho .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -702,106 +700,235 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#kbbodwhyvp .gt_left {
+#atarhaknho .gt_left {
   text-align: left;
 }
 
-#kbbodwhyvp .gt_center {
+#atarhaknho .gt_center {
   text-align: center;
 }
 
-#kbbodwhyvp .gt_right {
+#atarhaknho .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kbbodwhyvp .gt_font_normal {
+#atarhaknho .gt_font_normal {
   font-weight: normal;
 }
 
-#kbbodwhyvp .gt_font_bold {
+#atarhaknho .gt_font_bold {
   font-weight: bold;
 }
 
-#kbbodwhyvp .gt_font_italic {
+#atarhaknho .gt_font_italic {
   font-style: italic;
 }
 
-#kbbodwhyvp .gt_super {
+#atarhaknho .gt_super {
   font-size: 65%;
 }
 
-#kbbodwhyvp .gt_footnote_marks {
+#atarhaknho .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kbbodwhyvp .gt_asterisk {
+#atarhaknho .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kbbodwhyvp .gt_indent_1 {
+#atarhaknho .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kbbodwhyvp .gt_indent_2 {
+#atarhaknho .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kbbodwhyvp .gt_indent_3 {
+#atarhaknho .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kbbodwhyvp .gt_indent_4 {
+#atarhaknho .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kbbodwhyvp .gt_indent_5 {
+#atarhaknho .gt_indent_5 {
   text-indent: 25px;
+}
+
+#atarhaknho .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#atarhaknho div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
     <tr class="gt_heading">
-      <td colspan="8" class="gt_heading gt_title gt_font_normal" style><strong>NFL Current Week Odds</strong></td>
+      <td colspan="8" class="gt_heading gt_title gt_font_normal" style><span class='gt_from_md'><strong>NFL Current Week Odds</strong></span></td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>2024 Regular Season: Week 22</td>
+      <td colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>2024 Regular Season: Week 1</td>
     </tr>
     <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Game Type">Game Type</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Week">Week</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="&lt;span style='color:#ff4343'&gt;&lt;b&gt;  Away  &lt;/b&gt;&lt;/span&gt;||&lt;span style='color:#0038A8'&gt;&lt;b&gt;  Home  &lt;/b&gt;&lt;/span&gt;&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/span&gt;"><span style='color:#ff4343'><b>  Away  </b></span>||<span style='color:#0038A8'><b>  Home  </b></span><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Predicted Spread&lt;span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/span&gt;">Predicted Spread<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>2</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="game_type">Game Type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="week">Week</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="away_team"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team_logo_espn_away"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="list_data">&lt;span style='color:#ff4343'&gt;&lt;b&gt;  Away  &lt;/b&gt;&lt;/span&gt;||&lt;span style='color:#0038A8'&gt;&lt;b&gt;  Home  &lt;/b&gt;&lt;/span&gt;<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="home_team"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team_logo_espn_home"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="result">Predicted Spread<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
     </tr>
   </thead>
   <tbody class="gt_table_body">
-    <tr><td headers="game_type" class="gt_row gt_left">SB</td>
-<td headers="week" class="gt_row gt_center">22</td>
-<td headers="away_team" class="gt_row gt_left">KC</td>
-<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:30px;"></td>
-<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='105.62' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='105.62' y='0.0000000000000018' width='64.46' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='52.81' y='9.56' text-anchor='middle' style='font-size: 8.54px; font-weight: 0;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.62</text><text x='137.85' y='9.56' text-anchor='middle' style='font-size: 8.54px; font-weight: 0;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.38</text></g></svg></td>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">CAR</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='77.05' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='77.05' y='0.0000000000000018' width='93.03' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='38.52' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.453</text><text x='123.56' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.547</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">JAX</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">1.8</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">ARI</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='96.60' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='96.60' y='0.0000000000000018' width='73.47' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='48.30' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.57</text><text x='133.34' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.43</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">NO</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−2.7</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">BAL</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='78.92' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='78.92' y='0.0000000000000018' width='91.16' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='39.46' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.464</text><text x='124.50' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.536</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">BUF</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">0.4</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">CIN</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='108.85' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='108.85' y='0.0000000000000018' width='61.23' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='54.43' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.64</text><text x='139.46' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.36</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">CLE</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−5.2</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">DAL</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='44.56' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='44.56' y='0.0000000000000018' width='125.52' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='22.28' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.26</text><text x='107.32' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.74</text></g></svg></td>
 <td headers="home_team" class="gt_row gt_left">PHI</td>
 <td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:30px;"></td>
-<td headers="result" class="gt_row gt_right">−3.8</td></tr>
+<td headers="result" class="gt_row gt_right">8.3</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">DET</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='90.99' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='90.99' y='0.0000000000000018' width='79.09' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='45.50' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.535</text><text x='130.54' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.465</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">GB</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−1.2</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">HOU</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='80.45' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='80.45' y='0.0000000000000018' width='89.63' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='40.22' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.473</text><text x='125.26' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.527</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">LA</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">0.9</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">KC</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='92.35' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='92.35' y='0.0000000000000018' width='77.73' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='46.18' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.543</text><text x='131.22' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.457</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">LAC</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−2.1</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">LV</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='87.93' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='87.93' y='0.0000000000000018' width='82.15' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='43.97' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.517</text><text x='129.00' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.483</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">NE</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−0.9</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">MIA</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='87.25' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='87.25' y='0.0000000000000018' width='82.83' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='43.63' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.513</text><text x='128.66' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.487</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">IND</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−0.1</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">MIN</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='108.34' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='108.34' y='0.0000000000000018' width='61.74' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='54.17' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.64</text><text x='139.21' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.36</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">CHI</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−4.2</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">NYG</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='44.22' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='44.22' y='0.0000000000000018' width='125.86' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='22.11' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.26</text><text x='107.15' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.74</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">WAS</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">8.2</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">PIT</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='90.99' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='90.99' y='0.0000000000000018' width='79.09' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='45.50' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.535</text><text x='130.54' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='25.60px' lengthAdjust='spacingAndGlyphs'>0.465</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">NYJ</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−0.9</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">SF</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='72.96' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='72.96' y='0.0000000000000018' width='97.11' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='36.48' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.43</text><text x='121.52' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.57</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">SEA</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">2.3</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">TB</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='99.16' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='99.16' y='0.0000000000000018' width='70.92' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='49.58' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.58</text><text x='134.62' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.42</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">ATL</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">−2.2</td></tr>
+    <tr><td headers="game_type" class="gt_row gt_left">REG</td>
+<td headers="week" class="gt_row gt_center">1</td>
+<td headers="away_team" class="gt_row gt_left">TEN</td>
+<td headers="team_logo_espn_away" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:30px;"></td>
+<td headers="list_data" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='170.08pt' height='14.17pt' viewBox='0 0 170.08 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw=='>    <rect x='0.00' y='0.00' width='170.08' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHwxNzAuMDh8MC4wMHwxNC4xNw==)'><rect x='0.00' y='0.0000000000000018' width='48.47' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #FF4343;' /><rect x='48.47' y='0.0000000000000018' width='121.61' height='14.17' style='stroke-width: 1.07; stroke: #FFFFFF; stroke-linecap: butt; stroke-linejoin: miter; fill: #0038A8;' /><text x='24.24' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.28</text><text x='109.28' y='9.52' text-anchor='middle' style='font-size: 8.54px;fill: #FFFFFF; font-family: "Courier";' textLength='20.48px' lengthAdjust='spacingAndGlyphs'>0.72</text></g></svg></td>
+<td headers="home_team" class="gt_row gt_left">DEN</td>
+<td headers="team_logo_espn_home" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:30px;"></td>
+<td headers="result" class="gt_row gt_right">7.4</td></tr>
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="8">DATA: nflfastR</td>
+      <td class="gt_sourcenote" colspan="8"><span class='gt_from_md'>DATA: nflfastR</span></td>
     </tr>
   </tfoot>
   <tfoot class="gt_footnotes">
     <tr>
-      <td class="gt_footnote" colspan="8"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> Win probabilities based on 1,000x simulations of remaining games using Between the Pipes' team power ratings.</td>
+      <td class="gt_footnote" colspan="8"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Win probabilities based on 1,000x simulations of remaining games using Between the Pipes' team power ratings.</td>
     </tr>
     <tr>
-      <td class="gt_footnote" colspan="8"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>2</sup></span> Spread from the perspective of the home team.</td>
+      <td class="gt_footnote" colspan="8"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> Spread from the perspective of the home team.</td>
     </tr>
   </tfoot>
 </table>
