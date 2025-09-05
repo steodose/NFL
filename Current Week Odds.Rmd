@@ -130,7 +130,7 @@ current_week_games2 %>%
   ) %>%
   tab_header(
     title = md("**NFL Current Week Odds**"),
-    subtitle = glue("2024 Regular Season: Week {current_week}")
+    subtitle = glue("2025 Regular Season: Week {current_week}")
   ) %>%
   tab_source_note(
     source_note = md("DATA: nflfastR")
