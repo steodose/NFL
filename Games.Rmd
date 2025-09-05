@@ -50,7 +50,7 @@ options(scipen = 9999)
 
 #Load games data from Lee Sharpe/nflseedR
 games <- load_sharpe_games() %>% 
-  filter(season == 2024)
+  filter(season == 2025)
 
 ```
 
@@ -197,7 +197,7 @@ games_table <- reactable(
                   fullWidth = FALSE, 
                   defaultColDef = colDef(align = "center", minWidth = 95)
         ) %>% 
-  add_title("2024 NFL Season",
+  add_title("2025 NFL Season",
             font_size = 28) %>% 
   add_subtitle("Every NFL game by week, including scores, schedules, and pre-game Vegas odds. Click a column header to sort by that statistic.",
                font_size = 14,

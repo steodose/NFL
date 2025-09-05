@@ -16,7 +16,6 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 
 library(nflfastR)
 library(nflseedR) # For forecast simulations
-library(espnscrapeR)
 library(htmltools)
 library(tidyverse)
 library(teamcolors) # NFL team colors and logos
@@ -69,13 +68,12 @@ my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
 ```
 
 
-Below you'll find predictions for the 2023 NFL season after simulating the remaining schedule 1\,000x. The model uses Neil Paine's starting Elo ratings for all 32 teams, and adjusts independently within each simulation as each week is simulated.
+Below you'll find predictions for the current NFL season after simulating the remaining schedule 1\,000x. The model uses a regressed version of last season's ending Elo ratings for all 32 teams, and adjusts independently within each simulation as each week is simulated.
 
 ```{r, echo =FALSE}
 
 library(nflfastR)
 library(nflseedR) # For forecast simulations
-library(espnscrapeR)
 library(tidyverse)
 library(teamcolors) # NFL team colors and logos
 library(extrafont) # for extra fonts
@@ -155,7 +153,7 @@ elo_model <- function(teams, games, week_num, ...) {
             dplyr::inner_join(args$elo %>% select(team, elo), by = c("team" = "team"))
         } else {
           # fetch preseason elo ratings from Neil Paine's Elo moded via Github
-          ratings <- read_csv('https://raw.githubusercontent.com/steodose/NFL/master/preseason_elo_2024.csv')
+          ratings <- read_csv('/Users/Stephan/Desktop/R Projects/NFL/preseason_elo_2025.csv')
           ratings <- as_tibble(ratings)
           teams <- teams %>%
             dplyr::inner_join(ratings, by = "team")
@@ -231,7 +229,7 @@ elo_model <- function(teams, games, week_num, ...) {
 # Run sims for this model
 set.seed(8236)
 sims2 <- simulate_nfl(
-  nfl_season = 2024,
+  nfl_season = 2025,
   process_games = elo_model,
   fresh_season = FALSE,
   simulations = 1000
@@ -380,7 +378,7 @@ div(
   class = "standings",
   div(
     class = "title",
-    h1("2024 NFL Simulations"),
+    h1("2025 NFL Simulations"),
     "Team wins simulated based off Elo model using {nflseedR}"
   ),
   sim_table,
