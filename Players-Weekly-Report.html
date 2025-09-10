@@ -13,7 +13,7 @@
 
 <title>Players Weekly Report</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -143,11 +143,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -176,8 +180,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -185,16 +189,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -316,36 +313,37 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Players Weekly Report</h1>
-<h4 class="date">Last updated: 2025-01-06</h4>
+<h4 class="date">Last updated: 2025-09-09</h4>
 
 </div>
 
 
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAL8AAAEHCAMAAADI2meYAAAA0lBMVEX///8BM2nVCgrTAAAAIGAAFVu9xdHt7/IAMWgAKWQAGF3VAADe4eZ2hqH/+/v44ODqoKAAElsALWbsq6vYMDAAJWLkf3/qoqIAK2UAHF7ic3P0zc0PO2/m6u/gZGTgaGgADVnU2eGoscG0vMpCWoKEkanomJjwubnyw8Pus7MACVgnR3XCydSqs8MAAFOZpLfnkZFoeZc1UHtNY4iTn7Nbb5D55OTdU1N/jaYfQnJqe5n88vLkh4cAAEzN0ttJYIXWFxfbQkLZNjbbSEjXJCTXHx/9N4VqAAATmElEQVR4nO2dCVfbOBeGY2IT2VnAbl3skrTORiELgSxAQid0mfn/f+mT5UW77GyYfCfvOXPO0JvIj+2rK+lKkUqlk0466aSTTjrppJNOwmoVDbCbJr2iCXZSxTLOi2bYRW8ecBtFQ2yvjq9p3qJoiq3VCoCmaVanaI5t1QzxNW3QLhpkOy1MhK8Br1I0yjbq+1osb1o0yxYaB1oq9/jq8GigEdLrRfNsqLatUbL6RRNtpLYBaH7NmBfNtIHaNosPb+B43sBagA9d6KVorpzqBgJ6KP+xaLJcmgeip4/C6DF0pleWhB7KbH704Uxl6srxYVfC+tjDgZHvqPCh7I9ci+uSmktKH35UH2o3lb6TyDEmRZMK1ZfGHUbA7+37Fexe3jnI9fDjVxDs3hhTY4rucrc7qPW4Do9artnd6YKltUX+dW7t8kRaj0FW2OEE/OFo+ytWHgOf4tc119nyibRWtrcpPboDa7rtHUwsE+gMP3wiyy0al/YiMLehD+VYw22eWccLaTn+8A6a482KGk+NTZ49AI7jkBUF+O58s5rXmJh6WIKIP/xXvV/LW9S67ut5ay0wdd+wwXD6NpsC6g7c4C3/S2jXLRfEpCJ+KNOeTnI8kvWLA50wJ7sfDOuddVRq7dHX6O85urXo5kix1OZLI72klD98JPZwvlYU1BovfD8nvGZa3ssozYG2e//MKiWX+S7wdLs3Uaa5Rv2mQX5NwY9uwbd7/S7vSq3RZGEaupe3qdX9OoHVWtwPQmeZC9o6x7Ws2fxc4L3t7ss0YJ+Xmh8VaOqWrfUeX+aTTqczmfdXs6Vv+G5edj4e9G0/aidbtvjzjqtbRnO26k863W533IHX7Gm2pZt885LNHxfpma7r6vA/0/PAJo0spKfiMeze+bP4/6eKguAlwytChdd0JJ/Myb+9TB0/+zGsnf0BwCP4yQadJbEOzA/sFS7c9YNZT9dsnAKqKQaZOS9wUH5Hx12D1kL3YbOluWRd+NjPX+/R4fy8ZzsamBKxZcHUyIyKxZsz+TPCjKxehbJwtja5j3YPtloD7EBMBQDqGxCYs/jN/lBVpMpM+Hn/fpj0b7q6407TdmzkU19xu0p+c95j7Vn8VlvUyGBzTWq28fD2LQCwMZ9FbXllOsMXbNEVOCjVVb1Yo9Zhr5bBD0CpJm5kIrMmNROj88aoDyxH8+wZ36Gi+J0FHE8prtYsVdjMRga/CYdjCgdyoXkpNPvMOG69gFXXCbiUA1V/fNipULSNLnTIN7bCq/mNmrKRkZpNfqaoNoNjY5+JSNTDAeFYti93IBtebcz20NT9t2VJ2ktRmeGbTjRrviR92HPX42bAyOfphYnptiG92hCaK8zV1PwuCiFT2ahcah6kIb7uA9hznscB521WYhQ2ACCWjxq7ZvJnihjLRc638CizmN+xDKR/UIXr3Ed/+UmRtHnCmjU9jZytRzi8gd1w6bQR5Aca6qXpuoH+ZR5EfyVPBcAuFNI9cr3uffSXp+B3FpVWpJgCqVKLnTXDTHpP6BAvvgvvwBEnGSC/txJaRnFpDvfOkGpR3BA/f3MqGMet06ZYbE5HFgY7aJv48B3YwrnTBXyOpihr1k8d3TEFI7KxrRz/Ohb3uOYDHCocX2H23pJ/a6ftbD0A2r1oLNoL3cSx2aF7pUfURDDgwu7CUPo/VMAk6N/olp7J0zUIs508rvZ90OvEb6oNBsL1J9HaDvblrF06HePTPtTCGW55/NFJJ2mbbH6HMq9NHLWddHZrCVss3V5FsaghTkwmIO6QKI6fOjMB4UNjYl5TET89O42C43u+VXQMsTl1rdrCg7FH84KVfOlVJY32zn16A3VBHwLcpzcwGZBtniJ/YuB/97kCo9YyUpcwA48or93XdRj/fGlmqp2iEkGL66TRV1uTMAp+h2grLf75kwvCiEbRZPyk40AaWzbl29UF32PbWBaGvD0Fv048NXacJDdbXLCD3uzJZnxxb4f8nqBFJ6+2Iuqigt9GDjlDLSfbbYIKQnODNcMOd6THYT+Jl7WmLUsL9tJWFrld20VxSNAlRCW0lugtkN4s50dxZGSaqMvIv9LI7LJmMw6ErQHs95jzmFuahTSo7/UHwF3CqFDj+nDoah3bMc2wKCtP/Am7S2GzA9uyLvGgUnMnMfukOXnPnaYd9nsypnlxVYRRqzUMrw7CMUKTrW4QpjELsUHYLhHuKue3K7WkmTAWfEyQmI20K9AKfRu4uior/pK4P8SATze+lR6fGDUqo6RJc5ctAlPKD6YdHGdN0GVKpM3aODETxcFqBnQADMWit7RH5SwesVM4OjuIAUNiVhbYc2yWP39qIpSfFRWbceMbDlWBfr7UnWUO99Ecyj+5MRgwJeY9569M3I/pu2h43P9Hns9/3GrCj9Ke+V08TnFB5EzyeShRO1UwP66tsE+hZyxwUAzVC+NPU/1vDjDV+BVBp2T//BlzFYzZT1oq6BtuxuMXpdq4wM+YuY5FZv5zrpoj4cx+UllhF0AXMBOqCRYJ6efKG3AnM/YGsviNmnKOhDWn/EPgZqxUHQoms2x1nbBb403zn01F+golsGhzwl+zgbTPFmkuqGrmoyJ9hRJYm+Y/w4coTV/FZiqDuU7cx1Qv1W6LlpiFQzeFA4UVinWgDP5wCCkaDiXmFtPZTQaPU2Ar1x9UhNPeIYsiXR9ercsQZuQ/RSlHlTmO/5XAUf9WQfhO0Svj+86Jor4JE3Qz8p8oBHJ9Z7k5jpldXdntLM2oWpokOC3kfEuHSYAmf+ooAbMwc+U/baQowTm+j/4i8p+xGVXRDmGOR7Erk1oWxWpB+QgYNmMh48SJ/hjGNQEMl9E/uOhqIy/6a7mU8zviLi/Of4rNS5AM6k1TnNOM9Ea7uKS487hzDXrC9Eu7qch/ek1B7eumrmdKzWhGAPqwJV+3UhmyId5zBF3UlYHftmA9WJLikvg/sLlsX53MetncAq1VZEZpmrHuseZUbdEiDG5eqbUk3xGX+m30kpGDrP4Ci36rlSHts4w5vR5Kg9R96bBXsqrep4vr2vRN6nTCm0iPyuMP5STnBvvUJGa0OmDJZdBj1aayDq4JiOLq3A83qHw4mQlX5Q/v0yIn9/wVxWYPvuqGLem69RXrQwHOfz4KspVE9n1ONjgqfhwDR6ISsZlIKIVpzPZAGH06rqoniNrCSGwby1ytTaZ3VflnImnp815rEmaiUYSN/Phe0Hh1HPUiRaK7KmrwSRhySUbe/Cc/0paYYQvcv2e7nq1+5hLLKBsffVHQ4JNXq+fLP9hhu1EZotgleKV2SWiGHZ8ZnTGpjHt25kgXaOj6AYpDgh4jgmk7KA6N8uU/wzmbseG4YaBp8PnPxBwmLMk3bleaRAq91unZbo5V3WYYcVe2Znpr0ZQ4ulo/AF6Yyyzl4g+7SwvUpobTZ+y6Ay1c1iY0e6sk1rU7j6aRB15DA4c2SlKBwYtgyQWEaUWxN0znEXkjRf4Tz2r5vQrnQJS5QY7rPH1cO5+spuGCx9wZBhNHdXfZ4sasdviq40967VGu/CfRVDo6WyKY9ikz5eCupW+wPBQVNyMmTIFVZ8IFGBLpUWDU8+SfpSnHXOZNBUg3A1y0o8xavvmXo9CJv1id+IvV/y2/b3xkmVn8/rrykbUyM/it3D8/KkT1E3+hOvEXqxN/scrNf/v1C6NPxOevby553fxAJu6LEl2hTwvKCYuSrfzLzX9VrtIqV4nPP5RF+haafrBflCj69I2woHL5dVf+T+UzRuUL/PkbzgpV/R7xC0zSTwsLgtc6AH/14cj5/ztuftKBjpP/5rj5q5+Pm/+s/HQ8/Fci/svj4b+GDRZ3yT/J53/wxrNqGQXY63K+G4j4PwkKCovauf0tle5+cWVjB3r9xhjL5c/XkanxwN5BFberLH/p4pm7SrX8RfrDgY36b3f/MUWXr7Dx+g9pLFeJ7hG8A4rn21WiT/g7MT8s6Dd9u+Xnp5JUG/Y//6VvoPqbNH4jjIzDXpBIuNqUSt/T76T8pdJP8irVm5JCG/J/Zl8AifmV5KcvI+XHtZvgp2JF+VNJoV35ycIpftpjpfwNEf/lu/FX/+7Ij52uEH7Kgbbiv0ssBfETpW/F/1osf/V5R/7Sc9waFMNPOtB2/HfVIp//WfluR36B3pOfcKCj5CdIj5T/x3HzV78dNz/u6hwr/+1x86eB+0j5Uwc6Wv7b4+avft2e/+kCqVD+s+rW/K9R3+2Z+vC785evt+V/Rl/BTUgx/NUvW/LHg5ei+eOpmNz8SdYlGbsUzR87UF7+6p9vkZLSCuLHV4kcKC//WTrnlfxdCH/5c3qZyIFy87Mqhr96g/9ADnRk/OUnwoF+HiF/6RdOXv46Rv4HwoEujpCfoAong4+On0inhw50fPzEbBV0oOPjJ7DKN0fITzrQv0fX/pZoB3rN3f95/hnpudD+T8hPNGHlT1/y9j9Tong+sDh+0oH+/szLf8X8c4H8xKWqfzfmLz1Ei7OK4ycc6IzqW+fjL/0++/XrV/k79eH35C9Rs9ab8wv1nvyX4sh+IP6Ly3ji/uZpT/xP78qPlyde74lf4kAH4k9D9P74RQuDDsb/vH9+sQMdiP+//fOXfgtzuofhxxmD/fELHegw/E+H4H99P/7rQ/ALHegw/D8Owi9cWnkQ/puD8Isc6DD8uIe+T/7SX96BDsP/fBh+0drog/D/Ogy/wIEOw0+M9rbj/yPkJ97rQfmfduX/QSHif7/jXsBB+C924r/4Sa8DJvh5B9o//+vtF+z+m/Nf/GHXJZNLVDkH2jP/9cOfcrlKOu+m/LfcI64+Y0bOgfbHX3349Eyz74n/rFpN580bh+M/Eyzcz+b3c/DDklMS1oH2yC8Ux6+5ZAnEfthrOT8s5lvMyf7KYid+8ZBOyJ9u4Q6ovYbweWjJfkdi/nQunXWgnfi/CofUQv50hyZm8z56P3UFf8Lyjb7mLvzfsh9/yo+3AqSPG0gPYwJOPn7Ggbbnf/03++mn/NjPmX0ucb2IdyK9Ff6wBrM09sR/Lb4Oe9mYH2/AxOxSi7dZcqJTXF4vn8NF1lJ+xoG25f+U49dK1XCxN8q/4V1wAbu5+iCxaEa6Y981fw+YhXagLfklXkqwQ/jnq6TdWeHoyW5yjHdyi3Y0S+/h5i/ZGhIs++BX/tgtZP/9cI0/vcbbkwXsyUMjvDmfy+wC2Lh++J3cA8HynXwxDP/TrvxlyP7fl1v6V014z2/njSuKOA7O4jcAb8Q9KoKFevcUf+OK+uHYxvzI4e+4X4H18PZX2MdTnRO7IwbCY6Qbtz8/k2sJJfzXX6V1Jgc/7fCkiM1zhZsck1sbB8Izl6BeiadCOhDmv+N/dZiXn3N4Cp/YoigQHY1QwyEIviD1LtpIpAOR/Jwv5+KH7L9Yh8eqTIl96CSbBPepTShFR5UxIvxEyV+VUSX8EofHGumEcwDZJrvU5tiOJfOhVE+Xv5NbUPGHc/VyfuTwlyKHx1pR+8oOZHscV6i9OoE/VZ6ojfR69x2FViU/9asrhr/8R+bwqcYutcufIDomYjaHd+xZnt1Qrn/C/omS/6z8RfLVH1LXStRt0nvA6qqauR5ozB28iY8PZHTxoObPmBWVq8PQa7riVJzwBtgdjB2rOclxtjyWmJ/46XZ+tevc7rO+7ECx9Ds6d9KEa6en8eXQraDXGvKra6gAZN40TAZFyzgWKlRlyW9C6+j2dC7f2ZzRj2dRx3sT/sp53bFc/szlgbBfwGrF7YKN3oIfvM1H+d7D6+W/XPYrL3+t+7IMhBu4ulrOvZVGJvfiotfg+jZYzLvtRnYZF1/oPE4O/sq689LzZZvPgiBHlyBRfSDbfRc4rm7ZzUWOV3FL+pGaHz70nmn7uik9Flxv5vZfVGCP27idugsvfBWrccYLfb2CflTO4F/P3yz40JXbFbt+xpk+vEZT5R2gm9ANc9VVv4fEj8T8tclb4Luqs9jD67iW+AzPDK1nQfb22Z5u9yaCY2QJIT8S8K9ftBy7RDu+OclR34Sqvfh+9lFjjmtP1Q3E69Vnlr/W96zsXaKBG/SUB5pk6nxh69mbJDt6sFDXr2uqo9MZGnngjeZc/WpzqfuoW1k+qmme1czscEeq1QVtE8sO/XI439teem0YI/ysrbWB7vez27f2zM549I6pw9iWERe2uIfOqhnAEK26C9fOuIN2z1YcJRGGZcPu9bt78BrJ9bv9RROGa5k/AdNWHP9Vm8noEbk+XU3OD4ZOcpzPF8AWN/TANSURo1EXH+MRdkuWq8n6PcgJtc77sKMlCK9w4CmqeGNRHAOmb7/N1/v29byqdFe6IIw7AedElR5/lEkYIPsbdWsOofWL43N1Wh/S3jDmHB/WlOHkg2w2un402IhOH+2eHtuemn23/0HgkSoTjRloE0e7t5qM5zv2dLdewSHUHbKpgvhM2jXTkXXsWXZiqQidL+k7MJdhXOnSORmQL6lUjMb0UUdOswLx6YM6h4UHHKXqFK4z7FIpPS87qVq02k3p+c3AmhXVUG0iYf4FeX6u9E3x6gpvwGy+cwdne9WA4CCsWdFUm4g7K9HIzlx+KPXoLCp3UOKHF3XYpnQ+8wPrDbsQfyjmMWia3ICVcaL0R1V8kKy7QeL4Q6mFliR4vaI5ttYoCJMiRVPsoL4uXqtwNJoaRxf4KbWG2Z856aSTTjrppJNOelf9D+9UHLRq6knXAAAAAElFTkSuQmCC" alt="logo" style="position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px"/>
-<p>Below you’ll find figures showing key advanced metrics I’m tracking for individual players throughout the season.</p>
+<p>Below you’ll find figures showing key advanced metrics I’m tracking
+for individual players throughout the season.</p>
 <hr />
 <div id="quarterback-performance" class="section level2">
 <h2>Quarterback Performance</h2>
 <div id="quarterback-summary" class="section level3">
 <h3>Quarterback Summary</h3>
 <p>The below shows a summary of QB performances so far this season.</p>
-<div id="osdsdsdhij" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#osdsdsdhij table {
+<div id="dslaibgalp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dslaibgalp table {
   font-family: Chivo;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#osdsdsdhij thead, #osdsdsdhij tbody, #osdsdsdhij tfoot, #osdsdsdhij tr, #osdsdsdhij td, #osdsdsdhij th {
+#dslaibgalp thead, #dslaibgalp tbody, #dslaibgalp tfoot, #dslaibgalp tr, #dslaibgalp td, #dslaibgalp th {
   border-style: none;
 }
 
-#osdsdsdhij p {
+#dslaibgalp p {
   margin: 0;
   padding: 0;
 }
 
-#osdsdsdhij .gt_table {
+#dslaibgalp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -371,12 +369,12 @@ $(document).ready(function () {
   border-left-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_caption {
+#dslaibgalp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#osdsdsdhij .gt_title {
+#dslaibgalp .gt_title {
   color: #000000;
   font-size: 28px;
   font-weight: bold;
@@ -388,7 +386,7 @@ $(document).ready(function () {
   border-bottom-width: 0;
 }
 
-#osdsdsdhij .gt_subtitle {
+#dslaibgalp .gt_subtitle {
   color: #000000;
   font-size: 14px;
   font-weight: initial;
@@ -400,7 +398,7 @@ $(document).ready(function () {
   border-top-width: 0;
 }
 
-#osdsdsdhij .gt_heading {
+#dslaibgalp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -412,13 +410,13 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_bottom_border {
+#dslaibgalp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_col_headings {
+#dslaibgalp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -433,7 +431,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_col_heading {
+#dslaibgalp .gt_col_heading {
   color: #000000;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -453,7 +451,7 @@ $(document).ready(function () {
   overflow-x: hidden;
 }
 
-#osdsdsdhij .gt_column_spanner_outer {
+#dslaibgalp .gt_column_spanner_outer {
   color: #000000;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -465,15 +463,15 @@ $(document).ready(function () {
   padding-right: 4px;
 }
 
-#osdsdsdhij .gt_column_spanner_outer:first-child {
+#dslaibgalp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#osdsdsdhij .gt_column_spanner_outer:last-child {
+#dslaibgalp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#osdsdsdhij .gt_column_spanner {
+#dslaibgalp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -485,11 +483,11 @@ $(document).ready(function () {
   width: 100%;
 }
 
-#osdsdsdhij .gt_spanner_row {
+#dslaibgalp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#osdsdsdhij .gt_group_heading {
+#dslaibgalp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -515,7 +513,7 @@ $(document).ready(function () {
   text-align: left;
 }
 
-#osdsdsdhij .gt_empty_group_heading {
+#dslaibgalp .gt_empty_group_heading {
   padding: 0.5px;
   color: #000000;
   background-color: #FFFFFF;
@@ -530,15 +528,15 @@ $(document).ready(function () {
   vertical-align: middle;
 }
 
-#osdsdsdhij .gt_from_md > :first-child {
+#dslaibgalp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#osdsdsdhij .gt_from_md > :last-child {
+#dslaibgalp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#osdsdsdhij .gt_row {
+#dslaibgalp .gt_row {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 5px;
@@ -557,7 +555,7 @@ $(document).ready(function () {
   overflow-x: hidden;
 }
 
-#osdsdsdhij .gt_stub {
+#dslaibgalp .gt_stub {
   color: #000000;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -570,7 +568,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#osdsdsdhij .gt_stub_row_group {
+#dslaibgalp .gt_stub_row_group {
   color: #000000;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -584,15 +582,15 @@ $(document).ready(function () {
   vertical-align: top;
 }
 
-#osdsdsdhij .gt_row_group_first td {
+#dslaibgalp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#osdsdsdhij .gt_row_group_first th {
+#dslaibgalp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#osdsdsdhij .gt_summary_row {
+#dslaibgalp .gt_summary_row {
   color: #000000;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -602,16 +600,16 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#osdsdsdhij .gt_first_summary_row {
+#dslaibgalp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_first_summary_row.thick {
+#dslaibgalp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#osdsdsdhij .gt_last_summary_row {
+#dslaibgalp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -621,7 +619,7 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_grand_summary_row {
+#dslaibgalp .gt_grand_summary_row {
   color: #000000;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -631,7 +629,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#osdsdsdhij .gt_first_grand_summary_row {
+#dslaibgalp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -641,7 +639,7 @@ $(document).ready(function () {
   border-top-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_last_grand_summary_row_top {
+#dslaibgalp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -651,11 +649,11 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_striped {
+#dslaibgalp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#osdsdsdhij .gt_table_body {
+#dslaibgalp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -664,7 +662,7 @@ $(document).ready(function () {
   border-bottom-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_footnotes {
+#dslaibgalp .gt_footnotes {
   color: #000000;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -678,7 +676,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_footnote {
+#dslaibgalp .gt_footnote {
   margin: 0px;
   font-size: 12px;
   padding-top: 1px;
@@ -687,7 +685,7 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#osdsdsdhij .gt_sourcenotes {
+#dslaibgalp .gt_sourcenotes {
   color: #000000;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -701,7 +699,7 @@ $(document).ready(function () {
   border-right-color: #D3D3D3;
 }
 
-#osdsdsdhij .gt_sourcenote {
+#dslaibgalp .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -709,678 +707,101 @@ $(document).ready(function () {
   padding-right: 5px;
 }
 
-#osdsdsdhij .gt_left {
+#dslaibgalp .gt_left {
   text-align: left;
 }
 
-#osdsdsdhij .gt_center {
+#dslaibgalp .gt_center {
   text-align: center;
 }
 
-#osdsdsdhij .gt_right {
+#dslaibgalp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#osdsdsdhij .gt_font_normal {
+#dslaibgalp .gt_font_normal {
   font-weight: normal;
 }
 
-#osdsdsdhij .gt_font_bold {
+#dslaibgalp .gt_font_bold {
   font-weight: bold;
 }
 
-#osdsdsdhij .gt_font_italic {
+#dslaibgalp .gt_font_italic {
   font-style: italic;
 }
 
-#osdsdsdhij .gt_super {
+#dslaibgalp .gt_super {
   font-size: 65%;
 }
 
-#osdsdsdhij .gt_footnote_marks {
+#dslaibgalp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#osdsdsdhij .gt_asterisk {
+#dslaibgalp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#osdsdsdhij .gt_indent_1 {
+#dslaibgalp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#osdsdsdhij .gt_indent_2 {
+#dslaibgalp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#osdsdsdhij .gt_indent_3 {
+#dslaibgalp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#osdsdsdhij .gt_indent_4 {
+#dslaibgalp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#osdsdsdhij .gt_indent_5 {
+#dslaibgalp .gt_indent_5 {
   text-indent: 25px;
+}
+
+#dslaibgalp .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#dslaibgalp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
     <tr class="gt_heading">
-      <td colspan="11" class="gt_heading gt_title gt_font_normal" style><strong>Quarterback Passing Summary</strong></td>
+      <td colspan="11" class="gt_heading gt_title gt_font_normal" style><span class='gt_from_md'><strong>Quarterback Passing Summary</strong></span></td>
     </tr>
     <tr class="gt_heading">
-      <td colspan="11" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Minimum 200 pass yards, and ordered by passing TDs thrown. Thru Week 18.</td>
+      <td colspan="11" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Minimum 100 pass yards, and ordered by passing TDs thrown. Thru Week 1.</td>
     </tr>
     <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Player">Player</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Team">Team</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Comps">Comps</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Att">Att</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Pass Yds">Pass Yds</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Pass TDs">Pass TDs</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="INTs">INTs</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Comp %">Comp %</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Pass EPA">Pass EPA</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="headshot_url"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="player_display_name">Player</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team_logo_espn"></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="recent_team">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="total_completions">Comps</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="total_attempts">Att</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="total_passing_yards">Pass Yds</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="total_passing_tds">Pass TDs</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="total_interceptions">INTs</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="comp_perc">Comp %</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="total_passing_epa">Pass EPA</th>
     </tr>
   </thead>
-  <tbody class="gt_table_body">
-    <tr class="gt_group_heading_row">
-      <th colspan="11" class="gt_group_heading" scope="colgroup" id="AFC - East">AFC - East</th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="AFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/lq4ezafbszwwt2qsvhqv" style="height:30px;"></td>
-<td headers="AFC - East  player_display_name" class="gt_row gt_left">Josh Allen</td>
-<td headers="AFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:30px;"></td>
-<td headers="AFC - East  recent_team" class="gt_row gt_left">BUF</td>
-<td headers="AFC - East  total_completions" class="gt_row gt_right">224</td>
-<td headers="AFC - East  total_attempts" class="gt_row gt_right">332</td>
-<td headers="AFC - East  total_passing_yards" class="gt_row gt_right">2797</td>
-<td headers="AFC - East  total_passing_tds" class="gt_row gt_right">21</td>
-<td headers="AFC - East  total_interceptions" class="gt_row gt_right">5</td>
-<td headers="AFC - East  comp_perc" class="gt_row gt_right">67.5%</td>
-<td headers="AFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #81C480; color: #000000;">111.9</td></tr>
-    <tr><td headers="AFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/xzdbwt2ezmxk3pjcsr1n" style="height:30px;"></td>
-<td headers="AFC - East  player_display_name" class="gt_row gt_left">Tua Tagovailoa</td>
-<td headers="AFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:30px;"></td>
-<td headers="AFC - East  recent_team" class="gt_row gt_left">MIA</td>
-<td headers="AFC - East  total_completions" class="gt_row gt_right">245</td>
-<td headers="AFC - East  total_attempts" class="gt_row gt_right">334</td>
-<td headers="AFC - East  total_passing_yards" class="gt_row gt_right">2526</td>
-<td headers="AFC - East  total_passing_tds" class="gt_row gt_right">17</td>
-<td headers="AFC - East  total_interceptions" class="gt_row gt_right">1</td>
-<td headers="AFC - East  comp_perc" class="gt_row gt_right">73.4%</td>
-<td headers="AFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #9FD69A; color: #000000;">104.2</td></tr>
-    <tr><td headers="AFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/jdcb4nomlc4rd6k5l6to" style="height:30px;"></td>
-<td headers="AFC - East  player_display_name" class="gt_row gt_left">Aaron Rodgers</td>
-<td headers="AFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:30px;"></td>
-<td headers="AFC - East  recent_team" class="gt_row gt_left">NYJ</td>
-<td headers="AFC - East  total_completions" class="gt_row gt_right">260</td>
-<td headers="AFC - East  total_attempts" class="gt_row gt_right">412</td>
-<td headers="AFC - East  total_passing_yards" class="gt_row gt_right">2922</td>
-<td headers="AFC - East  total_passing_tds" class="gt_row gt_right">21</td>
-<td headers="AFC - East  total_interceptions" class="gt_row gt_right">7</td>
-<td headers="AFC - East  comp_perc" class="gt_row gt_right">63.1%</td>
-<td headers="AFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #E8D6E9; color: #000000;">46.2</td></tr>
-    <tr><td headers="AFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/x1c3tu0bkgqokripa885" style="height:30px;"></td>
-<td headers="AFC - East  player_display_name" class="gt_row gt_left">Joe Milton III</td>
-<td headers="AFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:30px;"></td>
-<td headers="AFC - East  recent_team" class="gt_row gt_left">NE</td>
-<td headers="AFC - East  total_completions" class="gt_row gt_right">22</td>
-<td headers="AFC - East  total_attempts" class="gt_row gt_right">29</td>
-<td headers="AFC - East  total_passing_yards" class="gt_row gt_right">241</td>
-<td headers="AFC - East  total_passing_tds" class="gt_row gt_right">1</td>
-<td headers="AFC - East  total_interceptions" class="gt_row gt_right">0</td>
-<td headers="AFC - East  comp_perc" class="gt_row gt_right">75.9%</td>
-<td headers="AFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #A27CB3; color: #FFFFFF;">11.8</td></tr>
-    <tr><td headers="AFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/iy96wbyjth5ehizc0xq5" style="height:30px;"></td>
-<td headers="AFC - East  player_display_name" class="gt_row gt_left">Drake Maye</td>
-<td headers="AFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:30px;"></td>
-<td headers="AFC - East  recent_team" class="gt_row gt_left">NE</td>
-<td headers="AFC - East  total_completions" class="gt_row gt_right">191</td>
-<td headers="AFC - East  total_attempts" class="gt_row gt_right">276</td>
-<td headers="AFC - East  total_passing_yards" class="gt_row gt_right">1930</td>
-<td headers="AFC - East  total_passing_tds" class="gt_row gt_right">13</td>
-<td headers="AFC - East  total_interceptions" class="gt_row gt_right">9</td>
-<td headers="AFC - East  comp_perc" class="gt_row gt_right">69.2%</td>
-<td headers="AFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #8B559B; color: #FFFFFF;">−0.3</td></tr>
-    <tr><td headers="AFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/ex2ygunvni5o5aabnhbq" style="height:30px;"></td>
-<td headers="AFC - East  player_display_name" class="gt_row gt_left">Tyler Huntley</td>
-<td headers="AFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:30px;"></td>
-<td headers="AFC - East  recent_team" class="gt_row gt_left">MIA</td>
-<td headers="AFC - East  total_completions" class="gt_row gt_right">47</td>
-<td headers="AFC - East  total_attempts" class="gt_row gt_right">67</td>
-<td headers="AFC - East  total_passing_yards" class="gt_row gt_right">452</td>
-<td headers="AFC - East  total_passing_tds" class="gt_row gt_right">2</td>
-<td headers="AFC - East  total_interceptions" class="gt_row gt_right">2</td>
-<td headers="AFC - East  comp_perc" class="gt_row gt_right">70.1%</td>
-<td headers="AFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #895098; color: #FFFFFF;">−1.6</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="11" class="gt_group_heading" scope="colgroup" id="AFC - North">AFC - North</th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="AFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/cruqs6qpbykh7a2whd7p" style="height:30px;"></td>
-<td headers="AFC - North  player_display_name" class="gt_row gt_left">Lamar Jackson</td>
-<td headers="AFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:30px;"></td>
-<td headers="AFC - North  recent_team" class="gt_row gt_left">BAL</td>
-<td headers="AFC - North  total_completions" class="gt_row gt_right">265</td>
-<td headers="AFC - North  total_attempts" class="gt_row gt_right">404</td>
-<td headers="AFC - North  total_passing_yards" class="gt_row gt_right">3489</td>
-<td headers="AFC - North  total_passing_tds" class="gt_row gt_right">34</td>
-<td headers="AFC - North  total_interceptions" class="gt_row gt_right">4</td>
-<td headers="AFC - North  comp_perc" class="gt_row gt_right">65.6%</td>
-<td headers="AFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #28823E; color: #FFFFFF;">136.8</td></tr>
-    <tr><td headers="AFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/jzzqz5ubkilrn9dpxtlp" style="height:30px;"></td>
-<td headers="AFC - North  player_display_name" class="gt_row gt_left">Joe Burrow</td>
-<td headers="AFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:30px;"></td>
-<td headers="AFC - North  recent_team" class="gt_row gt_left">CIN</td>
-<td headers="AFC - North  total_completions" class="gt_row gt_right">424</td>
-<td headers="AFC - North  total_attempts" class="gt_row gt_right">598</td>
-<td headers="AFC - North  total_passing_yards" class="gt_row gt_right">4573</td>
-<td headers="AFC - North  total_passing_tds" class="gt_row gt_right">41</td>
-<td headers="AFC - North  total_interceptions" class="gt_row gt_right">9</td>
-<td headers="AFC - North  comp_perc" class="gt_row gt_right">70.9%</td>
-<td headers="AFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #55A95D; color: #FFFFFF;">123.0</td></tr>
-    <tr><td headers="AFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/vqcvybvs1vlqhkjvujbg" style="height:30px;"></td>
-<td headers="AFC - North  player_display_name" class="gt_row gt_left">Justin Fields</td>
-<td headers="AFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:30px;"></td>
-<td headers="AFC - North  recent_team" class="gt_row gt_left">PIT</td>
-<td headers="AFC - North  total_completions" class="gt_row gt_right">47</td>
-<td headers="AFC - North  total_attempts" class="gt_row gt_right">66</td>
-<td headers="AFC - North  total_passing_yards" class="gt_row gt_right">557</td>
-<td headers="AFC - North  total_passing_tds" class="gt_row gt_right">2</td>
-<td headers="AFC - North  total_interceptions" class="gt_row gt_right">1</td>
-<td headers="AFC - North  comp_perc" class="gt_row gt_right">71.2%</td>
-<td headers="AFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #A27CB3; color: #FFFFFF;">11.8</td></tr>
-    <tr><td headers="AFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/u36rhg0md8ey3b4khbre" style="height:30px;"></td>
-<td headers="AFC - North  player_display_name" class="gt_row gt_left">Russell Wilson</td>
-<td headers="AFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:30px;"></td>
-<td headers="AFC - North  recent_team" class="gt_row gt_left">PIT</td>
-<td headers="AFC - North  total_completions" class="gt_row gt_right">154</td>
-<td headers="AFC - North  total_attempts" class="gt_row gt_right">229</td>
-<td headers="AFC - North  total_passing_yards" class="gt_row gt_right">1853</td>
-<td headers="AFC - North  total_passing_tds" class="gt_row gt_right">9</td>
-<td headers="AFC - North  total_interceptions" class="gt_row gt_right">4</td>
-<td headers="AFC - North  comp_perc" class="gt_row gt_right">67.2%</td>
-<td headers="AFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #9262A3; color: #FFFFFF;">3.5</td></tr>
-    <tr><td headers="AFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/chdeosreuupotgq0eqlm" style="height:30px;"></td>
-<td headers="AFC - North  player_display_name" class="gt_row gt_left">Jameis Winston</td>
-<td headers="AFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:30px;"></td>
-<td headers="AFC - North  recent_team" class="gt_row gt_left">CLE</td>
-<td headers="AFC - North  total_completions" class="gt_row gt_right">159</td>
-<td headers="AFC - North  total_attempts" class="gt_row gt_right">259</td>
-<td headers="AFC - North  total_passing_yards" class="gt_row gt_right">1892</td>
-<td headers="AFC - North  total_passing_tds" class="gt_row gt_right">12</td>
-<td headers="AFC - North  total_interceptions" class="gt_row gt_right">9</td>
-<td headers="AFC - North  comp_perc" class="gt_row gt_right">61.4%</td>
-<td headers="AFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #71267D; color: #FFFFFF;">−13.4</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="11" class="gt_group_heading" scope="colgroup" id="AFC - South">AFC - South</th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="AFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/fbk2eqpo54lawppgetjn" style="height:30px;"></td>
-<td headers="AFC - South  player_display_name" class="gt_row gt_left">C.J. Stroud</td>
-<td headers="AFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:30px;"></td>
-<td headers="AFC - South  recent_team" class="gt_row gt_left">HOU</td>
-<td headers="AFC - South  total_completions" class="gt_row gt_right">254</td>
-<td headers="AFC - South  total_attempts" class="gt_row gt_right">387</td>
-<td headers="AFC - South  total_passing_yards" class="gt_row gt_right">2892</td>
-<td headers="AFC - South  total_passing_tds" class="gt_row gt_right">14</td>
-<td headers="AFC - South  total_interceptions" class="gt_row gt_right">10</td>
-<td headers="AFC - South  comp_perc" class="gt_row gt_right">65.6%</td>
-<td headers="AFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #C8ACD3; color: #000000;">29.4</td></tr>
-    <tr><td headers="AFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/ftznnho2rk2xzrculbob" style="height:30px;"></td>
-<td headers="AFC - South  player_display_name" class="gt_row gt_left">Trevor Lawrence</td>
-<td headers="AFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:30px;"></td>
-<td headers="AFC - South  recent_team" class="gt_row gt_left">JAX</td>
-<td headers="AFC - South  total_completions" class="gt_row gt_right">86</td>
-<td headers="AFC - South  total_attempts" class="gt_row gt_right">131</td>
-<td headers="AFC - South  total_passing_yards" class="gt_row gt_right">1133</td>
-<td headers="AFC - South  total_passing_tds" class="gt_row gt_right">6</td>
-<td headers="AFC - South  total_interceptions" class="gt_row gt_right">3</td>
-<td headers="AFC - South  comp_perc" class="gt_row gt_right">65.6%</td>
-<td headers="AFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #C0A2CD; color: #000000;">25.5</td></tr>
-    <tr><td headers="AFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/pedpdxybeus7mrovsoko" style="height:30px;"></td>
-<td headers="AFC - South  player_display_name" class="gt_row gt_left">Mac Jones</td>
-<td headers="AFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:30px;"></td>
-<td headers="AFC - South  recent_team" class="gt_row gt_left">JAX</td>
-<td headers="AFC - South  total_completions" class="gt_row gt_right">119</td>
-<td headers="AFC - South  total_attempts" class="gt_row gt_right">180</td>
-<td headers="AFC - South  total_passing_yards" class="gt_row gt_right">1221</td>
-<td headers="AFC - South  total_passing_tds" class="gt_row gt_right">6</td>
-<td headers="AFC - South  total_interceptions" class="gt_row gt_right">5</td>
-<td headers="AFC - South  comp_perc" class="gt_row gt_right">66.1%</td>
-<td headers="AFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #B99AC7; color: #000000;">22.4</td></tr>
-    <tr><td headers="AFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/yxvyoeojkif7tnfviamc" style="height:30px;"></td>
-<td headers="AFC - South  player_display_name" class="gt_row gt_left">Joe Flacco</td>
-<td headers="AFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:30px;"></td>
-<td headers="AFC - South  recent_team" class="gt_row gt_left">IND</td>
-<td headers="AFC - South  total_completions" class="gt_row gt_right">108</td>
-<td headers="AFC - South  total_attempts" class="gt_row gt_right">157</td>
-<td headers="AFC - South  total_passing_yards" class="gt_row gt_right">1225</td>
-<td headers="AFC - South  total_passing_tds" class="gt_row gt_right">8</td>
-<td headers="AFC - South  total_interceptions" class="gt_row gt_right">5</td>
-<td headers="AFC - South  comp_perc" class="gt_row gt_right">68.8%</td>
-<td headers="AFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #905FA0; color: #FFFFFF;">2.4</td></tr>
-    <tr><td headers="AFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/pn938e0z2fobxmzfxmlh" style="height:30px;"></td>
-<td headers="AFC - South  player_display_name" class="gt_row gt_left">Mason Rudolph</td>
-<td headers="AFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:30px;"></td>
-<td headers="AFC - South  recent_team" class="gt_row gt_left">TEN</td>
-<td headers="AFC - South  total_completions" class="gt_row gt_right">111</td>
-<td headers="AFC - South  total_attempts" class="gt_row gt_right">171</td>
-<td headers="AFC - South  total_passing_yards" class="gt_row gt_right">1182</td>
-<td headers="AFC - South  total_passing_tds" class="gt_row gt_right">8</td>
-<td headers="AFC - South  total_interceptions" class="gt_row gt_right">8</td>
-<td headers="AFC - South  comp_perc" class="gt_row gt_right">64.9%</td>
-<td headers="AFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #8E5A9E; color: #FFFFFF;">1.2</td></tr>
-    <tr><td headers="AFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/areyvihumylqo7y2ehk2" style="height:30px;"></td>
-<td headers="AFC - South  player_display_name" class="gt_row gt_left">Anthony Richardson</td>
-<td headers="AFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:30px;"></td>
-<td headers="AFC - South  recent_team" class="gt_row gt_left">IND</td>
-<td headers="AFC - South  total_completions" class="gt_row gt_right">46</td>
-<td headers="AFC - South  total_attempts" class="gt_row gt_right">83</td>
-<td headers="AFC - South  total_passing_yards" class="gt_row gt_right">688</td>
-<td headers="AFC - South  total_passing_tds" class="gt_row gt_right">4</td>
-<td headers="AFC - South  total_interceptions" class="gt_row gt_right">4</td>
-<td headers="AFC - South  comp_perc" class="gt_row gt_right">55.4%</td>
-<td headers="AFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #895198; color: #FFFFFF;">−1.4</td></tr>
-    <tr><td headers="AFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/vr01ufscgtoagtuut9o4" style="height:30px;"></td>
-<td headers="AFC - South  player_display_name" class="gt_row gt_left">Will Levis</td>
-<td headers="AFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:30px;"></td>
-<td headers="AFC - South  recent_team" class="gt_row gt_left">TEN</td>
-<td headers="AFC - South  total_completions" class="gt_row gt_right">79</td>
-<td headers="AFC - South  total_attempts" class="gt_row gt_right">126</td>
-<td headers="AFC - South  total_passing_yards" class="gt_row gt_right">1045</td>
-<td headers="AFC - South  total_passing_tds" class="gt_row gt_right">7</td>
-<td headers="AFC - South  total_interceptions" class="gt_row gt_right">4</td>
-<td headers="AFC - South  comp_perc" class="gt_row gt_right">62.7%</td>
-<td headers="AFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #6E247B; color: #FFFFFF;">−14.2</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="11" class="gt_group_heading" scope="colgroup" id="AFC - West">AFC - West</th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="AFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/qrdbvu4iqy7wkqg8jq8d" style="height:30px;"></td>
-<td headers="AFC - West  player_display_name" class="gt_row gt_left">Patrick Mahomes</td>
-<td headers="AFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:30px;"></td>
-<td headers="AFC - West  recent_team" class="gt_row gt_left">KC</td>
-<td headers="AFC - West  total_completions" class="gt_row gt_right">316</td>
-<td headers="AFC - West  total_attempts" class="gt_row gt_right">458</td>
-<td headers="AFC - West  total_passing_yards" class="gt_row gt_right">3268</td>
-<td headers="AFC - West  total_passing_tds" class="gt_row gt_right">19</td>
-<td headers="AFC - West  total_interceptions" class="gt_row gt_right">5</td>
-<td headers="AFC - West  comp_perc" class="gt_row gt_right">69.0%</td>
-<td headers="AFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #D1EDCB; color: #000000;">86.4</td></tr>
-    <tr><td headers="AFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/vvwim9hpgq1zs3bufmr0" style="height:30px;"></td>
-<td headers="AFC - West  player_display_name" class="gt_row gt_left">Justin Herbert</td>
-<td headers="AFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:30px;"></td>
-<td headers="AFC - West  recent_team" class="gt_row gt_left">LAC</td>
-<td headers="AFC - West  total_completions" class="gt_row gt_right">222</td>
-<td headers="AFC - West  total_attempts" class="gt_row gt_right">339</td>
-<td headers="AFC - West  total_passing_yards" class="gt_row gt_right">2786</td>
-<td headers="AFC - West  total_passing_tds" class="gt_row gt_right">15</td>
-<td headers="AFC - West  total_interceptions" class="gt_row gt_right">1</td>
-<td headers="AFC - West  comp_perc" class="gt_row gt_right">65.5%</td>
-<td headers="AFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #DDF1D8; color: #000000;">80.7</td></tr>
-    <tr><td headers="AFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/zibtvsprpauxnytis229" style="height:30px;"></td>
-<td headers="AFC - West  player_display_name" class="gt_row gt_left">Bo Nix</td>
-<td headers="AFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:30px;"></td>
-<td headers="AFC - West  recent_team" class="gt_row gt_left">DEN</td>
-<td headers="AFC - West  total_completions" class="gt_row gt_right">302</td>
-<td headers="AFC - West  total_attempts" class="gt_row gt_right">441</td>
-<td headers="AFC - West  total_passing_yards" class="gt_row gt_right">3283</td>
-<td headers="AFC - West  total_passing_tds" class="gt_row gt_right">25</td>
-<td headers="AFC - West  total_interceptions" class="gt_row gt_right">7</td>
-<td headers="AFC - West  comp_perc" class="gt_row gt_right">68.5%</td>
-<td headers="AFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #DEF1D9; color: #000000;">80.3</td></tr>
-    <tr><td headers="AFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/aphs7sdbtn8v4zo9pz6w" style="height:30px;"></td>
-<td headers="AFC - West  player_display_name" class="gt_row gt_left">Aidan O'Connell</td>
-<td headers="AFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:30px;"></td>
-<td headers="AFC - West  recent_team" class="gt_row gt_left">LV</td>
-<td headers="AFC - West  total_completions" class="gt_row gt_right">118</td>
-<td headers="AFC - West  total_attempts" class="gt_row gt_right">182</td>
-<td headers="AFC - West  total_passing_yards" class="gt_row gt_right">1280</td>
-<td headers="AFC - West  total_passing_tds" class="gt_row gt_right">7</td>
-<td headers="AFC - West  total_interceptions" class="gt_row gt_right">2</td>
-<td headers="AFC - West  comp_perc" class="gt_row gt_right">64.8%</td>
-<td headers="AFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #A57FB5; color: #FFFFFF;">12.8</td></tr>
-    <tr><td headers="AFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/rhpusa7pfgd82d9ui6y7" style="height:30px;"></td>
-<td headers="AFC - West  player_display_name" class="gt_row gt_left">Desmond Ridder</td>
-<td headers="AFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:30px;"></td>
-<td headers="AFC - West  recent_team" class="gt_row gt_left">LV</td>
-<td headers="AFC - West  total_completions" class="gt_row gt_right">23</td>
-<td headers="AFC - West  total_attempts" class="gt_row gt_right">39</td>
-<td headers="AFC - West  total_passing_yards" class="gt_row gt_right">208</td>
-<td headers="AFC - West  total_passing_tds" class="gt_row gt_right">1</td>
-<td headers="AFC - West  total_interceptions" class="gt_row gt_right">2</td>
-<td headers="AFC - West  comp_perc" class="gt_row gt_right">59.0%</td>
-<td headers="AFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #7E3A8B; color: #FFFFFF;">−7.5</td></tr>
-    <tr><td headers="AFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/zn2kvriijuixffqfx7ob" style="height:30px;"></td>
-<td headers="AFC - West  player_display_name" class="gt_row gt_left">Gardner Minshew</td>
-<td headers="AFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:30px;"></td>
-<td headers="AFC - West  recent_team" class="gt_row gt_left">LV</td>
-<td headers="AFC - West  total_completions" class="gt_row gt_right">152</td>
-<td headers="AFC - West  total_attempts" class="gt_row gt_right">214</td>
-<td headers="AFC - West  total_passing_yards" class="gt_row gt_right">1468</td>
-<td headers="AFC - West  total_passing_tds" class="gt_row gt_right">8</td>
-<td headers="AFC - West  total_interceptions" class="gt_row gt_right">5</td>
-<td headers="AFC - West  comp_perc" class="gt_row gt_right">71.0%</td>
-<td headers="AFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #782E85; color: #FFFFFF;">−10.7</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="11" class="gt_group_heading" scope="colgroup" id="NFC - East">NFC - East</th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/mh9rkwpmq1rgfarg9rpm" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Jayden Daniels</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">WAS</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">284</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">410</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">3149</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">24</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">8</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">69.3%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #EAF4E7; color: #000000;">72.8</td></tr>
-    <tr><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/k2p5yb4qmqwoo3qcapgt" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Jalen Hurts</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">PHI</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">156</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">221</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">2032</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">11</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">4</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">70.6%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #EBDDEC; color: #000000;">50.2</td></tr>
-    <tr><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/xmtaggdnhuyl4pdwtv8j" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Dak Prescott</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">DAL</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">131</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">197</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">1488</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">9</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">6</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">66.5%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #B999C7; color: #000000;">22.3</td></tr>
-    <tr><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/amuag2qiwa9veml1lhvs" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Cooper Rush</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">DAL</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">100</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">151</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">1107</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">7</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">1</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">66.2%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #AB87BB; color: #FFFFFF;">15.6</td></tr>
-    <tr><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/b9ribxqudeehvmjlw0va" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Marcus Mariota</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">WAS</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">18</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">23</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">205</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">2</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">0</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">78.3%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #A37CB3; color: #FFFFFF;">11.8</td></tr>
-    <tr><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/q0uc1cubsh0rwc4ezuul" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Tanner McKee</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">PHI</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">27</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">41</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">269</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">2</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">0</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">65.9%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #9970AB; color: #FFFFFF;">7.5</td></tr>
-    <tr><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/private/f_auto,q_auto/league/zrhniboizqpxtdyz6gez" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Daniel Jones</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">NYG</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">122</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">187</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">1243</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">4</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">3</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">65.2%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #976CA9; color: #FFFFFF;">6.4</td></tr>
-    <tr><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/fas0q1ssb3ihak6pduet" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Trey Lance</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">DAL</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">20</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">34</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">244</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">0</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">0</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">58.8%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #874D96; color: #FFFFFF;">−2.6</td></tr>
-    <tr><td headers="NFC - East  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/tlkgzjnuugarxjeoj9vk" style="height:30px;"></td>
-<td headers="NFC - East  player_display_name" class="gt_row gt_left">Drew Lock</td>
-<td headers="NFC - East  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:30px;"></td>
-<td headers="NFC - East  recent_team" class="gt_row gt_left">NYG</td>
-<td headers="NFC - East  total_completions" class="gt_row gt_right">60</td>
-<td headers="NFC - East  total_attempts" class="gt_row gt_right">111</td>
-<td headers="NFC - East  total_passing_yards" class="gt_row gt_right">746</td>
-<td headers="NFC - East  total_passing_tds" class="gt_row gt_right">5</td>
-<td headers="NFC - East  total_interceptions" class="gt_row gt_right">3</td>
-<td headers="NFC - East  comp_perc" class="gt_row gt_right">54.1%</td>
-<td headers="NFC - East  total_passing_epa" class="gt_row gt_right" style="background-color: #81408F; color: #FFFFFF;">−6.0</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="11" class="gt_group_heading" scope="colgroup" id="NFC - North">NFC - North</th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="NFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/jxyaiwwkabzmmphouxil" style="height:30px;"></td>
-<td headers="NFC - North  player_display_name" class="gt_row gt_left">Jared Goff</td>
-<td headers="NFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:30px;"></td>
-<td headers="NFC - North  recent_team" class="gt_row gt_left">DET</td>
-<td headers="NFC - North  total_completions" class="gt_row gt_right">342</td>
-<td headers="NFC - North  total_attempts" class="gt_row gt_right">479</td>
-<td headers="NFC - North  total_passing_yards" class="gt_row gt_right">4200</td>
-<td headers="NFC - North  total_passing_tds" class="gt_row gt_right">31</td>
-<td headers="NFC - North  total_interceptions" class="gt_row gt_right">11</td>
-<td headers="NFC - North  comp_perc" class="gt_row gt_right">71.4%</td>
-<td headers="NFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #00441B; color: #FFFFFF;">159.2</td></tr>
-    <tr><td headers="NFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/agjgfwk9jk9ufoac2vpd" style="height:30px;"></td>
-<td headers="NFC - North  player_display_name" class="gt_row gt_left">Sam Darnold</td>
-<td headers="NFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:30px;"></td>
-<td headers="NFC - North  recent_team" class="gt_row gt_left">MIN</td>
-<td headers="NFC - North  total_completions" class="gt_row gt_right">312</td>
-<td headers="NFC - North  total_attempts" class="gt_row gt_right">445</td>
-<td headers="NFC - North  total_passing_yards" class="gt_row gt_right">3793</td>
-<td headers="NFC - North  total_passing_tds" class="gt_row gt_right">31</td>
-<td headers="NFC - North  total_interceptions" class="gt_row gt_right">11</td>
-<td headers="NFC - North  comp_perc" class="gt_row gt_right">70.1%</td>
-<td headers="NFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #DBF0D5; color: #000000;">82.2</td></tr>
-    <tr><td headers="NFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/a8xqle2vmsnumawdhswb" style="height:30px;"></td>
-<td headers="NFC - North  player_display_name" class="gt_row gt_left">Jordan Love</td>
-<td headers="NFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:30px;"></td>
-<td headers="NFC - North  recent_team" class="gt_row gt_left">GB</td>
-<td headers="NFC - North  total_completions" class="gt_row gt_right">199</td>
-<td headers="NFC - North  total_attempts" class="gt_row gt_right">310</td>
-<td headers="NFC - North  total_passing_yards" class="gt_row gt_right">2594</td>
-<td headers="NFC - North  total_passing_tds" class="gt_row gt_right">21</td>
-<td headers="NFC - North  total_interceptions" class="gt_row gt_right">10</td>
-<td headers="NFC - North  comp_perc" class="gt_row gt_right">64.2%</td>
-<td headers="NFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #EADBEB; color: #000000;">49.3</td></tr>
-    <tr><td headers="NFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/idewrhb7kngpdtrvku31" style="height:30px;"></td>
-<td headers="NFC - North  player_display_name" class="gt_row gt_left">Caleb Williams</td>
-<td headers="NFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:30px;"></td>
-<td headers="NFC - North  recent_team" class="gt_row gt_left">CHI</td>
-<td headers="NFC - North  total_completions" class="gt_row gt_right">199</td>
-<td headers="NFC - North  total_attempts" class="gt_row gt_right">308</td>
-<td headers="NFC - North  total_passing_yards" class="gt_row gt_right">2271</td>
-<td headers="NFC - North  total_passing_tds" class="gt_row gt_right">15</td>
-<td headers="NFC - North  total_interceptions" class="gt_row gt_right">3</td>
-<td headers="NFC - North  comp_perc" class="gt_row gt_right">64.6%</td>
-<td headers="NFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #D6BEDC; color: #000000;">36.4</td></tr>
-    <tr><td headers="NFC - North  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/e6w0hpe2pzefydmhqmr7" style="height:30px;"></td>
-<td headers="NFC - North  player_display_name" class="gt_row gt_left">Malik Willis</td>
-<td headers="NFC - North  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:30px;"></td>
-<td headers="NFC - North  recent_team" class="gt_row gt_left">GB</td>
-<td headers="NFC - North  total_completions" class="gt_row gt_right">13</td>
-<td headers="NFC - North  total_attempts" class="gt_row gt_right">19</td>
-<td headers="NFC - North  total_passing_yards" class="gt_row gt_right">202</td>
-<td headers="NFC - North  total_passing_tds" class="gt_row gt_right">1</td>
-<td headers="NFC - North  total_interceptions" class="gt_row gt_right">0</td>
-<td headers="NFC - North  comp_perc" class="gt_row gt_right">68.4%</td>
-<td headers="NFC - North  total_passing_epa" class="gt_row gt_right" style="background-color: #9262A3; color: #FFFFFF;">3.5</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="11" class="gt_group_heading" scope="colgroup" id="NFC - South">NFC - South</th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="NFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/xrbgtbyy8a7l0ux13hjy" style="height:30px;"></td>
-<td headers="NFC - South  player_display_name" class="gt_row gt_left">Baker Mayfield</td>
-<td headers="NFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:30px;"></td>
-<td headers="NFC - South  recent_team" class="gt_row gt_left">TB</td>
-<td headers="NFC - South  total_completions" class="gt_row gt_right">310</td>
-<td headers="NFC - South  total_attempts" class="gt_row gt_right">434</td>
-<td headers="NFC - South  total_passing_yards" class="gt_row gt_right">3656</td>
-<td headers="NFC - South  total_passing_tds" class="gt_row gt_right">33</td>
-<td headers="NFC - South  total_interceptions" class="gt_row gt_right">14</td>
-<td headers="NFC - South  comp_perc" class="gt_row gt_right">71.4%</td>
-<td headers="NFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #56AB5E; color: #FFFFFF;">122.4</td></tr>
-    <tr><td headers="NFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/yt6n07jezvfmcsoq0j13" style="height:30px;"></td>
-<td headers="NFC - South  player_display_name" class="gt_row gt_left">Kirk Cousins</td>
-<td headers="NFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:30px;"></td>
-<td headers="NFC - South  recent_team" class="gt_row gt_left">ATL</td>
-<td headers="NFC - South  total_completions" class="gt_row gt_right">258</td>
-<td headers="NFC - South  total_attempts" class="gt_row gt_right">383</td>
-<td headers="NFC - South  total_passing_yards" class="gt_row gt_right">3068</td>
-<td headers="NFC - South  total_passing_tds" class="gt_row gt_right">16</td>
-<td headers="NFC - South  total_interceptions" class="gt_row gt_right">12</td>
-<td headers="NFC - South  comp_perc" class="gt_row gt_right">67.4%</td>
-<td headers="NFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #E9D9EA; color: #000000;">47.9</td></tr>
-    <tr><td headers="NFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/qsz1pyrlu6bmvby6maaf" style="height:30px;"></td>
-<td headers="NFC - South  player_display_name" class="gt_row gt_left">Derek Carr</td>
-<td headers="NFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:30px;"></td>
-<td headers="NFC - South  recent_team" class="gt_row gt_left">NO</td>
-<td headers="NFC - South  total_completions" class="gt_row gt_right">114</td>
-<td headers="NFC - South  total_attempts" class="gt_row gt_right">166</td>
-<td headers="NFC - South  total_passing_yards" class="gt_row gt_right">1454</td>
-<td headers="NFC - South  total_passing_tds" class="gt_row gt_right">8</td>
-<td headers="NFC - South  total_interceptions" class="gt_row gt_right">3</td>
-<td headers="NFC - South  comp_perc" class="gt_row gt_right">68.7%</td>
-<td headers="NFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #DFC9E2; color: #000000;">41.0</td></tr>
-    <tr><td headers="NFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/gdmtmmviwadpobyjogal" style="height:30px;"></td>
-<td headers="NFC - South  player_display_name" class="gt_row gt_left">Bryce Young</td>
-<td headers="NFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:30px;"></td>
-<td headers="NFC - South  recent_team" class="gt_row gt_left">CAR</td>
-<td headers="NFC - South  total_completions" class="gt_row gt_right">130</td>
-<td headers="NFC - South  total_attempts" class="gt_row gt_right">208</td>
-<td headers="NFC - South  total_passing_yards" class="gt_row gt_right">1458</td>
-<td headers="NFC - South  total_passing_tds" class="gt_row gt_right">10</td>
-<td headers="NFC - South  total_interceptions" class="gt_row gt_right">4</td>
-<td headers="NFC - South  comp_perc" class="gt_row gt_right">62.5%</td>
-<td headers="NFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #AA86BA; color: #FFFFFF;">15.3</td></tr>
-    <tr><td headers="NFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/az1zo7fl2tozg50tgs0d" style="height:30px;"></td>
-<td headers="NFC - South  player_display_name" class="gt_row gt_left">Andy Dalton</td>
-<td headers="NFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:30px;"></td>
-<td headers="NFC - South  recent_team" class="gt_row gt_left">CAR</td>
-<td headers="NFC - South  total_completions" class="gt_row gt_right">77</td>
-<td headers="NFC - South  total_attempts" class="gt_row gt_right">115</td>
-<td headers="NFC - South  total_passing_yards" class="gt_row gt_right">760</td>
-<td headers="NFC - South  total_passing_tds" class="gt_row gt_right">7</td>
-<td headers="NFC - South  total_interceptions" class="gt_row gt_right">3</td>
-<td headers="NFC - South  comp_perc" class="gt_row gt_right">67.0%</td>
-<td headers="NFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #A27BB3; color: #FFFFFF;">11.5</td></tr>
-    <tr><td headers="NFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/ono6a9myuvmgmfz1y43t" style="height:30px;"></td>
-<td headers="NFC - South  player_display_name" class="gt_row gt_left">Michael Penix Jr.</td>
-<td headers="NFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:30px;"></td>
-<td headers="NFC - South  recent_team" class="gt_row gt_left">ATL</td>
-<td headers="NFC - South  total_completions" class="gt_row gt_right">58</td>
-<td headers="NFC - South  total_attempts" class="gt_row gt_right">100</td>
-<td headers="NFC - South  total_passing_yards" class="gt_row gt_right">737</td>
-<td headers="NFC - South  total_passing_tds" class="gt_row gt_right">3</td>
-<td headers="NFC - South  total_interceptions" class="gt_row gt_right">3</td>
-<td headers="NFC - South  comp_perc" class="gt_row gt_right">58.0%</td>
-<td headers="NFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #A27BB2; color: #FFFFFF;">11.4</td></tr>
-    <tr><td headers="NFC - South  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/xhllpfkd4hrpbwczbca6" style="height:30px;"></td>
-<td headers="NFC - South  player_display_name" class="gt_row gt_left">Spencer Rattler</td>
-<td headers="NFC - South  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:30px;"></td>
-<td headers="NFC - South  recent_team" class="gt_row gt_left">NO</td>
-<td headers="NFC - South  total_completions" class="gt_row gt_right">68</td>
-<td headers="NFC - South  total_attempts" class="gt_row gt_right">118</td>
-<td headers="NFC - South  total_passing_yards" class="gt_row gt_right">701</td>
-<td headers="NFC - South  total_passing_tds" class="gt_row gt_right">3</td>
-<td headers="NFC - South  total_interceptions" class="gt_row gt_right">4</td>
-<td headers="NFC - South  comp_perc" class="gt_row gt_right">57.6%</td>
-<td headers="NFC - South  total_passing_epa" class="gt_row gt_right" style="background-color: #40004B; color: #FFFFFF;">−30.6</td></tr>
-    <tr class="gt_group_heading_row">
-      <th colspan="11" class="gt_group_heading" scope="colgroup" id="NFC - West">NFC - West</th>
-    </tr>
-    <tr class="gt_row_group_first"><td headers="NFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/myvg8siij2bn9ecx7btm" style="height:30px;"></td>
-<td headers="NFC - West  player_display_name" class="gt_row gt_left">Brock Purdy</td>
-<td headers="NFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:30px;"></td>
-<td headers="NFC - West  recent_team" class="gt_row gt_left">SF</td>
-<td headers="NFC - West  total_completions" class="gt_row gt_right">254</td>
-<td headers="NFC - West  total_attempts" class="gt_row gt_right">378</td>
-<td headers="NFC - West  total_passing_yards" class="gt_row gt_right">3469</td>
-<td headers="NFC - West  total_passing_tds" class="gt_row gt_right">19</td>
-<td headers="NFC - West  total_interceptions" class="gt_row gt_right">10</td>
-<td headers="NFC - West  comp_perc" class="gt_row gt_right">67.2%</td>
-<td headers="NFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #B9E3B3; color: #000000;">95.2</td></tr>
-    <tr><td headers="NFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/lsladvvsaptc29bbcah2" style="height:30px;"></td>
-<td headers="NFC - West  player_display_name" class="gt_row gt_left">Kyler Murray</td>
-<td headers="NFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:30px;"></td>
-<td headers="NFC - West  recent_team" class="gt_row gt_left">ARI</td>
-<td headers="NFC - West  total_completions" class="gt_row gt_right">289</td>
-<td headers="NFC - West  total_attempts" class="gt_row gt_right">412</td>
-<td headers="NFC - West  total_passing_yards" class="gt_row gt_right">3053</td>
-<td headers="NFC - West  total_passing_tds" class="gt_row gt_right">17</td>
-<td headers="NFC - West  total_interceptions" class="gt_row gt_right">9</td>
-<td headers="NFC - West  comp_perc" class="gt_row gt_right">70.1%</td>
-<td headers="NFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #EDF5EB; color: #000000;">70.8</td></tr>
-    <tr><td headers="NFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/xdlnnbapdbk8trxqlasu" style="height:30px;"></td>
-<td headers="NFC - West  player_display_name" class="gt_row gt_left">Matthew Stafford</td>
-<td headers="NFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:30px;"></td>
-<td headers="NFC - West  recent_team" class="gt_row gt_left">LA</td>
-<td headers="NFC - West  total_completions" class="gt_row gt_right">265</td>
-<td headers="NFC - West  total_attempts" class="gt_row gt_right">392</td>
-<td headers="NFC - West  total_passing_yards" class="gt_row gt_right">2966</td>
-<td headers="NFC - West  total_passing_tds" class="gt_row gt_right">17</td>
-<td headers="NFC - West  total_interceptions" class="gt_row gt_right">6</td>
-<td headers="NFC - West  comp_perc" class="gt_row gt_right">67.6%</td>
-<td headers="NFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #E6D3E7; color: #000000;">44.9</td></tr>
-    <tr><td headers="NFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/izkm5yyxybb5uy5dkcgf" style="height:30px;"></td>
-<td headers="NFC - West  player_display_name" class="gt_row gt_left">Geno Smith</td>
-<td headers="NFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:30px;"></td>
-<td headers="NFC - West  recent_team" class="gt_row gt_left">SEA</td>
-<td headers="NFC - West  total_completions" class="gt_row gt_right">357</td>
-<td headers="NFC - West  total_attempts" class="gt_row gt_right">511</td>
-<td headers="NFC - West  total_passing_yards" class="gt_row gt_right">3840</td>
-<td headers="NFC - West  total_passing_tds" class="gt_row gt_right">20</td>
-<td headers="NFC - West  total_interceptions" class="gt_row gt_right">13</td>
-<td headers="NFC - West  comp_perc" class="gt_row gt_right">69.9%</td>
-<td headers="NFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #DAC4DF; color: #000000;">38.8</td></tr>
-    <tr><td headers="NFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/lbyjizqecoq4onrgectw" style="height:30px;"></td>
-<td headers="NFC - West  player_display_name" class="gt_row gt_left">Jimmy Garoppolo</td>
-<td headers="NFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:30px;"></td>
-<td headers="NFC - West  recent_team" class="gt_row gt_left">LA</td>
-<td headers="NFC - West  total_completions" class="gt_row gt_right">27</td>
-<td headers="NFC - West  total_attempts" class="gt_row gt_right">41</td>
-<td headers="NFC - West  total_passing_yards" class="gt_row gt_right">334</td>
-<td headers="NFC - West  total_passing_tds" class="gt_row gt_right">2</td>
-<td headers="NFC - West  total_interceptions" class="gt_row gt_right">1</td>
-<td headers="NFC - West  comp_perc" class="gt_row gt_right">65.9%</td>
-<td headers="NFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #9161A2; color: #FFFFFF;">3.0</td></tr>
-    <tr><td headers="NFC - West  headshot_url" class="gt_row gt_left"><img src="https://static.www.nfl.com/image/upload/f_auto,q_auto/league/vjl8nqbcodtgzppwyemb" style="height:30px;"></td>
-<td headers="NFC - West  player_display_name" class="gt_row gt_left">Joshua Dobbs</td>
-<td headers="NFC - West  team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:30px;"></td>
-<td headers="NFC - West  recent_team" class="gt_row gt_left">SF</td>
-<td headers="NFC - West  total_completions" class="gt_row gt_right">29</td>
-<td headers="NFC - West  total_attempts" class="gt_row gt_right">43</td>
-<td headers="NFC - West  total_passing_yards" class="gt_row gt_right">326</td>
-<td headers="NFC - West  total_passing_tds" class="gt_row gt_right">2</td>
-<td headers="NFC - West  total_interceptions" class="gt_row gt_right">2</td>
-<td headers="NFC - West  comp_perc" class="gt_row gt_right">67.4%</td>
-<td headers="NFC - West  total_passing_epa" class="gt_row gt_right" style="background-color: #9160A1; color: #FFFFFF;">2.8</td></tr>
-  </tbody>
+  <tbody class="gt_table_body"></tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="11">Table: @steodosescu | Data: nflfastR</td>
+      <td class="gt_sourcenote" colspan="11"><span class='gt_from_md'>Table: @steodosescu | Data: nflfastR</span></td>
     </tr>
   </tfoot>
   
@@ -1390,7 +811,9 @@ $(document).ready(function () {
 </div>
 <div id="epa-per-dropback-by-team" class="section level3">
 <h3>EPA per Dropback by Team</h3>
-<p>The below isolates Expected Points Added for pass plays only to get a sense of how each team’s quarterback is performing on a per-dropback basis.</p>
+<p>The below isolates Expected Points Added for pass plays only to get a
+sense of how each team’s quarterback is performing on a per-dropback
+basis.</p>
 <p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
 <!-- ### EPA vs CPOE per dropback by team -->
 <!-- The below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It's a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown. -->
@@ -1422,29 +845,45 @@ $(document).ready(function () {
 </div>
 <div id="epa-vs-cpoe-per-dropback-by-team" class="section level3">
 <h3>EPA vs CPOE per dropback by team</h3>
-<p>The below is another way to look at quarterback efficiency using EPA and Completion Percentage Over Expectation (CPOE) as measures. CPOE is simply the difference between a quarterback’s expected completion percentage and actual completion percentage. Expected completion percentage is a stat measuring the likelihood of a given pass being completed which factors in features like depth of target (air yards). It’s a better measure of accuracy than traditional completion percentage because it takes into account the location of where passes are being thrown.</p>
-<p>Here we focus on quarterback play only as the QB position is the most valuable position on the field. As the quarterback goes, the team goes.</p>
+<p>The below is another way to look at quarterback efficiency using EPA
+and Completion Percentage Over Expectation (CPOE) as measures. CPOE is
+simply the difference between a quarterback’s expected completion
+percentage and actual completion percentage. Expected completion
+percentage is a stat measuring the likelihood of a given pass being
+completed which factors in features like depth of target (air yards).
+It’s a better measure of accuracy than traditional completion percentage
+because it takes into account the location of where passes are being
+thrown.</p>
+<p>Here we focus on quarterback play only as the QB position is the most
+valuable position on the field. As the quarterback goes, the team
+goes.</p>
 <p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
 </div>
-<div id="difference-in-expected-and-actual-yards" class="section level3">
+<div id="difference-in-expected-and-actual-yards"
+class="section level3">
 <h3>Difference in Expected and Actual Yards</h3>
-<p>The below shows what quarterbacks have completed a either higher percentage or lower percentage of their passes than expected, according to the nflfastR model.</p>
+<p>The below shows what quarterbacks have completed a either higher
+percentage or lower percentage of their passes than expected, according
+to the nflfastR model.</p>
 <p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
 <hr />
 </div>
 </div>
 <div id="receivers-performance" class="section level2">
 <h2>Receivers Performance</h2>
-<div id="receivers-average-depth-of-target-adot-vs.-catch-rate" class="section level3">
+<div id="receivers-average-depth-of-target-adot-vs.-catch-rate"
+class="section level3">
 <h3>Receivers average Depth of Target (aDOT) vs. Catch Rate</h3>
-<p>The below shows receiver catch rate against their average depth of target (air yards).</p>
+<p>The below shows receiver catch rate against their average depth of
+target (air yards).</p>
 <p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
 <hr />
 </div>
 </div>
 <div id="rushing-performance" class="section level2">
 <h2>Rushing Performance</h2>
-<p>The below shows a rusher’s success rate vs his total EPA gained on runs this season.</p>
+<p>The below shows a rusher’s success rate vs his total EPA gained on
+runs this season.</p>
 <p><img src="Players-Weekly-Report_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
 </div>
 
