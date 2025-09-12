@@ -13,7 +13,7 @@
 
 <title>Teams Weekly Report</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -143,11 +143,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -176,8 +180,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -185,16 +189,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -316,40 +313,63 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Teams Weekly Report</h1>
-<h4 class="date">Last updated: 2025-01-06</h4>
+<h4 class="date">Last updated: 2025-09-12</h4>
 
 </div>
 
 
 <img src="data:image/png;base64,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" alt="logo" style="position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px"/>
-<p>Below you’ll find figures showing key advanced metrics I’m tracking for all 32 NFL teams.</p>
+<p>Below you’ll find figures showing key advanced metrics I’m tracking
+for all 32 NFL teams.</p>
 <hr />
 <div id="team-level-performance" class="section level2">
 <h2>Team Level Performance</h2>
 <div id="offensive-vs.-defensive-epa" class="section level3">
 <h3>Offensive vs. Defensive EPA</h3>
-<p>Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, time remaining, whether the game is being played indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable.</p>
-<p>EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards.</p>
+<p>Expected Points Added: The change in Expected Points (EP) from one
+play to the next. EPA yields a single measure of the value of every
+play. Expected Points was created by the nflfastR team using a
+statistical model trained on historical data, and takes into account
+features like down, distance, time remaining, whether the game is being
+played indoors, etc. It helps answer the question “How good of a
+position is my team in to score as of now?” Higher EPA on offense is
+better, while a lower EPA on defense is more desirable.</p>
+<p>EPA helps provide better context around what plays are more valuable.
+For example, a five-yard completion on third-and-4 is better than an
+eight-yard completion on third-and-9, despite the fact that the latter
+resulted in more yards.</p>
 <p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
 </div>
 <div id="performance-vs-expectations" class="section level3">
 <h3>Performance vs Expectations</h3>
-<p>The below shows current win totals – expressed in win percentage – compared to pre-season win total expectations according to Vegas bookmakers. Bet365 data was pulled one week before the season began for this analysis.</p>
+<p>The below shows current win totals – expressed in win percentage –
+compared to pre-season win total expectations according to Vegas
+bookmakers. Bet365 data was pulled one week before the season began for
+this analysis.</p>
 <p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-3-1.png" width="960" /></p>
 </div>
 <div id="pythagorean-wins" class="section level3">
 <h3>Pythagorean Wins</h3>
-<p>The below shows each team’s actual win percentage vs their pythagoroean win percentage. Pythagorean winning percentage is important to look at because it’s a better predictor of future success than actual wins. According to Sumer Sports, pythagorean winning percentage has an R^2 of 0.14 to next year’s winning percentage while actual winning percentage is only 0.11.</p>
+<p>The below shows each team’s actual win percentage vs their
+pythagoroean win percentage. Pythagorean winning percentage is important
+to look at because it’s a better predictor of future success than actual
+wins. According to Sumer Sports, pythagorean winning percentage has an
+R^2 of 0.14 to next year’s winning percentage while actual winning
+percentage is only 0.11.</p>
 <p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
 </div>
 <div id="point-differential" class="section level3">
 <h3>Point Differential</h3>
-<p>The below shows cumulative point differential for each team this season.</p>
+<p>The below shows cumulative point differential for each team this
+season.</p>
 <p><img src="Teams-Weekly-Report_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
 </div>
 <div id="explosive-plays" class="section level3">
 <h3>Explosive Plays</h3>
-<p>Some teams are better than others at getting chunk plays. We’re defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We’re highlighting the 49ers this season since they have been among the most exciting teams to watch.</p>
+<p>Some teams are better than others at getting chunk plays. We’re
+defining explosive plays as those gaining 15 yards or more on rushes and
+20 yards+ on passes. We’re highlighting the 49ers this season since they
+have been among the most exciting teams to watch.</p>
 <pre><code>## List of 1
 ##  $ legend.position: chr &quot;none&quot;
 ##  - attr(*, &quot;class&quot;)= chr [1:2] &quot;theme&quot; &quot;gg&quot;
@@ -362,968 +382,6 @@ $(document).ready(function () {
 <div id="strength-of-schedule" class="section level2">
 <h2>Strength of Schedule</h2>
 <p>Coming soon…</p>
-<hr />
-</div>
-<div id="fourth-downs" class="section level2">
-<h2>Fourth Downs</h2>
-<p>Teams are going for it on 4th Down more often nowadays. The below table shows each team’s go-for-it rates on fourth-and-short over the last decade-plus. Year-to-date teams have gone for it in fourth-and-short situations <strong>NA percent</strong> of the time in 2024. We will track how each team fares on its fourth-down decision making throughout the season.</p>
-<div id="abncapafap" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#abncapafap table {
-  font-family: Chivo, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#abncapafap thead, #abncapafap tbody, #abncapafap tfoot, #abncapafap tr, #abncapafap td, #abncapafap th {
-  border-style: none;
-}
-
-#abncapafap p {
-  margin: 0;
-  padding: 0;
-}
-
-#abncapafap .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 3px;
-  border-top-color: rgba(255, 255, 255, 0);
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 3px;
-  border-bottom-color: rgba(255, 255, 255, 0);
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#abncapafap .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#abncapafap .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#abncapafap .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#abncapafap .gt_heading {
-  background-color: #FFFFFF;
-  text-align: left;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#abncapafap .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#abncapafap .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 3px;
-  border-top-color: rgba(255, 255, 255, 0);
-  border-bottom-style: solid;
-  border-bottom-width: 3px;
-  border-bottom-color: #000000;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#abncapafap .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: bolder;
-  text-transform: uppercase;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#abncapafap .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: bolder;
-  text-transform: uppercase;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#abncapafap .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#abncapafap .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#abncapafap .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 3px;
-  border-bottom-color: #000000;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#abncapafap .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#abncapafap .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: bolder;
-  text-transform: uppercase;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#abncapafap .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: bolder;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#abncapafap .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#abncapafap .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#abncapafap .gt_row {
-  padding-top: 3px;
-  padding-bottom: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#abncapafap .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 80%;
-  font-weight: bolder;
-  text-transform: uppercase;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#abncapafap .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#abncapafap .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#abncapafap .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#abncapafap .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#abncapafap .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#abncapafap .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#abncapafap .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#abncapafap .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#abncapafap .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#abncapafap .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#abncapafap .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#abncapafap .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#abncapafap .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#abncapafap .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#abncapafap .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#abncapafap .gt_sourcenote {
-  font-size: 12px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#abncapafap .gt_left {
-  text-align: left;
-}
-
-#abncapafap .gt_center {
-  text-align: center;
-}
-
-#abncapafap .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#abncapafap .gt_font_normal {
-  font-weight: normal;
-}
-
-#abncapafap .gt_font_bold {
-  font-weight: bold;
-}
-
-#abncapafap .gt_font_italic {
-  font-style: italic;
-}
-
-#abncapafap .gt_super {
-  font-size: 65%;
-}
-
-#abncapafap .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#abncapafap .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#abncapafap .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#abncapafap .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#abncapafap .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#abncapafap .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#abncapafap .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="15" class="gt_heading gt_title gt_font_normal" style><strong>4th Down Decison Making</strong></td>
-    </tr>
-    <tr class="gt_heading">
-      <td colspan="15" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Percentages shown are how often a team went for it when it on 4th &amp; short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2024 data is Thru Week 18.</td>
-    </tr>
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="team">team</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2013">2013</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2014">2014</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2015">2015</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2016">2016</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2017">2017</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2018">2018</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2019">2019</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2020">2020</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2021">2021</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2022">2022</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2023">2023</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="2024">2024</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="2013-2024">2013-2024</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ind.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">IND</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">21.4</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFB401; color: #000000;">37.5</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">11.1</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">38.5</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFEBB0; color: #000000;">7.7</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFC61E; color: #000000;">40.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFB400; color: #000000;">63.2</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFA400; color: #000000;">68.4</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">92.3</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFC925; color: #000000;">44.4</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFD142; color: #000000;">51.9</td>
-<td headers="2024" class="gt_row gt_right">90.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='3.74' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>90.0</text><polyline points='7.80,9.90 13.04,8.07 18.28,11.07 23.52,7.96 28.76,11.46 34.00,7.79 39.24,5.15 44.49,4.56 49.73,1.84 54.97,7.29 60.21,6.43 65.45,2.10 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='2.10' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='28.76' cy='11.46' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='49.73' cy='1.84' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/bal.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">BAL</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FF8600; color: #000000;">52.6</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FF9A00; color: #000000;">40.9</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFC312; color: #000000;">41.2</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">42.9</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FF9600; color: #000000;">60.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">90.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFC418; color: #000000;">56.2</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFBE06; color: #000000;">52.2</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFECB4; color: #000000;">35.3</td>
-<td headers="2024" class="gt_row gt_right">85.7</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='4.23' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>85.7</text><polyline points='7.80,8.55 13.04,6.35 18.28,7.68 23.52,7.65 28.76,7.46 34.00,5.51 39.24,2.10 44.49,6.65 49.73,5.94 54.97,6.40 60.21,8.32 65.45,2.59 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='2.59' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='7.80' cy='8.55' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='39.24' cy='2.10' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/det.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">DET</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFC822; color: #000000;">26.3</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFD54F; color: #000000;">16.7</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">35.0</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFECB4; color: #000000;">7.1</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFE7A1; color: #000000;">21.1</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">28.6</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFA700; color: #000000;">72.7</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FF8A00; color: #000000;">73.9</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FF9100; color: #000000;">83.3</td>
-<td headers="2024" class="gt_row gt_right">83.3</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='4.51' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>83.3</text><polyline points='7.80,9.34 13.04,9.08 18.28,10.44 23.52,8.35 28.76,11.53 34.00,9.94 39.24,9.08 44.49,6.65 49.73,4.07 54.97,3.93 60.21,2.86 65.45,2.86 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='2.86' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='28.76' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='60.21' cy='2.86' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /><circle cx='65.45' cy='2.86' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/atl.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">ATL</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFC720; color: #000000;">26.7</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFE597; color: #000000;">10.0</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFA100; color: #000000;">38.5</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">58.3</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">22.2</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFD144; color: #000000;">33.3</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFA200; color: #000000;">71.4</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FF9B00; color: #000000;">71.4</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">62.5</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFBB04; color: #000000;">53.8</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFEAAA; color: #000000;">36.8</td>
-<td headers="2024" class="gt_row gt_right">78.6</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='5.04' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>78.6</text><polyline points='7.80,9.30 13.04,11.20 18.28,7.96 23.52,5.70 28.76,9.81 34.00,8.55 39.24,4.21 44.49,4.21 49.73,5.23 54.97,6.22 60.21,8.15 65.45,3.40 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='3.40' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='13.04' cy='11.20' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.45' cy='3.40' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/dal.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">DAL</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFE28C; color: #000000;">11.1</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">57.1</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFD040; color: #000000;">19.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFDB6D; color: #000000;">21.1</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">40.0</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">47.1</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FF8900; color: #000000;">76.9</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFB802; color: #000000;">64.7</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FF9200; color: #000000;">71.4</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">90.9</td>
-<td headers="2024" class="gt_row gt_right">76.9</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='5.23' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>76.9</text><polyline points='7.80,11.07 13.04,5.84 18.28,10.17 23.52,9.94 28.76,7.79 34.00,6.98 39.24,6.65 44.49,3.59 49.73,4.98 54.97,4.21 60.21,2.00 65.45,3.59 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='3.59' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='7.80' cy='11.07' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='60.21' cy='2.00' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cle.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">CLE</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFC20C; color: #000000;">27.3</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFD244; color: #000000;">28.6</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FF9400; color: #000000;">55.6</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFAD00; color: #000000;">66.7</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFB601; color: #000000;">62.5</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFC20E; color: #000000;">58.3</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FF9400; color: #000000;">70.6</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">66.7</td>
-<td headers="2024" class="gt_row gt_right">75.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='5.45' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>75.0</text><polyline points='7.80,8.55 13.04,9.08 18.28,9.23 23.52,9.08 28.76,6.01 34.00,6.65 39.24,4.75 44.49,5.23 49.73,5.70 54.97,4.31 60.21,4.75 65.45,3.80 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='3.80' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='18.28' cy='9.23' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.45' cy='3.80' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/gb.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">GB</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFB200; color: #000000;">37.5</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFC51B; color: #000000;">28.6</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFA300; color: #000000;">38.1</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFC006; color: #000000;">43.8</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">37.5</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFE598; color: #000000;">22.2</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFD245; color: #000000;">40.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">81.8</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFAF00; color: #000000;">69.2</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FF7500; color: #FFFFFF;">78.6</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FF9C00; color: #000000;">78.6</td>
-<td headers="2024" class="gt_row gt_right">71.4</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='5.86' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>71.4</text><polyline points='7.80,8.07 13.04,9.08 18.28,8.00 23.52,7.35 28.76,8.07 34.00,9.81 39.24,7.79 44.49,3.03 49.73,4.46 54.97,3.40 60.21,3.40 65.45,4.21 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='4.21' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='34.00' cy='9.81' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='44.49' cy='3.03' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/tb.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">TB</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">25.0</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FF9100; color: #000000;">50.0</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">14.3</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">30.0</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">18.2</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFD144; color: #000000;">33.3</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFCA28; color: #000000;">46.2</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFE69B; color: #000000;">36.4</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFDE78; color: #000000;">36.4</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFCA29; color: #000000;">43.3</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">46.7</td>
-<td headers="2024" class="gt_row gt_right">71.4</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='5.86' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>71.4</text><polyline points='7.80,9.49 13.04,6.65 18.28,10.71 23.52,8.92 28.76,10.27 34.00,8.55 39.24,7.08 44.49,8.20 49.73,8.20 54.97,7.41 60.21,7.02 65.45,4.21 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='4.21' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='18.28' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.45' cy='4.21' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">WAS</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFDE7B; color: #000000;">13.3</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFCE38; color: #000000;">23.1</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFD54F; color: #000000;">16.7</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFD655; color: #000000;">25.0</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFCA29; color: #000000;">28.6</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFC20E; color: #000000;">42.9</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFF6DA; color: #000000;">12.5</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFD44B; color: #000000;">46.2</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFD349; color: #000000;">44.4</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">61.5</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFCA29; color: #000000;">56.2</td>
-<td headers="2024" class="gt_row gt_right">69.2</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='6.11' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>69.2</text><polyline points='7.80,10.82 13.04,9.71 18.28,10.44 23.52,9.49 28.76,9.08 34.00,7.46 39.24,10.91 44.49,7.08 49.73,7.29 54.97,5.34 60.21,5.94 65.45,4.46 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='4.46' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='39.24' cy='10.91' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.45' cy='4.46' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/chi.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">CHI</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">40.0</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFC20C; color: #000000;">31.2</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFD44B; color: #000000;">17.4</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">40.0</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">38.5</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">23.1</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFE492; color: #000000;">37.5</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">61.1</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">33.3</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFC721; color: #000000;">58.3</td>
-<td headers="2024" class="gt_row gt_right">66.7</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='6.39' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>66.7</text><polyline points='7.80,7.79 13.04,8.79 18.28,10.36 23.52,7.79 28.76,12.34 34.00,7.96 39.24,9.71 44.49,8.07 49.73,5.39 54.97,8.55 60.21,5.70 65.45,4.75 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='4.75' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='28.76' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.45' cy='4.75' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/phi.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">PHI</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">55.6</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFC314; color: #000000;">30.0</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">50.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">77.8</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">64.7</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FF9600; color: #000000;">60.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFB501; color: #000000;">62.5</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">63.6</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FF7D00; color: #FFFFFF;">88.9</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FF9000; color: #000000;">72.2</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FF9E00; color: #000000;">77.8</td>
-<td headers="2024" class="gt_row gt_right">66.7</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='6.39' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>66.7</text><polyline points='7.80,6.01 13.04,8.92 18.28,6.65 23.52,3.49 28.76,4.98 34.00,5.51 39.24,5.23 44.49,5.10 49.73,2.22 54.97,4.12 60.21,3.49 65.45,4.75 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='4.75' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='13.04' cy='8.92' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='49.73' cy='2.22' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500-dark/car.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">CAR</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FF9700; color: #000000;">46.7</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFC71F; color: #000000;">27.8</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFAB00; color: #000000;">35.7</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">22.2</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFC416; color: #000000;">41.7</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">70.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FF9800; color: #000000;">72.7</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">63.6</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">33.3</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFCB2D; color: #000000;">55.6</td>
-<td headers="2024" class="gt_row gt_right">64.3</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='6.67' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>64.3</text><polyline points='7.80,7.02 13.04,9.17 18.28,8.28 23.52,9.81 28.76,9.49 34.00,7.59 39.24,4.37 44.49,4.07 49.73,5.10 54.97,8.55 60.21,6.01 65.45,5.02 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='5.02' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='23.52' cy='9.81' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='44.49' cy='4.07' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">NYG</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">21.4</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFC314; color: #000000;">30.0</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">14.3</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFD348; color: #000000;">27.8</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFD246; color: #000000;">23.5</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">54.5</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFC006; color: #000000;">55.6</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FF8900; color: #000000;">76.9</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFD44B; color: #000000;">43.8</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFCF3D; color: #000000;">40.0</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFEAAD; color: #000000;">36.4</td>
-<td headers="2024" class="gt_row gt_right">62.5</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='6.87' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>62.5</text><polyline points='7.80,9.90 13.04,8.92 18.28,10.71 23.52,9.17 28.76,9.66 34.00,6.14 39.24,6.01 44.49,3.59 49.73,7.35 54.97,7.79 60.21,8.20 65.45,5.23 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='5.23' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='18.28' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='44.49' cy='3.59' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/buf.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">BUF</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFCE37; color: #000000;">22.7</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFDB6D; color: #000000;">15.4</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">33.3</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FF8F00; color: #000000;">62.5</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">60.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFC71F; color: #000000;">53.8</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFB903; color: #000000;">64.3</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">80.0</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFC71F; color: #000000;">58.8</td>
-<td headers="2024" class="gt_row gt_right">60.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='7.16' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>60.0</text><polyline points='7.80,9.75 13.04,10.58 18.28,10.06 23.52,8.55 28.76,10.44 34.00,5.23 39.24,5.51 44.49,6.22 49.73,5.02 54.97,3.24 60.21,5.65 65.45,5.51 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='5.51' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='13.04' cy='10.58' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='54.97' cy='3.24' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/no.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">NO</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">28.6</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">33.3</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FF9400; color: #000000;">42.9</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFAF00; color: #000000;">53.8</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFA100; color: #000000;">50.0</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">68.8</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFDD74; color: #000000;">41.2</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">63.6</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">14.3</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFDF7F; color: #000000;">42.9</td>
-<td headers="2024" class="gt_row gt_right">60.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='7.16' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>60.0</text><polyline points='7.80,9.08 13.04,8.55 18.28,7.46 23.52,6.22 28.76,6.65 34.00,4.51 39.24,8.55 44.49,7.65 49.73,5.10 54.97,10.71 60.21,7.46 65.45,5.51 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='5.51' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='54.97' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='34.00' cy='4.51' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">MIN</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFC822; color: #000000;">26.3</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFC823; color: #000000;">26.7</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">26.7</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFE083; color: #000000;">14.3</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFC20B; color: #000000;">57.1</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFDB6B; color: #000000;">38.5</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFC821; color: #000000;">45.5</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFDD74; color: #000000;">44.4</td>
-<td headers="2024" class="gt_row gt_right">57.1</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='7.49' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>57.1</text><polyline points='7.80,9.34 13.04,9.30 18.28,10.06 23.52,9.30 28.76,10.71 34.00,6.65 39.24,8.55 44.49,5.84 49.73,7.96 54.97,7.16 60.21,7.29 65.45,5.84 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='5.84' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='28.76' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='44.49' cy='5.84' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /><circle cx='65.45' cy='5.84' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sea.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">SEA</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFD652; color: #000000;">18.2</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFD963; color: #000000;">16.7</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">25.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">40.0</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFC107; color: #000000;">43.8</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">11.1</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">27.3</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">18.2</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFBB04; color: #000000;">53.8</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFDE79; color: #000000;">43.8</td>
-<td headers="2024" class="gt_row gt_right">56.2</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='7.59' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>56.2</text><polyline points='7.80,10.27 13.04,10.44 18.28,9.49 23.52,7.79 28.76,9.49 34.00,7.35 39.24,11.07 44.49,9.23 49.73,10.27 54.97,6.22 60.21,7.35 65.45,5.94 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='5.94' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='39.24' cy='11.07' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.45' cy='5.94' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">KC</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFD54E; color: #000000;">18.8</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFD34A; color: #000000;">20.0</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFC61B; color: #000000;">25.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFC823; color: #000000;">36.4</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">50.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FF9800; color: #000000;">72.7</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">71.4</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFD964; color: #000000;">33.3</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFCF3B; color: #000000;">53.3</td>
-<td headers="2024" class="gt_row gt_right">54.2</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='7.82' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>54.2</text><polyline points='7.80,10.20 13.04,10.06 18.28,9.49 23.52,8.20 28.76,10.44 34.00,6.65 39.24,6.65 44.49,4.07 49.73,4.21 54.97,8.55 60.21,6.27 65.45,6.17 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='6.17' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='28.76' cy='10.44' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='44.49' cy='4.07' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">LA</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFD757; color: #000000;">17.6</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFECB4; color: #000000;">6.2</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFDD76; color: #000000;">12.5</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFD54E; color: #000000;">26.3</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">18.2</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">25.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFF4D0; color: #000000;">14.3</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFEFBF; color: #000000;">31.8</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFB000; color: #000000;">68.8</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFB200; color: #000000;">58.3</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">50.0</td>
-<td headers="2024" class="gt_row gt_right">52.9</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='7.96' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>52.9</text><polyline points='7.80,10.33 13.04,11.63 18.28,10.91 23.52,9.34 28.76,10.27 34.00,9.49 39.24,10.71 44.49,8.72 49.73,4.51 54.97,5.70 60.21,6.65 65.45,6.32 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='6.32' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='13.04' cy='11.63' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='49.73' cy='4.51' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/cin.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">CIN</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">40.0</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFD551; color: #000000;">18.8</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">40.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFD961; color: #000000;">23.1</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFDC72; color: #000000;">16.7</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFBD05; color: #000000;">45.5</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFCA28; color: #000000;">46.2</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFE492; color: #000000;">37.5</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFD75A; color: #000000;">41.2</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFDD75; color: #000000;">30.8</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFF4D2; color: #000000;">30.8</td>
-<td headers="2024" class="gt_row gt_right">50.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='8.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>50.0</text><polyline points='7.80,7.79 13.04,10.20 18.28,7.79 23.52,9.71 28.76,10.44 34.00,7.16 39.24,7.08 44.49,8.07 49.73,7.65 54.97,8.83 60.21,8.83 65.45,6.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='6.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='28.76' cy='10.44' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='65.45' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/den.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">DEN</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFB200; color: #000000;">37.5</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFC415; color: #000000;">26.1</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFE28B; color: #000000;">15.8</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFD85F; color: #000000;">29.4</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFE8A1; color: #000000;">23.1</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFF5D7; color: #000000;">28.6</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFC20B; color: #000000;">58.8</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFD551; color: #000000;">36.0</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">50.0</td>
-<td headers="2024" class="gt_row gt_right">50.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='8.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>50.0</text><polyline points='7.80,8.07 13.04,12.34 18.28,9.37 23.52,10.54 28.76,8.55 34.00,8.99 39.24,9.71 44.49,9.08 49.73,5.65 54.97,8.24 60.21,6.65 65.45,6.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='6.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='13.04' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='49.73' cy='5.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">HOU</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFC720; color: #000000;">26.7</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFBE05; color: #000000;">33.3</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">50.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">33.3</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFD550; color: #000000;">31.2</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFAD00; color: #000000;">66.7</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFD759; color: #000000;">44.4</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFD244; color: #000000;">45.5</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFDD73; color: #000000;">31.2</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFE9A5; color: #000000;">37.5</td>
-<td headers="2024" class="gt_row gt_right">50.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='8.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>50.0</text><polyline points='7.80,9.30 13.04,8.55 18.28,6.65 23.52,8.55 28.76,9.49 34.00,8.79 39.24,4.75 44.49,7.29 49.73,7.16 54.97,8.79 60.21,8.07 65.45,6.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='6.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='28.76' cy='9.49' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='39.24' cy='4.75' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">NYJ</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFD963; color: #000000;">16.7</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">20.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFE080; color: #000000;">17.6</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFDB6C; color: #000000;">17.6</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFD653; color: #000000;">30.8</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFA500; color: #000000;">70.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">50.0</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFE8A4; color: #000000;">23.8</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFE9A5; color: #000000;">37.5</td>
-<td headers="2024" class="gt_row gt_right">50.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='8.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>50.0</text><polyline points='7.80,12.34 13.04,10.44 18.28,10.06 23.52,10.33 28.76,10.33 34.00,8.83 39.24,4.37 44.49,6.65 49.73,6.65 54.97,9.63 60.21,8.07 65.45,6.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='6.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='7.80' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='39.24' cy='4.37' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/pit.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">PIT</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFBC04; color: #000000;">33.3</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFD03D; color: #000000;">22.2</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">33.3</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFCE39; color: #000000;">31.2</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">38.5</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFDA66; color: #000000;">42.9</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFF0C3; color: #000000;">23.5</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFD656; color: #000000;">35.3</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFD961; color: #000000;">47.1</td>
-<td headers="2024" class="gt_row gt_right">47.1</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='8.62' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>47.1</text><polyline points='7.80,8.55 13.04,9.81 18.28,8.55 23.52,8.79 28.76,9.49 34.00,7.96 39.24,8.55 44.49,7.46 49.73,9.66 54.97,8.32 60.21,6.98 65.45,6.98 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='6.98' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='13.04' cy='9.81' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='60.21' cy='6.98' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /><circle cx='65.45' cy='6.98' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ari.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">ARI</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFE28C; color: #000000;">11.1</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFD34A; color: #000000;">20.0</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">33.3</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFE185; color: #000000;">16.7</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFE69D; color: #000000;">10.5</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFE598; color: #000000;">22.2</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFC310; color: #000000;">53.3</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FF8B00; color: #000000;">76.5</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFAA00; color: #000000;">71.4</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FF9900; color: #000000;">68.4</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">70.0</td>
-<td headers="2024" class="gt_row gt_right">41.2</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='9.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>41.2</text><polyline points='7.80,11.07 13.04,10.06 18.28,8.55 23.52,10.44 28.76,11.14 34.00,9.81 39.24,6.27 44.49,3.63 49.73,4.21 54.97,4.56 60.21,4.37 65.45,7.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='7.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='28.76' cy='11.14' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='44.49' cy='3.63' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">JAX</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FF9D00; color: #000000;">44.4</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFCD35; color: #000000;">23.5</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFD03F; color: #000000;">30.0</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFCC31; color: #000000;">27.3</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFD653; color: #000000;">30.8</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFECB2; color: #000000;">20.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFAF00; color: #000000;">69.2</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FF6F00; color: #FFFFFF;">80.0</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFC20D; color: #000000;">62.5</td>
-<td headers="2024" class="gt_row gt_right">41.2</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='9.29' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>41.2</text><polyline points='7.80,7.29 13.04,9.66 18.28,12.34 23.52,8.92 28.76,9.23 34.00,8.83 39.24,10.06 44.49,7.79 49.73,4.46 54.97,3.24 60.21,5.23 65.45,7.65 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='7.65' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='18.28' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='54.97' cy='3.24' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/mia.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">MIA</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFCE3A; color: #000000;">22.2</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFCE38; color: #000000;">23.1</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFC924; color: #000000;">23.1</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFE493; color: #000000;">14.3</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFE082; color: #000000;">25.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">50.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFD757; color: #000000;">41.7</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFC925; color: #000000;">44.4</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFD44C; color: #000000;">50.0</td>
-<td headers="2024" class="gt_row gt_right">38.5</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='9.60' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>38.5</text><polyline points='7.80,9.81 13.04,9.71 18.28,9.71 23.52,10.71 28.76,8.55 34.00,9.49 39.24,6.65 44.49,7.79 49.73,7.59 54.97,7.29 60.21,6.65 65.45,7.96 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='7.96' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='23.52' cy='10.71' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='39.24' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /><circle cx='60.21' cy='6.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ne.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">NE</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFCC31; color: #000000;">23.5</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFD551; color: #000000;">18.8</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFB300; color: #000000;">33.3</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFEBB0; color: #000000;">9.1</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFC007; color: #000000;">36.4</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFBA03; color: #000000;">47.1</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFD75A; color: #000000;">35.7</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFDF7D; color: #000000;">40.0</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFE28A; color: #000000;">33.3</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFECB4; color: #000000;">21.4</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFF3D0; color: #000000;">31.2</td>
-<td headers="2024" class="gt_row gt_right">36.4</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='9.84' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>36.4</text><polyline points='7.80,9.66 13.04,10.20 18.28,8.55 23.52,11.30 28.76,8.20 34.00,6.98 39.24,8.28 44.49,7.79 49.73,8.55 54.97,9.90 60.21,8.79 65.45,8.20 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='8.20' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='23.52' cy='11.30' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='34.00' cy='6.98' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lac.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">LAC</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFCC2F; color: #000000;">23.8</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFCB2B; color: #000000;">25.0</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFC61D; color: #000000;">38.5</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFE289; color: #000000;">13.3</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFEAA9; color: #000000;">20.0</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFDA68; color: #000000;">33.3</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFD759; color: #000000;">44.4</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFA800; color: #000000;">72.2</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFC20D; color: #000000;">50.0</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFDB6C; color: #000000;">45.5</td>
-<td headers="2024" class="gt_row gt_right">35.7</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='9.92' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>35.7</text><polyline points='7.80,9.63 13.04,9.49 18.28,12.34 23.52,7.96 28.76,10.82 34.00,10.06 39.24,8.55 44.49,7.29 49.73,4.12 54.97,6.65 60.21,7.16 65.45,8.28 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='8.28' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='18.28' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='49.73' cy='4.12' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/ten.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">TEN</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFB501; color: #000000;">36.4</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFEBAD; color: #000000;">7.1</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FFE187; color: #000000;">10.5</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">0.0</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFD03E; color: #000000;">25.0</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFD144; color: #000000;">33.3</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFD245; color: #000000;">40.0</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">50.0</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFD141; color: #000000;">46.2</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFCB2C; color: #000000;">42.9</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFB501; color: #000000;">69.2</td>
-<td headers="2024" class="gt_row gt_right">30.8</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='10.48' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>30.8</text><polyline points='7.80,8.20 13.04,11.53 18.28,11.14 23.52,12.34 28.76,9.49 34.00,8.55 39.24,7.79 44.49,6.65 49.73,7.08 54.97,7.46 60.21,4.46 65.45,8.83 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='8.83' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='23.52' cy='12.34' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='60.21' cy='4.46' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left">SF</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFCA27; color: #000000;">25.0</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFB802; color: #000000;">35.7</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FF8F00; color: #000000;">44.4</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFB601; color: #000000;">50.0</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFC417; color: #000000;">33.3</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">12.5</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFCD34; color: #000000;">43.8</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFD246; color: #000000;">47.1</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFC20B; color: #000000;">58.8</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFDD75; color: #000000;">30.8</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFF8E1; color: #000000;">28.6</td>
-<td headers="2024" class="gt_row gt_right">30.0</td>
-<td headers="2013-2024" class="gt_row gt_center"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='10.57' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>30.0</text><polyline points='7.80,9.49 13.04,8.28 18.28,7.29 23.52,6.65 28.76,8.55 34.00,10.91 39.24,7.35 44.49,6.98 49.73,5.65 54.97,8.83 60.21,9.08 65.45,8.92 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='8.92' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='34.00' cy='10.91' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='49.73' cy='5.65' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-    <tr><td headers="team_logo_espn" class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lv.png" style="height:25px;"></td>
-<td headers="team" class="gt_row gt_left" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">LV</td>
-<td headers="2013" class="gt_row gt_right" style="background-color: #FFEAAC; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">7.1</td>
-<td headers="2014" class="gt_row gt_right" style="background-color: #FFEBAD; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">7.1</td>
-<td headers="2015" class="gt_row gt_right" style="background-color: #FF9D00; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">40.0</td>
-<td headers="2016" class="gt_row gt_right" style="background-color: #FFE79D; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">12.5</td>
-<td headers="2017" class="gt_row gt_right" style="background-color: #FFBB04; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">38.9</td>
-<td headers="2018" class="gt_row gt_right" style="background-color: #FFC924; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">38.5</td>
-<td headers="2019" class="gt_row gt_right" style="background-color: #FFD75A; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">35.7</td>
-<td headers="2020" class="gt_row gt_right" style="background-color: #FFB400; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">63.2</td>
-<td headers="2021" class="gt_row gt_right" style="background-color: #FFB903; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">64.3</td>
-<td headers="2022" class="gt_row gt_right" style="background-color: #FFB802; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">55.6</td>
-<td headers="2023" class="gt_row gt_right" style="background-color: #FFD961; color: #000000; border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">47.1</td>
-<td headers="2024" class="gt_row gt_right" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;">26.7</td>
-<td headers="2013-2024" class="gt_row gt_center" style="border-bottom-width: 2px; border-bottom-style: solid; border-bottom-color: transparent;"><?xml version='1.0' encoding='UTF-8' ?><svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='85.04pt' height='14.17pt' viewBox='0 0 85.04 14.17'><defs>  <style type='text/css'><![CDATA[    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {      fill: none;      stroke: #000000;      stroke-linecap: round;      stroke-linejoin: round;      stroke-miterlimit: 10.00;    }    .svglite text {      white-space: pre;    }  ]]></style></defs><rect width='100%' height='100%' style='stroke: none; fill: none;'/><defs>  <clipPath id='cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3'>    <rect x='0.00' y='0.00' width='85.04' height='14.17' />  </clipPath></defs><g clip-path='url(#cpMC4wMHw4NS4wNHwwLjAwfDE0LjE3)'><text x='68.59' y='10.94' style='font-size: 5.69px; font-weight: 0; font-family: "Courier";' textLength='13.65px' lengthAdjust='spacingAndGlyphs'>26.7</text><polyline points='7.80,11.53 13.04,11.53 18.28,7.79 23.52,10.91 28.76,7.91 34.00,7.96 39.24,8.28 44.49,5.15 49.73,5.02 54.97,6.01 60.21,6.98 65.45,9.30 ' style='stroke-width: 1.07; stroke-linecap: butt;' /><circle cx='65.45' cy='9.30' r='0.89' style='stroke-width: 0.71; fill: #000000;' /><circle cx='7.80' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='13.04' cy='11.53' r='0.89' style='stroke-width: 0.71; stroke: #A020F0; fill: #A020F0;' /><circle cx='49.73' cy='5.02' r='0.89' style='stroke-width: 0.71; stroke: #00FF00; fill: #00FF00;' /></g></svg></td></tr>
-  </tbody>
-  <tfoot class="gt_sourcenotes">
-    <tr>
-      <td class="gt_sourcenote" colspan="15">DATA: nflfastR<br>TABLE: @steodosescu</td>
-    </tr>
-  </tfoot>
-  
-</table>
-</div>
 </div>
 
 <p>Copyright &copy; 2021 Stephan Teodosescu</p>

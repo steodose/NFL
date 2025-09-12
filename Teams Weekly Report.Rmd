@@ -44,11 +44,12 @@ library(paletteer)
 library(prismatic)
 
 # load pbp data
-data <- load_pbp(2013:2024)
+#data <- load_pbp(2013:2024)
+data <- load_pbp(2025)
 
 # Filter for Run/Pass plays for the current season only
 pbp_rp <- data %>%
-  filter(season == 2024) %>%
+  filter(season == 2025) %>%
   filter(rush == 1 | pass == 1, !is.na(epa)) # Exclude plays with missing EPA.
 
 # Identify current week
@@ -231,7 +232,7 @@ The below shows current win totals -- expressed in win percentage -- compared to
 
 # get current wins
 games_df <- nflreadr::load_schedules() %>% 
-  filter(season == 2024, game_type == "REG") %>% 
+  filter(season == 2025, game_type == "REG") %>% 
   select(game_id, team_home = home_team, team_away = away_team, result, week) %>% 
   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
   mutate(
@@ -252,15 +253,18 @@ games_df <- games_df %>%
     Losses = length(win[win==0]),
     result = sum(result)) %>%
   left_join(team_df, by = c("team" = "team_abbr")) %>% 
-  select(team_logo_espn, team_name, team_conf, team_division, team_color, Wins, Losses, result)
+  select(team_logo_espn, team, team_name, team_conf, team_division, team_color, Wins, Losses, result)
 
 
-# load preseason win totals from Bet365
-vegas_totals <- read_csv("https://raw.githubusercontent.com/steodose/NFL/master/Vegas%20Win%20Totals_2023.csv")
+# load preseason win totals from Vegas sportsbooks (accessed in late August)
+vegas_totals <- read_csv("https://raw.githubusercontent.com/steodose/NFL/refs/heads/master/preseason_win_totals_2025.csv")
+
+vegas_totals <- vegas_totals %>% 
+    mutate(implied_win_perc = win_total/17)
 
 # join vegas win totals to current win totals
 joined_df <- games_df %>%
-    left_join(vegas_totals,by = c("team_name" = "team")) %>%
+    left_join(vegas_totals, by = c("team" = "team")) %>%
   mutate(total_games = Wins + Losses,
          win_total_perc = Wins/total_games,
          win_total_diff = win_total_perc - implied_win_perc)
@@ -292,9 +296,9 @@ expected_totals_barplot <- joined_df %>%
         panel.grid.major.y = element_blank()) + 
   labs(x = "", 
        y = "Win % over Expected", 
-       caption = "Data: nflverse/DraftKings | Plot: @steodosescu",
+       caption = "Data: nflverse/OddsAPI | Plot: @steodosescu",
        title = glue("Performance Relative to Expecations"),
-       subtitle = glue("Actual win totals vs. Predicted. Estimated totals pulled from DraftKings as of September 12, 2023.")) +
+       subtitle = glue("Actual win totals vs. Predicted. Win total over/unders pulled from various sportsbooks as of September 3, 2025.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -318,7 +322,7 @@ The below shows each team's actual win percentage vs their pythagoroean win perc
 ``` {r, echo = FALSE}
 
 games_df2 <-  nflreadr::load_schedules() %>% 
-  filter(season == 2024, game_type == "REG") %>% 
+  filter(season == 2025, game_type == "REG") %>% 
   select(game_id, team_home = home_team, team_away = away_team, away_score, home_score, result, week) %>% 
   drop_na() %>%
   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
@@ -481,7 +485,7 @@ explosive_plays_plot_logos <- explosive_plays %>%
     x = "Explosive Play Share (%)",
     y = "",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
-    title = glue("Most Explosive Teams, 2024 NFL Season"),
+    title = glue("Most Explosive Teams, 2025 NFL Season"),
     subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru Week {current_week}.")
   ) +
   theme_custom() +
@@ -514,7 +518,7 @@ epa_only <- off_def_epa %>%
 
 #load games data and join epa for home and away teams
 games_epa <- load_sharpe_games() %>% 
-  filter(season == 2024, game_type == "REG") %>%
+  filter(season == 2025, game_type == "REG") %>%
   left_join(epa_only, by = c('away_team' = 'posteam')) %>%
   rename(away_epa_play = epa_play) %>%
   left_join(epa_only, by = c('home_team' = 'posteam')) %>%
@@ -543,125 +547,3 @@ games_epa <- load_sharpe_games() %>%
 
 ```
 
-***
-## Fourth Downs
-
-```{r Fourth Downs Data Wrangling, echo = FALSE}
-library(webshot) #saving images of gt tables
-
-fourth_down_plays <- pbp_rp %>%
-   filter(
-     down == 4,
-     qb_kneel == 0,
-     !is.na(posteam),
-     !is.na(yardline_100),
-     !is.na(score_differential)
-   )
-
-
-
-# Focus on fourth down plays only
-fourth_down_plays <- data %>% 
-  filter(
-     down == 4,
-     qb_kneel == 0,
-     !is.na(posteam),
-     !is.na(yardline_100),
-     !is.na(score_differential)
-   )
-
-# Determine when teams go for it on fourth
-go_for_it <- fourth_down_plays %>%
-  mutate(
-    yards_to_go = case_when(
-      ydstogo <= 2 ~ "2 or less",
-      ydstogo >= 3 & ydstogo <= 5 ~ "3 to 5",
-      ydstogo >= 6 ~ "6 or more",
-      TRUE ~ "NA"
-    )
-  ) %>%
-  mutate(
-    play_type = case_when(
-      play_type == "field_goal" | play_type == "punt" ~ "Punt/FG",
-      play_type == "run" | play_type == "pass" ~ "Run/Pass",
-      play_type == "no_play" ~ "Penalty",
-      TRUE ~ "NA"
-    )
-  ) %>%
-  filter(yards_to_go == "2 or less" &
-           play_type != "Penalty" & 
-           wp > .20 & 
-           wp < .80) %>%
-  dplyr::group_by(season, posteam, play_type) %>%
-  summarize(n = n()) %>% 
-  mutate(`2013-2024` = round(100 * (n / sum(n)), 1)) %>%
-  select(-c(n)) %>% 
-  pivot_wider(names_from = "season", values_from = "2013-2024") %>%
-  filter(play_type == "Run/Pass") %>%
-  ungroup() %>%
-  mutate_if(is.numeric, list(~replace_na(., 0))) %>% 
-  pivot_longer(cols = starts_with("20"),
-               names_to = "season",
-               values_to = "2013-2024") %>% 
-  arrange(posteam, season)
-
-average_go_for_it_rate <- mean(go_for_it$`2013-2024
-                               `) #Get mean go for it rates to put inline with R code down below
-
-# Look at  trends
-trend <- go_for_it %>%
-  ungroup() %>%
-  select(team = posteam, `2013-2024`) %>%
-  group_by(team) %>%
-  mutate(`2013-2024` = list(`2013-2024`)) %>%
-  distinct(team, `2013-2024`) %>%
-  ungroup()
-
-# Go for it data by year
-go_for_it_by_year <- go_for_it %>%
-  select(season, team = posteam, `2013-2024`) %>%
-  pivot_wider(names_from = "season", values_from = "2013-2024") %>%
-  mutate_if(is.numeric, list(~replace_na(., 0))) %>% 
-  ungroup() %>%
-  inner_join(trend, by = c("team" = "team")) %>% 
-  left_join(teams_colors_logos, by = c('team' = 'team_abbr')) %>% 
-  select(-c(team_name,team_id,team_nick,team_color2,team_color3,team_color4,team_wordmark, team_wordmark))
-
-```
-
-Teams are going for it on 4th Down more often nowadays. The below table shows each team's go-for-it rates on fourth-and-short over the last decade-plus. Year-to-date teams have gone for it in fourth-and-short situations **`r format(average_go_for_it_rate, digits = 3)` percent** of the time in 2024. We will track how each team fares on its fourth-down decision making throughout the season.
-
-```{r Fourth Down Heatmap}
-
-# Reorganize list data
-# create list_data column for table graphic
-
-fourth_down_table <- go_for_it_by_year %>%
-  select(team_logo_espn, team, `2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`, `2022`, `2023`, `2024`) %>%
-  arrange(desc(`2024`)) %>% 
-  rowwise() %>% 
-  mutate(`2013-2024` = list(c(`2013`, `2014`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020`, `2021`, `2022`, `2023`, `2024`))) %>% 
-  gt() %>%
-  data_color(
-    columns = 3:13, 
-    colors = scales::col_numeric(
-      palette = paletteer::paletteer_d(
-        palette = "ggsci::amber_material",
-        direction = 1
-      ) %>% as.character(),
-      domain = NULL, 
-      na.color = "#005C55FF"
-    )) %>%
-  gt_nfl_theme_538() %>%
-  cols_align(align = "left",
-             columns = 1) %>%
-  tab_header(title = md("**4th Down Decison Making**"),
-             subtitle = glue("Percentages shown are how often a team went for it when it on 4th & short, defined as less than 3 yards to go, and when win probability was between 20% and 80% (game-neutral situations). 2024 data is Thru Week {current_week}.")) %>%
-  tab_source_note(
-    source_note = md("DATA: nflfastR<br>TABLE: @steodosescu")) %>% 
-  gt_plt_sparkline(`2013-2024`)
-
-
-fourth_down_table
-
-```
