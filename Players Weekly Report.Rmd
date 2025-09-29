@@ -356,7 +356,7 @@ qbs <- pbp_rp %>%
     cpoe_per_play = sum(cpoe, na.rm = TRUE) / n_plays,
     success_per_play = sum(success) / n_plays
   ) %>%
-  filter(n_dropbacks >= 20) %>% #Change this No. later in the season
+  filter(n_dropbacks >= 30) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
@@ -379,7 +379,7 @@ qb_success_rate <- qbs %>%
     y = "EPA per play",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = "Quarterback Performance",
-    subtitle = "2025 season, min 20 pass attempts, includes all QB's rush and pass plays."
+    subtitle = "2025 season, min 30 pass attempts, includes all QB's rush and pass plays."
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
@@ -423,7 +423,7 @@ qb_cpoe <- pbp_rp %>%
     cpoe_per_db >= 0 ~ "Overachieving", 
     TRUE ~ "Underachieving",
   )) %>% 
-  filter(n_dropbacks >= 20) %>% #Change this No. later in the season
+  filter(n_dropbacks >= 30) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 # Make QB CPOE dumbbell plot (Commenting this out in favor of the comet plot below)
@@ -509,7 +509,7 @@ receiving <- pbp_rp %>%
   filter(!is.na(receiver_player_name) & play_type == "pass" & down <= 4) %>%
   group_by(receiver_player_name) %>%
   summarize(adot = mean(air_yards), targets = n(), catch_rate = sum(complete_pass)/targets) %>%
-  filter(targets >= 10) %>% #Change this No. later in the season
+  filter(targets >= 20) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
@@ -525,7 +525,7 @@ receiver_plot <- receiving %>%
   labs(x = "aDOT (Yards)", 
        y = "Catch Rate (%)",
        title = "Catch Rate vs aDOT",
-       subtitle = glue("Minimum 10 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
+       subtitle = glue("Minimum 20 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
        caption = "Data Source: nflfastR \nGraphic: @steodosescu"
        ) +
       theme(plot.title = element_text(face = "bold", 
@@ -554,7 +554,7 @@ rushing <- pbp_rp %>%
             epa_per_rush=sum(epa*rush)/n_rush,
             #epa = sum(epa, na.rm = TRUE) / n,
             success_per_rush=sum(rush*epa>0)/n_rush) %>%
-  filter(n_rush >= 20
+  filter(n_rush >= 30
          ) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
@@ -577,7 +577,7 @@ rushing_plot <- rushing %>%
   labs(x = "Success Rate (%)", 
        y = "EPA/Rush",
        title = "Ground Attack: Rushing Efficiency",
-       subtitle = glue("Minimum 20 Rushes. Thru Week **{current_week}**."),
+       subtitle = glue("Minimum 30 Rushes. Thru Week **{current_week}**."),
        caption = "Data Source: nflfastR \nGraphic: @steodosescu"
        ) +
       theme(plot.title = element_text(face = "bold", 
