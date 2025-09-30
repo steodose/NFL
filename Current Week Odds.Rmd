@@ -79,7 +79,7 @@ games <- read_csv('/Users/Stephan/Desktop/R Projects/NFL/Latest Game Predictions
 
 # Identify current week
 #current_week <- max(current_week_games$week)
-current_week <- 4
+current_week <- 5
 
 # filter for current week games only
 # current_week_games <- games %>%
