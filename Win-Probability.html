@@ -13,7 +13,7 @@
 
 <title>Win Probability</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -32,8 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -143,11 +143,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -176,8 +180,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -185,16 +189,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -267,10 +264,10 @@ $(document).ready(function () {
       <a href="Games.html">Scores &amp; Schedule</a>
     </li>
     <li>
-      <a href="Win-Probability.html">Win Probability</a>
+      <a href="Current-Week-Odds.html">Current Week Odds</a>
     </li>
     <li>
-      <a href="Current-Week-Odds.html">Current Week Odds</a>
+      <a href="Win-Probability.html">Win Probability</a>
     </li>
   </ul>
 </li>
@@ -316,7 +313,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Win Probability</h1>
-<h4 class="date">Last updated: 2024-01-12</h4>
+<h4 class="date">Last updated: 2025-10-25</h4>
 
 </div>
 
@@ -325,18 +322,53 @@ $(document).ready(function () {
 <hr />
 <div id="nfl-win-probability" class="section level3">
 <h3>NFL Win Probability</h3>
-<p>The NFL Win Probability Tool is <a href="https://steodosescu.shinyapps.io/nfl-win-probability/">available here</a>.</p>
-<div class="figure">
-<img src="https://raw.githubusercontent.com/steodose/NFL-win-probability/main/WP%20Dashboard%20Screenshot.png" alt="" />
-<p class="caption">BUF-LAR</p>
+<p>The NFL Win Probability Tool is <a
+href="https://steodosescu.shinyapps.io/nfl-win-probability/">available
+here</a>.</p>
+<div class="float">
+<img
+src="https://raw.githubusercontent.com/steodose/NFL-win-probability/main/WP%20Dashboard%20Screenshot.png"
+alt="BUF-LAR" />
+<div class="figcaption">BUF-LAR</div>
 </div>
-<p>This dashboard looks at individual NFL game win probability. It uses play-by-play data from Ben Baldwin and Sebastian Carl’s nflfastR package. nflfastR is an extension of the original work done by the nflscrapR team (Maksim Horowitz, Ron Yurko, and Sam Ventura). App created by <a href="https://stephanteodosescu.com/personal-website/">Stephan Teodosescu</a>.</p>
+<p>This dashboard looks at individual NFL game win probability. It uses
+play-by-play data from Ben Baldwin and Sebastian Carl’s nflfastR
+package. nflfastR is an extension of the original work done by the
+nflscrapR team (Maksim Horowitz, Ron Yurko, and Sam Ventura). App
+created by <a
+href="https://stephanteodosescu.com/personal-website/">Stephan
+Teodosescu</a>.</p>
 <p><strong>What is Win Probability?</strong></p>
-<p>Win Probability (WP) is an estimate of a team’s likelihood of winning the game at a point in time given the current situation at the start of that play. Win Probability Added (WPA) is the change in WP from one play to the next. If you graph these WP changes throughout the course of the game you will get a visual representation of how that game played out. The nflfastR model uses logistic regression to model likelihood of winning after each play of the game based on the score, field position, home field advantage, distance to the first down, time remaining, etc.</p>
+<p>Win Probability (WP) is an estimate of a team’s likelihood of winning
+the game at a point in time given the current situation at the start of
+that play. Win Probability Added (WPA) is the change in WP from one play
+to the next. If you graph these WP changes throughout the course of the
+game you will get a visual representation of how that game played out.
+The nflfastR model uses logistic regression to model likelihood of
+winning after each play of the game based on the score, field position,
+home field advantage, distance to the first down, time remaining,
+etc.</p>
 <p><strong>How do we measure game excitement?</strong></p>
-<p>To measure how exciting an individual game is, I computed a Game Excitement Index (GEI) similar to what <a href="https://www.midmajormadness.com/2019/12/30/21041851/win-probability-charts-2019-game-excitement-index-college-basketball">Luke Benz</a> has done in college basketball. The approach is to sum the absolute value of the win probability change from each play and multiply by a normalized time parameter. This gives us an index by which we can rank each game’s excitement factor. The way to interpret, for example, a Game Excitement Index of 4.0 is that the win probability changed by a total of 400% over the course of that game. The higher the number, the more exciting the game.</p>
-<p>GEI is not a perfect metric, and it might fail to capture important aspects of the game that fans might find exciting, but it does give us a sense of the flow of games and a way to quantify the excitement of playoff football. I wrote about this idea at my blog <a href="https://between-the-pipes.com/2022/01/29/divisional-round-was-one-of-the-most-exciting-weekends-in-nfl-history/">Between the Pipes</a> in January 2022.</p>
-<p>More on these metrics and the models underpinning them can be found at <a href="https://www.opensourcefootball.com/posts/2020-09-28-nflfastr-ep-wp-and-cp-models/">Open Source Football</a>.</p>
+<p>To measure how exciting an individual game is, I computed a Game
+Excitement Index (GEI) similar to what <a
+href="https://www.midmajormadness.com/2019/12/30/21041851/win-probability-charts-2019-game-excitement-index-college-basketball">Luke
+Benz</a> has done in college basketball. The approach is to sum the
+absolute value of the win probability change from each play and multiply
+by a normalized time parameter. This gives us an index by which we can
+rank each game’s excitement factor. The way to interpret, for example, a
+Game Excitement Index of 4.0 is that the win probability changed by a
+total of 400% over the course of that game. The higher the number, the
+more exciting the game.</p>
+<p>GEI is not a perfect metric, and it might fail to capture important
+aspects of the game that fans might find exciting, but it does give us a
+sense of the flow of games and a way to quantify the excitement of
+playoff football. I wrote about this idea at my blog <a
+href="https://between-the-pipes.com/2022/01/29/divisional-round-was-one-of-the-most-exciting-weekends-in-nfl-history/">Between
+the Pipes</a> in January 2022.</p>
+<p>More on these metrics and the models underpinning them can be found
+at <a
+href="https://www.opensourcefootball.com/posts/2020-09-28-nflfastr-ep-wp-and-cp-models/">Open
+Source Football</a>.</p>
 </div>
 
 <p>Copyright &copy; 2021 Stephan Teodosescu</p>

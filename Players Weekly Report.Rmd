@@ -27,6 +27,7 @@ Below you'll find figures showing key advanced metrics I'm tracking for individu
 ```{r, echo =FALSE}
 
 library(nflfastR)
+library(nflreadr)
 library(tidyverse)
 library(teamcolors) # NFL team colors and logos
 library(extrafont) # for extra fonts
@@ -53,6 +54,7 @@ pbp_rp <- data %>%
 
 # Identify current week
 current_week <- max(pbp_rp$week)
+current_season <- 2025
 
 ```
 
@@ -161,7 +163,7 @@ The below shows a summary of QB performances so far this season.
 ```{r, echo=FALSE}
 
 #load data
-player_stats <- load_player_stats()
+player_stats <- load_player_stats(seasons = current_season)
 
 nfl_qb <- player_stats |>
   filter(position=="QB")
@@ -171,19 +173,19 @@ nfl_team <- teams_colors_logos
 #reshape data
 qb_summary_data <- nfl_qb |>
   filter(passing_yards>100)|> 
-  select(headshot_url, player_name, player_display_name, recent_team, completions, attempts, passing_yards, passing_tds, interceptions, passing_epa, sacks, rushing_yards, rushing_tds)|>
-  group_by(headshot_url, player_name, player_display_name, recent_team,) |> 
+  select(headshot_url, player_name, player_display_name, team, completions, attempts, passing_yards, passing_tds, passing_interceptions, passing_epa, sacks_suffered, rushing_yards, rushing_tds)|>
+  group_by(headshot_url, player_name, player_display_name, team,) |> 
   summarise(total_completions = sum(completions),
             total_attempts = sum(attempts),
             total_passing_yards = sum(passing_yards),
             total_passing_tds = sum(passing_tds),
-            total_interceptions = sum(interceptions),
+            total_interceptions = sum(passing_interceptions),
             total_passing_epa = sum(passing_epa),
-            total_sacks = sum(sacks),
+            total_sacks = sum(sacks_suffered),
             total_rushing_yards = sum(rushing_yards),
             total_rushing_tds = sum(rushing_tds)) |> 
   inner_join(teams_colors_logos|>
-               select(team_abbr, team_nick, team_division, team_logo_espn), by=c("recent_team"="team_abbr"))|>
+               select(team_abbr, team_nick, team_division, team_logo_espn), by=c("team"="team_abbr"))|>
   separate(team_division, into=c("conference","division"), sep=" ")|>
   mutate(comp_perc = total_completions/total_attempts)|>
   arrange(conference, division, -total_passing_epa, -total_passing_tds, -total_passing_yards)|>
@@ -194,7 +196,7 @@ qb_summary_data <- nfl_qb |>
 
 # Create gt table
 qb_summary_table <- qb_summary_data |> 
-  select(headshot_url, player_display_name, team_logo_espn, recent_team:total_interceptions, conference:comp_perc, total_passing_epa) |> 
+  select(headshot_url, player_display_name, team_logo_espn, team:total_interceptions, conference:comp_perc, total_passing_epa) |> 
   gt() |> 
   tab_header(
     title = md("**Quarterback Passing Summary**"), 
@@ -202,7 +204,7 @@ qb_summary_table <- qb_summary_data |>
     )  %>%
   cols_label(headshot_url = "",
              player_display_name = "Player",
-             recent_team = "Team",
+             team = "Team",
              team_logo_espn = "",
              total_completions = "Comps",
              total_attempts = "Att",
