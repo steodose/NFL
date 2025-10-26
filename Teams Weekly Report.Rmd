@@ -444,7 +444,7 @@ point_diff_barplot
 ### Explosive Plays
 Some teams are better than others at getting chunk plays. We're defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We're highlighting the 49ers this season since they have been among the most exciting teams to watch. 
 
-```{r Explosive Plays, echo = FALSE, message=FALSE}
+```{r Explosive Plays, echo = FALSE}
 
 explosive_plays <- pbp_rp %>% 
   filter(
@@ -499,10 +499,11 @@ explosive_plays_plot_logos <- explosive_plays %>%
   geom_vline(xintercept = mean(explosive_plays$explosive_share), color = "red", linetype = "dashed") +
   scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, suffix = " %")) +
   #theme(axis.text.y = element_markdown(margin = margin(r = -25, unit = "pt"))) +
-  theme(axis.text.y = element_markdown())
+  theme(axis.text.y = element_markdown()) +
   theme(legend.position = "none")
 
 explosive_plays_plot_logos
+
 ```
 
 

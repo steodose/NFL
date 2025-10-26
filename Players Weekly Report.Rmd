@@ -358,7 +358,7 @@ qbs <- pbp_rp %>%
     cpoe_per_play = sum(cpoe, na.rm = TRUE) / n_plays,
     success_per_play = sum(success) / n_plays
   ) %>%
-  filter(n_dropbacks >= 30) %>% #Change this No. later in the season
+  filter(n_dropbacks >= 100) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
@@ -381,7 +381,7 @@ qb_success_rate <- qbs %>%
     y = "EPA per play",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = "Quarterback Performance",
-    subtitle = "2025 season, min 30 pass attempts, includes all QB's rush and pass plays."
+    subtitle = "2025 season, min 100 pass attempts, includes all QB's rush and pass plays."
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
@@ -509,7 +509,7 @@ The below shows receiver catch rate against their average depth of target (air y
 
 receiving <- pbp_rp %>%
   filter(!is.na(receiver_player_name) & play_type == "pass" & down <= 4) %>%
-  group_by(receiver_player_name) %>%
+  group_by(receiver_player_name, posteam) %>%
   summarize(adot = mean(air_yards), targets = n(), catch_rate = sum(complete_pass)/targets) %>%
   filter(targets >= 40) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
@@ -518,25 +518,27 @@ receiving <- pbp_rp %>%
 # Make plot
 
 receiver_plot <- receiving %>% 
-  ggplot(aes(x = adot, y = catch_rate)) + 
-  geom_point(size = receiving$targets/10, alpha = 0.5) + # change this with targets no.
-  geom_text_repel(aes(label = receiver_player_name), color = "grey40", segment.color = "black") + 
-  geom_smooth(method = lm, alpha = 0.5, linetype = "dashed", se = FALSE, color = "red", size = 1) + 
-  scale_y_continuous(breaks = c(.4,.45,.5,.55,.6,.65,.7,.75,.8,.85)) +
-  theme_custom() + 
-  labs(x = "aDOT (Yards)", 
-       y = "Catch Rate (%)",
-       title = "Catch Rate vs aDOT",
-       subtitle = glue("Minimum 40 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
-       caption = "Data Source: nflfastR \nGraphic: @steodosescu"
-       ) +
-      theme(plot.title = element_text(face = "bold", 
+    left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>%
+    ggplot(aes(x = adot, y = catch_rate)) + 
+    geom_image(aes(image = team_logo_espn), size = 0.030, by = "width", asp = asp_ratio) +
+    #geom_point(size = receiving$targets/10, alpha = 0.5) + # change this with targets no.
+    geom_text_repel(aes(label = receiver_player_name), color = "grey40", segment.color = "black") + 
+    geom_smooth(method = lm, alpha = 0.5, linetype = "dashed", se = FALSE, color = "red", size = 1) + 
+    scale_y_continuous(breaks = c(.4,.45,.5,.55,.6,.65,.7,.75,.8,.85)) +
+    theme_custom() + 
+    labs(x = "aDOT (Yards)", 
+         y = "Catch Rate (%)",
+        title = "Catch Rate vs aDOT",
+        subtitle = glue("Minimum 40 Targets. Average Depth of Target is based on Air Yards. Thru Week **{current_week}**."),
+        caption = "Data Source: nflfastR \nGraphic: @steodosescu"
+        ) +
+        theme(plot.title = element_text(face = "bold", 
                                   size = 20, 
                                   hjust = 0.5
-    )) +
-    theme(plot.subtitle = element_markdown(
-    hjust = 0.5)
-    )
+        )) +
+        theme(plot.subtitle = element_markdown(
+        hjust = 0.5)
+        )
 
 receiver_plot
   
@@ -562,7 +564,6 @@ rushing <- pbp_rp %>%
 
 
 # Make plot
-
 rushing_plot <- rushing %>% 
   left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>%
   ggplot(aes(x = success_per_rush, y = epa_per_rush)) + 
