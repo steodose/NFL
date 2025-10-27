@@ -425,7 +425,7 @@ qb_cpoe <- pbp_rp %>%
     cpoe_per_db >= 0 ~ "Overachieving", 
     TRUE ~ "Underachieving",
   )) %>% 
-  filter(n_dropbacks >= 30) %>% #Change this No. later in the season
+  filter(n_dropbacks >= 100) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
 # Make QB CPOE dumbbell plot (Commenting this out in favor of the comet plot below)
@@ -479,7 +479,7 @@ comet_plot <- qb_cpoe %>%
   theme(legend.position = 'none') +
   labs(x = "Rate (%)", y = "",
          title = "Who's Over/Underachieving in the Pass Game?", 
-         subtitle = glue("Difference between **Expected Completion %** and **Actual Completion %**. Minimum 30 passes. Thru Week {current_week}"),
+         subtitle = glue("Difference between **Expected Completion %** and **Actual Completion %**. Minimum 100 passes. Thru Week {current_week}"),
          caption = "Data Source: nflfastR \nGraphic: @steodosescu") +
     theme(plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -558,7 +558,7 @@ rushing <- pbp_rp %>%
             epa_per_rush=sum(epa*rush)/n_rush,
             #epa = sum(epa, na.rm = TRUE) / n,
             success_per_rush=sum(rush*epa>0)/n_rush) %>%
-  filter(n_rush >= 30
+  filter(n_rush >= 50
          ) %>% #Change this No. later in the season
   ungroup() # always ungroup if you no longer need the grouping effect
 
@@ -580,7 +580,7 @@ rushing_plot <- rushing %>%
   labs(x = "Success Rate (%)", 
        y = "EPA/Rush",
        title = "Ground Attack: Rushing Efficiency",
-       subtitle = glue("Minimum 30 Rushes. Thru Week **{current_week}**."),
+       subtitle = glue("Minimum 50 Rushes. Thru Week **{current_week}**."),
        caption = "Data Source: nflfastR \nGraphic: @steodosescu"
        ) +
       theme(plot.title = element_text(face = "bold", 
