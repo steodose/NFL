@@ -85,7 +85,7 @@ gt_nfl_theme_538 <- function(data,...) {
     opt_all_caps()  %>%
     opt_table_font(
       font = list(
-        google_font("Chivo"),
+        google_font("Titillium Web"),
         default_fonts()
       )
     ) %>%
@@ -123,7 +123,7 @@ theme_538 <- function() {
     reactable::reactableTheme(
         searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
         style = list(
-            fontFamily = "Chivo"
+            fontFamily = "Titillium Web"
         ),
         headerStyle = list(
             "&:hover[aria-sort]" = list(
@@ -140,7 +140,7 @@ theme_538 <- function() {
 
 # Custom ggplot theme (inspired by Owen Phillips at the F5 substack blog)
 theme_custom <- function () { 
-  theme_minimal(base_size=11, base_family="Chivo") %+replace% 
+  theme_minimal(base_size=11, base_family="Titillium Web") %+replace% 
     theme(
       panel.grid.minor = element_blank(),
       plot.background = element_rect(fill = 'floralwhite', color = "floralwhite"),

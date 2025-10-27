@@ -62,7 +62,7 @@ theme_538 <- function() {
     reactable::reactableTheme(
         searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
         style = list(
-            fontFamily = "Chivo"
+            fontFamily = "Titillium Web"
         ),
         headerStyle = list(
             "&:hover[aria-sort]" = list(

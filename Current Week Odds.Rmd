@@ -39,7 +39,7 @@ theme_538 <- function() {
     reactable::reactableTheme(
         searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
         style = list(
-            fontFamily = "Chivo"
+            fontFamily = "Titillium Web"
         ),
         headerStyle = list(
             "&:hover[aria-sort]" = list(
@@ -150,7 +150,7 @@ current_week_games2 %>%
     locations = cells_column_labels(vars(result))
   ) %>%
   opt_table_font(
-    font = "Chivo"
+    font = "Titillium Web"
     ) %>%
   tab_options(
     column_labels.background.color = "white",
