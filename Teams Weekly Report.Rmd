@@ -372,7 +372,7 @@ py_wins_plot <- pyth_wins_df %>%
        y = "Pythagorean Win %",
        caption = "Data: @nflfastR | Plot: @steodosescu",
        title = glue("Actual and Pythagorean Win Percentage"),
-       subtitle = glue("Pythagorean Win % is an indicator of potential future success. Formula = (PF/PA)^2 / 1 + (PF/PA)^2. Thru Week {current_week}.")) +
+       subtitle = glue("Pythagorean Win % tells how many games a team should have won based on points scored/allowed. It's an indicator of potential future success. Thru Week {current_week}.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
