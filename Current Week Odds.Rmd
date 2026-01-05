@@ -12,6 +12,10 @@ output:
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 ```
 
+## Weekly Odds {.tabset}
+
+Below you'll find current week game odds based on my simulations of the remainder of the NFL season.
+
 ```{r, echo=FALSE}
 
 library(nflfastR)
@@ -59,7 +63,8 @@ theme_538 <- function() {
 ```
 
 
-Below you'll find current week game odds based on my simulations of the remainder of the NFL season.
+***
+### Current Week Odds
 
 ```{r, echo=FALSE}
 
@@ -169,5 +174,13 @@ current_week_games2 %>%
     heading.background.color = "black",
   )
 
+
+```
+
+
+### Super Bowl Vegas Odds
+
+```{=html}
+<iframe title="2025 Super Bowl Odds" aria-label="Table" id="datawrapper-chart-blxmg" src="https://datawrapper.dwcdn.net/blxmg/5/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="1394" data-external="1"></iframe><script type="text/javascript">window.addEventListener("message",function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}});</script>
 
 ```
