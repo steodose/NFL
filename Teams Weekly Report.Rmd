@@ -453,7 +453,7 @@ explosive_plays <- pbp_rp %>%
     !is.na(epa)
   ) %>% 
   mutate(explosive_play = case_when((play_type == "pass" & yards_gained >= 20) ~ 1,
-                            (play_type == "run" & yards_gained >= 15) ~ 1,
+                            (play_type == "run" & yards_gained >= 10) ~ 1,
                             TRUE ~ 0)) %>% 
   group_by(posteam) %>%
   summarize(
@@ -487,7 +487,7 @@ explosive_plays_plot_logos <- explosive_plays %>%
     y = "",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = glue("Most Explosive Teams, 2025 NFL Season"),
-    subtitle = glue("Explosive plays = 15 yards+ on rushes, 20 yards+ on passes. Thru Week {current_week}.")
+    subtitle = glue("Explosive plays = 10 yards+ on rushes, 20 yards+ on passes. Thru Week {current_week}.")
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
