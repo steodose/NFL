@@ -35,7 +35,7 @@ scrape_nfl_data <- function(url) {
     return(data)
 }
 
-# Scrape data for week 12 of 2024
+# Scrape data for week 1-2 of 2024
 year <- 2024
 week <- 'two'
 url <- generate_url(year, week)
@@ -114,7 +114,7 @@ week_to_url_part <- function(week) {
 # Function to generate the URL for a specific week
 generate_url <- function(year, week) {
     week_part <- week_to_url_part(week)
-    paste0("https://blog.jettip.net/nfl-", year, "-week-", week_part, "-team-charter-flight-schedule")
+    paste0("https://blog.jettip.net/nfl-", year, "-week-", week_part, "-team-charter-flights")
 }
 
 
@@ -148,9 +148,9 @@ scrape_nfl_data <- function(url) {
     return(data)
 }
 
-# Scrape data for weeks 3 to 12
-year <- 2024
-weeks <- 3:13
+# Scrape data for weeks 1 to current
+year <- 2025
+weeks <- 1:18
 
 all_weeks_data <- bind_rows(
     lapply(weeks, function(w) {
@@ -211,15 +211,102 @@ charters_data <- charters_data %>%
 
 
 
-## 4. -------- Save to googlesheets ------------
+## 4. ------- Scrape Playoff Rounds webpages ---------
+
+# Function to generate the URL for a specific week (weeks 1 and 2 of 2024 which have different url than the rest of the weeks)
+generate_url <- function(year, week) {
+    paste0("https://blog.jettip.net/nfl-", year, "-", week, "-team-charter-flights")
+}
+
+# Function to scrape data from a single page
+scrape_nfl_data <- function(url) {
+    # Read the webpage content
+    page <- read_html(url)
+    
+    # Extract relevant data (example assumes a list structure)
+    flights <- page %>%
+        html_nodes("h2 , li") %>%  # Adjust the selector based on the actual HTML
+        html_text()
+    
+    # Process and tidy up the data
+    data <- tibble(Flight_Info = flights) %>%
+        separate(Flight_Info, into = c("Team", "Flight_Details"), sep = " - ", extra = "merge") %>% # Adjust split logic if needed
+        mutate(Week = week) %>%
+        filter(!is.na(Flight_Details))
+    
+    return(data)
+}
+
+# Scrape data for playoff weekends
+year <- 2024
+week <- 'wild-card'
+url <- generate_url(year, week)
+
+# Scrape and view the data
+charters <- scrape_nfl_data(url)
+print(charters)
+
+# process data 
+charters_clean <- charters %>%
+    mutate(
+        Week = case_when(
+            Week == 'one' ~ 1,
+            Week == 'two' ~ 2,
+            Week == 'three' ~ 3,
+            Week == 'four' ~ 4,
+            Week == 'five' ~ 5,
+            Week == 'six' ~ 6,
+            Week == 'seven' ~ 7,
+            Week == 'eight' ~ 8,
+            Week == 'nine' ~ 9,
+            Week == 'wild-card' ~ 19
+        )) %>%
+    mutate(
+        Away_Team = str_extract(Team, "^[^@]+") %>% str_trim(), # Extract everything before '@'
+        Home_Team = str_extract(Team, "(?<=@ ).*?(?=[A-Z]{3})") %>% str_trim(), # Capture text after @ and before the airport code
+        Departure_Airport = str_extract(Team, "[A-Z]{3}(?= \\()"),
+        
+        # Extract details from Flight_Details
+        Arrival_Airport = str_extract(Flight_Details, "^[A-Z]{3}"),  # The 3-letter code at the start
+        Flight_Number = str_extract(Flight_Details, "(?<=, )\\w+"),    # After the first comma
+        Aircraft_Type = str_extract(Flight_Details, "(?<=, )\\w+$")    # The last word/number after the second comma
+    ) %>%
+    select(Week, Away_Team, Home_Team, Departure_Airport, Arrival_Airport, Flight_Number, Aircraft_Type) %>%
+    mutate(
+        Away_Team = str_remove(Away_Team, "\\s*\\(.*\\)"), # Remove parentheses and text within them
+        Home_Team = str_remove(Home_Team, "\\s*\\(.*\\)")  # Do the same for Home_Team
+    ) %>%
+    mutate(Away_Team = case_when(
+        Away_Team == 'Kansas City' ~ 'Kansas City Chiefs',
+        TRUE ~ as.character(Away_Team)
+    ),
+    Home_Team = case_when(
+        Home_Team == 'Kansas City' ~ 'Kansas City Chiefs',
+        TRUE ~ as.character(Home_Team)
+    )) %>%
+    mutate(ts = Sys.Date()) # add in last refreshed timestamp
+
+
+
+## 5. -------- Save to googlesheets ------------
 
 # Authenticate with Google Sheets (you only need to do this once per session)
-#gs4_auth()
+gs4_auth()
 
 # URL or ID of the Google Sheets document
 sheet_url <- "https://docs.google.com/spreadsheets/d/17fVR5KukHeCyoTf3wQcKwKrR4XqPXwNuPEj6sxBkzvE/edit?gid=759422868#gid=759422868"
 
 # Save data to the "Charters" tab
 sheet_write(data = charters_data, ss = sheet_url, sheet = "Charters")
+
+
+
+## 6. Schedules table
+team_schedules <- load_sharpe_games() %>% 
+    filter(season == 2025)
+
+phi_schedule <- team_schedules %>%
+    filter(str_detect(game_id,"PHI"))
+
 
 
