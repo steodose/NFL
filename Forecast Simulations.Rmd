@@ -232,7 +232,7 @@ sims2 <- simulate_nfl(
   nfl_season = 2025,
   process_games = elo_model,
   #fresh_season = FALSE,
-  fresh_playoffs = TRUE,
+  #fresh_playoffs = TRUE,
   simulations = 1000
 )
 
