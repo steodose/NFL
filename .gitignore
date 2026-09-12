@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+
+# iCloud / local cruft
+*.icloud
+.RData
+.Renviron
+.Rapp.history
+
+# local caches
+*_cache/

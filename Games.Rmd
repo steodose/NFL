@@ -1,0 +1,211 @@
+---
+title: "Games Summary"
+date: 'Last updated: `r format(Sys.Date())`'
+output:
+  html_document:
+    dpi: 500
+    fig_width: 10
+    fig_height: 7
+---
+
+```{r, echo=FALSE}
+
+# Insert NFL logo in top right of report
+htmltools::img(src = knitr::image_uri("NFL.png"), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px')
+
+```
+
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+```
+
+
+
+```{r Setup , echo =FALSE}
+
+library(nflfastR)
+library(nflseedR)
+library(tidyverse)
+library(teamcolors) # NFL team colors and logos
+library(extrafont) # for extra fonts
+library(ggrepel) # better labels
+library(ggimage)
+library(glue)
+library(ggtext)
+library(reactable)
+library(reactablefmtr)
+library(ggalt) #for dumbbell plot
+library(ggforce)
+library(ggsci)
+library(ggimage)
+library(animation)
+library(DBI)
+library(RSQLite)
+
+# Optional but makes R prefer not to display numbers in scientific notation
+options(scipen = 9999)
+
+#Load games data from Lee Sharpe/nflseedR
+games <- load_sharpe_games() %>% 
+  filter(season == 2026)
+
+```
+
+
+```{r, echo=FALSE}
+
+# Define 538 table theme for Reactable table(s) below
+theme_538 <- function() {
+    reactable::reactableTheme(
+        searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
+        style = list(
+            fontFamily = "Titillium Web"
+        ),
+        headerStyle = list(
+            "&:hover[aria-sort]" = list(
+                background = "hsl(0, 0%, 80%)"),
+            "&[aria-sort='ascending'], &[aria-sort='descending']" = list(
+                background = "#555",
+                color = "#FFF"
+            ),
+            borderColor = "#333"
+        ),
+        borderColor = "#CDCDCD"
+    )
+}
+```
+
+
+```{r, echo=FALSE}
+
+# Make games table
+games2 <- games %>% 
+  # using PFR's methodology to turn spreads into win probabilities
+   mutate(home_pred = 1- (pnorm(0.5, mean = spread_line, sd = 12.7)
+                    ),
+          away_pred = 1-home_pred
+         ) %>%
+  select(game_id, game_type, gameday, week, away_team:home_score, spread_line, 
+         away_pred, home_pred,away_qb_name, home_qb_name, stadium)
+
+# Get team logos
+team_logos <- nflfastR::teams_colors_logos
+
+# Get player headshots
+rosters <- nflfastR::fast_scraper_roster(seasons = 2023) %>% 
+  select(full_name, headshot_url)
+
+
+# join in team logos and headshots for inclusion in table
+games2 <- left_join(games2, team_logos, by = c("away_team" = "team_abbr")) #Away teams
+games2 <- left_join(games2, team_logos, by = c("home_team" = "team_abbr")) #Home teams
+
+#games2 <- left_join(games2, rosters, by = c("away_qb_name" = "full_name")) #Away QBs
+#games2 <- left_join(games2, rosters, by = c("home_qb_name" = "full_name")) #Home QBs
+
+
+# set it up for the table
+games2 <- games2 %>% 
+  select(week, gameday, game_type, team_logo_espn.x, away_team, away_score, team_logo_espn.y, home_team, home_score, spread_line,  away_pred, home_pred) %>% 
+  rename(team_logo_espn_away = team_logo_espn.x,
+         team_logo_espn_home = team_logo_espn.y)
+# %>% drop_na() #uncomment once first game has been played
+
+
+# Reactable table
+
+games_table <- reactable(
+  games2,
+  theme = theme_538,
+  columnGroups = list(
+                      colGroup(name = "Pre-Game Vegas Odds", 
+                               columns = c("spread_line", "away_pred", "home_pred"))
+                  ),
+                  showSortIcon = TRUE,
+                  searchable = TRUE,
+                  language = reactableLang(
+                      searchPlaceholder = "SEARCH FOR A TEAM (ABBR)..."),
+                  defaultPageSize = 100,
+                  columns = list(
+                      week = colDef(name = "Week",
+                                       align = "center"),
+                      gameday = colDef(name = "Date",
+                                       align = "right",
+                                       minWidth = 120),
+                      game_type = colDef(name = "Round",
+                                         style = list(borderRight = "2px solid #555"),
+                                       align = "right"),
+                      away_team = colDef(name = "Away",
+                                       align = "right"),
+                      away_score = colDef(
+                        name = "Away Score",
+                        style = if (all(is.na(games2$away_score))) {
+                          NULL  # Don't apply color scales if all values are NA
+                        } else {
+                          color_scales(
+                            games2,
+                            colors = paletteer::paletteer_d(palette = "ggsci::amber_material")
+                          )
+                        },
+                        align = "right"
+                      ),
+                    home_team = colDef(name = "Home",
+                                       align = "right"),
+                    home_score = colDef(
+                      name = "Home Score",
+                      style = if (all(is.na(games2$home_score))) {
+                        NULL  # Don't apply color scales if all values are NA
+                      } else {
+                        color_scales(
+                          games2,
+                          colors = paletteer::paletteer_d(palette = "ggsci::amber_material")
+                        )
+                      },
+                      align = "right"
+                    ),
+                      spread_line = colDef(name = "Home Spread",
+                                           style = list(borderLeft = "2px solid #555"),
+                                       align = "right"),
+                      away_pred = colDef(name = "Away Prob",
+                                         format =  colFormat(percent = TRUE, digits = 0),
+                                       align = "right"),
+                      home_pred = colDef(name = "Home Prob",
+                                         format =  colFormat(percent = TRUE, digits = 0),
+                                       align = "right"),
+                      
+                      ### add logos using embed_img()
+                      team_logo_espn_home = colDef(
+                          name = "",
+                          maxWidth = 40,
+                          align = "right",
+                          cell = embed_img(height = "25", width = "30")
+                      ),
+                      team_logo_espn_away = colDef(
+                          name = "",
+                          maxWidth = 40,
+                          align = "right",
+                          cell = embed_img(height = "25", width = "30")
+                      )),
+  
+                  pagination = FALSE,
+                  compact = TRUE, 
+                  borderless = FALSE, 
+                  striped = FALSE,
+                  fullWidth = FALSE, 
+                  defaultColDef = colDef(align = "center", minWidth = 95)
+        ) %>% 
+  add_title("2026 NFL Season",
+            font_size = 28) %>% 
+  add_subtitle("Every NFL game by week, including scores, schedules, and pre-game Vegas odds. Click a column header to sort by that statistic.",
+               font_size = 14,
+               font_weight = "normal") %>% 
+  add_source("Data: nflverse")
+
+games_table
+
+
+```
+

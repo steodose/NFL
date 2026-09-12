@@ -1,0 +1,38 @@
+name: "Yay internet!"
+output_dir: "."
+navbar:
+  title: '<div><img src="nfl-logo.png" width="24px"></img> NFL Analytics</div>'
+  left:
+    - text: "League"
+      href: NFL-Summary-Report.html
+    - text: "Teams"
+      href: Teams-Weekly-Report.html
+    - text: "Players"
+      href: Players-Weekly-Report.html
+    - text: Games
+      menu:
+      - text: "Scores & Schedule"
+        href: Games.html
+      - text: "Current Week Odds"
+        href: Current-Week-Odds.html
+      - text: "Win Probability"
+        href: Win-Probability.html
+    - text: "Predictions"
+      href: Forecast-Simulations.html
+    - text: "About"
+      href: about.html
+  right:
+    - icon: fa-home fa-lg
+      href: https://stephanteodosescu.com/      
+    - icon: fa-twitter fa-lg
+      href: https://twitter.com/steodosescu
+    - icon: fa-github fa-lg
+      href: https://github.com/steodose/NFL
+    - icon: fa-wordpress fa-lg
+      href: https://betweenthepipes.substack.com/
+output:
+  html_document:
+    theme: cosmo
+    logo: NFL.png
+    include:
+      after_body: footer.html

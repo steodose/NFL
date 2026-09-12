@@ -1,0 +1,551 @@
+---
+title: "Teams Weekly Report"
+date: 'Last updated: `r format(Sys.Date())`'
+output:
+  html_document:
+    dpi: 500
+    fig_width: 10
+    fig_height: 7
+---
+
+```{r, echo=FALSE}
+
+# Insert NFL logo in top right of report
+htmltools::img(src = knitr::image_uri("NFL.png"), 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width: 110px; height: 128px')
+
+```
+
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+```
+
+Below you'll find figures showing key advanced metrics I'm tracking for all 32 NFL teams.
+
+```{r Setup , echo =FALSE}
+
+library(nflfastR)
+library(nflseedR)
+library(tidyverse)
+library(teamcolors) # NFL team colors and logos
+library(extrafont) # for extra fonts
+library(ggrepel) # better labels
+library(ggimage)
+library(glue)
+library(ggtext)
+library(reactable)
+library(reactablefmtr)
+library(ggalt) #for dumbbell plot
+library(ggforce)
+library(ggsci)
+library(paletteer)
+library(prismatic)
+
+# load pbp data
+#data <- load_pbp(2013:2024)
+data <- load_pbp(2025)
+
+# Filter for Run/Pass plays for the current season only
+pbp_rp <- data %>%
+  filter(season == 2025) %>%
+  filter(rush == 1 | pass == 1, !is.na(epa)) # Exclude plays with missing EPA.
+
+# Identify current week
+current_week <- max(pbp_rp$week)
+
+```
+
+ 
+```{r Set Themes, echo=FALSE}
+
+library(gt)
+library(gtExtras)
+
+# Create 538 GT table theme from Thomas Mock's blog.Comes from this post: https://themockup.blog/posts/2020-09-26-functions-and-themes-for-gt-tables/?panelset3=theme-code2&panelset4=theme-code3 
+gt_nfl_theme_538 <- function(data,...) {
+  data %>%
+    # Add team logos w/ web_image
+    text_transform(
+      locations = cells_body(
+        vars(team_logo_espn)
+      ),
+      fn = function(x) {
+        web_image(
+          url = x,
+          height = 25
+        )
+      }
+    ) %>%
+    # Relabel columns
+    cols_label(
+      team_logo_espn = ""
+    ) %>%
+    opt_all_caps()  %>%
+    opt_table_font(
+      font = list(
+        google_font("Titillium Web"),
+        default_fonts()
+      )
+    ) %>%
+    tab_style(
+      style = cell_borders(
+        sides = "bottom", color = "transparent", weight = px(2)
+      ),
+      locations = cells_body(
+        columns = TRUE,
+        # This is a relatively sneaky way of changing the bottom border
+        # Regardless of data size
+        rows = nrow(data$`_data`)
+      )
+    )  %>% 
+    tab_options(
+      column_labels.background.color = "white",
+      table.border.top.width = px(3),
+      table.border.top.color = "transparent",
+      table.border.bottom.color = "transparent",
+      table.border.bottom.width = px(3),
+      column_labels.border.top.width = px(3),
+      column_labels.border.top.color = "transparent",
+      column_labels.border.bottom.width = px(3),
+      column_labels.border.bottom.color = "black",
+      data_row.padding = px(3),
+      source_notes.font.size = 12,
+      table.font.size = 16,
+      heading.align = "left",
+      ...
+    ) 
+}
+
+# Define 538 table theme for Reactable table(s) below
+theme_538 <- function() {
+    reactable::reactableTheme(
+        searchInputStyle = list(width = "31%", backgroundColor = "#F9F9F9"),
+        style = list(
+            fontFamily = "Titillium Web"
+        ),
+        headerStyle = list(
+            "&:hover[aria-sort]" = list(
+                background = "hsl(0, 0%, 80%)"),
+            "&[aria-sort='ascending'], &[aria-sort='descending']" = list(
+                background = "#555",
+                color = "#FFF"
+            ),
+            borderColor = "#333"
+        ),
+        borderColor = "#CDCDCD"
+    )
+}
+
+# Custom ggplot theme (inspired by Owen Phillips at the F5 substack blog)
+theme_custom <- function () { 
+  theme_minimal(base_size=11, base_family="Titillium Web") %+replace% 
+    theme(
+      panel.grid.minor = element_blank(),
+      plot.background = element_rect(fill = 'floralwhite', color = "floralwhite"),
+      plot.subtitle = element_text(color = "grey60")
+    )
+}
+
+
+#Set aspect ratio for logo based plots
+asp_ratio <- 1.618
+
+```
+
+***
+## Team Level Performance
+
+
+### Offensive vs. Defensive EPA
+
+Expected Points Added: The change in Expected Points (EP) from one play to the next. EPA yields a single measure of the value of every play. Expected Points was created by the nflfastR team using a statistical model trained on historical data, and takes into account features like down, distance, time remaining, whether the game is being played indoors, etc. It helps answer the question “How good of a position is my team in to score as of now?” Higher EPA on offense is better, while a lower EPA on defense is more desirable. 
+
+EPA helps provide better context around what plays are more valuable. For example, a five-yard completion on third-and-4 is better than an eight-yard completion on third-and-9, despite the fact that the latter resulted in more yards. 
+
+```{r}
+
+offense <- pbp_rp %>%
+    group_by(posteam)%>%
+    summarize(
+        n_pass=sum(pass),
+        n_rush=sum(rush),
+        epa_per_pass=sum(epa*pass)/n_pass,
+        epa_per_rush=sum(epa*rush)/n_rush,
+        success_per_pass=sum(pass*epa>0)/n_pass,
+        success_per_rush=sum(rush*epa>0)/n_rush,
+        off_epa=mean(epa))
+
+defense <- pbp_rp %>%
+    group_by(defteam)%>%
+    summarize(
+        def_n_pass=sum(pass),
+        def_n_rush=sum(rush),
+        def_epa_per_pass=sum(epa*pass)/def_n_pass,
+        def_epa_per_rush=sum(epa*rush)/def_n_rush,
+        def_success_per_pass=sum(pass*epa>0)/def_n_pass,
+        def_success_per_rush=sum(rush*epa>0)/def_n_rush,
+        def_epa=mean(epa)
+    )
+
+off_def_epa <- offense %>% 
+    inner_join(defense, by=c("posteam" = "defteam")) %>%
+    left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr"))
+
+
+# Make EPA Tiers plot
+
+epa_plot <- off_def_epa %>% 
+    ggplot(aes(x = off_epa, y = def_epa)) + 
+    geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
+    geom_hline(yintercept = mean(off_def_epa$off_epa), color = "red", linetype = "dashed") +
+    geom_vline(xintercept =  mean(off_def_epa$def_epa), color = "red", linetype = "dashed") +
+    theme_custom() +
+  geom_abline(slope = -1.5, intercept = c(.4, .3, .2, .1, 0, -.1, -.2, -.3, -.4), alpha = .2) +
+    labs(x = "Offense EPA/play",
+         y = "Defense EPA/play",
+         caption = "Data: @nflscrapR | Plot: @steodosescu",
+         title = glue("Expected Points Added (EPA) Tiers"),
+        subtitle = glue("Rush and pass plays only. Thru Week {current_week}.")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      size = 10,
+      hjust = 0.5)
+  ) +
+  theme(plot.subtitle = element_markdown()) +
+  scale_y_reverse()
+
+epa_plot
+
+```
+
+
+### Performance vs Expectations
+
+The below shows current win totals -- expressed in win percentage -- compared to pre-season expectations, according to Vegas bookmakers. Data was pulled from pro-football-reference.com the day before the regular season began for this analysis.
+
+```{r, echo = FALSE}
+
+# get current wins
+games_df <- nflreadr::load_schedules() %>% 
+  filter(season == 2025, game_type == "REG") %>% 
+  select(game_id, team_home = home_team, team_away = away_team, result, week) %>% 
+  pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
+  mutate(
+    result = ifelse(home_away == 'home', result, -result),
+    win = ifelse(result == 0 , 0.5, ifelse(result > 0, 1, 0))
+  ) %>% 
+  select(week, team, win, result) %>% 
+  drop_na()
+
+
+team_df <- nflreadr::load_teams() %>% 
+  select(team_logo_espn, team_abbr, team_name, team_conf, team_division, team_color)
+
+games_df <- games_df %>% 
+  group_by(team) %>% 
+  summarise(
+    Wins = length(win[win==1]),
+    Losses = length(win[win==0]),
+    result = sum(result)) %>%
+  left_join(team_df, by = c("team" = "team_abbr")) %>% 
+  select(team_logo_espn, team, team_name, team_conf, team_division, team_color, Wins, Losses, result)
+
+
+# load preseason win totals from Vegas sportsbooks (accessed in late August)
+vegas_totals <- read_csv("https://raw.githubusercontent.com/steodose/NFL/refs/heads/master/preseason_win_totals_2025.csv")
+
+vegas_totals <- vegas_totals %>% 
+    mutate(implied_win_perc = win_total/17)
+
+# join vegas win totals to current win totals
+joined_df <- games_df %>%
+    left_join(vegas_totals, by = c("team" = "team")) %>%
+  mutate(total_games = Wins + Losses,
+         win_total_perc = Wins/total_games,
+         win_total_diff = win_total_perc - implied_win_perc)
+
+# create barplot
+expected_totals_barplot <- joined_df %>% 
+  ggplot(aes(x = fct_reorder(team_name, -win_total_diff), y = win_total_diff)) +
+  geom_col(aes(fill = team_color, 
+               color = after_scale(clr_darken(fill, 0.3))
+  ),
+  width = 0.4, 
+  alpha = .75,
+  ) + 
+  scale_color_identity(aesthetics =  c("fill"))  +
+  geom_image(
+    aes(
+      image = team_logo_espn                                  
+    ), 
+    size = 0.035, 
+    by = "width", 
+    asp = asp_ratio
+  ) +
+  geom_hline(yintercept = 0, color = "black", size = 1) +
+  scale_y_continuous(labels = scales::percent_format(),
+                       breaks = scales::pretty_breaks(n = 10)) +
+  theme_custom() + 
+  theme(axis.text.x = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank()) + 
+  labs(x = "", 
+       y = "Win % over Expected", 
+       caption = "Data: nflverse/OddsAPI | Plot: @steodosescu",
+       title = glue("Performance Relative to Expecations"),
+       subtitle = glue("Actual win totals vs. Predicted. Win total over/unders pulled from various sportsbooks as of September 3, 2025.")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      hjust = 0.5)
+  )
+  
+expected_totals_barplot
+
+
+```
+
+
+
+### Pythagorean Wins
+
+The below shows each team's actual win percentage vs their pythagoroean win percentage. Pythagorean winning percentage is important to look at because it's a better predictor of future success than actual wins. According to Sumer Sports, pythagorean winning percentage has an R^2 of 0.14 to next year's winning percentage while actual winning percentage is only 0.11.
+
+``` {r, echo = FALSE}
+
+games_df2 <-  nflreadr::load_schedules() %>% 
+  filter(season == 2025, game_type == "REG") %>% 
+  select(game_id, team_home = home_team, team_away = away_team, away_score, home_score, result, week) %>% 
+  drop_na() %>%
+  pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
+  mutate(
+    result = ifelse(home_away == 'home', result, -result),
+    win = ifelse(result == 0 , 0.5, ifelse(result > 0, 1, 0))
+  ) %>% 
+  mutate(
+    PF = ifelse(home_away == 'home', home_score, away_score),
+    PA = ifelse(home_away == 'home', away_score, home_score),
+  ) %>% 
+  group_by(team) %>%
+  summarise(
+    wins = length(win[win==1]),
+    losses = length(win[win==0]),
+    ties = length(win[win==0.5]),
+    pf = sum(PF),
+    pa = sum(PA))
+
+
+# pyth_wins_df <- games_df2 %>%
+#   mutate(total_games = wins + losses,
+#          win_total_perc = wins/total_games,
+#          pyth_win_perc = ((pf/pa)^2)/(1+(pf/pa)^2)) %>%
+#   left_join(team_df, by = c("team" = "team_abbr")) 
+
+pyth_wins_df <- games_df2 %>%
+  mutate(total_games = wins + losses,
+         win_total_perc = (wins/total_games)+(ties*0.005),
+         pyth_win_perc = ((pf/pa)^2)/(1+(pf/pa)^2),
+         pyth_wins = (pf^2.37/(pf^2.37+pa^2.37))*17) %>%
+  left_join(team_df, by = c("team" = "team_abbr")) 
+
+
+py_wins_plot <- pyth_wins_df %>% 
+  ggplot(aes(x = win_total_perc, y = pyth_win_perc)) + 
+  geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
+  annotate("text", x=0.3, y=0.65, label = "Better than Record", color = "#00BA38", family = 'Outfit') +
+  annotate("text", x=0.7, y=0.35, label = "Worse than Record", color = "#F8766D", family = 'Outfit') +
+  theme_custom() +
+  #geom_abline(slope = 1, alpha = .2) +
+  geom_smooth(method = "lm", se = FALSE, color="gray", alpha = 0.2) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_continuous(labels = scales::percent_format()) +
+  labs(x = "Actual Win %",
+       y = "Pythagorean Win %",
+       caption = "Data: @nflfastR | Plot: @steodosescu",
+       title = glue("Actual and Pythagorean Win Percentage"),
+       subtitle = glue("Pythagorean Win % tells how many games a team should have won based on points scored/allowed. It's an indicator of potential future success. Thru Week {current_week}.")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+        ),
+        plot.subtitle = element_text(
+          size = 10,
+          hjust = 0.5)
+  ) +
+  theme(plot.subtitle = element_markdown())
+
+py_wins_plot
+
+
+```
+
+
+
+### Point Differential
+
+The below shows cumulative point differential for each team this season.
+
+```{r, echo = FALSE}
+
+# create point differential barplot
+point_diff_barplot <- games_df %>% 
+  ggplot(aes(x = fct_reorder(team_name, -result), y = result)) +
+  geom_col(aes(fill = team_color, 
+               color = after_scale(clr_darken(fill, 0.3))
+  ),
+  width = 0.4, 
+  alpha = .75,
+  ) + 
+  scale_color_identity(aesthetics =  c("fill"))  +
+  geom_image(
+    aes(
+      image = team_logo_espn                                  
+    ), 
+    size = 0.035, 
+    by = "width", 
+    asp = asp_ratio
+  ) +
+  geom_hline(yintercept = 0, color = "black", size = 1) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  theme_custom() + 
+  theme(axis.text.x = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank()) + 
+  labs(x = "", 
+       y = "Point Differential", 
+       caption = "Data: nflverse | Plot: @steodosescu",
+       title = glue("NFL Point Differential"),
+       subtitle = glue("Thru Week {current_week}.")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      hjust = 0.5)
+  )
+  
+
+point_diff_barplot
+
+```
+
+
+### Explosive Plays
+Some teams are better than others at getting chunk plays. We're defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We're highlighting the 49ers this season since they have been among the most exciting teams to watch. 
+
+```{r Explosive Plays, echo = FALSE}
+
+explosive_plays <- pbp_rp %>% 
+  filter(
+    play_type %in% c("pass", "run"),
+    penalty == 0,
+    !is.na(epa)
+  ) %>% 
+  mutate(explosive_play = case_when((play_type == "pass" & yards_gained >= 20) ~ 1,
+                            (play_type == "run" & yards_gained >= 10) ~ 1,
+                            TRUE ~ 0)) %>% 
+  group_by(posteam) %>%
+  summarize(
+    n_dropbacks = sum(pass),
+    n_rush = sum(rush),
+    n_plays = n(),
+    n_explosive_plays = sum(explosive_play)
+  ) %>%
+  mutate(explosive_share = n_explosive_plays/n_plays) %>% 
+  ungroup() # always ungroup if you no longer need the grouping effect
+
+
+# Add logos instead of team names for the y axis
+
+# Define function to link to images
+link_to_img <- function(x, width = 20) {
+  glue::glue("<img src='{x}' width='{width}'/>")
+}
+
+explosive_plays2 <- explosive_plays %>% 
+  arrange(desc(explosive_share))
+
+# Plot with logos on y-xis
+explosive_plays_plot_logos <- explosive_plays %>% 
+  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
+  mutate(logos = link_to_img(team_logo_espn)) %>%
+  ggplot(aes(x = explosive_share, y = reorder(logos, explosive_share))) +
+  geom_col(fill = if_else(explosive_plays$posteam == "SF", "#AA0000", "grey")) +
+  labs(
+    x = "Explosive Play Share (%)",
+    y = "",
+    caption = "Data: @nflscrapR | Plot: @steodosescu",
+    title = glue("Most Explosive Teams, 2025 NFL Season"),
+    subtitle = glue("Explosive plays = 10 yards+ on rushes, 20 yards+ on passes. Thru Week {current_week}.")
+  ) +
+  theme_custom() +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    )) +
+  theme(plot.subtitle = element_markdown()) +
+  theme(plot.title = element_markdown()) +
+  geom_vline(xintercept = mean(explosive_plays$explosive_share), color = "red", linetype = "dashed") +
+  scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, suffix = " %")) +
+  #theme(axis.text.y = element_markdown(margin = margin(r = -25, unit = "pt"))) +
+  theme(axis.text.y = element_markdown()) +
+  theme(legend.position = "none")
+
+explosive_plays_plot_logos
+
+```
+
+
+***
+## Strength of Schedule
+Coming soon...
+
+```{r, echo=FALSE}
+
+epa_only <- off_def_epa %>%
+  select(posteam, off_epa, def_epa) %>%
+  mutate(epa_play = off_epa - def_epa) %>%
+  select(posteam, epa_play)
+
+#load games data and join epa for home and away teams
+games_epa <- load_sharpe_games() %>% 
+  filter(season == 2025, game_type == "REG") %>%
+  left_join(epa_only, by = c('away_team' = 'posteam')) %>%
+  rename(away_epa_play = epa_play) %>%
+  left_join(epa_only, by = c('home_team' = 'posteam')) %>%
+  rename(home_epa_play = epa_play) %>%
+  mutate(game_played = case_when(!is.na(result) ~ 'played',
+                            is.na(result) ~ 'not played',
+                            TRUE ~ 'nothing'))
+
+# transformations
+# games_epa <- games_epa %>%
+#   select(game_id, week, team_home = home_team, team_away = away_team, away_epa_play, home_epa_play, game_played) %>%
+#   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>%
+#   mutate( #this ensures you grab the opposing team's epa_play for SOS analysis
+#     played_opp_epa_play = ifelse(home_away == 'home' & game_played == 'played', away_epa_play, home_epa_play),
+#      not_played_opp_epa_play = ifelse(home_away == 'home' & game_played == 'not played', away_epa_play, home_epa_play)
+#   ) %>%
+#   group_by(team) %>% #may need to alter this
+#   summarise(
+#     opp_epa_play = sum(opp_epa_play)) %>%
+#   arrange(desc(opp_epa_play)) %>%
+#   mutate(rank = row_number()) %>%
+#   select(rank, team, opp_epa_play)
+
+
+
+
+```
+
