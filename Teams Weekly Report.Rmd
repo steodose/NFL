@@ -35,6 +35,7 @@ library(ggrepel) # better labels
 library(ggimage)
 library(glue)
 library(ggtext)
+library(nflplotR) # team logos on plot axes
 library(reactable)
 library(reactablefmtr)
 library(ggalt) #for dumbbell plot
@@ -139,10 +140,19 @@ theme_538 <- function() {
 }
 
 # Custom ggplot theme (inspired by Owen Phillips at the F5 substack blog)
-theme_custom <- function () { 
-  theme_minimal(base_size=11, base_family="Titillium Web") %+replace% 
+# Built on theme_bw and stripped back to match theme_minimal's look. Under
+# ggplot2 4.0 a theme_minimal base drops custom axis-text elements, so logo
+# axes (nflplotR::element_nfl_logo) render blank; other base themes are fine.
+theme_custom <- function () {
+  theme_bw(base_size=11, base_family="Titillium Web") %+replace%
     theme(
       panel.grid.minor = element_blank(),
+      panel.background = element_blank(),
+      panel.border = element_blank(),
+      axis.ticks = element_blank(),
+      legend.background = element_blank(),
+      legend.key = element_blank(),
+      strip.background = element_blank(),
       plot.background = element_rect(fill = 'floralwhite', color = "floralwhite"),
       plot.subtitle = element_text(color = "grey60")
     )
@@ -466,21 +476,17 @@ explosive_plays <- pbp_rp %>%
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
-# Add logos instead of team names for the y axis
+# Add logos instead of team names for the y axis.
+# nflplotR::element_nfl_logo() turns team abbreviations on the axis into logos.
+# This replaces an earlier approach that embedded <img> tags and rendered them
+# with ggtext::element_markdown(), which stopped working under ggplot2 4.0.
 
-# Define function to link to images
-link_to_img <- function(x, width = 20) {
-  glue::glue("<img src='{x}' width='{width}'/>")
-}
-
-explosive_plays2 <- explosive_plays %>% 
+explosive_plays2 <- explosive_plays %>%
   arrange(desc(explosive_share))
 
 # Plot with logos on y-xis
-explosive_plays_plot_logos <- explosive_plays %>% 
-  left_join(nflfastR::teams_colors_logos, by = c("posteam" = "team_abbr")) %>% 
-  mutate(logos = link_to_img(team_logo_espn)) %>%
-  ggplot(aes(x = explosive_share, y = reorder(logos, explosive_share))) +
+explosive_plays_plot_logos <- explosive_plays %>%
+  ggplot(aes(x = explosive_share, y = reorder(posteam, explosive_share))) +
   geom_col(fill = if_else(explosive_plays$posteam == "SF", "#AA0000", "grey")) +
   labs(
     x = "Explosive Play Share (%)",
@@ -498,8 +504,7 @@ explosive_plays_plot_logos <- explosive_plays %>%
   theme(plot.title = element_markdown()) +
   geom_vline(xintercept = mean(explosive_plays$explosive_share), color = "red", linetype = "dashed") +
   scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, suffix = " %")) +
-  #theme(axis.text.y = element_markdown(margin = margin(r = -25, unit = "pt"))) +
-  theme(axis.text.y = element_markdown()) +
+  theme(axis.text.y = nflplotR::element_nfl_logo(size = 1)) +
   theme(legend.position = "none")
 
 explosive_plays_plot_logos

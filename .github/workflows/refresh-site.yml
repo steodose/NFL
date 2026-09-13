@@ -104,6 +104,7 @@ jobs:
             any::nflfastR
             any::nflreadr
             any::nflseedR
+            any::nflplotR
             any::paletteer
             any::prismatic
             any::reactable
