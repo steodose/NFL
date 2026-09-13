@@ -1,0 +1,134 @@
+name: Refresh site
+
+# Renders the R Markdown site and commits the output back to master,
+# which is what GitHub Pages serves.
+#
+# Schedule: 03:00 America/Los_Angeles on Mon, Tue and Fri, to pick up the
+# nflverse data refresh after each slate of games:
+#   Fri - Thursday Night Football
+#   Mon - Sunday games
+#   Tue - Monday Night Football
+#
+# GitHub cron is UTC-only, so both candidate hours are registered and the
+# gate job drops whichever one is not 03:00 Pacific today.
+on:
+  schedule:
+    - cron: '0 10 * * 1,2,5'   # 03:00 PDT
+    - cron: '0 11 * * 1,2,5'   # 03:00 PST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-site
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - id: check
+        run: |
+          if [ "${{ github.event_name }}" != 'schedule' ]; then
+            echo "Manual run - proceeding."
+            echo 'run=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          hour=$(TZ=America/Los_Angeles date +%H)
+          if [ "$hour" = '03' ]; then
+            echo "Pacific hour is $hour - proceeding."
+            echo 'run=true' >> "$GITHUB_OUTPUT"
+          else
+            echo "Pacific hour is $hour, not 03 - this is the off-DST duplicate. Skipping."
+            echo 'run=false' >> "$GITHUB_OUTPUT"
+          fi
+
+  render:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+          use-public-rspm: true
+
+      # ggplot figures are drawn in Titillium Web and Outfit. knitr runs with
+      # warning=FALSE, so a missing font substitutes silently rather than
+      # failing - hence the explicit check below.
+      - name: Install fonts
+        run: |
+          set -euo pipefail
+          dir=~/.local/share/fonts
+          mkdir -p "$dir"
+          base=https://raw.githubusercontent.com/google/fonts/main
+          for f in Regular Bold SemiBold Light; do
+            curl -fsSL -o "$dir/TitilliumWeb-$f.ttf" \
+              "$base/ofl/titilliumweb/TitilliumWeb-$f.ttf"
+          done
+          curl -fsSL -o "$dir/Outfit.ttf" "$base/ofl/outfit/Outfit%5Bwght%5D.ttf"
+          fc-cache -f
+          fc-list | grep -qi titillium || { echo 'Titillium Web missing'; exit 1; }
+          fc-list | grep -qi outfit    || { echo 'Outfit missing'; exit 1; }
+          echo 'Fonts registered.'
+
+      # ggalt and reactablefmtr are archived on CRAN, so they come from source.
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 1
+          packages: |
+            any::rmarkdown
+            any::knitr
+            any::tidyverse
+            any::DBI
+            any::RSQLite
+            any::animation
+            any::extrafont
+            any::ggforce
+            any::ggimage
+            any::ggrepel
+            any::ggsci
+            any::ggtext
+            any::glue
+            any::gt
+            any::gtExtras
+            any::htmltools
+            any::nflfastR
+            any::nflreadr
+            any::nflseedR
+            any::paletteer
+            any::prismatic
+            any::reactable
+            any::scales
+            any::teamcolors
+            any::webshot
+            any::webshot2
+            github::hrbrmstr/ggalt
+            github::kcuilla/reactablefmtr
+
+      - name: Render site
+        run: Rscript -e 'rmarkdown::render_site(encoding = "UTF-8")'
+
+      # Forecast Simulations.Rmd rewrites Latest Game Predictions.csv and
+      # Overall Predictions.csv on every render, so data files are committed
+      # alongside the rendered HTML.
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if [ -z "$(git status --porcelain)" ]; then
+            echo 'Nothing changed - not committing.'
+            exit 0
+          fi
+          git add -A
+          git commit -m "Auto refresh site ($(TZ=America/Los_Angeles date '+%Y-%m-%d %H:%M %Z'))"
+          git push
