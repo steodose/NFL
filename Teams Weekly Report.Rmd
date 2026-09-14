@@ -38,7 +38,6 @@ library(ggtext)
 library(nflplotR) # team logos on plot axes
 library(reactable)
 library(reactablefmtr)
-library(ggalt) #for dumbbell plot
 library(ggforce)
 library(ggsci)
 library(paletteer)

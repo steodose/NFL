@@ -36,7 +36,6 @@ library(glue)
 library(ggtext)
 library(reactable)
 library(reactablefmtr)
-library(ggalt) #for dumbbell plot
 library(ggforce)
 library(ggsci)
 

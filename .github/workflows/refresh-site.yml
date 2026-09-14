@@ -80,7 +80,7 @@ jobs:
           fc-list | grep -qi outfit    || { echo 'Outfit missing'; exit 1; }
           echo 'Fonts registered.'
 
-      # ggalt and reactablefmtr are archived on CRAN, so they come from source.
+      # reactablefmtr is archived on CRAN, so it comes from source.
       # dependencies: hard installs only Depends/Imports/LinkingTo. The default
       # ("all") also pulls Suggests for every package named below, which fails
       # here: reactablefmtr suggests dataui, a GitHub-only package pak cannot
@@ -123,7 +123,6 @@ jobs:
             any::teamcolors
             any::webshot
             any::webshot2
-            github::hrbrmstr/ggalt
             github::kcuilla/reactablefmtr
 
       - name: Render site
