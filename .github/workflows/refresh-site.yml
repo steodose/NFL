@@ -81,10 +81,21 @@ jobs:
           echo 'Fonts registered.'
 
       # ggalt and reactablefmtr are archived on CRAN, so they come from source.
+      # dependencies: hard installs only Depends/Imports/LinkingTo. The default
+      # ("all") also pulls Suggests for every package named below, which fails
+      # here: reactablefmtr suggests dataui, a GitHub-only package pak cannot
+      # resolve from CRAN, and one unresolvable package aborts the whole solve.
+      # The tables here use color_scales/embed_img/add_title, none of which need
+      # dataui. Soft deps the render does rely on are named explicitly below.
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache-version: 1
+          cache-version: 2
+          dependencies: '"hard"'
           packages: |
+            any::magick
+            any::ragg
+            any::systemfonts
+            any::curl
             any::rmarkdown
             any::knitr
             any::tidyverse
