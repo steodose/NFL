@@ -52,7 +52,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
+      # Full history: the push step resets onto a freshly fetched master, which
+      # is unreliable in a shallow clone.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -131,6 +135,11 @@ jobs:
       # Forecast Simulations.Rmd rewrites Latest Game Predictions.csv and
       # Overall Predictions.csv on every render, so data files are committed
       # alongside the rendered HTML.
+      # A plain `git push` fails if master moved between checkout and push
+      # (a manual push, or an overlapping run). Everything committed here is
+      # regenerated output, so the freshly rendered copy should always win:
+      # rebase the working tree onto the current master and commit on top,
+      # retrying in case master moves again mid-push.
       - name: Commit and push
         run: |
           set -euo pipefail
@@ -140,6 +149,29 @@ jobs:
             echo 'Nothing changed - not committing.'
             exit 0
           fi
+          msg="Auto refresh site ($(TZ=America/Los_Angeles date '+%Y-%m-%d %H:%M %Z')) [skip ci]"
           git add -A
-          git commit -m "Auto refresh site ($(TZ=America/Los_Angeles date '+%Y-%m-%d %H:%M %Z'))"
-          git push
+          git commit -m "$msg"
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:master; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected (master moved); rebasing and retrying."
+            git fetch origin master
+            # During a rebase "theirs" is the commit being replayed - this one -
+            # so regenerated output wins any conflict, while files added by the
+            # other push are preserved. Never use `git add -A` against a moved
+            # master: it would stage deletions for files this run never had.
+            if ! git rebase -X theirs origin/master; then
+              git rebase --abort || true
+              echo 'Could not rebase onto master.'
+              exit 1
+            fi
+            if git diff --quiet origin/master HEAD; then
+              echo 'Render matches current master - nothing left to push.'
+              exit 0
+            fi
+          done
+          echo 'Could not push after 5 attempts.'
+          exit 1
