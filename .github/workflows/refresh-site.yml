@@ -95,7 +95,12 @@ jobs:
       # here: reactablefmtr suggests dataui, a GitHub-only package pak cannot
       # resolve from CRAN, and one unresolvable package aborts the whole solve.
       # The tables here use color_scales/embed_img/add_title, none of which need
-      # dataui. Soft deps the render does rely on are named explicitly below.
+      # dataui. Soft deps the render does rely on are named explicitly below:
+      # gtExtras' gt_plt_bar_stack/gt_plt_winloss render inline plots via
+      # ggsave(.svg) and need svglite, and reactable pulls in crosstalk. Both
+      # load lazily at call time, so neither shows up as a library() call.
+      # To re-check after adding charts: run render_site() locally, then diff
+      # loadedNamespaces() against the hard-dependency closure of this list.
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
@@ -105,6 +110,8 @@ jobs:
             any::ragg
             any::systemfonts
             any::curl
+            any::svglite
+            any::crosstalk
             any::rmarkdown
             any::knitr
             any::tidyverse
