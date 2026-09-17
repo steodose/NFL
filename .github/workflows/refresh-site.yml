@@ -25,30 +25,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Only decides whether a SCHEDULED run is the 03:00 Pacific one. Manual runs
+  # bypass this entirely via the render job's condition below, so a problem
+  # here can never block a workflow_dispatch.
   gate:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     outputs:
       run: ${{ steps.check.outputs.run }}
     steps:
       - id: check
         run: |
-          if [ "${{ github.event_name }}" != 'schedule' ]; then
-            echo "Manual run - proceeding."
-            echo 'run=true' >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
           hour=$(TZ=America/Los_Angeles date +%H)
           if [ "$hour" = '03' ]; then
             echo "Pacific hour is $hour - proceeding."
             echo 'run=true' >> "$GITHUB_OUTPUT"
           else
-            echo "Pacific hour is $hour, not 03 - this is the off-DST duplicate. Skipping."
+            echo "Pacific hour is $hour, not 03 - off-DST duplicate. Skipping."
             echo 'run=false' >> "$GITHUB_OUTPUT"
           fi
+          echo "event=${{ github.event_name }} pacific_hour=$hour"
 
   render:
     needs: gate
-    if: needs.gate.outputs.run == 'true'
+    # !cancelled() is required: `gate` is skipped on a manual run, and a skipped
+    # dependency would otherwise skip this job too. Manual runs always render;
+    # scheduled runs render only when the gate says it is 03:00 Pacific.
+    if: >-
+      !cancelled() &&
+      (github.event_name != 'schedule' || needs.gate.outputs.run == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
