@@ -45,11 +45,11 @@ library(prismatic)
 
 # load pbp data
 #data <- load_pbp(2013:2024)
-data <- load_pbp(2025)
+data <- load_pbp(2026)
 
 # Filter for Run/Pass plays for the current season only
 pbp_rp <- data %>%
-  filter(season == 2025) %>%
+  filter(season == 2026) %>%
   filter(rush == 1 | pass == 1, !is.na(epa)) # Exclude plays with missing EPA.
 
 # Identify current week
@@ -242,7 +242,7 @@ The below shows current win totals -- expressed in win percentage -- compared to
 
 # get current wins
 games_df <- nflreadr::load_schedules() %>% 
-  filter(season == 2025, game_type == "REG") %>% 
+  filter(season == 2026, game_type == "REG") %>% 
   select(game_id, team_home = home_team, team_away = away_team, result, week) %>% 
   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
   mutate(
@@ -267,7 +267,7 @@ games_df <- games_df %>%
 
 
 # load preseason win totals from Vegas sportsbooks (accessed in late August)
-vegas_totals <- read_csv("https://raw.githubusercontent.com/steodose/NFL/refs/heads/master/preseason_win_totals_2025.csv")
+vegas_totals <- read_csv("https://raw.githubusercontent.com/steodose/NFL/refs/heads/master/preseason_win_totals_2026.csv")
 
 vegas_totals <- vegas_totals %>% 
     mutate(implied_win_perc = win_total/17)
@@ -308,7 +308,7 @@ expected_totals_barplot <- joined_df %>%
        y = "Win % over Expected", 
        caption = "Data: nflverse/OddsAPI | Plot: @steodosescu",
        title = glue("Performance Relative to Expecations"),
-       subtitle = glue("Actual win totals vs. Predicted. Win total over/unders pulled from various sportsbooks as of September 3, 2025.")) +
+       subtitle = glue("Actual win totals vs. Predicted. Win total over/unders pulled from various sportsbooks as of September, 2026.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -332,7 +332,7 @@ The below shows each team's actual win percentage vs their pythagoroean win perc
 ``` {r, echo = FALSE}
 
 games_df2 <-  nflreadr::load_schedules() %>% 
-  filter(season == 2025, game_type == "REG") %>% 
+  filter(season == 2026, game_type == "REG") %>% 
   select(game_id, team_home = home_team, team_away = away_team, away_score, home_score, result, week) %>% 
   drop_na() %>%
   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>% 
@@ -491,7 +491,7 @@ explosive_plays_plot_logos <- explosive_plays %>%
     x = "Explosive Play Share (%)",
     y = "",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
-    title = glue("Most Explosive Teams, 2025 NFL Season"),
+    title = glue("Most Explosive Teams, 2026 NFL Season"),
     subtitle = glue("Explosive plays = 10 yards+ on rushes, 20 yards+ on passes. Thru Week {current_week}.")
   ) +
   theme_custom() +
@@ -524,7 +524,7 @@ epa_only <- off_def_epa %>%
 
 #load games data and join epa for home and away teams
 games_epa <- load_sharpe_games() %>% 
-  filter(season == 2025, game_type == "REG") %>%
+  filter(season == 2026, game_type == "REG") %>%
   left_join(epa_only, by = c('away_team' = 'posteam')) %>%
   rename(away_epa_play = epa_play) %>%
   left_join(epa_only, by = c('home_team' = 'posteam')) %>%

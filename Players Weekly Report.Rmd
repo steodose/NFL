@@ -45,7 +45,7 @@ library(gtExtras)
 options(scipen = 9999)
 
 
-data <- load_pbp(2025) #Load PBP data from nflfastR
+data <- load_pbp(2026) #Load PBP data from nflfastR
 
 # Filter for Run/Pass plays for the current season only
 pbp_rp <- data %>%
@@ -53,7 +53,7 @@ pbp_rp <- data %>%
 
 # Identify current week
 current_week <- max(pbp_rp$week)
-current_season <- 2025
+current_season <- 2026
 
 ```
 
@@ -288,7 +288,7 @@ epa_logos <- epa_play %>%
   labs(
     x = "EPA per Dropback",
     y = "",
-    title = "Team QB Efficiency, 2025 NFL Season",
+    title = "Team QB Efficiency, 2026 NFL Season",
     subtitle = glue("EPA per dropback measured thru **Week {current_week}**."),
     caption = "Data: @nflfastR | Plot: @steodosescu") +
   theme(plot.title = element_text(face = "bold", 
@@ -380,7 +380,7 @@ qb_success_rate <- qbs %>%
     y = "EPA per play",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = "Quarterback Performance",
-    subtitle = "2025 season, min 100 pass attempts, includes all QB's rush and pass plays."
+    subtitle = "2026 season, min 100 pass attempts, includes all QB's rush and pass plays."
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
