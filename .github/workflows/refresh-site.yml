@@ -10,7 +10,7 @@ name: Refresh site
 #   Tue - Monday Night Football
 #
 # GitHub cron is UTC-only, so both candidate hours are registered and the
-# gate job drops whichever one is not 03:00 Pacific today.
+# gate job drops whichever one does not correspond to 03:00 Pacific today.
 on:
   schedule:
     - cron: '0 10 * * 1,2,5'   # 03:00 PDT
@@ -34,23 +34,44 @@ jobs:
     outputs:
       run: ${{ steps.check.outputs.run }}
     steps:
+      # Decide from the cron that TRIGGERED this run, never from the clock.
+      # GitHub routinely starts scheduled runs hours after their nominal time
+      # (observed here: 10:00 UTC crons starting at 14:06 and 14:41 UTC), so a
+      # "is it 03:00 Pacific right now?" test is false for both candidates and
+      # drops the whole day. github.event.schedule is the literal cron string
+      # from the `on:` block above, so it identifies the intended slot no matter
+      # how late the runner picks it up. A delayed run still renders - just late.
       - id: check
+        env:
+          TRIGGER: ${{ github.event.schedule }}
         run: |
-          hour=$(TZ=America/Los_Angeles date +%H)
-          if [ "$hour" = '03' ]; then
-            echo "Pacific hour is $hour - proceeding."
+          set -euo pipefail
+          # Hour field of the triggering cron: 10 (the PDT entry) or 11 (PST).
+          fired=$(echo "$TRIGGER" | awk '{print $2}')
+          # DST only flips on a Sunday at 02:00 local; this workflow runs
+          # Mon/Tue/Fri, so the offset now is the offset that was in force at
+          # 03:00 Pacific this morning even when the run starts hours late.
+          offset=$(TZ=America/Los_Angeles date +%z)
+          if [ "$offset" = '-0700' ]; then
+            want=10   # PDT
+          else
+            want=11   # PST
+          fi
+          if [ "$fired" = "$want" ]; then
+            echo "Cron '$TRIGGER' is the 03:00 Pacific slot (offset $offset) - proceeding."
             echo 'run=true' >> "$GITHUB_OUTPUT"
           else
-            echo "Pacific hour is $hour, not 03 - off-DST duplicate. Skipping."
+            echo "Cron '$TRIGGER' is the off-DST duplicate (offset $offset wants hour $want). Skipping."
             echo 'run=false' >> "$GITHUB_OUTPUT"
           fi
-          echo "event=${{ github.event_name }} pacific_hour=$hour"
+          echo "event=${{ github.event_name }} fired_hour=$fired want_hour=$want offset=$offset pacific_now=$(TZ=America/Los_Angeles date '+%Y-%m-%d %H:%M')"
 
   render:
     needs: gate
     # !cancelled() is required: `gate` is skipped on a manual run, and a skipped
     # dependency would otherwise skip this job too. Manual runs always render;
-    # scheduled runs render only when the gate says it is 03:00 Pacific.
+    # scheduled runs render only when the gate says this is the day's
+    # 03:00 Pacific cron.
     if: >-
       !cancelled() &&
       (github.event_name != 'schedule' || needs.gate.outputs.run == 'true')

@@ -60,9 +60,16 @@ c("Depends","Imports","LinkingTo"), recursive = TRUE)`.
 
 `.github/workflows/refresh-site.yml` renders and commits at 03:00 America/Los_Angeles
 on Mon, Tue and Fri (after Sunday, MNF and TNF). GitHub cron is UTC-only, so both
-10:00 and 11:00 UTC are registered and a `gate` job drops whichever is not 03:00
-Pacific — that is what keeps it at one run per day across the November DST change.
-Manual `workflow_dispatch` bypasses the gate entirely.
+10:00 and 11:00 UTC are registered and a `gate` job drops whichever one is not
+03:00 Pacific today — that is what keeps it at one run per day across the November
+DST change. Manual `workflow_dispatch` bypasses the gate entirely.
+
+The gate must decide from `github.event.schedule` (the cron string that fired),
+**never** from the wall clock. GitHub starts these runs hours after their nominal
+time — 10:00 UTC crons have started at 14:06 and 14:41 UTC — so a
+`TZ=America/Los_Angeles date +%H` = 03 test is false for *both* candidates and
+silently drops the entire day's refresh. The symptom is a 2-second `gate` job and
+a skipped `render`, with the run still reported green.
 
 The push step rebases onto a moved `master` and retries, so a concurrent push is not
 lost. Repo permissions must be Settings → Actions → General → **Read and write**.
