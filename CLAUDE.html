@@ -11,7 +11,7 @@
 
 
 
-<title>About</title>
+<title>CLAUDE</title>
 
 <script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,8 +32,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -312,111 +310,115 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">About</h1>
 
 </div>
 
 
-<p>This website is your home for everything modern, public NFL analytics
-have to offer.</p>
-<div id="glossary-of-terms" class="section level2">
-<h2>Glossary of Terms</h2>
+<div id="nfl-analytics-site" class="section level1">
+<h1>NFL Analytics site</h1>
+<p>R Markdown website published at <a
+href="https://steodose.github.io/NFL"
+class="uri">https://steodose.github.io/NFL</a>. GitHub Pages serves it
+from the <strong>root of <code>master</code></strong>, so the rendered
+<code>.html</code>, <code>site_libs/</code> and <code>*_files/</code>
+are committed deliberately — they are the published artifact, not build
+litter. <code>_site.yml</code> sets <code>output_dir: "."</code>, which
+is why output lands beside source.</p>
+<p>Do not work from <code>~/Desktop/R Projects/NFL</code>. That is an
+iCloud-synced archive of older one-off analyses; its file contents are
+evicted, which makes <code>du</code> report wrong sizes and git index
+operations hang or time out.</p>
+<div id="rendering" class="section level2">
+<h2>Rendering</h2>
+<pre class="r"><code>rmarkdown::render_site()              # whole site
+rmarkdown::render_site(&quot;Games.Rmd&quot;)   # one page, correctly</code></pre>
+<p><strong>Never use bare <code>rmarkdown::render()</code> on a page
+here.</strong> It ignores <code>_site.yml</code>, defaults to
+<code>self_contained: true</code>, and <em>deletes</em> the page’s
+<code>_files/</code> directory — a single-file render produced a 7.7MB
+self-contained page and dropped the figures. The RStudio Knit button is
+fine: <code>NFL.Rproj</code> sets <code>BuildType: Website</code>, so it
+routes through <code>render_site()</code>.</p>
+<p>Sanity check after rendering: pages stay in the tens-to-hundreds of
+KB and reference <code>site_libs</code>. A jump to megabytes means a
+self-contained render.</p>
+</div>
+<div id="gotchas-that-cost-real-debugging-time" class="section level2">
+<h2>Gotchas that cost real debugging time</h2>
 <ul>
-<li>Expected Points Added (EPA): The change in Expected Points (EP) from
-play to play.</li>
-<li>Completion Percentage Over Expectation (CPOE): Difference in
-expected completion percentage and actual completion percentage.
-Expected completion percentage is the likelihood of a given pass being
-completed given target depth.</li>
-<li>Average Depth of Target (aDOT): Air yards on passing plays (ie does
-not consider yards gained after the catch).</li>
-<li>Success Rate (SR): The percentage of plays that were successful,
-defined as plays resulting in positive EPA for the offense and negative
-EPA for the defense.</li>
+<li><strong><code>theme_minimal()</code> breaks image-based axis
+labels</strong> under ggplot2 4.0. Both
+<code>ggtext::element_markdown()</code> and
+<code>nflplotR::element_nfl_logo()</code> silently degrade — no error,
+just missing logos or raw HTML as axis text. Every other base theme
+(grey, bw, light, classic, linedraw) works. <code>theme_custom()</code>
+is therefore built on <code>theme_bw</code> and stripped back to match
+theme_minimal’s appearance. Keep it that way.</li>
+<li><strong>Failures are silent.</strong> Every Rmd sets
+<code>warning = FALSE</code>, so broken charts render clean and publish
+with a green checkmark. After changing chart code, compare figure file
+sizes against the previous render — a &gt;50% swing means something
+broke.</li>
+<li><strong><code>dpi:</code> in the YAML headers is inert.</strong>
+<code>html_document</code>’s <code>fig_retina: 2</code> overrides it;
+figures are 1920x1344 shown at 960px, a deliberate 2x for Retina.
+Changing <code>dpi</code> does nothing. Do not “optimise” it.</li>
 </ul>
-<p>More on these metrics and the models underpinning them can be found
-at <a
-href="https://www.opensourcefootball.com/posts/2020-09-28-nflfastr-ep-wp-and-cp-models/">Open
-Source Football</a>.</p>
-<hr />
 </div>
-<div id="resources-and-inspiration" class="section level2">
-<h2>Resources and Inspiration</h2>
-<p>The below resources were used to create the above plots within this
-document. Many thanks to all the authors of these fantastic
-resources:</p>
-<table>
-<colgroup>
-<col width="16%" />
-<col width="16%" />
-<col width="66%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Title/Link</th>
-<th align="left">Author</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><a href="https://r4ds.had.co.nz/">R for Data
-Science</a></td>
-<td align="left">Hadley Wickham, Garret Grolemund</td>
-<td align="left">A great overview of the <code>tidyverse</code>, covers
-everything from reading data in, data manipulation/summarization, data
-viz, and general programming in R</td>
-</tr>
-<tr class="even">
-<td align="left"><a
-href="https://jthomasmock.github.io/nfl_plotting_cookbook/#Scatter_plots">nflfastR
-Graphics Cookbook</a></td>
-<td align="left">Thomas Mock</td>
-<td align="left">As step-by-step guide on how to improve your nflfastR
-graphics.</td>
-</tr>
-<tr class="odd">
-<td align="left"><a
-href="http://www.nflfastr.com/articles/beginners_guide.html">Beginner’s
-Guide to nflfastR</a></td>
-<td align="left">Ben Baldwin</td>
-<td align="left">Covers introductory examples of how to get started with
-the nflfastR package, and more broadly, how to use R and the
-tidyverse.</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="https://rmarkdown.rstudio.com/lesson-1.html">R
-Markdown Intro Guide</a></td>
-<td align="left">R Studio</td>
-<td align="left">Intro primer to authoring R Markdown documents.:</td>
-</tr>
-<tr class="odd">
-<td align="left"><a
-href="http://www.cookbook-r.com/Graphs/"><code>ggplot2</code>
-Cookbook</a></td>
-<td align="left">Winston Chang</td>
-<td align="left">Quick cookbook of <code>ggplot2</code> plots</td>
-</tr>
-<tr class="even">
-<td align="left"><a
-href="https://www.p8105.com/making_websites.html">Making Websites in R
-Markdown</a></td>
-<td align="left">Jeff Goldsmith</td>
-<td align="left">Nice introduction from his course at Columbia on how to
-make websites using only R and Rstudio.</td>
-</tr>
-<tr class="odd">
-<td align="left"><a href="https://bookdown.org/yihui/rmarkdown/">R
-Markdown Book</a></td>
-<td align="left">Yihui Xie, J. J. Allaire, Garrett Grolemund</td>
-<td align="left">The definitive guide outlining what you can do with the
-rmarkdown package (Allaire, Xie, McPherson, et al. 2021), which was
-first created in early 2014. The package has steadily evolved into a
-complete ecosystem for authoring documents in a variety of output
-formats including the output of this document that you’re reading.</td>
-</tr>
-</tbody>
-</table>
+<div id="adding-an-r-package" class="section level2">
+<h2>Adding an R package</h2>
+<p>Add it to <code>packages:</code> in
+<code>.github/workflows/refresh-site.yml</code>. CI installs with
+<code>dependencies: '"hard"'</code> (Depends/Imports/LinkingTo only),
+because pulling Suggests drags in <code>dataui</code>, a GitHub-only
+package that aborts the whole pak solve.</p>
+<p>Consequence: anything a package loads <strong>lazily</strong> must be
+named explicitly — it will work locally and fail in CI. That is how
+<code>svglite</code> (gtExtras’ <code>gt_plt_*</code> render via
+<code>ggsave(.svg)</code>) and <code>crosstalk</code> (reactable) were
+missed. To find the full set:</p>
+<pre class="r"><code>rmarkdown::render_site(); writeLines(sort(loadedNamespaces()), &quot;ns.txt&quot;)</code></pre>
+<p>then diff against
+<code>tools::package_dependencies(&lt;the list&gt;, which = c("Depends","Imports","LinkingTo"), recursive = TRUE)</code>.</p>
+</div>
+<div id="scheduled-refresh" class="section level2">
+<h2>Scheduled refresh</h2>
+<p><code>.github/workflows/refresh-site.yml</code> renders and commits
+at 03:00 America/Los_Angeles on Mon, Tue and Fri (after Sunday, MNF and
+TNF). GitHub cron is UTC-only, so both 10:00 and 11:00 UTC are
+registered and a <code>gate</code> job drops whichever one is not 03:00
+Pacific today — that is what keeps it at one run per day across the
+November DST change. Manual <code>workflow_dispatch</code> bypasses the
+gate entirely.</p>
+<p>The gate must decide from <code>github.event.schedule</code> (the
+cron string that fired), <strong>never</strong> from the wall clock.
+GitHub starts these runs hours after their nominal time — 10:00 UTC
+crons have started at 14:06 and 14:41 UTC — so a
+<code>TZ=America/Los_Angeles date +%H</code> = 03 test is false for
+<em>both</em> candidates and silently drops the entire day’s refresh.
+The symptom is a 2-second <code>gate</code> job and a skipped
+<code>render</code>, with the run still reported green.</p>
+<p>The push step rebases onto a moved <code>master</code> and retries,
+so a concurrent push is not lost. Repo permissions must be Settings →
+Actions → General → <strong>Read and write</strong>.</p>
+<p><code>Forecast Simulations.Rmd</code> rewrites
+<code>Latest Game Predictions.csv</code> and
+<code>Overall Predictions.csv</code> on every render, so those are
+committed too. It simulates only games where <code>is.na(result)</code>,
+so completed games are picked up automatically — no week needs
+hardcoding there.</p>
+</div>
+<div id="season-rollover" class="section level2">
+<h2>Season rollover</h2>
+<p>Bump the year in <code>NFL Summary Report.Rmd</code>,
+<code>Teams Weekly Report.Rmd</code>,
+<code>Players Weekly Report.Rmd</code> (<code>load_pbp()</code>, season
+filters, chart titles), set <code>current_week</code> in
+<code>Current Week Odds.Rmd</code>, and point Teams Weekly Report at
+that season’s <code>preseason_win_totals_&lt;year&gt;.csv</code> — it is
+fetched over HTTP from raw.githubusercontent on <code>master</code>, so
+the file must be committed and pushed first or the render 404s.</p>
+</div>
 </div>
 
 <p>Copyright &copy; 2021 Stephan Teodosescu</p>
