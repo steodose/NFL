@@ -35,6 +35,27 @@ reference `site_libs`. A jump to megabytes means a self-contained render.
 - **Failures are silent.** Every Rmd sets `warning = FALSE`, so broken charts render
   clean and publish with a green checkmark. After changing chart code, compare figure
   file sizes against the previous render — a >50% swing means something broke.
+  **That heuristic only holds within one machine.** macOS writes RGBA + an `iCCP`
+  colour profile + `eXIf`; Linux/CI writes plain RGB + `pHYs`. Identical charts, and
+  the CI copy is about *half* the bytes — so every local↔CI comparison trips the rule
+  for no reason. Before chasing one, check the encoding:
+  `python3 -c "import struct;d=open(f,'rb').read();print(struct.unpack('>IIBBBBB',d[16:29]))"`
+  (colour type 6 = RGBA, 2 = RGB) — if the colour types differ, that alone explains it.
+- **Image axis labels need `fig.height` ~10 at 32 rows.** `nflplotR::element_nfl_logo()`
+  and `element_path()` silently drop roughly a quarter of the images at the YAML
+  default of 7 — no warning, the axis just comes up patchy. Set `fig.height = 10` on
+  any per-team chunk and size the images ~0.95.
+- **Team helmets live in `helmets/`** as `<ABBR>_left.png` / `<ABBR>_right.png`, all 32
+  abbreviations matching nflfastR `posteam` exactly. Draw them with
+  `nflplotR::element_path()`, which renders axis text that *is* a file path as an
+  image: make the y aesthetic the path (`file.path("helmets", paste0(posteam,
+  "_right.png"))`) and let `fct_reorder()` carry the ordering. Paths resolve at render
+  time, so `helmets/` must stay committed or CI renders a blank axis.
+- **Never map `colour` in a `geom_text()` layer that uses `position_stack()`.** ggplot
+  groups by the interaction of all discrete aesthetics, so a mapped colour regroups
+  that layer and stacks the labels in a different order from the bars — each team's
+  label lands in the wrong segment, with no error. Compute positions instead:
+  `group_by(team) |> arrange(<fill factor>) |> mutate(label_x = cumsum(share) - share/2)`.
 - **`dpi:` in the YAML headers is inert.** `html_document`'s `fig_retina: 2` overrides
   it; figures are 1920x1344 shown at 960px, a deliberate 2x for Retina. Changing `dpi`
   does nothing. Do not "optimise" it.
@@ -78,6 +99,38 @@ lost. Repo permissions must be Settings → Actions → General → **Read and w
 `Overall Predictions.csv` on every render, so those are committed too. It simulates
 only games where `is.na(result)`, so completed games are picked up automatically —
 no week needs hardcoding there.
+
+## Series data (`series_result`)
+
+A series ends when the offense gains a first down **or** the possession ends, so one
+drive contributes several series — ~30 per team per game, not ~12.
+
+Take one row per series from its **first play**
+(`group_by(game_id, series) |> slice_min(play_id, with_ties = FALSE)`).
+`distinct(game_id, posteam, series, series_result)` looks equivalent and is not: after
+a defensive touchdown the extra-point play carries the **scoring** team as `posteam`
+while keeping the same `series` number and `series_result` ("Opp touchdown"), so the
+series is emitted twice and the team that just scored is charged with a failed
+offensive series. It is only a handful of series a week, so it will not look wrong.
+
+`QB kneel` and `End of half` are not genuine offensive attempts; drop them.
+
+## Forecast simulation determinism
+
+`set.seed(8236)` immediately precedes `simulate_nfl(simulations = 10000)`, and it
+works — a re-render with an unchanged schedule reproduces both prediction CSVs
+byte-for-byte. So the numbers move only when an **input** moves, and the only remote
+input is `load_schedules()`, refetched every render.
+
+Only games with `is.na(result)` are simulated (255 of 272 as of Week 2). When a game
+finishes it leaves that set, which both changes the starting conditions *and* shifts
+every later draw's position in the RNG stream — so **all 32 teams' odds move, not just
+the two who played**. A full rewrite of `Latest Game Predictions.csv` after a slate is
+correct behaviour, not drift.
+
+Two quieter sources: a schedule revision with no new results still moves things (the
+Elo model reads `home_rest - away_rest`), and CI installs packages fresh, so an
+`nflseedR` update changes results with identical seed *and* identical data.
 
 ## Season rollover
 
