@@ -249,8 +249,9 @@ team_logos <- select(nflfastR::teams_colors_logos, team = team_abbr, team_nick, 
 
 overall_predictions <- sims2$overall %>%
   left_join(team_logos, by = "team") %>%
-    arrange(-won_sb) %>% 
-  select(team = team_nick, team_logo_espn, division, wins, playoff:draft5) %>% 
+    arrange(-playoff, -won_sb) %>% 
+    mutate(miss_playoff = 1-playoff) %>% 
+  select(team = team_nick, team_logo_espn, division, wins, playoff:miss_playoff) %>% 
     mutate(team_logo = paste0("![", team, "](", team_logo_espn, ")"
                               ),
            .before = 1)

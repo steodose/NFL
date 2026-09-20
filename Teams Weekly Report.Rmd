@@ -216,7 +216,7 @@ epa_plot <- off_def_epa %>%
          y = "Defense EPA/play",
          caption = "Data: @nflscrapR | Plot: @steodosescu",
          title = glue("Expected Points Added (EPA) Tiers"),
-        subtitle = glue("Rush and pass plays only. Thru Week {current_week}.")) +
+        subtitle = glue("Rush and pass plays only | All downs | All Quarters | As of Week {current_week}.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -233,6 +233,79 @@ epa_plot
 
 ```
 
+
+### Offensive EPA
+
+Expected Points Added for offensive units. Top right quadrant houses the units with the best offense.
+
+```{r, echo = FALSE}
+
+# Offensive EPA Plot
+off_epa_plot <- off_def_epa %>% 
+    ggplot(aes(x = epa_per_pass, y = epa_per_rush)) + 
+    geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
+    geom_hline(yintercept = mean(off_def_epa$epa_per_pass), color = "red", linetype = "dashed") +
+    geom_vline(xintercept =  mean(off_def_epa$epa_per_rush), color = "red", linetype = "dashed") +
+    theme_custom() +
+    labs(x = "EPA/pass",
+         y = "EPA/rush",
+         caption = "Data: @nflscrapR | Plot: @steodosescu",
+         title = glue("Offensive EPA"),
+        subtitle = glue("Rush and pass plays only | All downs | All Quarters | As of Week {current_week}.")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      size = 10,
+      hjust = 0.5)
+  ) +
+  theme(plot.subtitle = element_markdown())
+
+off_epa_plot
+
+```
+
+
+### Defensive EPA
+
+Expected Points Added for defensive units. Top right quadrant houses the units with the best defense.
+
+```{r, echo = FALSE}
+
+# Defensive EPA Plot
+def_epa_plot <- off_def_epa %>% 
+    ggplot(aes(x = def_epa_per_pass, y = def_epa_per_rush)) + 
+    geom_image(aes(image = team_logo_espn), size = 0.065, by = "width", asp = asp_ratio) +
+    geom_hline(yintercept = mean(off_def_epa$def_epa_per_pass), color = "red", linetype = "dashed") +
+    geom_vline(xintercept =  mean(off_def_epa$def_epa_per_rush), color = "red", linetype = "dashed") +
+    theme_custom() +
+    labs(x = "EPA/pass Allowed",
+         y = "EPA/rush Allowed",
+         caption = "Data: @nflscrapR | Plot: @steodosescu",
+         title = glue("Defensive EPA"),
+        subtitle = glue("Rush and pass plays only | All downs | All Quarters | As of Week {current_week}.")) +
+  theme(plot.title.position = "plot",
+        plot.title = element_text(face = "bold", 
+                                  size = 20, 
+                                  hjust = 0.5
+    ),
+    plot.subtitle = element_text(
+      size = 10,
+      hjust = 0.5)
+  ) +
+  theme(plot.subtitle = element_markdown()) +
+    scale_x_reverse() +
+    scale_y_reverse() 
+
+def_epa_plot
+
+
+```
+
+
+***
 
 ### Performance vs Expectations
 
@@ -324,7 +397,7 @@ expected_totals_barplot
 ```
 
 
-
+***
 ### Pythagorean Wins
 
 The below shows each team's actual win percentage vs their pythagoroean win percentage. Pythagorean winning percentage is important to look at because it's a better predictor of future success than actual wins. According to Sumer Sports, pythagorean winning percentage has an R^2 of 0.14 to next year's winning percentage while actual winning percentage is only 0.11.
@@ -381,7 +454,7 @@ py_wins_plot <- pyth_wins_df %>%
        y = "Pythagorean Win %",
        caption = "Data: @nflfastR | Plot: @steodosescu",
        title = glue("Actual and Pythagorean Win Percentage"),
-       subtitle = glue("Pythagorean Win % tells how many games a team should have won based on points scored/allowed. It's an indicator of potential future success. Thru Week {current_week}.")) +
+       subtitle = glue("Pythagorean Win % tells how many games a team should have won based on points scored/allowed. It's an indicator of potential future success. As of Week {current_week}.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -399,7 +472,7 @@ py_wins_plot
 ```
 
 
-
+***
 ### Point Differential
 
 The below shows cumulative point differential for each team this season.
@@ -434,7 +507,7 @@ point_diff_barplot <- games_df %>%
        y = "Point Differential", 
        caption = "Data: nflverse | Plot: @steodosescu",
        title = glue("NFL Point Differential"),
-       subtitle = glue("Thru Week {current_week}.")) +
+       subtitle = glue("As of Week {current_week}.")) +
   theme(plot.title.position = "plot",
         plot.title = element_text(face = "bold", 
                                   size = 20, 
@@ -450,10 +523,12 @@ point_diff_barplot
 ```
 
 
+***
 ### Explosive Plays
+
 Some teams are better than others at getting chunk plays. We're defining explosive plays as those gaining 15 yards or more on rushes and 20 yards+ on passes. We're highlighting the 49ers this season since they have been among the most exciting teams to watch. 
 
-```{r Explosive Plays, echo = FALSE}
+```{r Explosive Plays, echo = FALSE, fig.height = 10}
 
 explosive_plays <- pbp_rp %>% 
   filter(
@@ -475,24 +550,32 @@ explosive_plays <- pbp_rp %>%
   ungroup() # always ungroup if you no longer need the grouping effect
 
 
-# Add logos instead of team names for the y axis.
-# nflplotR::element_nfl_logo() turns team abbreviations on the axis into logos.
-# This replaces an earlier approach that embedded <img> tags and rendered them
-# with ggtext::element_markdown(), which stopped working under ggplot2 4.0.
+# Helmets instead of team names on the y axis. nflplotR::element_path()
+# renders axis text that is a file path as an image, so the axis values are
+# the helmet paths themselves and the ordering rides along on the factor.
+# (This replaced element_nfl_logo(), which in turn replaced <img> tags drawn
+# with ggtext::element_markdown() -- that stopped working under ggplot2 4.0.)
+
+explosive_plays <- explosive_plays %>%
+  mutate(helmet = file.path("helmets", paste0(posteam, "_right.png")))
 
 explosive_plays2 <- explosive_plays %>%
   arrange(desc(explosive_share))
 
 # Plot with logos on y-xis
 explosive_plays_plot_logos <- explosive_plays %>%
-  ggplot(aes(x = explosive_share, y = reorder(posteam, explosive_share))) +
+  ggplot(aes(x = explosive_share, y = reorder(helmet, explosive_share))) +
   geom_col(fill = if_else(explosive_plays$posteam == "SF", "#AA0000", "grey")) +
+  # Share printed just past the end of each bar; the x expansion below makes
+  # room for it inside the panel.
+  geom_text(aes(label = scales::percent(explosive_share, accuracy = 0.1)),
+            hjust = -0.15, family = "Titillium Web", size = 3, colour = "grey30") +
   labs(
     x = "Explosive Play Share (%)",
     y = "",
     caption = "Data: @nflscrapR | Plot: @steodosescu",
     title = glue("Most Explosive Teams, 2026 NFL Season"),
-    subtitle = glue("Explosive plays = 10 yards+ on rushes, 20 yards+ on passes. Thru Week {current_week}.")
+    subtitle = glue("Explosive plays = 10 yards+ on rushes, 20 yards+ on passes. As of Week {current_week}.")
   ) +
   theme_custom() +
   theme(plot.title = element_text(face = "bold", 
@@ -502,8 +585,9 @@ explosive_plays_plot_logos <- explosive_plays %>%
   theme(plot.subtitle = element_markdown()) +
   theme(plot.title = element_markdown()) +
   geom_vline(xintercept = mean(explosive_plays$explosive_share), color = "red", linetype = "dashed") +
-  scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, suffix = " %")) +
-  theme(axis.text.y = nflplotR::element_nfl_logo(size = 1)) +
+  scale_x_continuous(labels = scales::percent_format(accuracy = 0.1, suffix = " %"),
+                     expand = expansion(mult = c(0, 0.08))) +
+  theme(axis.text.y = nflplotR::element_path(size = 0.95)) +
   theme(legend.position = "none")
 
 explosive_plays_plot_logos
@@ -512,42 +596,119 @@ explosive_plays_plot_logos
 
 
 ***
-## Strength of Schedule
-Coming soon...
+## Offensive Series Success
 
-```{r, echo=FALSE}
+A series ends when the offense gains a first down or the possession ends, so a single drive is usually made up of several series. Sorting by series success rate — the share of series ending in a touchdown or a first down — shows which offenses keep the chains moving rather than which simply score most often.
 
-epa_only <- off_def_epa %>%
-  select(posteam, off_epa, def_epa) %>%
-  mutate(epa_play = off_epa - def_epa) %>%
-  select(posteam, epa_play)
+```{r Series Success, echo = FALSE, fig.height = 10}
 
-#load games data and join epa for home and away teams
-games_epa <- load_sharpe_games() %>% 
-  filter(season == 2026, game_type == "REG") %>%
-  left_join(epa_only, by = c('away_team' = 'posteam')) %>%
-  rename(away_epa_play = epa_play) %>%
-  left_join(epa_only, by = c('home_team' = 'posteam')) %>%
-  rename(home_epa_play = epa_play) %>%
-  mutate(game_played = case_when(!is.na(result) ~ 'played',
-                            is.na(result) ~ 'not played',
-                            TRUE ~ 'nothing'))
+# Series results, in the style of rbsdm.com's "Offensive Series Results".
+# Uses `data` (all plays), not pbp_rp: pbp_rp is filtered to rushes/passes,
+# which would drop the punt and field goal series entirely.
+#
+# One row per series, taken from the series' FIRST play. Do not substitute
+# distinct(game_id, posteam, series, series_result): after a defensive
+# touchdown the extra-point play carries the *scoring* team as posteam while
+# keeping the same series number and series_result ("Opp touchdown"), so
+# distinct() emits that series twice and charges the team that just scored
+# with a failed offensive series.
+series_levels <- c("TD", "First Down", "FG", "Punt", "TO")
 
-# transformations
-# games_epa <- games_epa %>%
-#   select(game_id, week, team_home = home_team, team_away = away_team, away_epa_play, home_epa_play, game_played) %>%
-#   pivot_longer(contains('team'), names_to = 'home_away', values_to = 'team', names_prefix = 'team_') %>%
-#   mutate( #this ensures you grab the opposing team's epa_play for SOS analysis
-#     played_opp_epa_play = ifelse(home_away == 'home' & game_played == 'played', away_epa_play, home_epa_play),
-#      not_played_opp_epa_play = ifelse(home_away == 'home' & game_played == 'not played', away_epa_play, home_epa_play)
-#   ) %>%
-#   group_by(team) %>% #may need to alter this
-#   summarise(
-#     opp_epa_play = sum(opp_epa_play)) %>%
-#   arrange(desc(opp_epa_play)) %>%
-#   mutate(rank = row_number()) %>%
-#   select(rank, team, opp_epa_play)
+series_results <- data %>%
+  filter(season_type == "REG", !is.na(posteam), posteam != "", !is.na(series_result)) %>%
+  group_by(game_id, series) %>%
+  slice_min(play_id, with_ties = FALSE) %>%
+  ungroup() %>%
+  # Not genuine offensive attempts.
+  filter(!series_result %in% c("QB kneel", "End of half")) %>%
+  mutate(series_bucket = factor(case_when(
+      series_result == "Touchdown"  ~ "TD",
+      series_result == "First down" ~ "First Down",
+      series_result == "Field goal" ~ "FG",
+      series_result == "Punt"       ~ "Punt",
+      # Turnover, Turnover on downs, Opp touchdown, Missed field goal.
+      TRUE                          ~ "TO"
+    ), levels = series_levels))
 
+# .drop = FALSE keeps a zero row for buckets a team never reached, so every
+# team keeps all five segments and the shares still sum to 1.
+series_shares <- series_results %>%
+  count(posteam, series_bucket, .drop = FALSE) %>%
+  group_by(posteam) %>%
+  mutate(n_series = sum(n),
+         share = n / n_series,
+         # Series success = touchdown or first down; this sorts the chart.
+         success_rate = sum(share[series_bucket %in% c("TD", "First Down")])) %>%
+  ungroup() %>%
+  # Helmets rather than logos on the y axis. nflplotR::element_path() renders
+  # axis text that is a file path as an image, so the axis values are the
+  # paths themselves and the ordering rides along on the factor.
+  mutate(helmet = file.path("helmets", paste0(posteam, "_right.png")),
+         helmet = fct_reorder(helmet, success_rate),
+         # Ink colour for the in-bar labels: light text on the dark fills,
+         # dark text on the light ones. scale_colour_identity() below uses
+         # these literally rather than mapping them through a scale.
+         label_ink = case_when(
+           series_bucket %in% c("TD", "FG", "TO") ~ "floralwhite",
+           TRUE                                   ~ "grey15"
+         )) %>%
+  # Label positions computed explicitly rather than via position_stack().
+  # Mapping colour in the text layer changes that layer's implicit grouping,
+  # which made position_stack() order the labels differently from the bars
+  # and parked each team's FG share near the left edge of its row.
+  group_by(posteam) %>%
+  arrange(series_bucket, .by_group = TRUE) %>%
+  mutate(label_x = cumsum(share) - share / 2) %>%
+  ungroup()
+
+# One row per team for the abbreviations down the right-hand side.
+series_team_labels <- series_shares %>%
+  distinct(posteam, helmet)
+
+# An ordered outcome scale, so diverging rather than categorical: blue = the
+# offense kept the ball moving, red = it did not, neutral grey for FG in the
+# middle. Stepped so that adjacent segments stay apart for colourblind
+# readers (worst adjacent pair is deltaE 23.5 under deuteranopia).
+series_cols <- c("TD" = "#08415F", "First Down" = "#6FB3DC", "FG" = "#6E665C",
+                 "Punt" = "#E8A97E", "TO" = "#93261F")
+
+series_results_plot <- series_shares %>%
+  ggplot(aes(x = share, y = helmet, fill = series_bucket)) +
+  # Drawing the segment borders in the panel colour leaves a hairline gap, so
+  # neighbouring fills never touch.
+  geom_col(width = 0.78, position = position_stack(reverse = TRUE),
+           colour = "floralwhite", linewidth = 0.45) +
+  # Segments under 5% are too narrow to hold a legible label, so they are
+  # left blank rather than overplotted. Raise or lower the threshold here.
+  geom_text(aes(x = label_x,
+                label = if_else(share >= 0.05,
+                                scales::percent(share, accuracy = 1), ""),
+                colour = label_ink),
+            family = "Titillium Web", size = 3, show.legend = FALSE) +
+  scale_colour_identity() +
+  # Team abbreviations down the right edge, inside the panel padding added by
+  # the x expansion below (so no clip = "off" needed).
+  geom_text(data = series_team_labels, aes(x = 1.015, y = helmet, label = posteam),
+            inherit.aes = FALSE, hjust = 0, family = "Titillium Web",
+            size = 3.2, fontface = "bold", colour = "grey30") +
+  scale_fill_manual(values = series_cols, name = NULL) +
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1),
+                     expand = expansion(mult = c(0, 0.06))) +
+  labs(
+    x = "Series Result Share",
+    y = "",
+    caption = "Data: @nflfastR | Plot: @steodosescu",
+    title = glue("Offensive Series Results, 2026 NFL Season"),
+    subtitle = glue("How every offensive series ended. Sorted by series success rate (TD or first down). As of Week {current_week}.")
+  ) +
+  theme_custom() +
+  theme(plot.title = element_text(face = "bold", size = 20, hjust = 0.5)) +
+  theme(plot.subtitle = element_markdown(hjust = 0.5)) +
+  theme(legend.position = "top") +
+  theme(panel.grid.major.y = element_blank()) +
+  theme(axis.text.y = nflplotR::element_path(size = 0.95))
+
+series_results_plot
 
 
 
