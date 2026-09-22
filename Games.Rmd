@@ -365,6 +365,15 @@ recap_table <- recap_gt_data %>%
              palette = rev(recap_pal)) %>%
   cols_hide(c(result, turnover_rate, penalty_yards, pair_end)) %>%
   cols_align(align = "left", columns = c(team, score)) %>%
+  # One width for every metric column so the block of numbers reads as a grid.
+  # Setting any width switches gt to a fixed table layout, so the identity
+  # columns need explicit widths too.
+  cols_width(
+    team_logo_espn ~ px(42),
+    team           ~ px(52),
+    score          ~ px(44),
+    everything()   ~ px(118)
+  ) %>%
   cols_align(align = "center", columns = c(epa_play, off_epa, def_epa,
                                            explosive_share, turnovers_lab,
                                            penalties_lab)) %>%
