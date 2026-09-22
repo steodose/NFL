@@ -56,6 +56,18 @@ reference `site_libs`. A jump to megabytes means a self-contained render.
   that layer and stacks the labels in a different order from the bars — each team's
   label lands in the wrong segment, with no error. Compute positions instead:
   `group_by(team) |> arrange(<fill factor>) |> mutate(label_x = cumsum(share) - share/2)`.
+- **Webfonts must be loaded by the page, not assumed installed.** `header.html`
+  pulls Titillium Web from Google Fonts and `_site.yml` includes it in every
+  page's head. Before that, the reactable themes asked for
+  `fontFamily = "Titillium Web"` and no page ever loaded the family, so it
+  resolved only against installed system fonts. Safari restricts CSS access to
+  locally installed fonts as a fingerprinting defence, so every reactable table
+  fell back to the default serif and rendered in Times -- on machines that *do*
+  have the font installed. Chrome hid the bug. gt tables were unaffected because
+  `opt_table_font(google_font(...))` emits its own `@import`. Any new font the
+  site uses needs adding to `header.html`, and changing that file means
+  re-rendering every page for the new head to appear.
+
 - **`dpi:` in the YAML headers is inert.** `html_document`'s `fig_retina: 2` overrides
   it; figures are 1920x1344 shown at 960px, a deliberate 2x for Retina. Changing `dpi`
   does nothing. Do not "optimise" it.
