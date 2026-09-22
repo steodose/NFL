@@ -37,6 +37,8 @@ library(glue)
 library(ggtext)
 library(reactable)
 library(reactablefmtr)
+library(gt)
+library(gtExtras)
 library(ggforce)
 library(ggsci)
 library(ggimage)
@@ -301,123 +303,96 @@ recaps <- recap_off %>%
 
 ```{r Recap Table, echo = FALSE}
 
-# Diverging fills: warm pole = bad, cool pole = good, neutral grey in the middle
-# (the same two arms as the Series Success chart on the Teams page). These are
-# computed here rather than with reactablefmtr::color_scales() because the
-# turnover and penalty columns print combined text ("2 (3.3%)", "6/39") and have
-# to be shaded by a numeric column they do not display.
+# Diverging fills: warm pole = bad, cool pole = good, neutral grey at the
+# middle (the same two arms as the Series Success chart on the Teams page).
 recap_pal <- c("#C25E45", "#E8A97E", "#F0EFEC", "#A9CBE3", "#6FB3DC")
 
-recap_fill <- function(x, reverse = FALSE) {
-  p <- (x - min(x, na.rm = TRUE)) / diff(range(x, na.rm = TRUE))
-  p[!is.finite(p)] <- 0.5
-  if (reverse) p <- 1 - p
-  grDevices::rgb(grDevices::colorRamp(recap_pal)(p), maxColorValue = 255)
-}
+epa_domain <- function(x) c(-1, 1) * max(abs(x), na.rm = TRUE)
 
-recap_fills <- list(
-  epa_play        = recap_fill(recaps$epa_play),
-  off_epa         = recap_fill(recaps$off_epa),
-  def_epa         = recap_fill(recaps$def_epa, reverse = TRUE),
-  explosive_share = recap_fill(recaps$explosive_share),
-  turnovers       = recap_fill(recaps$turnover_rate, reverse = TRUE),
-  penalties       = recap_fill(recaps$penalty_yards, reverse = TRUE)
-)
+recap_gt_data <- recaps %>%
+  mutate(
+    week_label = factor(paste("Week", week),
+                        levels = paste("Week", sort(unique(week), decreasing = TRUE))),
+    result = case_when(score > opp_score ~ "W", score < opp_score ~ "L", TRUE ~ "T"),
+    turnovers_lab = sprintf("%d (%.1f%%)", n_turnovers, 100 * turnover_rate),
+    penalties_lab = paste0(n_penalties, "/", penalty_yards),
+    # each game is two rows; rule off the second one
+    pair_end = row_number() %% 2 == 0
+  ) %>%
+  select(week_label, team_logo_espn, team, score, epa_play, off_epa, def_epa,
+         explosive_share, turnovers_lab, penalties_lab,
+         result, turnover_rate, penalty_yards, pair_end)
 
-fill_style <- function(col) {
-  force(col)
-  function(value, index) list(background = recap_fills[[col]][index])
-}
-
-recap_table <- reactable(
-  recaps,
-  theme = theme_538,
-  showSortIcon = TRUE,
-  searchable = TRUE,
-  language = reactableLang(
-    searchPlaceholder = "SEARCH FOR A TEAM (ABBR)..."),
-  defaultPageSize = 100,
-  # keep each game's two rows visually paired
-  rowStyle = function(index) {
-    if (index %% 2 == 0) list(borderBottom = "2px solid #555")
-  },
-  columns = list(
-    week = colDef(name = "Wk", align = "center", maxWidth = 55),
-    team_logo_espn = colDef(
-      name = "",
-      maxWidth = 40,
-      align = "right",
-      cell = embed_img(height = "25", width = "30")
-    ),
-    team = colDef(name = "Team", align = "left", maxWidth = 70),
-    score = colDef(
-      name = "",
-      maxWidth = 55,
-      align = "left",
-      style = list(borderRight = "2px solid #555"),
-      cell = function(value, index) {
-        opp <- recaps$opp_score[index]
-        ink <- if (value > opp) "#1A7A1A" else if (value < opp) "#B3261E" else "#555555"
-        htmltools::span(style = paste0("font-weight:700;color:", ink), value)
-      }
-    ),
-    opp_score = colDef(show = FALSE),
-    epa_play = colDef(
-      name = "EPA/Play",
-      align = "right",
-      style = fill_style("epa_play"),
-      format = colFormat(digits = 2)
-    ),
-    off_epa = colDef(
-      name = "Off EPA/Play",
-      align = "right",
-      style = fill_style("off_epa"),
-      format = colFormat(digits = 2)
-    ),
-    def_epa = colDef(
-      name = "Def EPA/Play",
-      align = "right",
-      style = fill_style("def_epa"),
-      format = colFormat(digits = 2)
-    ),
-    explosive_share = colDef(
-      name = "Explosive Play Rate",
-      align = "right",
-      style = fill_style("explosive_share"),
-      format = colFormat(percent = TRUE, digits = 1)
-    ),
-    n_turnovers = colDef(
-      name = "Turnovers",
-      align = "right",
-      style = fill_style("turnovers"),
-      cell = function(value, index) {
-        sprintf("%d (%.1f%%)", value, 100 * recaps$turnover_rate[index])
-      }
-    ),
-    turnover_rate = colDef(show = FALSE),
-    n_penalties = colDef(
-      name = "Penalties (n/yds)",
-      align = "right",
-      style = fill_style("penalties"),
-      cell = function(value, index) {
-        paste0(value, "/", recaps$penalty_yards[index])
-      }
-    ),
-    penalty_yards = colDef(show = FALSE)
-  ),
-  pagination = FALSE,
-  compact = TRUE,
-  borderless = FALSE,
-  striped = FALSE,
-  fullWidth = FALSE,
-  defaultColDef = colDef(align = "center", minWidth = 95)
-) %>%
-  add_title("Game Recaps",
-            font_size = 28) %>%
-  add_subtitle(glue("How each team performed in every game this season, through Week {current_week}. Cool cells are good, warm cells are bad, shaded within each column. Click a column header to sort by that statistic."),
-               font_size = 14,
-               font_weight = "normal") %>%
-  add_source("Data: nflfastR")
+recap_table <- recap_gt_data %>%
+  gt(groupname_col = "week_label") %>%
+  gt_img_rows(columns = team_logo_espn, height = 22) %>%
+  cols_label(
+    team_logo_espn  = "",
+    team            = "Team",
+    score           = "",
+    epa_play        = "EPA/Play",
+    off_epa         = "Off EPA/Play",
+    def_epa         = "Def EPA/Play",
+    explosive_share = "Explosive Play Rate",
+    turnovers_lab   = "Turnovers",
+    penalties_lab   = "Penalties (n/yds)"
+  ) %>%
+  fmt_number(columns = c(epa_play, off_epa, def_epa), decimals = 2) %>%
+  fmt_percent(columns = explosive_share, decimals = 1) %>%
+  # One data_color() call per column so each is scaled on its own range. The
+  # EPA columns get an explicit symmetric domain so that the palette's neutral
+  # grey lands on exactly 0 EPA rather than on the midpoint of whatever range
+  # the season happens to have produced. The turnover and penalty columns
+  # print combined text, so they are shaded from a hidden numeric column via
+  # target_columns.
+  data_color(columns = epa_play, palette = recap_pal,
+             domain = epa_domain(recap_gt_data$epa_play)) %>%
+  data_color(columns = off_epa, palette = recap_pal,
+             domain = epa_domain(recap_gt_data$off_epa)) %>%
+  data_color(columns = def_epa, palette = rev(recap_pal),
+             domain = epa_domain(recap_gt_data$def_epa)) %>%
+  data_color(columns = explosive_share, palette = recap_pal) %>%
+  data_color(columns = turnover_rate, target_columns = turnovers_lab,
+             palette = rev(recap_pal)) %>%
+  data_color(columns = penalty_yards, target_columns = penalties_lab,
+             palette = rev(recap_pal)) %>%
+  cols_hide(c(result, turnover_rate, penalty_yards, pair_end)) %>%
+  cols_align(align = "left", columns = c(team, score)) %>%
+  cols_align(align = "center", columns = c(epa_play, off_epa, def_epa,
+                                           explosive_share, turnovers_lab,
+                                           penalties_lab)) %>%
+  # winner's score in green, loser's in red
+  tab_style(style = cell_text(color = "#1A7A1A", weight = "bold"),
+            locations = cells_body(columns = score, rows = result == "W")) %>%
+  tab_style(style = cell_text(color = "#B3261E", weight = "bold"),
+            locations = cells_body(columns = score, rows = result == "L")) %>%
+  tab_style(style = cell_text(color = "#555555", weight = "bold"),
+            locations = cells_body(columns = score, rows = result == "T")) %>%
+  tab_style(style = cell_borders(sides = "right", color = "#555555", weight = px(2)),
+            locations = cells_body(columns = score)) %>%
+  tab_style(style = cell_borders(sides = "bottom", color = "#555555", weight = px(2)),
+            locations = cells_body(rows = pair_end)) %>%
+  tab_header(
+    title = "Game Recaps",
+    subtitle = glue("How each team performed in every game this season, through Week {current_week}. Cool cells are good, warm cells are bad, shaded within each column.")
+  ) %>%
+  tab_source_note("Data: nflfastR") %>%
+  opt_all_caps(locations = "column_labels") %>%
+  opt_table_font(font = list(google_font("Titillium Web"), default_fonts())) %>%
+  tab_options(
+    table.font.size = px(13),
+    heading.title.font.size = px(28),
+    heading.subtitle.font.size = px(14),
+    heading.align = "left",
+    heading.border.bottom.style = "none",
+    column_labels.font.weight = "bold",
+    column_labels.border.top.style = "none",
+    row_group.font.weight = "bold",
+    row_group.background.color = "#F9F9F9",
+    table.border.top.style = "none",
+    data_row.padding = px(3),
+    source_notes.font.size = px(11)
+  )
 
 recap_table
 
