@@ -572,9 +572,12 @@ current_week_games2 %>%
   ) %>%
   gt_plt_bar_stack(list_data,
     width = 60,
-    #scale_type = "percent",
     labels = c("  Away  ", "  Home  "),
-    palette = c("#ff4343", "#0038A8")
+    palette = c("#ff4343", "#0038A8"),
+    # The win probabilities are 0-1 proportions, and gt_plt_bar_stack's default
+    # fmt_fn is label_number(), which printed them as 0.507. label_percent()
+    # scales and suffixes the bar labels; bar widths are unaffected.
+    fmt_fn = scales::label_percent(accuracy = 0.1)
   ) %>%
   tab_footnote(
     footnote = "Win probabilities based on 1,000x simulations of remaining games using Between the Pipes' team power ratings.",
