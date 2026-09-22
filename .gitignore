@@ -12,3 +12,10 @@
 
 # local caches
 *_cache/
+
+# CLAUDE.md is Claude Code's project instructions, not site content, but
+# render_site() renders every root-level .md and _site.yml's `exclude:` only
+# filters copied resources, not rendered input. Ignoring the output keeps it
+# off GitHub Pages: the scheduled refresh commits with `git add -A`, which
+# respects this file.
+CLAUDE.html

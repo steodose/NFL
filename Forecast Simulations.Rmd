@@ -503,23 +503,25 @@ options(scipen = 9999)
 team_df <- nflreadr::load_teams() %>% 
   select(team_logo_espn, team_abbr, team_name, team_conf, team_division, team_color)
 
-#Load games data from Lee Sharpe/nflseedR
-# games <- load_sharpe_games() %>% 
-#   filter(season == 2024)
-
 # Load games from output of forecast simulations
 games <- read_csv('Latest Game Predictions.csv')
 
-# Identify current week
-#current_week <- max(current_week_games$week)
-current_week <- 2
+# Identify current week: the earliest week that still has an unplayed game.
+# This is the same is.na(result) convention the simulation uses to decide what
+# to simulate, so the tab follows the season without being bumped by hand. The
+# schedule is refetched rather than read off the predictions CSV because that
+# file carries a simulated margin in `result` for games that have not happened.
+nfl_schedule <- nflreadr::load_schedules(2026)
+unplayed_weeks <- nfl_schedule$week[is.na(nfl_schedule$result)]
+current_week <- if (length(unplayed_weeks) > 0) {
+  min(unplayed_weeks)
+} else {
+  max(nfl_schedule$week) # season over; hold on the final week
+}
 
 # filter for current week games only
-# current_week_games <- games %>%
-#   filter(gameday >= Sys.Date())
-
 current_week_games <- games %>%
-  filter(current_week == games$week)
+  filter(week == current_week)
 
 # join team logs and colors
 current_week_games<- left_join(current_week_games, team_df, by = c("away_team" = "team_abbr")) #Away

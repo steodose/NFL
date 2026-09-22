@@ -112,6 +112,15 @@ lost. Repo permissions must be Settings → Actions → General → **Read and w
 only games where `is.na(result)`, so completed games are picked up automatically —
 no week needs hardcoding there.
 
+## CLAUDE.html
+
+`render_site()` renders every root-level `.md`, including this file, and
+`_site.yml`'s `exclude:` does not stop it -- that key only filters which resources
+get *copied* to the output dir, while `input_files()` picks up any `.md` not
+prefixed with `_`. So `CLAUDE.html` is regenerated on every full render. It is
+listed in `.gitignore` instead, which keeps it off GitHub Pages because the
+scheduled refresh commits with `git add -A`. Do not commit it.
+
 ## Series data (`series_result`)
 
 A series ends when the offense gains a first down **or** the possession ends, so one
@@ -147,8 +156,9 @@ Elo model reads `home_rest - away_rest`), and CI installs packages fresh, so an
 ## Season rollover
 
 Bump the year in `NFL Summary Report.Rmd`, `Teams Weekly Report.Rmd`,
-`Players Weekly Report.Rmd` (`load_pbp()`, season filters, chart titles), set
-`current_week` in `Forecast Simulations.Rmd` (in the Current Week Odds tab), and point Teams Weekly Report at that
+`Players Weekly Report.Rmd` (`load_pbp()`, season filters, chart titles) and in
+`Forecast Simulations.Rmd` (`nfl_season`, the `load_schedules()` call feeding
+`current_week`, and the table titles), and point Teams Weekly Report at that
 season's `preseason_win_totals_<year>.csv` — it is fetched over HTTP from
 raw.githubusercontent on `master`, so the file must be committed and pushed first or
 the render 404s.
