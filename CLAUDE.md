@@ -148,7 +148,7 @@ Elo model reads `home_rest - away_rest`), and CI installs packages fresh, so an
 
 Bump the year in `NFL Summary Report.Rmd`, `Teams Weekly Report.Rmd`,
 `Players Weekly Report.Rmd` (`load_pbp()`, season filters, chart titles), set
-`current_week` in `Current Week Odds.Rmd`, and point Teams Weekly Report at that
+`current_week` in `Forecast Simulations.Rmd` (in the Current Week Odds tab), and point Teams Weekly Report at that
 season's `preseason_win_totals_<year>.csv` — it is fetched over HTTP from
 raw.githubusercontent on `master`, so the file must be committed and pushed first or
 the render 404s.

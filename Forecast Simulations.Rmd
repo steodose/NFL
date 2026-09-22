@@ -30,6 +30,8 @@ library(ggforce)
 library(gt)
 library(gtExtras)
 library(webshot)
+library(webshot2)
+library(scales)
 
 
 # Define 538 table theme for Reactable table(s) below
@@ -68,6 +70,93 @@ my_color_pal <- c("#ffffff", "#f2fbd2", "#c9ecb4", "#93d3ab", "#35b0ab")
 
 ```
 
+```{css, echo = FALSE}
+tags$link(href = "https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&display=fallback", rel = "stylesheet")
+.standings {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+.title {
+  margin: 18px 0;
+  font-size: 16px;
+}
+.title h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.standings-table {
+  margin-bottom: 20px;
+}
+/* Align header text to the bottom */
+.header,
+.group-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.header {
+  border-bottom-color: #555;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+/* Highlight headers when sorting */
+.header:hover,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #eee;
+}
+.border-left {
+  border-left: 2px solid #555;
+}
+/* Use box-shadow to create row borders that appear behind vertical borders */
+.cell {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  padding: 5px 12px;
+}
+.group-last .cell {
+  box-shadow: inset 0 -2px 0 #555;
+}
+.team {
+  display: flex;
+}
+.record {
+  margin-left: 5px;
+  color: #999;
+  font-size: 13px;
+}
+.team-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+.logo {
+  margin-right: 8px;
+  height: 24px;
+}
+.group {
+  font-size: 16px;
+}
+.number {
+  font-family: "Fira Mono", Consolas, Monaco, monospace;
+  font-size: 13px;
+  line-height: 30px;
+  white-space: pre;
+}
+.wins {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  border-radius: 50%;
+  color: #000;
+  font-size: 13px;
+  letter-spacing: -2px;
+}
+
+```
+
+## Predictions {.tabset}
+
+### Simulations
 
 Below you'll find predictions for the current NFL season after simulating the remaining schedule 10,000x. The model uses a regressed version of last season's ending Elo ratings for all 32 teams, and adjusts independently within each simulation as each week is simulated.
 
@@ -401,86 +490,125 @@ div(
 )
 ```
 
-```{css, echo = FALSE}
-tags$link(href = "https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&display=fallback", rel = "stylesheet")
-.standings {
-  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-}
-.title {
-  margin: 18px 0;
-  font-size: 16px;
-}
-.title h2 {
-  font-size: 20px;
-  font-weight: 600;
-}
-.standings-table {
-  margin-bottom: 20px;
-}
-/* Align header text to the bottom */
-.header,
-.group-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.header {
-  border-bottom-color: #555;
-  font-size: 13px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-/* Highlight headers when sorting */
-.header:hover,
-.header[aria-sort="ascending"],
-.header[aria-sort="descending"] {
-  background-color: #eee;
-}
-.border-left {
-  border-left: 2px solid #555;
-}
-/* Use box-shadow to create row borders that appear behind vertical borders */
-.cell {
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  padding: 5px 12px;
-}
-.group-last .cell {
-  box-shadow: inset 0 -2px 0 #555;
-}
-.team {
-  display: flex;
-}
-.record {
-  margin-left: 5px;
-  color: #999;
-  font-size: 13px;
-}
-.team-name {
-  font-size: 16px;
-  font-weight: 700;
-}
-.logo {
-  margin-right: 8px;
-  height: 24px;
-}
-.group {
-  font-size: 16px;
-}
-.number {
-  font-family: "Fira Mono", Consolas, Monaco, monospace;
-  font-size: 13px;
-  line-height: 30px;
-  white-space: pre;
-}
-.wins {
-  width: 30px;
-  height: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  border-radius: 50%;
-  color: #000;
-  font-size: 13px;
-  letter-spacing: -2px;
-}
+### Current Week Odds
+
+Below you'll find current week game odds based on my simulations of the remainder of the NFL season.
+
+```{r, echo=FALSE}
+
+# Optional but makes R prefer not to display numbers in scientific notation
+options(scipen = 9999)
+
+# load team logos and colors
+team_df <- nflreadr::load_teams() %>% 
+  select(team_logo_espn, team_abbr, team_name, team_conf, team_division, team_color)
+
+#Load games data from Lee Sharpe/nflseedR
+# games <- load_sharpe_games() %>% 
+#   filter(season == 2024)
+
+# Load games from output of forecast simulations
+games <- read_csv('Latest Game Predictions.csv')
+
+# Identify current week
+#current_week <- max(current_week_games$week)
+current_week <- 2
+
+# filter for current week games only
+# current_week_games <- games %>%
+#   filter(gameday >= Sys.Date())
+
+current_week_games <- games %>%
+  filter(current_week == games$week)
+
+# join team logs and colors
+current_week_games<- left_join(current_week_games, team_df, by = c("away_team" = "team_abbr")) #Away
+current_week_games <- left_join(current_week_games, team_df, by = c("home_team" = "team_abbr")) #Home
+
+# filter for relevant columns
+current_week_games2 <- current_week_games %>%
+  select(week, game_type, team_logo_espn.x, away_team, team_logo_espn.y, home_team, result, away_percentage, home_percentage) %>% 
+  rename(team_logo_espn_away = team_logo_espn.x,
+         team_logo_espn_home = team_logo_espn.y) %>%
+  # make list for implied odds bar chart
+  mutate(list_data = list(c(away_percentage, home_percentage))) %>%
+  gather(attr_num, list_data, c(away_percentage, home_percentage)) %>%
+  group_by_at(vars(-attr_num, -list_data)) %>%
+  summarise(list_data = list(list_data)) %>%
+  ungroup()
+
+# Make gt table
+current_week_games2 %>%
+  select(game_type, week, away_team, team_logo_espn_away, list_data, home_team, team_logo_espn_home, result) %>%
+  gt() %>%
+  gt_img_rows(team_logo_espn_away, height = 30) %>%
+  gt_img_rows(team_logo_espn_home, height = 30) %>%
+  # Relabel columns
+  cols_label(
+    game_type = "Game Type",
+    week = "Week",
+    away_team = "",
+    team_logo_espn_away = "",
+    home_team = "",
+    team_logo_espn_home = "",
+    result = "Predicted Spread"
+  ) %>%
+  fmt_number(
+    columns = vars(result),
+    decimals = 1
+  ) %>%
+  cols_align(
+    align = "center",
+    columns = vars(week)  # Center align the week column
+  ) %>%
+  tab_header(
+    title = md("**NFL Current Week Odds**"),
+    subtitle = glue("2026 Regular Season: Week {current_week}")
+  ) %>%
+  tab_source_note(
+    source_note = md("DATA: nflfastR")
+  ) %>%
+  gt_plt_bar_stack(list_data,
+    width = 60,
+    #scale_type = "percent",
+    labels = c("  Away  ", "  Home  "),
+    palette = c("#ff4343", "#0038A8")
+  ) %>%
+  tab_footnote(
+    footnote = "Win probabilities based on 1,000x simulations of remaining games using Between the Pipes' team power ratings.",
+    locations = cells_column_labels(vars(list_data))
+  ) %>%
+  tab_footnote(
+    footnote = "Spread from the perspective of the home team.",
+    locations = cells_column_labels(vars(result))
+  ) %>%
+  opt_table_font(
+    font = "Titillium Web"
+    ) %>%
+  tab_options(
+    column_labels.background.color = "white",
+    table.border.top.width = px(3),
+    table.border.top.color = "transparent",
+    table.border.bottom.color = "transparent",
+    table.border.bottom.width = px(3),
+    column_labels.border.top.width = px(3),
+    #column_labels.border.top.color = "transparent",
+    column_labels.border.bottom.width = px(3),
+    column_labels.border.bottom.color = "black",
+    data_row.padding = px(3),
+    source_notes.font.size = 12,
+    table.font.size = 16,
+    heading.align = "center",
+    heading.background.color = "black",
+  )
+
 
 ```
+
+### Super Bowl Vegas Odds
+
+```{=html}
+<iframe title="2025 Super Bowl Odds" aria-label="Table" id="datawrapper-chart-blxmg" src="https://datawrapper.dwcdn.net/blxmg/5/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="1394" data-external="1"></iframe><script type="text/javascript">window.addEventListener("message",function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r,i=0;r=e[i];i++)if(r.contentWindow===a.source){var d=a.data["datawrapper-height"][t]+"px";r.style.height=d}}});</script>
+
+```
+

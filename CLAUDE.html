@@ -13,7 +13,7 @@
 
 <title>CLAUDE</title>
 
-<script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -32,6 +32,16 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<!-- Titillium Web is loaded as a webfont here rather than relied on as an
+     installed system font. Safari restricts CSS access to locally installed
+     fonts as a fingerprinting defence, so `font-family: Titillium Web` on the
+     reactable tables resolved to nothing and fell back to the default serif
+     (Times) for every visitor on Safari, including ones who have the font
+     installed. Loading it from Google Fonts makes it available to every
+     browser. This is included on every page via `_site.yml`. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap">
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -262,9 +272,6 @@ $(document).ready(function () {
       <a href="Games.html">Scores &amp; Schedule</a>
     </li>
     <li>
-      <a href="Current-Week-Odds.html">Current Week Odds</a>
-    </li>
-    <li>
       <a href="Win-Probability.html">Win Probability</a>
     </li>
   </ul>
@@ -316,177 +323,56 @@ $(document).ready(function () {
 
 <div id="nfl-analytics-site" class="section level1">
 <h1>NFL Analytics site</h1>
-<p>R Markdown website published at <a
-href="https://steodose.github.io/NFL"
-class="uri">https://steodose.github.io/NFL</a>. GitHub Pages serves it
-from the <strong>root of <code>master</code></strong>, so the rendered
-<code>.html</code>, <code>site_libs/</code> and <code>*_files/</code>
-are committed deliberately — they are the published artifact, not build
-litter. <code>_site.yml</code> sets <code>output_dir: "."</code>, which
-is why output lands beside source.</p>
-<p>Do not work from <code>~/Desktop/R Projects/NFL</code>. That is an
-iCloud-synced archive of older one-off analyses; its file contents are
-evicted, which makes <code>du</code> report wrong sizes and git index
-operations hang or time out.</p>
+<p>R Markdown website published at <a href="https://steodose.github.io/NFL" class="uri">https://steodose.github.io/NFL</a>. GitHub Pages serves it from the <strong>root of <code>master</code></strong>, so the rendered <code>.html</code>, <code>site_libs/</code> and <code>*_files/</code> are committed deliberately — they are the published artifact, not build litter. <code>_site.yml</code> sets <code>output_dir: "."</code>, which is why output lands beside source.</p>
+<p>Do not work from <code>~/Desktop/R Projects/NFL</code>. That is an iCloud-synced archive of older one-off analyses; its file contents are evicted, which makes <code>du</code> report wrong sizes and git index operations hang or time out.</p>
 <div id="rendering" class="section level2">
 <h2>Rendering</h2>
 <pre class="r"><code>rmarkdown::render_site()              # whole site
 rmarkdown::render_site(&quot;Games.Rmd&quot;)   # one page, correctly</code></pre>
-<p><strong>Never use bare <code>rmarkdown::render()</code> on a page
-here.</strong> It ignores <code>_site.yml</code>, defaults to
-<code>self_contained: true</code>, and <em>deletes</em> the page’s
-<code>_files/</code> directory — a single-file render produced a 7.7MB
-self-contained page and dropped the figures. The RStudio Knit button is
-fine: <code>NFL.Rproj</code> sets <code>BuildType: Website</code>, so it
-routes through <code>render_site()</code>.</p>
-<p>Sanity check after rendering: pages stay in the tens-to-hundreds of
-KB and reference <code>site_libs</code>. A jump to megabytes means a
-self-contained render.</p>
+<p><strong>Never use bare <code>rmarkdown::render()</code> on a page here.</strong> It ignores <code>_site.yml</code>, defaults to <code>self_contained: true</code>, and <em>deletes</em> the page’s <code>_files/</code> directory — a single-file render produced a 7.7MB self-contained page and dropped the figures. The RStudio Knit button is fine: <code>NFL.Rproj</code> sets <code>BuildType: Website</code>, so it routes through <code>render_site()</code>.</p>
+<p>Sanity check after rendering: pages stay in the tens-to-hundreds of KB and reference <code>site_libs</code>. A jump to megabytes means a self-contained render.</p>
 </div>
 <div id="gotchas-that-cost-real-debugging-time" class="section level2">
 <h2>Gotchas that cost real debugging time</h2>
 <ul>
-<li><strong><code>theme_minimal()</code> breaks image-based axis
-labels</strong> under ggplot2 4.0. Both
-<code>ggtext::element_markdown()</code> and
-<code>nflplotR::element_nfl_logo()</code> silently degrade — no error,
-just missing logos or raw HTML as axis text. Every other base theme
-(grey, bw, light, classic, linedraw) works. <code>theme_custom()</code>
-is therefore built on <code>theme_bw</code> and stripped back to match
-theme_minimal’s appearance. Keep it that way.</li>
-<li><strong>Failures are silent.</strong> Every Rmd sets
-<code>warning = FALSE</code>, so broken charts render clean and publish
-with a green checkmark. After changing chart code, compare figure file
-sizes against the previous render — a &gt;50% swing means something
-broke. <strong>That heuristic only holds within one machine.</strong>
-macOS writes RGBA + an <code>iCCP</code> colour profile +
-<code>eXIf</code>; Linux/CI writes plain RGB + <code>pHYs</code>.
-Identical charts, and the CI copy is about <em>half</em> the bytes — so
-every local↔︎CI comparison trips the rule for no reason. Before chasing
-one, check the encoding:
-<code>python3 -c "import struct;d=open(f,'rb').read();print(struct.unpack('&gt;IIBBBBB',d[16:29]))"</code>
-(colour type 6 = RGBA, 2 = RGB) — if the colour types differ, that alone
-explains it.</li>
-<li><strong>Image axis labels need <code>fig.height</code> ~10 at 32
-rows.</strong> <code>nflplotR::element_nfl_logo()</code> and
-<code>element_path()</code> silently drop roughly a quarter of the
-images at the YAML default of 7 — no warning, the axis just comes up
-patchy. Set <code>fig.height = 10</code> on any per-team chunk and size
-the images ~0.95.</li>
-<li><strong>Team helmets live in <code>helmets/</code></strong> as
-<code>&lt;ABBR&gt;_left.png</code> /
-<code>&lt;ABBR&gt;_right.png</code>, all 32 abbreviations matching
-nflfastR <code>posteam</code> exactly. Draw them with
-<code>nflplotR::element_path()</code>, which renders axis text that
-<em>is</em> a file path as an image: make the y aesthetic the path
-(<code>file.path("helmets", paste0(posteam, "_right.png"))</code>) and
-let <code>fct_reorder()</code> carry the ordering. Paths resolve at
-render time, so <code>helmets/</code> must stay committed or CI renders
-a blank axis.</li>
-<li><strong>Never map <code>colour</code> in a <code>geom_text()</code>
-layer that uses <code>position_stack()</code>.</strong> ggplot groups by
-the interaction of all discrete aesthetics, so a mapped colour regroups
-that layer and stacks the labels in a different order from the bars —
-each team’s label lands in the wrong segment, with no error. Compute
-positions instead:
-<code>group_by(team) |&gt; arrange(&lt;fill factor&gt;) |&gt; mutate(label_x = cumsum(share) - share/2)</code>.</li>
-<li><strong><code>dpi:</code> in the YAML headers is inert.</strong>
-<code>html_document</code>’s <code>fig_retina: 2</code> overrides it;
-figures are 1920x1344 shown at 960px, a deliberate 2x for Retina.
-Changing <code>dpi</code> does nothing. Do not “optimise” it.</li>
+<li><p><strong><code>theme_minimal()</code> breaks image-based axis labels</strong> under ggplot2 4.0. Both <code>ggtext::element_markdown()</code> and <code>nflplotR::element_nfl_logo()</code> silently degrade — no error, just missing logos or raw HTML as axis text. Every other base theme (grey, bw, light, classic, linedraw) works. <code>theme_custom()</code> is therefore built on <code>theme_bw</code> and stripped back to match theme_minimal’s appearance. Keep it that way.</p></li>
+<li><p><strong>Failures are silent.</strong> Every Rmd sets <code>warning = FALSE</code>, so broken charts render clean and publish with a green checkmark. After changing chart code, compare figure file sizes against the previous render — a &gt;50% swing means something broke. <strong>That heuristic only holds within one machine.</strong> macOS writes RGBA + an <code>iCCP</code> colour profile + <code>eXIf</code>; Linux/CI writes plain RGB + <code>pHYs</code>. Identical charts, and the CI copy is about <em>half</em> the bytes — so every local↔︎CI comparison trips the rule for no reason. Before chasing one, check the encoding: <code>python3 -c "import struct;d=open(f,'rb').read();print(struct.unpack('&gt;IIBBBBB',d[16:29]))"</code> (colour type 6 = RGBA, 2 = RGB) — if the colour types differ, that alone explains it.</p></li>
+<li><p><strong>Image axis labels need <code>fig.height</code> ~10 at 32 rows.</strong> <code>nflplotR::element_nfl_logo()</code> and <code>element_path()</code> silently drop roughly a quarter of the images at the YAML default of 7 — no warning, the axis just comes up patchy. Set <code>fig.height = 10</code> on any per-team chunk and size the images ~0.95.</p></li>
+<li><p><strong>Team helmets live in <code>helmets/</code></strong> as <code>&lt;ABBR&gt;_left.png</code> / <code>&lt;ABBR&gt;_right.png</code>, all 32 abbreviations matching nflfastR <code>posteam</code> exactly. Draw them with <code>nflplotR::element_path()</code>, which renders axis text that <em>is</em> a file path as an image: make the y aesthetic the path (<code>file.path("helmets", paste0(posteam,   "_right.png"))</code>) and let <code>fct_reorder()</code> carry the ordering. Paths resolve at render time, so <code>helmets/</code> must stay committed or CI renders a blank axis.</p></li>
+<li><p><strong>Never map <code>colour</code> in a <code>geom_text()</code> layer that uses <code>position_stack()</code>.</strong> ggplot groups by the interaction of all discrete aesthetics, so a mapped colour regroups that layer and stacks the labels in a different order from the bars — each team’s label lands in the wrong segment, with no error. Compute positions instead: <code>group_by(team) |&gt; arrange(&lt;fill factor&gt;) |&gt; mutate(label_x = cumsum(share) - share/2)</code>.</p></li>
+<li><p><strong>Webfonts must be loaded by the page, not assumed installed.</strong> <code>header.html</code> pulls Titillium Web from Google Fonts and <code>_site.yml</code> includes it in every page’s head. Before that, the reactable themes asked for <code>fontFamily = "Titillium Web"</code> and no page ever loaded the family, so it resolved only against installed system fonts. Safari restricts CSS access to locally installed fonts as a fingerprinting defence, so every reactable table fell back to the default serif and rendered in Times – on machines that <em>do</em> have the font installed. Chrome hid the bug. gt tables were unaffected because <code>opt_table_font(google_font(...))</code> emits its own <code>@import</code>. Any new font the site uses needs adding to <code>header.html</code>, and changing that file means re-rendering every page for the new head to appear.</p></li>
+<li><p><strong><code>dpi:</code> in the YAML headers is inert.</strong> <code>html_document</code>’s <code>fig_retina: 2</code> overrides it; figures are 1920x1344 shown at 960px, a deliberate 2x for Retina. Changing <code>dpi</code> does nothing. Do not “optimise” it.</p></li>
 </ul>
 </div>
 <div id="adding-an-r-package" class="section level2">
 <h2>Adding an R package</h2>
-<p>Add it to <code>packages:</code> in
-<code>.github/workflows/refresh-site.yml</code>. CI installs with
-<code>dependencies: '"hard"'</code> (Depends/Imports/LinkingTo only),
-because pulling Suggests drags in <code>dataui</code>, a GitHub-only
-package that aborts the whole pak solve.</p>
-<p>Consequence: anything a package loads <strong>lazily</strong> must be
-named explicitly — it will work locally and fail in CI. That is how
-<code>svglite</code> (gtExtras’ <code>gt_plt_*</code> render via
-<code>ggsave(.svg)</code>) and <code>crosstalk</code> (reactable) were
-missed. To find the full set:</p>
+<p>Add it to <code>packages:</code> in <code>.github/workflows/refresh-site.yml</code>. CI installs with <code>dependencies: '"hard"'</code> (Depends/Imports/LinkingTo only), because pulling Suggests drags in <code>dataui</code>, a GitHub-only package that aborts the whole pak solve.</p>
+<p>Consequence: anything a package loads <strong>lazily</strong> must be named explicitly — it will work locally and fail in CI. That is how <code>svglite</code> (gtExtras’ <code>gt_plt_*</code> render via <code>ggsave(.svg)</code>) and <code>crosstalk</code> (reactable) were missed. To find the full set:</p>
 <pre class="r"><code>rmarkdown::render_site(); writeLines(sort(loadedNamespaces()), &quot;ns.txt&quot;)</code></pre>
-<p>then diff against
-<code>tools::package_dependencies(&lt;the list&gt;, which = c("Depends","Imports","LinkingTo"), recursive = TRUE)</code>.</p>
+<p>then diff against <code>tools::package_dependencies(&lt;the list&gt;, which = c("Depends","Imports","LinkingTo"), recursive = TRUE)</code>.</p>
 </div>
 <div id="scheduled-refresh" class="section level2">
 <h2>Scheduled refresh</h2>
-<p><code>.github/workflows/refresh-site.yml</code> renders and commits
-at 03:00 America/Los_Angeles on Mon, Tue and Fri (after Sunday, MNF and
-TNF). GitHub cron is UTC-only, so both 10:00 and 11:00 UTC are
-registered and a <code>gate</code> job drops whichever one is not 03:00
-Pacific today — that is what keeps it at one run per day across the
-November DST change. Manual <code>workflow_dispatch</code> bypasses the
-gate entirely.</p>
-<p>The gate must decide from <code>github.event.schedule</code> (the
-cron string that fired), <strong>never</strong> from the wall clock.
-GitHub starts these runs hours after their nominal time — 10:00 UTC
-crons have started at 14:06 and 14:41 UTC — so a
-<code>TZ=America/Los_Angeles date +%H</code> = 03 test is false for
-<em>both</em> candidates and silently drops the entire day’s refresh.
-The symptom is a 2-second <code>gate</code> job and a skipped
-<code>render</code>, with the run still reported green.</p>
-<p>The push step rebases onto a moved <code>master</code> and retries,
-so a concurrent push is not lost. Repo permissions must be Settings →
-Actions → General → <strong>Read and write</strong>.</p>
-<p><code>Forecast Simulations.Rmd</code> rewrites
-<code>Latest Game Predictions.csv</code> and
-<code>Overall Predictions.csv</code> on every render, so those are
-committed too. It simulates only games where <code>is.na(result)</code>,
-so completed games are picked up automatically — no week needs
-hardcoding there.</p>
+<p><code>.github/workflows/refresh-site.yml</code> renders and commits at 03:00 America/Los_Angeles on Mon, Tue and Fri (after Sunday, MNF and TNF). GitHub cron is UTC-only, so both 10:00 and 11:00 UTC are registered and a <code>gate</code> job drops whichever one is not 03:00 Pacific today — that is what keeps it at one run per day across the November DST change. Manual <code>workflow_dispatch</code> bypasses the gate entirely.</p>
+<p>The gate must decide from <code>github.event.schedule</code> (the cron string that fired), <strong>never</strong> from the wall clock. GitHub starts these runs hours after their nominal time — 10:00 UTC crons have started at 14:06 and 14:41 UTC — so a <code>TZ=America/Los_Angeles date +%H</code> = 03 test is false for <em>both</em> candidates and silently drops the entire day’s refresh. The symptom is a 2-second <code>gate</code> job and a skipped <code>render</code>, with the run still reported green.</p>
+<p>The push step rebases onto a moved <code>master</code> and retries, so a concurrent push is not lost. Repo permissions must be Settings → Actions → General → <strong>Read and write</strong>.</p>
+<p><code>Forecast Simulations.Rmd</code> rewrites <code>Latest Game Predictions.csv</code> and <code>Overall Predictions.csv</code> on every render, so those are committed too. It simulates only games where <code>is.na(result)</code>, so completed games are picked up automatically — no week needs hardcoding there.</p>
 </div>
 <div id="series-data-series_result" class="section level2">
 <h2>Series data (<code>series_result</code>)</h2>
-<p>A series ends when the offense gains a first down <strong>or</strong>
-the possession ends, so one drive contributes several series — ~30 per
-team per game, not ~12.</p>
-<p>Take one row per series from its <strong>first play</strong>
-(<code>group_by(game_id, series) |&gt; slice_min(play_id, with_ties = FALSE)</code>).
-<code>distinct(game_id, posteam, series, series_result)</code> looks
-equivalent and is not: after a defensive touchdown the extra-point play
-carries the <strong>scoring</strong> team as <code>posteam</code> while
-keeping the same <code>series</code> number and
-<code>series_result</code> (“Opp touchdown”), so the series is emitted
-twice and the team that just scored is charged with a failed offensive
-series. It is only a handful of series a week, so it will not look
-wrong.</p>
-<p><code>QB kneel</code> and <code>End of half</code> are not genuine
-offensive attempts; drop them.</p>
+<p>A series ends when the offense gains a first down <strong>or</strong> the possession ends, so one drive contributes several series — ~30 per team per game, not ~12.</p>
+<p>Take one row per series from its <strong>first play</strong> (<code>group_by(game_id, series) |&gt; slice_min(play_id, with_ties = FALSE)</code>). <code>distinct(game_id, posteam, series, series_result)</code> looks equivalent and is not: after a defensive touchdown the extra-point play carries the <strong>scoring</strong> team as <code>posteam</code> while keeping the same <code>series</code> number and <code>series_result</code> (“Opp touchdown”), so the series is emitted twice and the team that just scored is charged with a failed offensive series. It is only a handful of series a week, so it will not look wrong.</p>
+<p><code>QB kneel</code> and <code>End of half</code> are not genuine offensive attempts; drop them.</p>
 </div>
 <div id="forecast-simulation-determinism" class="section level2">
 <h2>Forecast simulation determinism</h2>
-<p><code>set.seed(8236)</code> immediately precedes
-<code>simulate_nfl(simulations = 10000)</code>, and it works — a
-re-render with an unchanged schedule reproduces both prediction CSVs
-byte-for-byte. So the numbers move only when an <strong>input</strong>
-moves, and the only remote input is <code>load_schedules()</code>,
-refetched every render.</p>
-<p>Only games with <code>is.na(result)</code> are simulated (255 of 272
-as of Week 2). When a game finishes it leaves that set, which both
-changes the starting conditions <em>and</em> shifts every later draw’s
-position in the RNG stream — so <strong>all 32 teams’ odds move, not
-just the two who played</strong>. A full rewrite of
-<code>Latest Game Predictions.csv</code> after a slate is correct
-behaviour, not drift.</p>
-<p>Two quieter sources: a schedule revision with no new results still
-moves things (the Elo model reads <code>home_rest - away_rest</code>),
-and CI installs packages fresh, so an <code>nflseedR</code> update
-changes results with identical seed <em>and</em> identical data.</p>
+<p><code>set.seed(8236)</code> immediately precedes <code>simulate_nfl(simulations = 10000)</code>, and it works — a re-render with an unchanged schedule reproduces both prediction CSVs byte-for-byte. So the numbers move only when an <strong>input</strong> moves, and the only remote input is <code>load_schedules()</code>, refetched every render.</p>
+<p>Only games with <code>is.na(result)</code> are simulated (255 of 272 as of Week 2). When a game finishes it leaves that set, which both changes the starting conditions <em>and</em> shifts every later draw’s position in the RNG stream — so <strong>all 32 teams’ odds move, not just the two who played</strong>. A full rewrite of <code>Latest Game Predictions.csv</code> after a slate is correct behaviour, not drift.</p>
+<p>Two quieter sources: a schedule revision with no new results still moves things (the Elo model reads <code>home_rest - away_rest</code>), and CI installs packages fresh, so an <code>nflseedR</code> update changes results with identical seed <em>and</em> identical data.</p>
 </div>
 <div id="season-rollover" class="section level2">
 <h2>Season rollover</h2>
-<p>Bump the year in <code>NFL Summary Report.Rmd</code>,
-<code>Teams Weekly Report.Rmd</code>,
-<code>Players Weekly Report.Rmd</code> (<code>load_pbp()</code>, season
-filters, chart titles), set <code>current_week</code> in
-<code>Current Week Odds.Rmd</code>, and point Teams Weekly Report at
-that season’s <code>preseason_win_totals_&lt;year&gt;.csv</code> — it is
-fetched over HTTP from raw.githubusercontent on <code>master</code>, so
-the file must be committed and pushed first or the render 404s.</p>
+<p>Bump the year in <code>NFL Summary Report.Rmd</code>, <code>Teams Weekly Report.Rmd</code>, <code>Players Weekly Report.Rmd</code> (<code>load_pbp()</code>, season filters, chart titles), set <code>current_week</code> in <code>Forecast Simulations.Rmd</code> (in the Current Week Odds tab), and point Teams Weekly Report at that season’s <code>preseason_win_totals_&lt;year&gt;.csv</code> — it is fetched over HTTP from raw.githubusercontent on <code>master</code>, so the file must be committed and pushed first or the render 404s.</p>
 </div>
 </div>
 
