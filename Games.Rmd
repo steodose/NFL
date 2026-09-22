@@ -78,6 +78,10 @@ theme_538 <- function() {
 ```
 
 
+## Games {.tabset}
+
+### Scores & Schedule
+
 ```{r, echo=FALSE}
 
 # Make games table
@@ -208,3 +212,213 @@ games_table
 
 ```
 
+### Game Recaps
+
+A team-by-team box score for every game played this season, on the efficiency
+metrics that actually explain results. Each game is a pair of rows, away team
+first. Cells are shaded within the column: cool = good, warm = bad, so a row
+that reads blue across is a team that controlled the game.
+
+```{r Recap Data, echo = FALSE}
+
+pbp <- load_pbp(2026)
+
+# Run/pass plays with EPA, same filter as the League page
+pbp_rp <- pbp %>%
+  filter(rush == 1 | pass == 1, !is.na(epa))
+
+current_week <- max(pbp_rp$week, na.rm = TRUE)
+
+# Offensive and defensive EPA/play by team and game. Same definitions as the
+# League page, where net EPA/play is off_epa - def_epa.
+recap_off <- pbp_rp %>%
+  group_by(game_id, week, team = posteam) %>%
+  summarize(off_epa = mean(epa), .groups = "drop")
+
+recap_def <- pbp_rp %>%
+  group_by(game_id, team = defteam) %>%
+  summarize(def_epa = mean(epa), .groups = "drop")
+
+# Explosive plays: 20+ yards on passes, 10+ on runs (same as the Teams page).
+recap_explosive <- pbp %>%
+  filter(play_type %in% c("pass", "run"), penalty == 0, !is.na(epa)) %>%
+  mutate(explosive_play = case_when(
+    play_type == "pass" & yards_gained >= 20 ~ 1,
+    play_type == "run" & yards_gained >= 10 ~ 1,
+    TRUE ~ 0
+  )) %>%
+  group_by(game_id, team = posteam) %>%
+  summarize(explosive_share = sum(explosive_play) / n(), .groups = "drop")
+
+recap_turnovers <- pbp_rp %>%
+  group_by(game_id, team = posteam) %>%
+  summarize(
+    n_turnovers = sum(interception, na.rm = TRUE) + sum(fumble_lost, na.rm = TRUE),
+    turnover_rate = n_turnovers / n(),
+    .groups = "drop"
+  )
+
+# Penalties are charged to penalty_team, which is not always posteam (defensive
+# penalties happen on the other team's snaps), so this cannot come off pbp_rp.
+recap_penalties <- pbp %>%
+  filter(penalty == 1, !is.na(penalty_team), penalty_team != "") %>%
+  group_by(game_id, team = penalty_team) %>%
+  summarize(
+    n_penalties = n(),
+    penalty_yards = sum(penalty_yards, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+recaps <- recap_off %>%
+  left_join(recap_def, by = c("game_id", "team")) %>%
+  left_join(recap_explosive, by = c("game_id", "team")) %>%
+  left_join(recap_turnovers, by = c("game_id", "team")) %>%
+  left_join(recap_penalties, by = c("game_id", "team")) %>%
+  mutate(
+    across(c(n_turnovers, n_penalties, penalty_yards), ~ replace_na(.x, 0)),
+    epa_play = off_epa - def_epa
+  ) %>%
+  left_join(
+    games %>% select(game_id, away_team, home_team, away_score, home_score),
+    by = "game_id"
+  ) %>%
+  filter(!is.na(home_score)) %>%
+  mutate(
+    score = if_else(team == home_team, home_score, away_score),
+    opp_score = if_else(team == home_team, away_score, home_score),
+    home_away = if_else(team == home_team, "home", "away")
+  ) %>%
+  left_join(
+    nflfastR::teams_colors_logos %>% select(team_abbr, team_logo_espn),
+    by = c("team" = "team_abbr")
+  ) %>%
+  arrange(desc(week), game_id, home_away) %>% # away row sits above the home row
+  select(week, team_logo_espn, team, score, opp_score, epa_play, off_epa,
+         def_epa, explosive_share, n_turnovers, turnover_rate, n_penalties,
+         penalty_yards)
+
+```
+
+```{r Recap Table, echo = FALSE}
+
+# Diverging fills: warm pole = bad, cool pole = good, neutral grey in the middle
+# (the same two arms as the Series Success chart on the Teams page). These are
+# computed here rather than with reactablefmtr::color_scales() because the
+# turnover and penalty columns print combined text ("2 (3.3%)", "6/39") and have
+# to be shaded by a numeric column they do not display.
+recap_pal <- c("#C25E45", "#E8A97E", "#F0EFEC", "#A9CBE3", "#6FB3DC")
+
+recap_fill <- function(x, reverse = FALSE) {
+  p <- (x - min(x, na.rm = TRUE)) / diff(range(x, na.rm = TRUE))
+  p[!is.finite(p)] <- 0.5
+  if (reverse) p <- 1 - p
+  grDevices::rgb(grDevices::colorRamp(recap_pal)(p), maxColorValue = 255)
+}
+
+recap_fills <- list(
+  epa_play        = recap_fill(recaps$epa_play),
+  off_epa         = recap_fill(recaps$off_epa),
+  def_epa         = recap_fill(recaps$def_epa, reverse = TRUE),
+  explosive_share = recap_fill(recaps$explosive_share),
+  turnovers       = recap_fill(recaps$turnover_rate, reverse = TRUE),
+  penalties       = recap_fill(recaps$penalty_yards, reverse = TRUE)
+)
+
+fill_style <- function(col) {
+  force(col)
+  function(value, index) list(background = recap_fills[[col]][index])
+}
+
+recap_table <- reactable(
+  recaps,
+  theme = theme_538,
+  showSortIcon = TRUE,
+  searchable = TRUE,
+  language = reactableLang(
+    searchPlaceholder = "SEARCH FOR A TEAM (ABBR)..."),
+  defaultPageSize = 100,
+  # keep each game's two rows visually paired
+  rowStyle = function(index) {
+    if (index %% 2 == 0) list(borderBottom = "2px solid #555")
+  },
+  columns = list(
+    week = colDef(name = "Wk", align = "center", maxWidth = 55),
+    team_logo_espn = colDef(
+      name = "",
+      maxWidth = 40,
+      align = "right",
+      cell = embed_img(height = "25", width = "30")
+    ),
+    team = colDef(name = "Team", align = "left", maxWidth = 70),
+    score = colDef(
+      name = "",
+      maxWidth = 55,
+      align = "left",
+      style = list(borderRight = "2px solid #555"),
+      cell = function(value, index) {
+        opp <- recaps$opp_score[index]
+        ink <- if (value > opp) "#1A7A1A" else if (value < opp) "#B3261E" else "#555555"
+        htmltools::span(style = paste0("font-weight:700;color:", ink), value)
+      }
+    ),
+    opp_score = colDef(show = FALSE),
+    epa_play = colDef(
+      name = "EPA/Play",
+      align = "right",
+      style = fill_style("epa_play"),
+      format = colFormat(digits = 2)
+    ),
+    off_epa = colDef(
+      name = "Off EPA/Play",
+      align = "right",
+      style = fill_style("off_epa"),
+      format = colFormat(digits = 2)
+    ),
+    def_epa = colDef(
+      name = "Def EPA/Play",
+      align = "right",
+      style = fill_style("def_epa"),
+      format = colFormat(digits = 2)
+    ),
+    explosive_share = colDef(
+      name = "Explosive Play Rate",
+      align = "right",
+      style = fill_style("explosive_share"),
+      format = colFormat(percent = TRUE, digits = 1)
+    ),
+    n_turnovers = colDef(
+      name = "Turnovers",
+      align = "right",
+      style = fill_style("turnovers"),
+      cell = function(value, index) {
+        sprintf("%d (%.1f%%)", value, 100 * recaps$turnover_rate[index])
+      }
+    ),
+    turnover_rate = colDef(show = FALSE),
+    n_penalties = colDef(
+      name = "Penalties (n/yds)",
+      align = "right",
+      style = fill_style("penalties"),
+      cell = function(value, index) {
+        paste0(value, "/", recaps$penalty_yards[index])
+      }
+    ),
+    penalty_yards = colDef(show = FALSE)
+  ),
+  pagination = FALSE,
+  compact = TRUE,
+  borderless = FALSE,
+  striped = FALSE,
+  fullWidth = FALSE,
+  defaultColDef = colDef(align = "center", minWidth = 95)
+) %>%
+  add_title("Game Recaps",
+            font_size = 28) %>%
+  add_subtitle(glue("How each team performed in every game this season, through Week {current_week}. Cool cells are good, warm cells are bad, shaded within each column. Click a column header to sort by that statistic."),
+               font_size = 14,
+               font_weight = "normal") %>%
+  add_source("Data: nflfastR")
+
+recap_table
+
+```
