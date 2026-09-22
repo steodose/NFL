@@ -217,8 +217,9 @@ games_table
 ### Game Recaps
 
 A team-by-team box score for every game played this season, on the efficiency
-metrics that actually explain results. Each game is a pair of rows, away team
-first. Cells are shaded within the column: cool = good, warm = bad, so a row
+metrics that actually explain results. Most recent game first, down to the
+season opener in the last row, with each game a pair of rows and the away team
+on top. Cells are shaded within the column: cool = good, warm = bad, so a row
 that reads blue across is a team that controlled the game.
 
 ```{r Recap Data, echo = FALSE}
@@ -281,7 +282,8 @@ recaps <- recap_off %>%
     epa_play = off_epa - def_epa
   ) %>%
   left_join(
-    games %>% select(game_id, away_team, home_team, away_score, home_score),
+    games %>% select(game_id, gameday, gametime, away_team, home_team,
+                     away_score, home_score),
     by = "game_id"
   ) %>%
   filter(!is.na(home_score)) %>%
@@ -294,7 +296,12 @@ recaps <- recap_off %>%
     nflfastR::teams_colors_logos %>% select(team_abbr, team_logo_espn),
     by = c("team" = "team_abbr")
   ) %>%
-  arrange(desc(week), game_id, home_away) %>% # away row sits above the home row
+  mutate(kickoff = as.POSIXct(paste(gameday, gametime), tz = "America/New_York")) %>%
+  # Newest week on top, and within a week the latest kickoff first, so the last
+  # row of the table is the season opener. game_id breaks the ties inside the
+  # simultaneous Sunday windows, and home_away puts the away row above the home
+  # row within each game.
+  arrange(desc(week), desc(kickoff), game_id, home_away) %>%
   select(week, team_logo_espn, team, score, opp_score, epa_play, off_epa,
          def_epa, explosive_share, n_turnovers, turnover_rate, n_penalties,
          penalty_yards)
