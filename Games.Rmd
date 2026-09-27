@@ -253,6 +253,32 @@ recap_explosive <- pbp %>%
   group_by(game_id, team = posteam) %>%
   summarize(explosive_share = sum(explosive_play) / n(), .groups = "drop")
 
+# Special teams EPA, as a net total rather than a per-play rate: kick volume
+# swings too much game to game for an average to say anything useful, and the
+# question this answers is "how many points did special teams move". Taken from
+# the kicking team's perspective and netted against what the opponent's units
+# did on the same plays, which makes it exactly symmetric within a game -- the
+# same way the net EPA/play column already behaves. `special` covers kickoffs,
+# punts, field goals and extra points, none of which survive the rush/pass
+# filter that pbp_rp applies, so this has to come off the full pbp.
+recap_special_plays <- pbp %>%
+  filter(special == 1, !is.na(epa), !is.na(posteam))
+
+recap_special <- full_join(
+  recap_special_plays %>%
+    group_by(game_id, team = posteam) %>%
+    summarize(st_for = sum(epa), .groups = "drop"),
+  recap_special_plays %>%
+    group_by(game_id, team = defteam) %>%
+    summarize(st_against = sum(epa), .groups = "drop"),
+  by = c("game_id", "team")
+) %>%
+  mutate(
+    across(c(st_for, st_against), ~ replace_na(.x, 0)),
+    st_epa = st_for - st_against
+  ) %>%
+  select(game_id, team, st_epa)
+
 recap_turnovers <- pbp_rp %>%
   group_by(game_id, team = posteam) %>%
   summarize(
@@ -274,11 +300,12 @@ recap_penalties <- pbp %>%
 
 recaps <- recap_off %>%
   left_join(recap_def, by = c("game_id", "team")) %>%
+  left_join(recap_special, by = c("game_id", "team")) %>%
   left_join(recap_explosive, by = c("game_id", "team")) %>%
   left_join(recap_turnovers, by = c("game_id", "team")) %>%
   left_join(recap_penalties, by = c("game_id", "team")) %>%
   mutate(
-    across(c(n_turnovers, n_penalties, penalty_yards), ~ replace_na(.x, 0)),
+    across(c(n_turnovers, n_penalties, penalty_yards, st_epa), ~ replace_na(.x, 0)),
     epa_play = off_epa - def_epa
   ) %>%
   left_join(
@@ -303,8 +330,8 @@ recaps <- recap_off %>%
   # row within each game.
   arrange(desc(week), desc(kickoff), game_id, home_away) %>%
   select(week, team_logo_espn, team, score, opp_score, epa_play, off_epa,
-         def_epa, explosive_share, n_turnovers, turnover_rate, n_penalties,
-         penalty_yards)
+         def_epa, st_epa, explosive_share, n_turnovers, turnover_rate,
+         n_penalties, penalty_yards)
 
 ```
 
@@ -327,7 +354,7 @@ recap_gt_data <- recaps %>%
     pair_end = row_number() %% 2 == 0
   ) %>%
   select(week_label, team_logo_espn, team, score, epa_play, off_epa, def_epa,
-         explosive_share, turnovers_lab, penalties_lab,
+         st_epa, explosive_share, turnovers_lab, penalties_lab,
          result, turnover_rate, penalty_yards, pair_end)
 
 recap_table <- recap_gt_data %>%
@@ -340,11 +367,15 @@ recap_table <- recap_gt_data %>%
     epa_play        = "EPA/Play",
     off_epa         = "Off EPA/Play",
     def_epa         = "Def EPA/Play",
+    st_epa          = "Special Teams EPA",
     explosive_share = "Explosive Play Rate",
     turnovers_lab   = "Turnovers",
     penalties_lab   = "Penalties (n/yds)"
   ) %>%
   fmt_number(columns = c(epa_play, off_epa, def_epa), decimals = 2) %>%
+  # a net total across a handful of kicks, so it lives on a different scale
+  # from the per-play columns -- one decimal, and a forced sign to read as a swing
+  fmt_number(columns = st_epa, decimals = 1, force_sign = TRUE) %>%
   fmt_percent(columns = explosive_share, decimals = 1) %>%
   # One data_color() call per column so each is scaled on its own range. The
   # EPA columns get an explicit symmetric domain so that the palette's neutral
@@ -358,6 +389,8 @@ recap_table <- recap_gt_data %>%
              domain = epa_domain(recap_gt_data$off_epa)) %>%
   data_color(columns = def_epa, palette = rev(recap_pal),
              domain = epa_domain(recap_gt_data$def_epa)) %>%
+  data_color(columns = st_epa, palette = recap_pal,
+             domain = epa_domain(recap_gt_data$st_epa)) %>%
   data_color(columns = explosive_share, palette = recap_pal) %>%
   data_color(columns = turnover_rate, target_columns = turnovers_lab,
              palette = rev(recap_pal)) %>%
@@ -374,7 +407,7 @@ recap_table <- recap_gt_data %>%
     score          ~ px(44),
     everything()   ~ px(118)
   ) %>%
-  cols_align(align = "center", columns = c(epa_play, off_epa, def_epa,
+  cols_align(align = "center", columns = c(epa_play, off_epa, def_epa, st_epa,
                                            explosive_share, turnovers_lab,
                                            penalties_lab)) %>%
   # winner's score in green, loser's in red
