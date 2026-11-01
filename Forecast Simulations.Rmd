@@ -631,6 +631,137 @@ current_week_games2 %>%
 
 ```
 
+### Playoff Leverage
+
+How important is this week's game? Each bar shows a team's playoff odds if they <span style="color:#CB4335">**lose**</span> versus if they <span style="color:#2E86C1">**win**</span> this week, taken from the same 10,000 season simulations as the Simulations tab. The logo marks their current odds. The longer the bar, the more this week's result matters.
+
+```{r playoff-leverage, echo=FALSE, fig.height=8}
+
+# Playoff leverage: how much this week's game moves each team's playoff odds.
+# Every simulation plays out this week's game, so splitting the 10,000 seasons
+# by that game's outcome gives P(playoffs | win) and P(playoffs | loss) straight
+# from the same sims behind the Simulations tab. A team's overall playoff odds
+# are the win/loss split weighted by its win probability, so the logo always
+# sits between the two points.
+
+# Bucket each team's current-week game in every sim. A game that has already
+# been played (e.g. Thursday night, once the Friday refresh runs) carries its
+# real result in all 10,000 sims, so it has no win/loss split; those teams are
+# drawn like bye teams, as a logo at their current odds, tagged W/L/T.
+lev_games <- sims2$games %>%
+  as_tibble() %>%
+  filter(week == current_week, game_type == "REG")
+
+lev_final <- nfl_schedule %>%
+  filter(week == current_week, game_type == "REG", !is.na(result)) %>%
+  select(home_team, away_team, result)
+lev_final <- bind_rows(
+  lev_final %>% transmute(team = home_team, final = sign(result)),
+  lev_final %>% transmute(team = away_team, final = -sign(result))
+) %>%
+  mutate(final = c("L", "T", "W")[final + 2])
+
+lev_outcomes <- bind_rows(
+  lev_games %>% transmute(sim, team = home_team, opp = away_team,
+                          site = "vs", result = result),
+  lev_games %>% transmute(sim, team = away_team, opp = home_team,
+                          site = "@", result = -result)
+) %>%
+  mutate(outcome = case_when(result > 0 ~ "win", result < 0 ~ "loss",
+                             TRUE ~ "tie"))
+
+lev_made <- sims2$teams %>%
+  as_tibble() %>%
+  transmute(sim, team, conf, made = !is.na(seed))
+
+leverage <- lev_made %>%
+  left_join(lev_outcomes, by = c("sim", "team")) %>%
+  group_by(team, conf) %>%
+  summarise(
+    opp = first(na.omit(opp)),
+    site = first(na.omit(site)),
+    now = mean(made),
+    p_win = if (any(outcome == "win", na.rm = TRUE))
+      mean(made[outcome %in% "win"]) else NA_real_,
+    p_loss = if (any(outcome == "loss", na.rm = TRUE))
+      mean(made[outcome %in% "loss"]) else NA_real_,
+    .groups = "drop"
+  ) %>%
+  left_join(lev_final, by = "team") %>%
+  mutate(
+    on_bye = is.na(opp),
+    # no split to draw for a bye or a game that is already final
+    p_win = if_else(on_bye | !is.na(final), NA_real_, p_win),
+    p_loss = if_else(on_bye | !is.na(final), NA_real_, p_loss),
+    label_y = case_when(
+      on_bye ~ glue("{team} (bye)"),
+      !is.na(final) ~ glue("{team} {site} {opp} ({final})"),
+      TRUE ~ glue("{team} {site} {opp}")
+    ),
+    label_now = if_else(is.na(p_win) & is.na(p_loss),
+                        percent(now, accuracy = 0.1), NA_character_)
+  ) %>%
+  left_join(select(team_df, team_abbr, team_color), by = c("team" = "team_abbr"))
+
+leverage_plot <- function(conference) {
+  d <- leverage %>%
+    filter(conf == conference) %>%
+    mutate(label_y = fct_reorder(label_y, now))
+
+  ggplot(d, aes(y = label_y)) +
+    geom_segment(aes(x = p_loss, xend = p_win, yend = label_y, color = team_color),
+                 linewidth = 3, alpha = 0.45, na.rm = TRUE) +
+    geom_point(aes(x = p_loss, color = team_color), size = 2.6, na.rm = TRUE) +
+    geom_point(aes(x = p_win, color = team_color), size = 2.6, na.rm = TRUE) +
+    nflplotR::geom_nfl_logos(aes(x = now, team_abbr = team), width = 0.035) +
+    # Loss % left of the left dot, win % right of the right dot, so the two
+    # labels never collide however short the segment is.
+    geom_text(aes(x = p_loss, label = percent(p_loss, accuracy = 0.1)),
+              hjust = 1.35, color = "#CB4335", size = 3.2,
+              family = "Titillium Web", fontface = "bold", na.rm = TRUE) +
+    geom_text(aes(x = p_win, label = percent(p_win, accuracy = 0.1)),
+              hjust = -0.35, color = "#2E86C1", size = 3.2,
+              family = "Titillium Web", fontface = "bold", na.rm = TRUE) +
+    # bye / already-final teams: just their current odds beside the logo
+    geom_text(aes(x = now, label = label_now), hjust = -0.9, color = "grey45",
+              size = 3.2, family = "Titillium Web", fontface = "bold", na.rm = TRUE) +
+    scale_color_identity() +
+    scale_x_continuous(labels = percent_format(), breaks = seq(0, 1, 0.25),
+                       expand = expansion(add = 0.09)) +
+    coord_cartesian(xlim = c(0, 1)) +
+    labs(
+      title = glue("**{conference} Playoff Leverage**"),
+      subtitle = glue("Playoff odds <span style='color:#CB4335'>**with a loss**</span> vs. <span style='color:#2E86C1'>**with a win**</span> this week | **Week {current_week}**"),
+      caption = "Data: nflseedR, 10,000 simulations | Bye weeks and games already played show current odds only\nGraphic: @steodosescu",
+      x = "Playoff Probability", y = NULL
+    ) +
+    theme_bw(base_size = 12, base_family = "Titillium Web") %+replace%
+    theme(
+      panel.grid.minor = element_blank(),
+      panel.grid.major.y = element_blank(),
+      panel.grid.major.x = element_line(linewidth = 0.2, color = "grey85"),
+      panel.background = element_blank(),
+      panel.border = element_blank(),
+      axis.ticks = element_blank(),
+      axis.text.y = element_text(size = 11, hjust = 1),
+      plot.background = element_rect(fill = "floralwhite", color = "floralwhite"),
+      plot.title.position = "plot",
+      plot.title = ggtext::element_markdown(size = 20, hjust = 0.5, margin = ggplot2::margin(b = 6)),
+      plot.subtitle = ggtext::element_markdown(size = 12, hjust = 0.5, margin = ggplot2::margin(b = 10)),
+      plot.caption = element_text(color = "grey40", size = 9, hjust = 1, lineheight = 1.1),
+      plot.margin = ggplot2::margin(15, 15, 10, 10)
+    )
+}
+
+leverage_plot("NFC")
+```
+
+<div style="height: 40px;"></div>
+
+```{r playoff-leverage-afc, echo=FALSE, fig.height=8}
+leverage_plot("AFC")
+```
+
 ### Super Bowl Vegas Odds
 
 ```{=html}
